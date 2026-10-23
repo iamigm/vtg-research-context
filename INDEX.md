@@ -31,5 +31,5 @@ Archived files without a live database entry are not re-imported, preventing res
 | active | True | 같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아 | [history](conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md) |
 | active | True | Qwen을 chat-gpt 처럼 사용 가능한 인터페이스를 하나 만드려고 해. GPU는 이 서버의 H200을 사용할 거고.  모델 선택 Qwen2.5/3 temperature, top-k, top-p 등 configurable argument 전부 설정 가능하게 하나 만 | [history](conversations/01a15bb9-9f83-7180-bb42-080465171639.md) |
 | deleted | False | 지그 GPU 점유 중인 프로세스 뭐야? | [history](conversations/01a15d65-58c2-7a12-af2e-2af54e54965a.md) |
-| active | True | Find experiments 디렉토리 원인 | [history](conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md) |
+| archived | False | Find experiments 디렉토리 원인 | [history](conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md) |
 | active | True | 비디오 쿼리 배치 실험 확인 | [history](conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md) |

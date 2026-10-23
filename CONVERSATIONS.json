@@ -1,8 +1,8 @@
 {
-  "observed_at": "2026-10-23T22:20:38+09:00",
+  "observed_at": "2026-10-23T23:47:58+09:00",
   "counts": {
-    "active": 10,
-    "archived": 0,
+    "active": 9,
+    "archived": 1,
     "deleted": 16
   },
   "conversations": [
@@ -287,11 +287,11 @@
       "title": "기존 attention 관련 실험 하나의 폴더 아래에 정리해봐. 세팅만 살짝 다르고 실험의 목적은 동일하니까 필요 없는 건 없애고 하나의 스크립트 및 실험 결과로 통합해버려",
       "state": "active",
       "tracked": true,
-      "last_user": 1792480654.081,
+      "last_user": 1792765078.299,
       "running": false,
-      "messages": 27,
+      "messages": 31,
       "archive": "conversations/01a13f33-09f0-7042-985f-7d112c123f6a.md",
-      "sha256": "2aa5f11e3d1c5015b7e2789ab22fffb34fb7199ef9fe1daa867ed84be4d19017",
+      "sha256": "f3fe092d7b0aaa4e7651cd447bc5f0f0f0f5b938377c87fe7f296bbf71d778ca",
       "source_available": true
     },
     {
@@ -315,11 +315,11 @@
       "title": "같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아",
       "state": "active",
       "tracked": true,
-      "last_user": 1792759838.556,
+      "last_user": 1792764557.512,
       "running": false,
-      "messages": 137,
+      "messages": 139,
       "archive": "conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md",
-      "sha256": "61874d807764654783f7d02a8bc49796f3f494f2f23313e26a841ad6a91742c0",
+      "sha256": "1edb6dd867cf509bd602f56442238cc079b963fd0a17667287d7f21544131206",
       "source_available": true
     },
     {
@@ -354,8 +354,8 @@
       "id": "01a16858-dc44-7e32-a8b8-06297693ee84",
       "first_seen": "2026-10-23T19:40:42+09:00",
       "title": "Find experiments 디렉토리 원인",
-      "state": "active",
-      "tracked": true,
+      "state": "archived",
+      "tracked": false,
       "last_user": 1792752252.313,
       "running": false,
       "messages": 4,

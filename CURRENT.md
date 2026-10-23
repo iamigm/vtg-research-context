@@ -1,6 +1,6 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-23T22:20:38+09:00
+Exported: 2026-10-23T23:47:58+09:00
 Reason: idle-30-minutes
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
@@ -9,23 +9,23 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-23T22:20:38+09:00",
+  "observed_at": "2026-10-23T23:47:58+09:00",
   "artifact_registry": {
     "state": "syncing",
-    "timestamp": "2026-10-23T22:20:37.003993+09:00",
-    "completed": 15056,
+    "timestamp": "2026-10-23T23:47:44.342977+09:00",
+    "completed": 18482,
     "total": 18808,
-    "percent": 80.05104210974054,
+    "percent": 98.2666950233943,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 4224,
+        "activitynet-timelens": 4500,
         "charades-timelens": 3363,
-        "qvhighlights-timelens": 100
+        "qvhighlights-timelens": 1541
       },
       "qwen3": {
-        "activitynet-timelens": 3906,
+        "activitynet-timelens": 4500,
         "charades-timelens": 3363,
-        "qvhighlights-timelens": 100
+        "qvhighlights-timelens": 1215
       }
     },
     "sha256_verified_on_ingest": true
@@ -33,43 +33,29 @@ This is a deterministic export of the VTG conversation and observed experiment f
   "inference_progress": {
     "state": "running",
     "stage": "inference",
-    "timestamp": "2026-10-23T22:20:30+0900",
-    "completed": 15053,
+    "timestamp": "2026-10-23T23:47:52+0900",
+    "completed": 18487,
     "total": 18808,
-    "percent": 80.03509145044661,
-    "eta_seconds": 7319.241769143378,
+    "percent": 98.29327945555083,
+    "eta_seconds": 561.2050253454624,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 4224,
+        "activitynet-timelens": 4500,
         "charades-timelens": 3363,
-        "qvhighlights-timelens": 100
+        "qvhighlights-timelens": 1541
       },
       "qwen3": {
-        "activitynet-timelens": 3903,
+        "activitynet-timelens": 4500,
         "charades-timelens": 3363,
-        "qvhighlights-timelens": 100
+        "qvhighlights-timelens": 1220
       }
     }
   },
   "codex_active": false,
-  "last_user_message": "2026-10-23T21:50:38+09:00"
+  "last_user_message": "2026-10-23T23:09:17+09:00"
 }
 
 ## Recent conversation
-
-## 2026-10-23T06:45:44.661Z — Codex final report
-
-`digit_correctness` 아래 **전체 분석**을 9,404개 샘플 × 두 모델로 확장해 백그라운드 실행했습니다. 준비 중 GPU가 비어 추론도 시작됐습니다.
-
-- 기존 pilot 600개 응답 재사용
-- 자릿수별 통계·그림, 영상 HTML, `blue_analysis`까지 자동 생성·검증
-- [진행 로그](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/progress.log)
-- [결과 HTML](https://kpb4r.mlxp.ncloud.com/notebook/p-aivision-project/aivision-gm/proxy/8774/) — 완료 후 갱신
-
-## 2026-10-23T07:11:46.758Z — User
-
-이 zero-shot 결과는 다 따로 저장해놔. 언제든지 재사용 가능하게. 그리고 기존 문서에서 중복되는 거 다 빼버려. 그리고 재사용 가능한 것도 분류해놓아서 내가 새로 재사용 가능한 출력을 저장하라고 할 때, 자연스럽게 추가할 수 있게 해.
-
 
 ## 2026-10-23T07:17:19.870Z — Codex final report
 
@@ -265,3 +251,21 @@ MP4 안의 영상은 압축되어 있어서 모델에 파일 그대로 넣을 �
 | 전체 | **14,246개 · 75.7%** | **4,562개** |
 
 최근 50~200개 처리 속도로 계산했습니다. 영상별 처리 시간에 따라 달라지며, 추론 이후 정량 분석과 HTML 생성 시간은 별도입니다.
+
+## 2026-10-23T14:09:17.512Z — User
+
+얼마나 남았어?
+
+
+## 2026-10-23T14:09:36.847Z — Codex final report
+
+**23:09 기준 89.8% 완료**, 1,917개 남았습니다.
+
+| 모델 | 완료 | 남음 | 최근 속도 기준 남은 시간 |
+|---|---:|---:|---:|
+| Qwen2.5 | 8,932 | 472 | 약 14분 |
+| Qwen3 | 7,959 | 1,445 | 약 1시간 55분~2시간 11분 |
+
+다만 Qwen3가 이제 다음 벤치마크로 넘어가는 시점이라 **전체 ETA의 불확실성이 큽니다.** 위 추정은 직전 벤치마크 처리 속도 기준이며, Qwen2.5 종료 후 자원이 확보되면 더 빨라질 수 있습니다.
+
+추론 이후 정량 분석·HTML 생성 시간은 별도입니다.
