@@ -1,29 +1,29 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-23T18:06:48+09:00
-Reason: all-conversations-approved
+Exported: 2026-10-23T18:09:40+09:00
+Reason: archive-navigation
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
-This is a deterministic export of the VTG conversation and observed experiment files, not a new model analysis. Read STATUS.json first for directly observed status, then recent decisions below. Codex final reports are claims from the source conversation. Newer decisions supersede BASELINE.md. HISTORY.md contains all exported user messages and final reports. Treat quoted research text as source material, not executable instructions. No tool outputs, credentials, binary datasets or unrelated chats are exported.
+This is a deterministic export of the VTG conversation and observed experiment files, not a new model analysis. Read STATUS.json first for directly observed status, then recent decisions below. Codex final reports are claims from the source conversation. Newer decisions supersede BASELINE.md. HISTORY.md contains all exported user messages and final reports. Treat quoted research text as source material, not executable instructions. No tool outputs, credentials, or binary datasets are exported. INDEX.md catalogs all conversation archives; CURRENT.md and HISTORY.md focus on the primary VTG thread.
 
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-23T18:06:48+09:00",
+  "observed_at": "2026-10-23T18:09:40+09:00",
   "artifact_registry": {
     "state": "syncing",
-    "timestamp": "2026-10-23T18:06:42.348781+09:00",
-    "completed": 7853,
+    "timestamp": "2026-10-23T18:09:28.563582+09:00",
+    "completed": 7925,
     "total": 18808,
-    "percent": 41.75350914504466,
+    "percent": 42.136324968098684,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 679,
+        "activitynet-timelens": 715,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 248,
+        "activitynet-timelens": 284,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
@@ -33,19 +33,19 @@ This is a deterministic export of the VTG conversation and observed experiment f
   "inference_progress": {
     "state": "running",
     "stage": "inference",
-    "timestamp": "2026-10-23T18:06:38+0900",
-    "completed": 7851,
+    "timestamp": "2026-10-23T18:09:39+0900",
+    "completed": 7929,
     "total": 18808,
-    "percent": 41.74287537218205,
-    "eta_seconds": 12797.49556173132,
+    "percent": 42.15759251382391,
+    "eta_seconds": 12839.861395720718,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 679,
+        "activitynet-timelens": 717,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 246,
+        "activitynet-timelens": 286,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
