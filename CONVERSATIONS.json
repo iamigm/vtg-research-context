@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-23T21:00:00+09:00",
+  "observed_at": "2026-10-23T22:20:38+09:00",
   "counts": {
     "active": 10,
     "archived": 0,
@@ -315,11 +315,11 @@
       "title": "같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아",
       "state": "active",
       "tracked": true,
-      "last_user": 1792754023.333,
+      "last_user": 1792759838.556,
       "running": false,
-      "messages": 135,
+      "messages": 137,
       "archive": "conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md",
-      "sha256": "45352b99f7da1bee64688131c67e345c2b690dcd408ef1f96b1e85adf4223e31",
+      "sha256": "61874d807764654783f7d02a8bc49796f3f494f2f23313e26a841ad6a91742c0",
       "source_available": true
     },
     {
@@ -369,11 +369,11 @@
       "title": "비디오 쿼리 배치 실험 확인",
       "state": "active",
       "tracked": true,
-      "last_user": 1792756342.318,
+      "last_user": 1792759631.367,
       "running": false,
-      "messages": 2,
+      "messages": 13,
       "archive": "conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md",
-      "sha256": "795fd2e23db4a414ebb6871f1b3dbc173672214c05fbe8fcc1c62fc8bd148d70",
+      "sha256": "54278249ab7b1bf081a2412064b940a37a6042daf09c3266626f35b528e04968",
       "source_available": true
     }
   ]
