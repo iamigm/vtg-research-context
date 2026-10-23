@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-10-23T17:14:43+09:00",
+  "artifact_registry": {
+    "state": "syncing",
+    "timestamp": "2026-10-23T17:14:33.815838+09:00",
+    "completed": 5439,
+    "total": 18808,
+    "percent": 28.918545299872395,
+    "counts": {
+      "qwen25": {
+        "activitynet-timelens": 100,
+        "charades-timelens": 2743,
+        "qvhighlights-timelens": 100
+      },
+      "qwen3": {
+        "activitynet-timelens": 100,
+        "charades-timelens": 2296,
+        "qvhighlights-timelens": 100
+      }
+    },
+    "sha256_verified_on_ingest": true
+  },
+  "inference_progress": {
+    "state": "running",
+    "stage": "inference",
+    "timestamp": "2026-10-23T17:14:36+0900",
+    "completed": 5439,
+    "total": 18808,
+    "percent": 28.918545299872395,
+    "eta_seconds": 14771.734469354584,
+    "counts": {
+      "qwen25": {
+        "activitynet-timelens": 100,
+        "charades-timelens": 2743,
+        "qvhighlights-timelens": 100
+      },
+      "qwen3": {
+        "activitynet-timelens": 100,
+        "charades-timelens": 2296,
+        "qvhighlights-timelens": 100
+      }
+    }
+  },
+  "codex_active": false,
+  "last_user_message": "2026-10-23T16:19:55+09:00"
+}
