@@ -1,20 +1,20 @@
 {
-  "observed_at": "2026-10-23T17:24:19+09:00",
+  "observed_at": "2026-10-23T18:00:00+09:00",
   "artifact_registry": {
     "state": "syncing",
-    "timestamp": "2026-10-23T17:24:08.057698+09:00",
-    "completed": 5941,
+    "timestamp": "2026-10-23T17:59:54.365920+09:00",
+    "completed": 7616,
     "total": 18808,
-    "percent": 31.58762228838792,
+    "percent": 40.49340706082518,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 100,
-        "charades-timelens": 3025,
+        "activitynet-timelens": 545,
+        "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 100,
-        "charades-timelens": 2516,
+        "activitynet-timelens": 145,
+        "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
     },
@@ -23,20 +23,20 @@
   "inference_progress": {
     "state": "running",
     "stage": "inference",
-    "timestamp": "2026-10-23T17:24:09+0900",
-    "completed": 5941,
+    "timestamp": "2026-10-23T17:59:51+0900",
+    "completed": 7616,
     "total": 18808,
-    "percent": 31.58762228838792,
-    "eta_seconds": 14261.041892626472,
+    "percent": 40.49340706082518,
+    "eta_seconds": 12859.856823561537,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 100,
-        "charades-timelens": 3025,
+        "activitynet-timelens": 545,
+        "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 100,
-        "charades-timelens": 2516,
+        "activitynet-timelens": 145,
+        "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
     }
