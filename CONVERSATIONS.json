@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-23T20:43:43+09:00",
+  "observed_at": "2026-10-23T21:00:00+09:00",
   "counts": {
-    "active": 9,
+    "active": 10,
     "archived": 0,
     "deleted": 16
   },
@@ -361,6 +361,19 @@
       "messages": 4,
       "archive": "conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md",
       "sha256": "551352a9bdbf2c162b00564742784f4901c5175891a2ec5848082ba714c4df3a",
+      "source_available": true
+    },
+    {
+      "id": "01a1689a-0c59-7920-8e01-475d6b29c0c5",
+      "first_seen": "2026-10-23T20:52:21+09:00",
+      "title": "비디오 쿼리 배치 실험 확인",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1792756342.318,
+      "running": false,
+      "messages": 2,
+      "archive": "conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md",
+      "sha256": "795fd2e23db4a414ebb6871f1b3dbc173672214c05fbe8fcc1c62fc8bd148d70",
       "source_available": true
     }
   ]
