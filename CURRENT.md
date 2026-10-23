@@ -1,6 +1,6 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-23T18:18:48+09:00
+Exported: 2026-10-23T18:19:58+09:00
 Reason: startup-recovery
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
@@ -9,21 +9,21 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-23T18:18:48+09:00",
+  "observed_at": "2026-10-23T18:19:58+09:00",
   "artifact_registry": {
     "state": "syncing",
-    "timestamp": "2026-10-23T18:18:47.635944+09:00",
-    "completed": 8186,
+    "timestamp": "2026-10-23T18:19:48.074408+09:00",
+    "completed": 8216,
     "total": 18808,
-    "percent": 43.524032326669506,
+    "percent": 43.68353891960868,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 825,
+        "activitynet-timelens": 836,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 435,
+        "activitynet-timelens": 454,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
@@ -33,19 +33,19 @@ This is a deterministic export of the VTG conversation and observed experiment f
   "inference_progress": {
     "state": "running",
     "stage": "inference",
-    "timestamp": "2026-10-23T18:18:42+0900",
-    "completed": 8184,
+    "timestamp": "2026-10-23T18:19:58+0900",
+    "completed": 8219,
     "total": 18808,
-    "percent": 43.513398553806894,
-    "eta_seconds": 12878.039869904014,
+    "percent": 43.69948957890259,
+    "eta_seconds": 12881.504007705069,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 824,
+        "activitynet-timelens": 837,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 434,
+        "activitynet-timelens": 456,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
