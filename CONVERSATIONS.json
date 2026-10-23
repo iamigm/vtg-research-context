@@ -1,9 +1,9 @@
 {
-  "observed_at": "2026-10-23T18:09:40+09:00",
+  "observed_at": "2026-10-23T18:18:48+09:00",
   "counts": {
     "active": 8,
-    "archived": 16,
-    "deleted": 0
+    "archived": 0,
+    "deleted": 16
   },
   "conversations": [
     {
@@ -36,40 +36,46 @@
       "id": "01a08609-e427-7152-ab5a-d505d98d14b6",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "연결 확인용입니다. 도구를 사용하거나 파일을 읽거나 수정하지 말고, '연결 정상'이라고만 답하세요.",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1788959499.425,
       "running": false,
       "messages": 4,
       "archive": "conversations/01a08609-e427-7152-ab5a-d505d98d14b6.md",
       "sha256": "4d4ed4ee6e29bfd0d5d3a09a8533523f2927183b65ccc382acce6b44dc8f8bdb",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a08651-588f-7382-9e80-7b04e4d48203",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "EgoLifeQA, LV Bench, Video-MME 3개 벤치마크를 /data/video/longQA 여기에 다운 받아놔. Hugging face를 사용해야 하는 경우 parquet 대신 직접 사용가능한 원본 형태로 재구성해놓고",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1788960185.284,
       "running": false,
       "messages": 3,
       "archive": "conversations/01a08651-588f-7382-9e80-7b04e4d48203.md",
       "sha256": "18b35da234ee013a2d81d58e4825a4e6023fadba608de5e17550e5fbd4f24c81",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0865b-203a-77c3-9ef9-f706f29573c1",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "확장 검증용 요청입니다. 도구나 하위 에이전트를 사용하지 말고, 파일을 읽거나 수정하지 말고, 'Ultra 연결 정상'이라고만 답하세요.",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1788960525.653,
       "running": false,
       "messages": 2,
       "archive": "conversations/01a0865b-203a-77c3-9ef9-f706f29573c1.md",
       "sha256": "5fba6b03e6ea92af67f04058aa43c63c80c822b3d1309ea0075e5ba5ab4b2f4a",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a089de-cecf-73b3-8bfb-9773485186d7",
@@ -88,53 +94,61 @@
       "id": "01a0c8f3-832f-7cf2-8773-84346312efaf",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "Video-MME는 task\\_type이 annotation에서 나누어져있는데 이에 기반하여 WorldMM의 failure mode를 분석해봐. 꼭 저 annotation에 한정할 필요는 없고 어떤 모드에서 실패가 두드러지는지 조사해.\n\n실제로 inference를 수행하면서 분석을 해봐도 돼. GPU를 사용해야하는 경우, DiT process는 GPU 점유용 더미 실험이니까 자유롭게 꺼도 돼.\n\n실험은 /home/irteam/experiment/{name} 새로 만들어서 진행해. 그리고 GPU를 사용해야하는 경우 최대한 병렬화해서 utilization을 높이되 express bottleneck을 고려해서 utilization 자체에 매몰되지는 마.",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790139998.094,
       "running": false,
       "messages": 14,
       "archive": "conversations/01a0c8f3-832f-7cf2-8773-84346312efaf.md",
       "sha256": "525a8d8c89bcdd1a04cf98d01b69d70f680aa884083dc11c3261c1bf302647d1",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0cdf4-f9ee-7d22-a760-a253660fb045",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "MR 데이터셋 다운로드 및 구조화",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790163874.639,
       "running": false,
       "messages": 7,
       "archive": "conversations/01a0cdf4-f9ee-7d22-a760-a253660fb045.md",
       "sha256": "f96d02105532b44169b92bb6474b510121b76163b793d37b721cc0ed4407acff",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0e7a6-4380-7cf2-ab28-04fd79163847",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "MR 데이터셋 임베딩 temporal signal 실험",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790593675.131,
       "running": false,
       "messages": 4,
       "archive": "conversations/01a0e7a6-4380-7cf2-ab28-04fd79163847.md",
       "sha256": "90f47d128257f783686e764299029f70206cc954f6e7ea8dc5258f33e4b85cb2",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0eb98-2716-7e21-8366-1f182062f967",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "./experiments에 이 실험을 대표하는 이름으로 디렉토리를 하나 만들고 거기서 실험을 진행해.\n\n실험의 베이스 코드는 ./vtg\\_works/mtla야. 이때 ./vtg\\_works 아래의 코드는 절대로 훼손하지마. 그냥 experiments 아래로 복사 붙여넣기 해.\n\n실험 샘플은 /data/video/MR 아래에 있는 벤치마크에서 몇 개 뽑아서 진행해.\n\n실험 내용은 MTLA가 사용한 백본 모델에 \\<prefill>, \\<query> 같은 형태로 입력을 할 때 \\<query>가 prefill에 대해 어떤 attention 분포를 그리는지를 확인할 거야. 그리고 그 분포와 GT [s, e] 구간의 상관관계를 확인할 거야. pearson correlation을 계산하지는 말고 가로축을 time, 세로축을 attention score로 하는 plot에 attention score distribution을 그리고 가로축에는 GT 구간을 별도로 표기해.\n\n/data/video/MR 아래에 있는 벤치마크 중 MTLA에서 직접 사용한 건 MTLA 코드의 프로토콜을 따르고 그렇지 않은 것은 다른 벤치마크와 동일한 방식으로 처리해",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790680854.492,
       "running": false,
       "messages": 20,
       "archive": "conversations/01a0eb98-2716-7e21-8366-1f182062f967.md",
       "sha256": "e4796e01496812071d972ed61f01befbd0adf779f9dfd2e6f19c843a4930e17d",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0ebf8-47fb-7fd0-b80a-36c612c5f275",
@@ -153,53 +167,61 @@
       "id": "01a0eca8-0b26-78f2-bbae-59a2a32c457e",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "query attention, generated answer attention이 그리는 분포의 차이를 계산해봐. 얼마나 다른지 경향성은 유지하는지 등",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790681040.737,
       "running": false,
       "messages": 6,
       "archive": "conversations/01a0eca8-0b26-78f2-bbae-59a2a32c457e.md",
       "sha256": "662080de397c04bb5618bdf9d14e37a4f37c09686131b9460e1fc9b3ce80ee0d",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0f09d-8388-75d0-b859-814e032a9039",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "Compare vector similarity and scores",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790755109.065,
       "running": false,
       "messages": 27,
       "archive": "conversations/01a0f09d-8388-75d0-b859-814e032a9039.md",
       "sha256": "9dcc4c05ca6e086157610598e4cf6baa19638895e6d29da723bfe8129975cba8",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a0f0a4-087b-7912-88d8-2b2d7053a830",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "GT attention mass 실험 확인",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1790745249.257,
       "running": false,
       "messages": 8,
       "archive": "conversations/01a0f0a4-087b-7912-88d8-2b2d7053a830.md",
       "sha256": "c4df62f13ff7af128c9e2b2e7b3de75397353b88c76110beed6a1a56a668f0ca",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a11511-6b4d-7120-abec-81d084deaba4",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "TimeLens 데이터 다운로드",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1791356091.715,
       "running": false,
       "messages": 6,
       "archive": "conversations/01a11511-6b4d-7120-abec-81d084deaba4.md",
       "sha256": "d57633d7c8fa301274506abc0f9c6eb28dd69cea292b58f817d9a6e137d7cbd7",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a11543-617e-7c51-89d2-4878a1b84d65",
@@ -218,40 +240,46 @@
       "id": "01a11a8b-1fbb-7991-94dc-3a3ba2db00a4",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "Temporal grounding이 modality gap에 의한 건지 한 번 조사해보자.\n\n내 가설은 단순히 동영상을 보고 captioning만 시켰을 때는 그 의미를 정확히 알면서 timestamp를 출력하게 하면 잘 못할 것 같거든? 무론 그 원인이 꼭 modality gap은 아닐 수 있어 downstream task 수행 능력이 부족한 데에는 다양한 이유가 있겠지.\n\n하여튼 어떤 느낌인지 알겠지. 그런데 captioning을 어떤 sampling rate로 시킬지. caption이 의미적으로는 얼마나 잘 grounding 됐는지는 어떻게 확인하면 좋을지 말해바",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1792062343.496,
       "running": false,
       "messages": 41,
       "archive": "conversations/01a11a8b-1fbb-7991-94dc-3a3ba2db00a4.md",
       "sha256": "fedd8eebc956b8d9238aaaca20a71b5f86790a1e66196a242fc73de4408f72ee",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a11b61-a962-76e0-9337-5892b74d66e1",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "파일럿 100개 정성 평가",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1791468338.246,
       "running": false,
       "messages": 8,
       "archive": "conversations/01a11b61-a962-76e0-9337-5892b74d66e1.md",
       "sha256": "fdf7e5843323b85d1a1df29f6fbd72a841543bf07774df3f63991090243d8417",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a13efd-1b3b-7af2-976b-a8d24bab3bf2",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "데이터셋 용량 확인",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1792058144.675,
       "running": false,
       "messages": 2,
       "archive": "conversations/01a13efd-1b3b-7af2-976b-a8d24bab3bf2.md",
       "sha256": "2e8e171414cfb79d6c346cc54979849a60eac0c02976c91804fa81f4417b814a",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a13f33-09f0-7042-985f-7d112c123f6a",
@@ -270,14 +298,16 @@
       "id": "01a13f3f-a47e-7c80-9c2e-0be40df386d7",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "Design query-conditioned captioning",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1792063701.826,
       "running": false,
       "messages": 7,
       "archive": "conversations/01a13f3f-a47e-7c80-9c2e-0be40df386d7.md",
       "sha256": "9edc1c8e23599aba7a47efabf0115cccaef403d45e4b7d5b8b38099db943f7ae",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     },
     {
       "id": "01a153a1-eddc-75b1-a442-3b3ed0ebf708",
@@ -309,14 +339,16 @@
       "id": "01a15d65-58c2-7a12-af2e-2af54e54965a",
       "first_seen": "2026-10-23T17:44:34+09:00",
       "title": "지그 GPU 점유 중인 프로세스 뭐야?",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1792572894.223,
       "running": false,
       "messages": 22,
       "archive": "conversations/01a15d65-58c2-7a12-af2e-2af54e54965a.md",
       "sha256": "3d7552e88381f062398e0f7708fd346ff110a041be6960f814e1400c4e888594",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-23T18:18:48+09:00"
     }
   ]
 }
