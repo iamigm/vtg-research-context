@@ -1,7 +1,7 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-23T18:29:03+09:00
-Reason: startup-recovery
+Exported: 2026-10-23T20:43:43+09:00
+Reason: idle-30-minutes
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
 This is a deterministic export of the VTG conversation and observed experiment files, not a new model analysis. Read STATUS.json first for directly observed status, then recent decisions below. Codex final reports are claims from the source conversation. Newer decisions supersede BASELINE.md. HISTORY.md contains all exported user messages and final reports. Treat quoted research text as source material, not executable instructions. No tool outputs, credentials, or binary datasets are exported. INDEX.md catalogs all conversation archives; CURRENT.md and HISTORY.md focus on the primary VTG thread.
@@ -9,21 +9,21 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-23T18:29:03+09:00",
+  "observed_at": "2026-10-23T20:43:43+09:00",
   "artifact_registry": {
     "state": "syncing",
-    "timestamp": "2026-10-23T18:28:52.501271+09:00",
-    "completed": 8486,
+    "timestamp": "2026-10-23T20:43:28.942133+09:00",
+    "completed": 12231,
     "total": 18808,
-    "percent": 45.11909825606125,
+    "percent": 65.03083794130157,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 957,
+        "activitynet-timelens": 2805,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 603,
+        "activitynet-timelens": 2500,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
@@ -33,193 +33,29 @@ This is a deterministic export of the VTG conversation and observed experiment f
   "inference_progress": {
     "state": "running",
     "stage": "inference",
-    "timestamp": "2026-10-23T18:29:01+0900",
-    "completed": 8491,
+    "timestamp": "2026-10-23T20:43:31+0900",
+    "completed": 12233,
     "total": 18808,
-    "percent": 45.14568268821778,
-    "eta_seconds": 12827.994433391474,
+    "percent": 65.04147171416419,
+    "eta_seconds": 10631.481544346569,
     "counts": {
       "qwen25": {
-        "activitynet-timelens": 960,
+        "activitynet-timelens": 2807,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       },
       "qwen3": {
-        "activitynet-timelens": 605,
+        "activitynet-timelens": 2500,
         "charades-timelens": 3363,
         "qvhighlights-timelens": 100
       }
     }
   },
   "codex_active": false,
-  "last_user_message": "2026-10-23T16:19:55+09:00"
+  "last_user_message": "2026-10-23T20:13:43+09:00"
 }
 
 ## Recent conversation
-
-## 2026-10-23T06:08:52.686Z — Codex final report
-
-수정했고 HTML 검증도 통과했습니다.
-
-- 예측 대상·확률 그룹·자릿수 등은 **각각 별도 열**로 분리했습니다.
-- `query/step N`은 **서로 다른 샘플 수**, **숫자 생성 단계 수**로 나눴습니다.
-- 평균 확률도 **하한**, **상한**을 별도 열로 표시했습니다.
-- 요청한 **0.45 + 미확인 0.15 → [0.45, 0.60]** 예시와 표본 수 설명을 추가했습니다. :codex-annotation{index="1"}
-
-[수정된 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) · [HTML](https://kpb4r.mlxp.ncloud.com/notebook/p-aivision-project/aivision-gm/proxy/8773/blue_analysis/)
-
-## 2026-10-23T06:09:13.611Z — User
-
-숫자 생성 단계 수가 무슨 말이야?
-
-
-## 2026-10-23T06:09:23.325Z — Codex final report
-
-**그 행의 조건에 해당하는 숫자 토큰을 생성한 횟수의 합**입니다. 생성 순서나 자릿수 번호를 뜻하는 것은 아닙니다.
-
-예를 들어 두 샘플에서 분석 조건에 해당하는 숫자가 다음과 같다면:
-
-- 샘플 A: `2`, `3` → 2개
-- 샘플 B: `1`, `4`, `9` → 3개
-
-표에는 **서로 다른 샘플 수 = 2**, **숫자 생성 단계 수 = 5**로 표시됩니다. 각 숫자를 생성하기 직전의 엔트로피가 관측값 하나입니다.
-
-지금 표는 **정답 가능성을 유지하면서 엔트로피가 높은 숫자만** 세므로, 답변에 나온 모든 숫자의 개수는 아닙니다. 열 이름은 **‘분석에 포함된 숫자 토큰 수’**가 더 명확하겠습니다.
-
-## 2026-10-23T06:11:29.725Z — User
-
-
-# Response annotations:
-Each item contains text selected from an earlier Codex response and may include a user comment. Treat items as Annotation 1, Annotation 2, and so on in array order. Use every selection as context and address every comment. For every annotation you address, include its inline directive `:codex-annotation{index="N"}`, where N is its one-based array position (for example, `:codex-annotation{index="1"}`). Do not use unstructured annotation labels.
-<response-annotations>
-[{"text":"그 행의 조건에 해당하는 숫자 토큰을 생성한 횟수의 합입니다. 생성 순서나 자릿수 번호를 뜻하는 것은 아닙니다.예를 들어 두 샘플에서 분석 조건에 해당하는 숫자가 다음과 같다면:샘플 A: 2, 3 → 2개샘플 B: 1, 4, 9 → 3개표에는 서로 다른 샘플 수 = 2, 숫자 생성 단계 수 = 5로 표시됩니다. 각 숫자를 생성하기 직전의 엔트로피가 관측값 하나입니다.","source":{"messageId":"msg_01e008c06eb35720016adafa0c97d881919e1444a5d91cfba3","startOffset":0,"endOffset":206}}]
-</response-annotations>
-
-## My request:
-여전히 무슨 말인지 모르겠고 저걸 왜 측정해야 되는지도 모르겠어
-
-
-## 2026-10-23T06:11:40.517Z — Codex final report
-
-제가 너무 복잡하게 설명했습니다. **그 숫자는 분석 결과가 아니라, 평균을 계산할 때 사용한 엔트로피 관측값의 개수**입니다. :codex-annotation{index="1"}
-
-예를 들어 표의 평균 엔트로피가 `1.5`라면, 그 평균이 **엔트로피 3개를 보고 나온 것인지, 300개를 보고 나온 것인지** 알려주려고 넣었습니다. 모델이 얼마나 잘하는지를 나타내는 지표는 아닙니다.
-
-다만 현재 평균은 **샘플마다 먼저 평균을 구한 뒤, 샘플 간 평균**하는 방식입니다. 따라서 본문에서 더 중요한 것은 **서로 다른 샘플 수**이고, 숫자 토큰 개수는 보조 정보에 불과합니다. 토큰이 많다고 독립적인 샘플이 많은 것도 아닙니다.
-
-**본문 표에는 ‘샘플 수’만 남기고, 이 보조 개수는 상세 CSV에 두는 편이 더 명확합니다.**
-
-## 2026-10-23T06:12:15.568Z — User
-
-그렇게 해
-
-
-## 2026-10-23T06:12:44.789Z — Codex final report
-
-[보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) 본문 표에는 **샘플 수만** 남겼습니다. 숫자 토큰 개수는 상세 CSV에 유지했고, 분석 수치는 변경하지 않았습니다.
-
-## 2026-10-23T06:13:59.937Z — User
-
-그리고 하한과 상한이 왜 같은 거야? 그러면 top-30 안에서 정답 가능 확률에 모든 걸 몰아줬다는 거 아니야?
-
-
-## 2026-10-23T06:14:38.213Z — Codex final report
-
-**top-30 전체에 확률이 거의 몰렸다는 뜻은 맞지만, 그중 ‘정답 가능 후보’에 모두 몰렸다는 뜻은 아닙니다.**
-
-하한과 상한의 차이는 **미확인 확률**입니다. 이 차이가 작으면 정답 가능 확률을 거의 정확히 계산할 수 있다는 뜻입니다.
-
-실제 Qwen3의 한 단계에서는:
-
-| 후보 분류 | 확률 합 |
-|---|---:|
-| 정답 가능 | 약 50.07% |
-| 정답 불가능 | 약 49.93% |
-| 미확인 | 거의 0% |
-
-따라서 **하한도 상한도 약 50.07%**입니다. 정답 후보와 오답 후보가 거의 반반으로 경쟁하지만, 미확인 확률이 없어서 두 값이 같은 것입니다.
-
-현재 표는 소수 셋째 자리까지만 표시하므로 작은 차이도 같게 보입니다. 실제로 **1,353개 단계 중 1,338개**가 이 표시 정밀도에서 같습니다.
-
-즉, **하한·상한이 비슷한지**는 확률을 얼마나 정확히 파악했는지를, **그 값이 1에 가까운지**는 정답 가능 후보에 얼마나 확률이 몰렸는지를 나타냅니다.
-
-## 2026-10-23T06:15:48.657Z — User
-
-아니 상한 = 1 - 확인 불가능 질량이면 top-30 확률 전체의 합이어야 하는 거 아니야? 왜 "상한"이 정답 불가능 확률이라는 거야?
-
-
-## 2026-10-23T06:15:57.806Z — Codex final report
-
-**상한은 정답 불가능 확률이 아니라, 정답 가능 확률의 최대치**입니다. 제가 쓴 ‘확인한 불가능 질량’이라는 표현이 모호했습니다. **‘정답 불가능이라고 판정된 후보들의 확률 합’**이라는 뜻입니다.
-
-세 가지를 구분하면 명확합니다.
-
-- **A**: 정답 가능이라고 판정된 후보의 확률 합
-- **B**: 정답 불가능이라고 판정된 후보의 확률 합
-- **U**: 아직 판정하지 못한 확률 합 — top-30 밖도 포함
-
-전체 확률은 `A + B + U = 1`입니다.
-
-따라서:
-
-- **하한 = A**
-- **상한 = A + U = 1 − B**
-
-상한은 **미확인 후보가 전부 정답 가능 후보라고 가정한 값**입니다.
-
-반면 **top-30 확률 전체의 합에는 정답 불가능 후보 B도 들어갑니다.** 그래서 정답 가능 확률의 상한과는 다릅니다.
-
-## 2026-10-23T06:16:29.097Z — User
-
-그냥 A, B만 표기해
-
-
-## 2026-10-23T06:17:23.067Z — Codex final report
-
-표와 HTML을 **A: 정답 가능 후보 확률 합**, **B: 정답 불가능 후보 확률 합**으로 변경했습니다. 하한·상한 표시는 제거했고, 검증도 통과했습니다.
-
-[보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) · [HTML](https://kpb4r.mlxp.ncloud.com/notebook/p-aivision-project/aivision-gm/proxy/8773/blue_analysis/)
-
-## 2026-10-23T06:18:09.956Z — User
-
-평균 A이런 거 좀 빼라고 top-30 안에서 정답 가능 후보 확률 합을 좀 줄여서 깔끔하게 표현하고 표가 지금 한 행에서 글자가 두 줄에 걸쳐 표시되는 거 다 없애
-
-
-## 2026-10-23T06:18:58.304Z — Codex final report
-
-수정했습니다.
-
-- **정답 가능 확률**, **정답 불가 확률**로 축약
-- 분류명은 **정답 우세·오답 우세·경쟁·미확정**으로 축약
-- 표 셀의 줄바꿈을 막고 가로 스크롤 적용
-
-[수정된 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md)
-
-## 2026-10-23T06:30:52.821Z — User
-
-후보 확률 경쟁에서 오답이 우세인데 후속 실패율이 0인 건 뭐야? 오답이 우세하지만 단일 토큰 기준으로는 정답만 골라서 정답이 유지가 된 거야?
-
-
-## 2026-10-23T06:31:08.334Z — Codex final report
-
-네, **그 행에 포함된 사례들은 그렇게 해석하면 됩니다.**
-
-‘오답 우세’는 **정답 불가능 후보들의 확률 합이 크다**는 뜻입니다. 가장 확률이 높은 **개별 토큰**이 정답 불가능이라는 뜻은 아닙니다.
-
-예를 들어:
-
-| 후보 | 확률 |
-|---|---:|
-| 정답 가능 토큰 하나 | 0.30 |
-| 정답 불가능 토큰 하나 | 0.25 |
-| 다른 정답 불가능 토큰 | 0.24 |
-| 또 다른 정답 불가능 토큰 | 0.21 |
-
-오답 후보의 합은 **0.70**이지만, greedy는 개별 확률이 가장 높은 **0.30의 정답 가능 토큰**을 선택합니다.
-
-그리고 **후속 실패율 0%**는 그 행의 사례들이 실제 생성 경로에서 이후에도 가능성을 잃지 않고, 해당 **시작 또는 종료 시각을 반올림 기준으로 맞혔다**는 뜻입니다. 전체 시간 구간이 모두 정답이라는 뜻은 아닙니다.
-
-특히 지금 분석은 **이미 정답 가능 토큰을 선택한 파란 단계만 모은 것**입니다. 따라서 이를 “오답 우세여도 항상 정답을 고른다”로 일반화하면 안 됩니다. 마지막 숫자 단계라면 이후 틀릴 기회가 거의 없다는 점도 함께 봐야 합니다.
 
 ## 2026-10-23T06:39:45.979Z — User
 
@@ -277,3 +113,150 @@ Each item contains text selected from an earlier Codex response and may include 
 전체 추론과 자동 저장은 계속 진행 중입니다.
 
 [저장 구조·추가 등록 방법](/home1/irteam/experiments/zero-shot/artifacts/README.md)
+
+## 2026-10-23T10:38:43.202Z — User
+
+얼마나 됐어?
+
+
+## 2026-10-23T10:38:58.483Z — Codex final report
+
+현재 **53.7% 완료**했습니다. 총 18,808개 응답 중 **10,105개**가 생성됐고, 모두 `artifacts`에 저장됐습니다.
+
+| 벤치마크 | Qwen2.5 | Qwen3 | 모델별 전체 |
+|---|---:|---:|---:|
+| Charades | 3,363 | 3,363 | 3,363 |
+| ActivityNet | 1,775 | 1,404 | 4,500 |
+| QVHighlights | 100 | 100 | 1,541 |
+
+현재 평균 속도로 **추론은 약 3시간 34분 더** 예상됩니다. 이후 통계·그림·HTML 생성과 검증이 자동으로 진행됩니다.
+
+## 2026-10-23T10:40:08.116Z — User
+
+더 가속화할 수 있는 방법은? 현재 병목이 어딘지 조사해봐. 별도의 병목이라고 할만한 지점이 없으면 냅두고
+
+
+## 2026-10-23T10:45:26.517Z — Codex final report
+
+**병목이 있습니다. CPU의 영상 디코딩·크기 조정 때문에 GPU가 입력을 기다리고 있었습니다.**
+
+- GPU 평균 사용률 **52.5%**, 45회 관측 중 19회는 10% 이하
+- 최근 샘플의 모델 생성 구간은 전체 처리 시간의 **26~29%**
+- CPU는 할당된 12코어 중 평균 약 6.7코어 사용
+
+따라서 **모델별 전처리 worker를 2→4개로 늘려 재개**했습니다. 모델·프레임 추출·생성 설정과 기존 저장 결과는 유지했습니다.
+
+실제 속도 향상은 백그라운드에서 추가 측정 중입니다. [병목 조사 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/performance/REPORT.md)
+
+## 2026-10-23T10:48:23.774Z — User
+
+병목이 해결된 것 같아?
+
+
+## 2026-10-23T10:48:56.358Z — Codex final report
+
+**많이 완화됐지만, 완전히 해결되지는 않았습니다.**
+
+최근 50개 응답 기준:
+
+| 모델 | 변경 전 초/응답 | 변경 후 초/응답 | 관측 속도 향상 |
+|---|---:|---:|---:|
+| Qwen2.5 | 5.00 | 2.76 | **1.81배** |
+| Qwen3 | 6.50 | 3.79 | **1.71배** |
+
+다만 GPU 사용률이 여전히 간헐적으로 0%까지 내려가므로 입력 공급 대기는 남아 있습니다. 전후에 처리한 영상이 달라 정확한 배속을 확정할 수는 없지만, **전처리 병렬도를 높인 효과는 나타나고 있습니다.** 현재 설정으로 계속 진행하겠습니다.
+
+## 2026-10-23T10:49:25.403Z — User
+
+이 속도면 eta 얼마야?
+
+
+## 2026-10-23T10:49:43.426Z — Codex final report
+
+최근 50개 처리 속도로 계산하면, **전체 추론 완료까지 약 5시간 16분**입니다.
+
+- Qwen2.5: 약 **3시간 37분**
+- Qwen3: 약 **5시간 16분**
+- 최종 추론 완료 예상: **내일(10월 24일) 오전 1시 5분경**
+
+영상마다 처리 시간이 달라 변동이 큽니다. 이후 통계·그림·HTML 생성 및 검증 시간은 별도입니다.
+
+## 2026-10-23T10:50:08.604Z — User
+
+처음부터 다시하는 건 아니지? 지금 이미 꽤 했을텐데 5시간이나 걸려?
+
+
+## 2026-10-23T10:50:18.468Z — Codex final report
+
+**처음부터 다시 하는 건 아닙니다.** 완료된 결과는 그대로 두고, 미완료 샘플만 이어서 처리하고 있습니다.
+
+직전 확인 기준:
+
+| 모델 | 완료 | 남음 |
+|---|---:|---:|
+| Qwen2.5 | 5,389 | 4,015 |
+| Qwen3 | 4,988 | 4,416 |
+
+5시간 16분은 **남은 Qwen3 4,416개 × 최근 평균 4.29초**로 계산한 값입니다. 두 모델은 동시에 실행하므로 시간을 더한 것은 아닙니다.
+
+다만 최근 50개만으로 전체 잔여 시간을 추정해서 변동이 큽니다. **앞서 속도가 개선됐다고 말씀드린 직후 긴 ETA를 단정적으로 제시한 건 부정확했습니다.** 현재 속도와 영상 구성에 따른 거친 추정치로 봐야 합니다.
+
+## 2026-10-23T10:55:56.088Z — User
+
+다시 측정해봐
+
+
+## 2026-10-23T10:56:33.285Z — Codex final report
+
+다시 측정했습니다. **현재 추론 ETA는 약 4시간, 자정 전후**입니다.
+
+변경 후 결과만 사용하고 초기 10개는 제외했습니다.
+
+| 모델 | 측정 응답 수 | 초/응답 | 예상 잔여 시간 |
+|---|---:|---:|---:|
+| Qwen2.5 | 178 | 3.76 | 약 4시간 5분 |
+| Qwen3 | 201 | 3.28 | 약 3시간 54분 |
+
+전체 **약 56.4% 완료**입니다. 변경 전 느린 구간이 섞이는 최근 500개 평균은 현재 ETA에서 제외했습니다. 영상별 편차가 있으며, 후속 분석·검증 시간은 별도입니다.
+
+## 2026-10-23T11:05:49.890Z — User
+
+아직도 CPU에서 로딩이 병목이야? 중간중간 GPU utilization이 떨어지는 이유를 분석하고 이를 해소할 방법을 구상해봐.
+
+
+## 2026-10-23T11:07:33.865Z — User
+
+지금 영상을 디코딩 한다는 게 무슨 말이야? 뭐 코덱 변환 같은 걸 하고 있는 거야? 그걸 왜 해?
+
+
+## 2026-10-23T11:13:17.577Z — Codex final report
+
+코덱을 변환하는 게 아니라, **압축된 영상에서 모델이 볼 수 있는 이미지 프레임을 꺼내는 작업**이야.
+
+MP4 안의 영상은 압축되어 있어서 모델에 파일 그대로 넣을 수 없어. 현재 입력 준비는 다음 순서야.
+
+1. **디코딩:** 압축된 영상을 풀어서 필요한 시점의 프레임을 얻음.
+2. **리사이즈:** 프레임 크기를 모델 입력 규격에 맞춤.
+3. **텐서 변환:** 픽셀을 모델이 처리할 숫자 배열로 바꾸고 GPU에 전달.
+
+원본 파일을 다른 코덱으로 다시 저장하는 **인코딩·트랜스코딩과는 달라**. 원본 영상은 그대로야.
+
+그리고 필요한 프레임만 선택하더라도, 영상 압축 방식 때문에 그 앞의 기준 프레임부터 중간 프레임까지 풀어야 할 수 있어. 그래서 샘플링할 이미지 수가 적어도 CPU 작업량이 꽤 생겨.
+
+디코딩 자체는 필요하지만, **같은 영상에 대한 여러 질문에서 매번 다시 디코딩하는 것은 캐시로 줄일 수 있어.** 지금 개선 대상으로 보고 있는 부분 중 하나가 그 중복 작업이야.
+
+## 2026-10-23T11:13:43.333Z — User
+
+개선해봐
+
+
+## 2026-10-23T11:18:17.829Z — Codex final report
+
+적용했고, 두 모델 모두 정상적으로 추론을 이어가는 것을 확인했습니다.
+
+- **영상 캐시:** 같은 영상의 디코딩·크기 조정 결과를 재사용합니다. 저장 용량은 8GiB로 제한했습니다.
+- **입력 대기 감소:** 준비된 샘플부터 GPU에 공급합니다.
+- **검증:** 모델 2종 × 벤치마크 3종에서 캐시 사용 전후 입력 텐서가 완전히 일치했습니다.
+- **기존 결과 11,262개를 보존**하고 남은 샘플만 백그라운드로 실행 중입니다.
+
+전체 가속률과 캐시 적중률은 자동 측정해 [개선 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md)에 추가합니다.

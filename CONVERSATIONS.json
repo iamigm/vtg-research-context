@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-23T18:29:03+09:00",
+  "observed_at": "2026-10-23T20:43:43+09:00",
   "counts": {
-    "active": 8,
+    "active": 9,
     "archived": 0,
     "deleted": 16
   },
@@ -315,11 +315,11 @@
       "title": "같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아",
       "state": "active",
       "tracked": true,
-      "last_user": 1792739995.443,
+      "last_user": 1792754023.333,
       "running": false,
-      "messages": 118,
+      "messages": 135,
       "archive": "conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md",
-      "sha256": "dda97c517f796598d9ae45c276be39394d3fe05d0662044c974167c849fe1c27",
+      "sha256": "45352b99f7da1bee64688131c67e345c2b690dcd408ef1f96b1e85adf4223e31",
       "source_available": true
     },
     {
@@ -349,6 +349,19 @@
       "source_available": false,
       "deletion_reason": "archived_source_file_removed",
       "deleted_at": "2026-10-23T18:18:48+09:00"
+    },
+    {
+      "id": "01a16858-dc44-7e32-a8b8-06297693ee84",
+      "first_seen": "2026-10-23T19:40:42+09:00",
+      "title": "Find experiments 디렉토리 원인",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1792752252.313,
+      "running": false,
+      "messages": 4,
+      "archive": "conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md",
+      "sha256": "551352a9bdbf2c162b00564742784f4901c5175891a2ec5848082ba714c4df3a",
+      "source_available": true
     }
   ]
 }
