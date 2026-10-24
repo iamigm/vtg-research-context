@@ -1,0 +1,79 @@
+# VTG experiment documentation
+
+Observed: 2026-10-24T12:04:59+09:00
+Next scheduled: 2026-10-25T09:00:00+09:00
+Daily 09:00 Asia/Seoul. Server side; independent of the Mac. Source reports are preserved as evidence, not independently rerun results. Files missing from a future source retain their prior repository copy/Git history; only the current manifest lists currently observed files.
+
+| Report | Source modified (KST) | Bytes |
+|---|---|---:|
+| [zero-shot/README.md](experiments/zero-shot/README.md) | 2026-10-23T21:37:50+09:00 | 2428 |
+| [zero-shot/artifacts/README.md](experiments/zero-shot/artifacts/README.md) | 2026-10-23T16:25:57+09:00 | 5823 |
+| [zero-shot/artifacts/status.json](experiments/zero-shot/artifacts/status.json) | 2026-10-23T23:59:51+09:00 | 461 |
+| [zero-shot/results/input_order/REPORT.md](experiments/zero-shot/results/input_order/REPORT.md) | 2026-10-23T23:19:23+09:00 | 2505 |
+| [zero-shot/results/input_order/summary.json](experiments/zero-shot/results/input_order/summary.json) | 2026-10-23T23:19:23+09:00 | 3393 |
+| [zero-shot/results/input_order/consistency_v1/REPORT.md](experiments/zero-shot/results/input_order/consistency_v1/REPORT.md) | 2026-10-23T21:48:44+09:00 | 7683 |
+| [zero-shot/results/input_order/consistency_v1/summary.json](experiments/zero-shot/results/input_order/consistency_v1/summary.json) | 2026-10-23T21:20:18+09:00 | 18677 |
+| [zero-shot/results/timelens_rollout/REPORT.md](experiments/zero-shot/results/timelens_rollout/REPORT.md) | 2026-10-21T10:29:22+09:00 | 5950 |
+| [zero-shot/results/timelens_rollout/summary.json](experiments/zero-shot/results/timelens_rollout/summary.json) | 2026-10-21T10:29:22+09:00 | 5197 |
+| [zero-shot/results/timelens_rollout/sources/Qwen2.5-VL-7B-Instruct_README.md](experiments/zero-shot/results/timelens_rollout/sources/Qwen2.5-VL-7B-Instruct_README.md) | 2026-10-21T08:49:25+09:00 | 18574 |
+| [zero-shot/results/timelens_rollout/sources/Qwen3-VL-8B-Instruct_README.md](experiments/zero-shot/results/timelens_rollout/sources/Qwen3-VL-8B-Instruct_README.md) | 2026-10-21T08:49:26+09:00 | 7133 |
+| [zero-shot/results/timelens_span_head/REPORT.md](experiments/zero-shot/results/timelens_span_head/REPORT.md) | 2026-10-20T15:46:24+09:00 | 11086 |
+| [zero-shot/results/timelens_span_head/summary.json](experiments/zero-shot/results/timelens_span_head/summary.json) | 2026-10-20T15:46:23+09:00 | 13054 |
+| [zero-shot/results/timelens_span_head/provenance/aborted_old_cohort/reports/summary.json](experiments/zero-shot/results/timelens_span_head/provenance/aborted_old_cohort/reports/summary.json) | 2026-10-19T19:13:38+09:00 | 5669 |
+| [zero-shot/results/timelens_top30/REPORT.md](experiments/zero-shot/results/timelens_top30/REPORT.md) | 2026-10-23T16:24:34+09:00 | 4749 |
+| [zero-shot/results/timelens_top30/summary.json](experiments/zero-shot/results/timelens_top30/summary.json) | 2026-10-20T15:46:26+09:00 | 3346 |
+| [zero-shot/results/timelens_top30/digit_correctness/REPORT.md](experiments/zero-shot/results/timelens_top30/digit_correctness/REPORT.md) | 2026-10-23T14:31:37+09:00 | 6617 |
+| [zero-shot/results/timelens_top30/digit_correctness/summary.json](experiments/zero-shot/results/timelens_top30/digit_correctness/summary.json) | 2026-10-23T14:12:32+09:00 | 450449 |
+| [zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md](experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) | 2026-10-23T15:18:47+09:00 | 43188 |
+| [zero-shot/results/timelens_top30/digit_correctness/blue_analysis/summary.json](experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/summary.json) | 2026-10-23T15:18:47+09:00 | 511485 |
+| [zero-shot/results/timelens_top30/entropy_iou/REPORT.md](experiments/zero-shot/results/timelens_top30/entropy_iou/REPORT.md) | 2026-10-22T16:35:16+09:00 | 4505 |
+| [zero-shot/results/timelens_top30/entropy_iou/summary.json](experiments/zero-shot/results/timelens_top30/entropy_iou/summary.json) | 2026-10-22T16:35:16+09:00 | 11437 |
+| [zero-shot/results/timelens_top30/integrated/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/REPORT.md) | 2026-10-22T20:08:41+09:00 | 5204 |
+| [zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/REPORT.md) | 2026-10-22T17:48:43+09:00 | 6310 |
+| [zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/summary.json) | 2026-10-22T17:48:43+09:00 | 65279 |
+| [zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/REPORT.md) | 2026-10-22T17:36:50+09:00 | 4385 |
+| [zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/summary.json) | 2026-10-22T17:36:50+09:00 | 10109 |
+| [zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/REPORT.md) | 2026-10-22T16:56:30+09:00 | 5826 |
+| [zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/summary.json) | 2026-10-22T16:56:30+09:00 | 367854 |
+| [zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md](experiments/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md) | 2026-10-20T10:33:13+09:00 | 4515 |
+| [zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md](experiments/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md) | 2026-10-22T20:19:38+09:00 | 4768 |
+| [zero-shot/results/timelens_top30/numeric_uncertainty/summary.json](experiments/zero-shot/results/timelens_top30/numeric_uncertainty/summary.json) | 2026-10-22T20:19:38+09:00 | 199307 |
+| [zero-shot/results/timelens_top30/prefix_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md) | 2026-10-22T16:56:30+09:00 | 5826 |
+| [zero-shot/results/timelens_top30/prefix_entropy/summary.json](experiments/zero-shot/results/timelens_top30/prefix_entropy/summary.json) | 2026-10-22T16:56:30+09:00 | 367854 |
+| [zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md](experiments/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md) | 2026-10-23T23:58:11+09:00 | 7309 |
+| [zero-shot/results/timelens_top30_full/digit_correctness/summary.json](experiments/zero-shot/results/timelens_top30_full/digit_correctness/summary.json) | 2026-10-23T23:57:30+09:00 | 610537 |
+| [zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md](experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) | 2026-10-23T23:59:16+09:00 | 47577 |
+| [zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/summary.json](experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/summary.json) | 2026-10-23T23:59:15+09:00 | 977037 |
+| [zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json](experiments/zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json) | 2026-10-23T23:56:52+09:00 | 59029 |
+| [zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md](experiments/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md) | 2026-10-23T20:21:24+09:00 | 3247 |
+| [zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md](experiments/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md) | 2026-10-23T20:10:35+09:00 | 8038 |
+| [zero-shot/results/timelens_top30_full/performance/REPORT.md](experiments/zero-shot/results/timelens_top30_full/performance/REPORT.md) | 2026-10-23T19:48:49+09:00 | 2940 |
+| [attention/README.md](experiments/attention/README.md) | 2026-10-23T23:19:54+09:00 | 2126 |
+| [attention/protocol.json](experiments/attention/protocol.json) | 2026-10-15T20:02:57+09:00 | 823 |
+| [attention/source_provenance.json](experiments/attention/source_provenance.json) | 2026-09-29T14:18:03+09:00 | 127 |
+| [attention/provenance/dynamics/FINDINGS.md](experiments/attention/provenance/dynamics/FINDINGS.md) | 2026-09-29T20:14:54+09:00 | 4871 |
+| [attention/provenance/dynamics/README.md](experiments/attention/provenance/dynamics/README.md) | 2026-09-29T19:32:24+09:00 | 4782 |
+| [attention/provenance/generation/FINDINGS.md](experiments/attention/provenance/generation/FINDINGS.md) | 2026-09-29T16:45:42+09:00 | 7415 |
+| [attention/provenance/generation/README.md](experiments/attention/provenance/generation/README.md) | 2026-09-29T20:30:36+09:00 | 10152 |
+| [attention/provenance/pilot/FINDINGS.md](experiments/attention/provenance/pilot/FINDINGS.md) | 2026-09-29T19:32:24+09:00 | 3056 |
+| [attention/provenance/pilot/README.md](experiments/attention/provenance/pilot/README.md) | 2026-09-29T19:32:24+09:00 | 8863 |
+| [attention/provenance/query/FINDINGS.md](experiments/attention/provenance/query/FINDINGS.md) | 2026-09-29T19:32:24+09:00 | 6378 |
+| [attention/provenance/query/README.md](experiments/attention/provenance/query/README.md) | 2026-09-29T19:32:24+09:00 | 9602 |
+| [attention/provenance/separation_before/README.md](experiments/attention/provenance/separation_before/README.md) | 2026-10-20T15:16:31+09:00 | 10215 |
+| [attention/results/REPORT.md](experiments/attention/results/REPORT.md) | 2026-10-20T15:42:02+09:00 | 2047 |
+| [attention/results/summary.json](experiments/attention/results/summary.json) | 2026-10-20T15:42:02+09:00 | 4733 |
+| [attention/results/dynamics/FINDINGS.md](experiments/attention/results/dynamics/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 4807 |
+| [attention/results/dynamics/summary.json](experiments/attention/results/dynamics/summary.json) | 2026-09-29T19:17:16+09:00 | 314183 |
+| [attention/results/generation/FINDINGS.md](experiments/attention/results/generation/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 7327 |
+| [attention/results/generation/summary.json](experiments/attention/results/generation/summary.json) | 2026-09-29T16:45:05+09:00 | 16099 |
+| [attention/results/generation/distribution_analysis/REPORT.md](experiments/attention/results/generation/distribution_analysis/REPORT.md) | 2026-10-15T20:02:57+09:00 | 5831 |
+| [attention/results/generation/distribution_analysis/summary.json](experiments/attention/results/generation/distribution_analysis/summary.json) | 2026-09-29T19:33:38+09:00 | 264202 |
+| [attention/results/generation/head_analysis/REPORT.md](experiments/attention/results/generation/head_analysis/REPORT.md) | 2026-10-15T20:02:57+09:00 | 7497 |
+| [attention/results/hidden/summary.json](experiments/attention/results/hidden/summary.json) | 2026-09-30T14:12:57+09:00 | 568842 |
+| [attention/results/query/FINDINGS.md](experiments/attention/results/query/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 6210 |
+| [attention/results/query/summary.json](experiments/attention/results/query/summary.json) | 2026-09-29T15:05:45+09:00 | 2274 |
+| [attention/results/timelens_order/final_report.md](experiments/attention/results/timelens_order/final_report.md) | 2026-10-23T23:20:35+09:00 | 1468 |
+| [attention/results/timelens_order/summary.json](experiments/attention/results/timelens_order/summary.json) | 2026-10-23T23:20:21+09:00 | 1277 |
+| [analysis/failure_mode_timestamp/failure_cases/README.md](experiments/analysis/failure_mode_timestamp/failure_cases/README.md) | 2026-10-08T16:02:42+09:00 | 6790 |
+| [analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/REPORT.md](experiments/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/REPORT.md) | 2026-10-08T16:04:18+09:00 | 12820 |
+| [analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/summary.json](experiments/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/summary.json) | 2026-10-08T16:03:37+09:00 | 951 |

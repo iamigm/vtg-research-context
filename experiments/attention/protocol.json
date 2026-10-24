@@ -1,0 +1,35 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "samples_per_dataset": 100,
+  "sample_selection_seed": 20260929,
+  "layer_band": [
+    8,
+    21
+  ],
+  "dtype": "bfloat16",
+  "capture": {
+    "query_full_eager_limit": 5500,
+    "generation_full_eager_limit": 5500,
+    "hidden_full_eager_limit": 4800,
+    "head_chunk_size": 4
+  },
+  "generation": {
+    "do_sample": false,
+    "num_beams": 1,
+    "max_new_tokens": 128,
+    "repetition_penalty": 1.0,
+    "use_cache": true
+  },
+  "hidden": {
+    "temperatures": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      1.0
+    ],
+    "primary_temperature": 0.1
+  },
+  "note": "Recorded protocol of the preserved 300 samples. Exact per-stage run_config.json files remain in results/. This file describes the existing experiment; run.py resumes this fixed manifest."
+}

@@ -1,0 +1,115 @@
+{
+  "samples": 300,
+  "datasets": {
+    "Charades-STA": {
+      "samples": 100,
+      "query_peak_in_gt_rate": 0.5,
+      "answer_peak_in_gt_rate": 0.29,
+      "answer_early_peak_rate": 0.95,
+      "dynamics_median_sample_mean_adjacent_tv": 0.11795105853584979,
+      "hidden_attention_mean_tv": 0.1965222021446303
+    },
+    "QVHighlights": {
+      "samples": 100,
+      "query_peak_in_gt_rate": 0.49,
+      "answer_peak_in_gt_rate": 0.22,
+      "answer_early_peak_rate": 0.97,
+      "dynamics_median_sample_mean_adjacent_tv": 0.14379955380367393,
+      "hidden_attention_mean_tv": 0.24862753644621868
+    },
+    "ActivityNet-Captions": {
+      "samples": 100,
+      "query_peak_in_gt_rate": 0.5,
+      "answer_peak_in_gt_rate": 0.35,
+      "answer_early_peak_rate": 0.84,
+      "dynamics_median_sample_mean_adjacent_tv": 0.141027761946173,
+      "hidden_attention_mean_tv": 0.22271139762112552
+    }
+  },
+  "generated_tokens": 4139,
+  "conventions": {
+    "query": "input event sentence; L8–21, all heads",
+    "answer": "consumed generated-token rows",
+    "predictive": "rows that selected generated tokens",
+    "hidden": "decoder output cosine, L8–21, temperature 0.1"
+  },
+  "recorded_run_configs": {
+    "query": {
+      "seed": 20260929,
+      "samples_per_dataset": 100,
+      "checkpoint": "Qwen/Qwen3-VL-8B-Instruct",
+      "dtype": "bfloat16",
+      "layer_band": [
+        8,
+        21
+      ],
+      "checkpoint_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "selection": "fixed-seed shuffled queries; distinct videos; no GT-position/duration/attention filter",
+      "attention": "mean over event-query tokens, all heads, layers 8..21; sum spatial video tokens",
+      "torch": "2.6.0+cu124",
+      "transformers": "4.57.6",
+      "attention_backend": "eager (vision and text)",
+      "full_eager_limit": 5500,
+      "chunk_size": 4,
+      "query_definition": "input event sentence only; no response tokens or GT supplied",
+      "source_revision": "c6379bb01b57b0fc79288f334236f840ec68f41f"
+    },
+    "generation": {
+      "checkpoint": "Qwen/Qwen3-VL-8B-Instruct",
+      "checkpoint_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "dtype": "bfloat16",
+      "layer_band": [
+        8,
+        21
+      ],
+      "generation": {
+        "do_sample": false,
+        "num_beams": 1,
+        "max_new_tokens": 128,
+        "repetition_penalty": 1.0,
+        "use_cache": true
+      },
+      "engine": "Hugging Face eager (head chunks of 4 for prefill >5500 tokens), actual live generation",
+      "source_sample_manifest": "/home1/irteam/experiments/mtla_query_prefill_temporal_attention_100/results/samples.json",
+      "query_rows": "input event query positions, captured during generation prefill",
+      "answer_rows": "positions consuming generated answer tokens, matching MTLA response-token convention",
+      "predictive_rows": "one position before each answer token, the forward that selected that token",
+      "answer_eos_excluded": true,
+      "answers_per_sample": 1,
+      "gt_never_input": true
+    },
+    "hidden": {
+      "checkpoint": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "source": "/home1/irteam/experiments/mtla_query_vs_generated_answer_attention_100",
+      "n_samples": 300,
+      "layer_band": [
+        8,
+        21
+      ],
+      "dtype": "bfloat16",
+      "output": "decoder block output after both residuals; before external DeepStack L0..2 and model final RMSNorm",
+      "cosine": "FP32 pairwise cosine(query output, video-token output), mean spatial tokens per temporal bin",
+      "attention": "native eager; <=4800 tokens full heads, longer inputs 4-head chunks; all causal keys in softmax, then video selection",
+      "aggregation": "mean cosine over L8..21 and query rows, softmax across time; mean attention over same layers/heads/rows, normalize video mass",
+      "temperatures": [
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2,
+        1.0
+      ],
+      "primary_temperature": 0.1,
+      "torch": "2.6.0+cu124",
+      "inference_seed": 20260930,
+      "sample_manifest_reused": true,
+      "sample_selection_seed": 20260929,
+      "sha256": {
+        "/home1/irteam/experiments/mtla_hidden_similarity_vs_attention_300/run_experiment.py": "f629f85d6a01e8c76d1654b52309882dd09762973f554928f900d0d9f710c2dd",
+        "/home1/irteam/experiments/mtla_query_vs_generated_answer_attention_100/input_pipeline.py": "dd29bbc770c6a8e15ce320bc00e49671c2f72fe1fb81f6ec056c5fdd49329429",
+        "/home1/irteam/experiments/mtla_query_vs_generated_answer_attention_100/results/samples.json": "1ff1ba4132b01a7229b7303fc06613b1f3ba0af5375c96e8a995259c465c0af3"
+      }
+    }
+  }
+}

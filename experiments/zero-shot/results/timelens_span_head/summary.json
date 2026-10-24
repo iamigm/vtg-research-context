@@ -1,0 +1,431 @@
+{
+  "complete": true,
+  "count": 600,
+  "expected": 600,
+  "selection": {
+    "source": "/home1/irteam/experiments/zero-shot/predictions/qwen3/samples.json",
+    "source_sha256": "79b43362e537d63d2453d23d215ae216c5cb1f7a5cacccd266662b6e04a947b5",
+    "algorithm": "Python random.Random(42).sample(group,100), independently reset per dataset; sorted by sample_key",
+    "seed": 42,
+    "count": 300,
+    "per_dataset": 100,
+    "note": "No separate prior TimeLens pilot manifest found. This fixed pilot is drawn from existing 9404-sample zero-shot results; both comparisons use exactly these samples.",
+    "baseline_order": "video_query",
+    "model": "Qwen3-VL-8B-Instruct",
+    "requested_source": "experiments/mtla_attention",
+    "models": [
+      "Qwen3-VL-8B-Instruct",
+      "Qwen2.5-VL-7B-Instruct"
+    ],
+    "qwen25_baseline": "Fresh full-head zero-shot on same inputs, paired with restricted head"
+  },
+  "groups": {
+    "qwen25/charades-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 40.64814456921322,
+        "R1@0.3": 61.0,
+        "R1@0.5": 42.0,
+        "R1@0.7": 17.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 11,
+        "truncated": 0,
+        "mean_output_tokens": 17.3
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 40.04415996592521,
+        "R1@0.3": 59.0,
+        "R1@0.5": 44.0,
+        "R1@0.7": 16.0,
+        "parse_failures": 1,
+        "invalid_intervals": 0,
+        "multiple_spans": 2,
+        "out_of_bounds": 17,
+        "truncated": 0,
+        "mean_output_tokens": 12.78
+      },
+      "delta_percentage_points": {
+        "mIoU": -0.6039846032880121,
+        "R1@0.3": -2.0,
+        "R1@0.5": 2.0,
+        "R1@0.7": -1.0
+      },
+      "failure_to_success": 5,
+      "success_to_failure": 3,
+      "identical_spans": 46,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -3.422619683725323,
+          2.3910515569665947
+        ],
+        "R1_05": [
+          -3.061224489795918,
+          7.845078625509599
+        ]
+      }
+    },
+    "qwen25/activitynet-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 29.96162945292008,
+        "R1@0.3": 41.0,
+        "R1@0.5": 27.0,
+        "R1@0.7": 15.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 6,
+        "truncated": 0,
+        "mean_output_tokens": 18.13
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 35.16769770779087,
+        "R1@0.3": 48.0,
+        "R1@0.5": 35.0,
+        "R1@0.7": 21.0,
+        "parse_failures": 0,
+        "invalid_intervals": 1,
+        "multiple_spans": 1,
+        "out_of_bounds": 6,
+        "truncated": 0,
+        "mean_output_tokens": 13.37
+      },
+      "delta_percentage_points": {
+        "mIoU": 5.206068254870793,
+        "R1@0.3": 7.0,
+        "R1@0.5": 8.0,
+        "R1@0.7": 6.0
+      },
+      "failure_to_success": 14,
+      "success_to_failure": 6,
+      "identical_spans": 26,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          0.0242114606977106,
+          10.972135571849808
+        ],
+        "R1_05": [
+          -0.9900990099009901,
+          17.0
+        ]
+      }
+    },
+    "qwen25/qvhighlights-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 30.826402785958628,
+        "R1@0.3": 50.0,
+        "R1@0.5": 24.0,
+        "R1@0.7": 8.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 0,
+        "truncated": 0,
+        "mean_output_tokens": 18.48
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 45.62643650715218,
+        "R1@0.3": 65.0,
+        "R1@0.5": 46.0,
+        "R1@0.7": 32.0,
+        "parse_failures": 0,
+        "invalid_intervals": 2,
+        "multiple_spans": 2,
+        "out_of_bounds": 2,
+        "truncated": 0,
+        "mean_output_tokens": 13.67
+      },
+      "delta_percentage_points": {
+        "mIoU": 14.80003372119355,
+        "R1@0.3": 15.0,
+        "R1@0.5": 22.0,
+        "R1@0.7": 24.0
+      },
+      "failure_to_success": 26,
+      "success_to_failure": 4,
+      "identical_spans": 15,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          9.648344879189375,
+          20.097849617227748
+        ],
+        "R1_05": [
+          12.60885554574875,
+          32.323232323232325
+        ]
+      }
+    },
+    "qwen3/charades-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 47.52664020920599,
+        "R1@0.3": 65.0,
+        "R1@0.5": 49.0,
+        "R1@0.7": 31.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 16,
+        "truncated": 0,
+        "mean_output_tokens": 17.14
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 37.59047185311591,
+        "R1@0.3": 55.00000000000001,
+        "R1@0.5": 39.0,
+        "R1@0.7": 26.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 13,
+        "truncated": 33,
+        "mean_output_tokens": 184.3
+      },
+      "delta_percentage_points": {
+        "mIoU": -9.936168356090086,
+        "R1@0.3": -9.999999999999993,
+        "R1@0.5": -10.0,
+        "R1@0.7": -5.0
+      },
+      "failure_to_success": 4,
+      "success_to_failure": 14,
+      "identical_spans": 41,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -14.74910552271044,
+          -5.275087733928429
+        ],
+        "R1_05": [
+          -18.181818181818183,
+          -2.0196969696969727
+        ]
+      }
+    },
+    "qwen3/activitynet-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 40.77140466189892,
+        "R1@0.3": 55.00000000000001,
+        "R1@0.5": 43.0,
+        "R1@0.7": 28.000000000000004,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 9,
+        "truncated": 0,
+        "mean_output_tokens": 18.22
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 36.697594561860434,
+        "R1@0.3": 52.0,
+        "R1@0.5": 39.0,
+        "R1@0.7": 24.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 10,
+        "truncated": 18,
+        "mean_output_tokens": 109.33
+      },
+      "delta_percentage_points": {
+        "mIoU": -4.073810100038486,
+        "R1@0.3": -3.000000000000007,
+        "R1@0.5": -4.0,
+        "R1@0.7": -4.0000000000000036
+      },
+      "failure_to_success": 5,
+      "success_to_failure": 9,
+      "identical_spans": 38,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -9.074211131405644,
+          1.191734298940342
+        ],
+        "R1_05": [
+          -11.11111111111111,
+          3.0303030303030303
+        ]
+      }
+    },
+    "qwen3/qvhighlights-timelens": {
+      "baseline": {
+        "n": 100,
+        "mIoU": 57.13175178565494,
+        "R1@0.3": 73.0,
+        "R1@0.5": 62.0,
+        "R1@0.7": 45.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "multiple_spans": 0,
+        "out_of_bounds": 0,
+        "truncated": 0,
+        "mean_output_tokens": 18.48
+      },
+      "restricted": {
+        "n": 100,
+        "mIoU": 55.29087969763567,
+        "R1@0.3": 71.0,
+        "R1@0.5": 60.0,
+        "R1@0.7": 41.0,
+        "parse_failures": 0,
+        "invalid_intervals": 1,
+        "multiple_spans": 0,
+        "out_of_bounds": 1,
+        "truncated": 5,
+        "mean_output_tokens": 43.97
+      },
+      "delta_percentage_points": {
+        "mIoU": -1.8408720880192746,
+        "R1@0.3": -2.0,
+        "R1@0.5": -2.0,
+        "R1@0.7": -4.0
+      },
+      "failure_to_success": 6,
+      "success_to_failure": 8,
+      "identical_spans": 54,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -7.455000779663213,
+          3.3575307312770546
+        ],
+        "R1_05": [
+          -9.900990099009901,
+          5.05050505050505
+        ]
+      }
+    }
+  },
+  "qwen3_baseline_reproduction": [
+    {
+      "sample_key": "charades-timelens_00001",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 25.0 - 31.0 seconds.",
+      "reproduced_answer": "The event happens in 25.0 - 31.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_00001",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 23.7 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 23.7 seconds."
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00001",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 81.0 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 81.0 seconds."
+    },
+    {
+      "sample_key": "charades-timelens_00103",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 26.0 - 30.0 seconds.",
+      "reproduced_answer": "The event happens in 26.0 - 30.0 seconds."
+    },
+    {
+      "sample_key": "charades-timelens_01517",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 3.0 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 3.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_00205",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 10.7 - 14.0 seconds.",
+      "reproduced_answer": "The event happens in 10.7 - 14.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_01308",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 1:36.0 - 1:40.0 seconds.",
+      "reproduced_answer": "The event happens in 1:36.0 - 1:40.0 seconds."
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00052",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 22.7 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 22.7 seconds."
+    },
+    {
+      "sample_key": "charades-timelens_00027",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 25.0 - 36.0 seconds.",
+      "reproduced_answer": "The event happens in 25.0 - 36.0 seconds."
+    },
+    {
+      "sample_key": "charades-timelens_01139",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 9.2 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 9.2 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_00054",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 54.0 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 54.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_01402",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 10.0 - 87.0 seconds.",
+      "reproduced_answer": "The event happens in 10.0 - 87.0 seconds."
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00014",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 35.0 - 61.0 seconds.",
+      "reproduced_answer": "The event happens in 35.0 - 61.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_01339",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 37.0 - 103.0 seconds.",
+      "reproduced_answer": "The event happens in 37.0 - 103.0 seconds."
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00062",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 131.0 - 144.0 seconds.",
+      "reproduced_answer": "The event happens in 131.0 - 144.0 seconds."
+    },
+    {
+      "sample_key": "activitynet-timelens_01629",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 11.5 - 14.5 seconds.",
+      "reproduced_answer": "The event happens in 11.5 - 14.5 seconds."
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00055",
+      "exact_tokens": true,
+      "saved_answer": "The event happens in 0.0 - 10.0 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 10.0 seconds."
+    }
+  ],
+  "qwen25_baseline": "Fresh native-input full-head zero-shot on the exact same input tensors as restricted head; model default repetition penalty 1.05 for both arms",
+  "validation": {
+    "original_predictions_unchanged": true,
+    "qwen3_saved_input_text_and_sampling_metadata_checked": true,
+    "qwen25_same_input_tensors_and_input_ids_hash": true,
+    "official_parser_rounding_and_iou_match": true,
+    "all_generated_token_ids_allowed": true,
+    "official_evaluator_cli_matches_all_twelve_groups": true
+  },
+  "timing_note": "Historical Qwen3 baseline includes attention capture; concurrent process timings also depend on shared GPU load. Not a controlled head speed comparison.",
+  "runtime": {
+    "elapsed_seconds": 1495.9042065143585,
+    "cuda_mps": true,
+    "initial_parallel_replicas": 4,
+    "gpu": "NVIDIA H200",
+    "monitor_scope": "MPS phase; includes model-loading intervals",
+    "gpu_utilization_mean": 83.00439560439561,
+    "gpu_utilization_max": 100.0,
+    "gpu_memory_peak_mib": 90030.0,
+    "gpu_power_peak_watts": 698.64
+  }
+}

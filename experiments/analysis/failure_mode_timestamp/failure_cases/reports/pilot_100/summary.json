@@ -1,0 +1,41 @@
+{
+  "complete": true,
+  "scope": "Qwen2.5 TimeLens-7B-style input only",
+  "groups": {
+    "qwen25/charades-timelens": {
+      "n": 100,
+      "mIoU": 25.9983276208406,
+      "R1@0.3": 40.0,
+      "R1@0.5": 20.0,
+      "R1@0.7": 10.0,
+      "failure_counts": {
+        "success": 20,
+        "underextended": 7,
+        "overextended": 30,
+        "no_overlap": 35,
+        "shifted": 8
+      },
+      "out_of_bounds": 26,
+      "out_of_bounds_over_1_second": 23,
+      "rounding_flips_05": 2
+    },
+    "qwen25/qvhighlights-timelens": {
+      "n": 100,
+      "mIoU": 14.818934169464901,
+      "R1@0.3": 21.0,
+      "R1@0.5": 8.0,
+      "R1@0.7": 3.0,
+      "failure_counts": {
+        "no_overlap": 44,
+        "invalid_interval": 2,
+        "underextended": 36,
+        "overextended": 5,
+        "shifted": 5,
+        "success": 8
+      },
+      "out_of_bounds": 15,
+      "out_of_bounds_over_1_second": 14,
+      "rounding_flips_05": 1
+    }
+  }
+}

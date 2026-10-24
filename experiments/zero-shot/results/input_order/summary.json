@@ -1,0 +1,140 @@
+{
+  "prediction_cache": "/home1/irteam/experiments/zero-shot/predictions",
+  "validated_records": 19108,
+  "metrics": [
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "video_query",
+      "dataset": "charades-timelens",
+      "n": 3363,
+      "miou": 0.48345970370093105,
+      "r03": 0.6919417187035385,
+      "r05": 0.535831103181683,
+      "r07": 0.2762414510853405
+    },
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "video_query",
+      "dataset": "activitynet-timelens",
+      "n": 4500,
+      "miou": 0.46794714878617694,
+      "r03": 0.622,
+      "r05": 0.5126666666666667,
+      "r07": 0.3446666666666667
+    },
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "video_query",
+      "dataset": "qvhighlights-timelens",
+      "n": 1541,
+      "miou": 0.5942038088687523,
+      "r03": 0.7384815055158988,
+      "r05": 0.6437378325762492,
+      "r07": 0.4938351719662557
+    },
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "query_video",
+      "dataset": "charades-timelens",
+      "n": 3363,
+      "miou": 0.46045653314939067,
+      "r03": 0.631876300921796,
+      "r05": 0.49687778768956287,
+      "r07": 0.2875408861135891
+    },
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "query_video",
+      "dataset": "activitynet-timelens",
+      "n": 4500,
+      "miou": 0.3224303822303722,
+      "r03": 0.41488888888888886,
+      "r05": 0.33755555555555555,
+      "r07": 0.23444444444444446
+    },
+    {
+      "model": "qwen3",
+      "cohort": "full_9404",
+      "order": "query_video",
+      "dataset": "qvhighlights-timelens",
+      "n": 1541,
+      "miou": 0.3692582634546395,
+      "r03": 0.45035691109669046,
+      "r05": 0.3926022063595068,
+      "r07": 0.3030499675535367
+    },
+    {
+      "model": "qwen25",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "charades-timelens",
+      "n": 100,
+      "miou": 0.4064814456921321,
+      "r03": 0.61,
+      "r05": 0.42,
+      "r07": 0.17
+    },
+    {
+      "model": "qwen25",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "activitynet-timelens",
+      "n": 100,
+      "miou": 0.2996162945292008,
+      "r03": 0.41,
+      "r05": 0.27,
+      "r07": 0.15
+    },
+    {
+      "model": "qwen25",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "qvhighlights-timelens",
+      "n": 100,
+      "miou": 0.30826402785958634,
+      "r03": 0.5,
+      "r05": 0.24,
+      "r07": 0.08
+    },
+    {
+      "model": "qwen3",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "charades-timelens",
+      "n": 100,
+      "miou": 0.47526640209206,
+      "r03": 0.65,
+      "r05": 0.49,
+      "r07": 0.31
+    },
+    {
+      "model": "qwen3",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "activitynet-timelens",
+      "n": 100,
+      "miou": 0.40771404661898925,
+      "r03": 0.55,
+      "r05": 0.43,
+      "r07": 0.28
+    },
+    {
+      "model": "qwen3",
+      "cohort": "pilot_300",
+      "order": "video_query",
+      "dataset": "qvhighlights-timelens",
+      "n": 100,
+      "miou": 0.5713175178565494,
+      "r03": 0.73,
+      "r05": 0.62,
+      "r07": 0.45
+    }
+  ],
+  "default_baseline_order": "video_query",
+  "reverse_order": "query_video (explicit comparison variant)"
+}

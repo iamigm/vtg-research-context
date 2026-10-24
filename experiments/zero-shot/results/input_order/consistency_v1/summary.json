@@ -1,0 +1,882 @@
+{
+  "charades-timelens": {
+    "n": 3363,
+    "text_equal": {
+      "count": 277,
+      "pct": 8.23669342848647
+    },
+    "tokens_equal": {
+      "count": 277,
+      "pct": 8.23669342848647
+    },
+    "rounded_equal": {
+      "count": 595,
+      "pct": 17.69253642581029
+    },
+    "raw_equal": {
+      "count": 279,
+      "pct": 8.296164139161464
+    },
+    "parse_failed_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "parse_failed_qv": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "truncated_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "truncated_qv": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_qv": {
+      "count": 140,
+      "pct": 4.162949747249479
+    },
+    "out_of_bounds_vq": {
+      "count": 377,
+      "pct": 11.2102289622361
+    },
+    "out_of_bounds_qv": {
+      "count": 171,
+      "pct": 5.084745762711864
+    },
+    "pair_iou": {
+      "n": 3223,
+      "mean": 0.6449918144018523,
+      "median": 0.7142857142857143,
+      "p90": 1.0
+    },
+    "raw_pair_iou": {
+      "n": 3335,
+      "mean": 0.6224640625980232,
+      "median": 0.6976744186046511,
+      "p90": 0.9852216748768474
+    },
+    "start_abs_diff": {
+      "n": 3363,
+      "mean": 2.0835563484983646,
+      "median": 0,
+      "p90": 6.0
+    },
+    "end_abs_diff": {
+      "n": 3363,
+      "mean": 3.3163841807909606,
+      "median": 1,
+      "p90": 11.0
+    },
+    "start_shift": {
+      "n": 3363,
+      "mean": -0.831697888789771,
+      "median": 0,
+      "p90": 1.0
+    },
+    "end_shift": {
+      "n": 3363,
+      "mean": 0.02408563782337199,
+      "median": 0,
+      "p90": 6.0
+    },
+    "normalized_max_endpoint_diff": {
+      "n": 3363,
+      "mean": 0.1369885358097904,
+      "median": 0.04522282608695652,
+      "p90": 0.4227190194915492
+    },
+    "iou_video_query": {
+      "n": 3363,
+      "mean": 0.48345970370093105,
+      "median": 0.5,
+      "p90": 0.8888888888888888
+    },
+    "iou_query_video": {
+      "n": 3363,
+      "mean": 0.46045653314939067,
+      "median": 0.4666666666666667,
+      "p90": 0.9375
+    },
+    "iou_delta": {
+      "n": 3363,
+      "mean": -0.02300317055154036,
+      "median": 0.0,
+      "p90": 0.25
+    },
+    "pair_iou_ge_0.3": {
+      "count": 2724,
+      "denominator": 3223,
+      "pct": 84.51753025131865
+    },
+    "pair_iou_ge_0.5": {
+      "count": 2381,
+      "denominator": 3223,
+      "pct": 73.87527148619299
+    },
+    "pair_iou_ge_0.7": {
+      "count": 1670,
+      "denominator": 3223,
+      "pct": 51.81507911883339
+    },
+    "pair_iou_ge_0.9": {
+      "count": 778,
+      "denominator": 3223,
+      "pct": 24.139000930809804
+    },
+    "both_endpoints_within_1s": {
+      "count": 1883,
+      "denominator": 3363,
+      "pct": 55.9916741005055
+    },
+    "both_endpoints_within_2s": {
+      "count": 2243,
+      "denominator": 3363,
+      "pct": 66.69640202200416
+    },
+    "both_endpoints_within_5s": {
+      "count": 2628,
+      "denominator": 3363,
+      "pct": 78.14451382694023
+    },
+    "zero_overlap": {
+      "count": 187,
+      "denominator": 3223
+    },
+    "gt_comparison": {
+      "query_first_better": {
+        "count": 1189,
+        "pct": 35.35533749628308
+      },
+      "video_first_better": {
+        "count": 1285,
+        "pct": 38.20993160868272
+      },
+      "tie": {
+        "count": 889,
+        "pct": 26.434730895034196
+      }
+    },
+    "success": {
+      "0.3": {
+        "both_success": {
+          "count": 1888,
+          "pct": 56.14035087719298
+        },
+        "video_only": {
+          "count": 439,
+          "pct": 13.053820993160869
+        },
+        "query_only": {
+          "count": 237,
+          "pct": 7.047279214986619
+        },
+        "both_fail": {
+          "count": 799,
+          "pct": 23.75854891465953
+        }
+      },
+      "0.5": {
+        "both_success": {
+          "count": 1378,
+          "pct": 40.975319655069875
+        },
+        "video_only": {
+          "count": 424,
+          "pct": 12.607790663098424
+        },
+        "query_only": {
+          "count": 293,
+          "pct": 8.71245911388641
+        },
+        "both_fail": {
+          "count": 1268,
+          "pct": 37.70443056794529
+        }
+      },
+      "0.7": {
+        "both_success": {
+          "count": 659,
+          "pct": 19.59559916741005
+        },
+        "video_only": {
+          "count": 270,
+          "pct": 8.028545941123996
+        },
+        "query_only": {
+          "count": 308,
+          "pct": 9.158489443948856
+        },
+        "both_fail": {
+          "count": 2126,
+          "pct": 63.217365447517096
+        }
+      }
+    }
+  },
+  "activitynet-timelens": {
+    "n": 4500,
+    "text_equal": {
+      "count": 434,
+      "pct": 9.644444444444444
+    },
+    "tokens_equal": {
+      "count": 434,
+      "pct": 9.644444444444444
+    },
+    "rounded_equal": {
+      "count": 759,
+      "pct": 16.866666666666667
+    },
+    "raw_equal": {
+      "count": 489,
+      "pct": 10.866666666666667
+    },
+    "parse_failed_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "parse_failed_qv": {
+      "count": 48,
+      "pct": 1.0666666666666667
+    },
+    "truncated_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "truncated_qv": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_vq": {
+      "count": 3,
+      "pct": 0.06666666666666667
+    },
+    "nonpositive_qv": {
+      "count": 325,
+      "pct": 7.222222222222222
+    },
+    "out_of_bounds_vq": {
+      "count": 395,
+      "pct": 8.777777777777779
+    },
+    "out_of_bounds_qv": {
+      "count": 253,
+      "pct": 5.622222222222222
+    },
+    "pair_iou": {
+      "n": 4125,
+      "mean": 0.437507686752738,
+      "median": 0.36363636363636365,
+      "p90": 1.0
+    },
+    "raw_pair_iou": {
+      "n": 4279,
+      "mean": 0.4222608231812624,
+      "median": 0.32967032967032966,
+      "p90": 1.0
+    },
+    "start_abs_diff": {
+      "n": 4452,
+      "mean": 37.84725965858041,
+      "median": 1.0,
+      "p90": 122.0
+    },
+    "end_abs_diff": {
+      "n": 4452,
+      "mean": 45.47529200359389,
+      "median": 6.0,
+      "p90": 134.9000000000001
+    },
+    "start_shift": {
+      "n": 4452,
+      "mean": -21.191374663072775,
+      "median": 0.0,
+      "p90": 1.0
+    },
+    "end_shift": {
+      "n": 4452,
+      "mean": -17.932614555256066,
+      "median": -1.0,
+      "p90": 20.0
+    },
+    "normalized_max_endpoint_diff": {
+      "n": 4452,
+      "mean": 0.32721875891293933,
+      "median": 0.08780339838862894,
+      "p90": 0.8879668835002724
+    },
+    "iou_video_query": {
+      "n": 4500,
+      "mean": 0.46794714878617694,
+      "median": 0.5,
+      "p90": 0.9736842105263158
+    },
+    "iou_query_video": {
+      "n": 4500,
+      "mean": 0.3224303822303722,
+      "median": 0.10901138801782473,
+      "p90": 0.96875
+    },
+    "iou_delta": {
+      "n": 4500,
+      "mean": -0.14551676655580476,
+      "median": 0.0,
+      "p90": 0.16666666666666669
+    },
+    "pair_iou_ge_0.3": {
+      "count": 2186,
+      "denominator": 4125,
+      "pct": 52.99393939393939
+    },
+    "pair_iou_ge_0.5": {
+      "count": 1911,
+      "denominator": 4125,
+      "pct": 46.32727272727273
+    },
+    "pair_iou_ge_0.7": {
+      "count": 1455,
+      "denominator": 4125,
+      "pct": 35.27272727272727
+    },
+    "pair_iou_ge_0.9": {
+      "count": 995,
+      "denominator": 4125,
+      "pct": 24.12121212121212
+    },
+    "both_endpoints_within_1s": {
+      "count": 1473,
+      "denominator": 4452,
+      "pct": 33.086253369272235
+    },
+    "both_endpoints_within_2s": {
+      "count": 1656,
+      "denominator": 4452,
+      "pct": 37.19676549865229
+    },
+    "both_endpoints_within_5s": {
+      "count": 1959,
+      "denominator": 4452,
+      "pct": 44.00269541778976
+    },
+    "zero_overlap": {
+      "count": 1320,
+      "denominator": 4125
+    },
+    "gt_comparison": {
+      "query_first_better": {
+        "count": 944,
+        "pct": 20.977777777777778
+      },
+      "video_first_better": {
+        "count": 1961,
+        "pct": 43.577777777777776
+      },
+      "tie": {
+        "count": 1595,
+        "pct": 35.44444444444444
+      }
+    },
+    "success": {
+      "0.3": {
+        "both_success": {
+          "count": 1612,
+          "pct": 35.82222222222222
+        },
+        "video_only": {
+          "count": 1187,
+          "pct": 26.377777777777776
+        },
+        "query_only": {
+          "count": 255,
+          "pct": 5.666666666666667
+        },
+        "both_fail": {
+          "count": 1446,
+          "pct": 32.13333333333333
+        }
+      },
+      "0.5": {
+        "both_success": {
+          "count": 1225,
+          "pct": 27.22222222222222
+        },
+        "video_only": {
+          "count": 1082,
+          "pct": 24.044444444444444
+        },
+        "query_only": {
+          "count": 294,
+          "pct": 6.533333333333333
+        },
+        "both_fail": {
+          "count": 1899,
+          "pct": 42.2
+        }
+      },
+      "0.7": {
+        "both_success": {
+          "count": 779,
+          "pct": 17.31111111111111
+        },
+        "video_only": {
+          "count": 772,
+          "pct": 17.155555555555555
+        },
+        "query_only": {
+          "count": 276,
+          "pct": 6.133333333333334
+        },
+        "both_fail": {
+          "count": 2673,
+          "pct": 59.4
+        }
+      }
+    }
+  },
+  "qvhighlights-timelens": {
+    "n": 1541,
+    "text_equal": {
+      "count": 163,
+      "pct": 10.577547047371837
+    },
+    "tokens_equal": {
+      "count": 163,
+      "pct": 10.577547047371837
+    },
+    "rounded_equal": {
+      "count": 319,
+      "pct": 20.70084360804672
+    },
+    "raw_equal": {
+      "count": 189,
+      "pct": 12.264763140817651
+    },
+    "parse_failed_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "parse_failed_qv": {
+      "count": 20,
+      "pct": 1.2978585334198571
+    },
+    "truncated_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "truncated_qv": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_qv": {
+      "count": 205,
+      "pct": 13.303049967553537
+    },
+    "out_of_bounds_vq": {
+      "count": 4,
+      "pct": 0.25957170668397145
+    },
+    "out_of_bounds_qv": {
+      "count": 21,
+      "pct": 1.3627514600908501
+    },
+    "pair_iou": {
+      "n": 1316,
+      "mean": 0.5040781285060268,
+      "median": 0.5350985221674877,
+      "p90": 1.0
+    },
+    "raw_pair_iou": {
+      "n": 1412,
+      "mean": 0.4701713920068692,
+      "median": 0.42105263157894735,
+      "p90": 1.0
+    },
+    "start_abs_diff": {
+      "n": 1521,
+      "mean": 37.11308349769888,
+      "median": 2,
+      "p90": 117.0
+    },
+    "end_abs_diff": {
+      "n": 1521,
+      "mean": 42.99079552925707,
+      "median": 9,
+      "p90": 129.0
+    },
+    "start_shift": {
+      "n": 1521,
+      "mean": -34.05456936226167,
+      "median": 0,
+      "p90": 0.0
+    },
+    "end_shift": {
+      "n": 1521,
+      "mean": -33.144641683103224,
+      "median": -1,
+      "p90": 2.0
+    },
+    "normalized_max_endpoint_diff": {
+      "n": 1521,
+      "mean": 0.3136211329459953,
+      "median": 0.12,
+      "p90": 0.88
+    },
+    "iou_video_query": {
+      "n": 1541,
+      "mean": 0.5942038088687523,
+      "median": 0.6666666666666666,
+      "p90": 1.0
+    },
+    "iou_query_video": {
+      "n": 1541,
+      "mean": 0.3692582634546395,
+      "median": 0.15436241610738255,
+      "p90": 0.9846153846153847
+    },
+    "iou_delta": {
+      "n": 1541,
+      "mean": -0.22494554541411277,
+      "median": -0.0073521282476506356,
+      "p90": 0.1111111111111111
+    },
+    "pair_iou_ge_0.3": {
+      "count": 757,
+      "denominator": 1316,
+      "pct": 57.52279635258358
+    },
+    "pair_iou_ge_0.5": {
+      "count": 682,
+      "denominator": 1316,
+      "pct": 51.82370820668693
+    },
+    "pair_iou_ge_0.7": {
+      "count": 581,
+      "denominator": 1316,
+      "pct": 44.148936170212764
+    },
+    "pair_iou_ge_0.9": {
+      "count": 475,
+      "denominator": 1316,
+      "pct": 36.09422492401216
+    },
+    "both_endpoints_within_1s": {
+      "count": 549,
+      "denominator": 1521,
+      "pct": 36.094674556213015
+    },
+    "both_endpoints_within_2s": {
+      "count": 577,
+      "denominator": 1521,
+      "pct": 37.93556870479947
+    },
+    "both_endpoints_within_5s": {
+      "count": 630,
+      "denominator": 1521,
+      "pct": 41.42011834319526
+    },
+    "zero_overlap": {
+      "count": 400,
+      "denominator": 1316
+    },
+    "gt_comparison": {
+      "query_first_better": {
+        "count": 272,
+        "pct": 17.650876054510057
+      },
+      "video_first_better": {
+        "count": 782,
+        "pct": 50.74626865671642
+      },
+      "tie": {
+        "count": 487,
+        "pct": 31.602855288773522
+      }
+    },
+    "success": {
+      "0.3": {
+        "both_success": {
+          "count": 619,
+          "pct": 40.16872160934458
+        },
+        "video_only": {
+          "count": 519,
+          "pct": 33.679428942245295
+        },
+        "query_only": {
+          "count": 75,
+          "pct": 4.866969500324465
+        },
+        "both_fail": {
+          "count": 328,
+          "pct": 21.28487994808566
+        }
+      },
+      "0.5": {
+        "both_success": {
+          "count": 514,
+          "pct": 33.35496430889033
+        },
+        "video_only": {
+          "count": 478,
+          "pct": 31.018818948734587
+        },
+        "query_only": {
+          "count": 91,
+          "pct": 5.905256327060351
+        },
+        "both_fail": {
+          "count": 458,
+          "pct": 29.72096041531473
+        }
+      },
+      "0.7": {
+        "both_success": {
+          "count": 394,
+          "pct": 25.567813108371187
+        },
+        "video_only": {
+          "count": 367,
+          "pct": 23.815704088254382
+        },
+        "query_only": {
+          "count": 73,
+          "pct": 4.737183646982479
+        },
+        "both_fail": {
+          "count": 707,
+          "pct": 45.87929915639195
+        }
+      }
+    }
+  },
+  "all": {
+    "n": 9404,
+    "text_equal": {
+      "count": 874,
+      "pct": 9.293917481922586
+    },
+    "tokens_equal": {
+      "count": 874,
+      "pct": 9.293917481922586
+    },
+    "rounded_equal": {
+      "count": 1673,
+      "pct": 17.7903019991493
+    },
+    "raw_equal": {
+      "count": 957,
+      "pct": 10.176520629519354
+    },
+    "parse_failed_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "parse_failed_qv": {
+      "count": 68,
+      "pct": 0.7230965546575925
+    },
+    "truncated_vq": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "truncated_qv": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nonpositive_vq": {
+      "count": 3,
+      "pct": 0.031901318587834966
+    },
+    "nonpositive_qv": {
+      "count": 670,
+      "pct": 7.124627817949809
+    },
+    "out_of_bounds_vq": {
+      "count": 776,
+      "pct": 8.251807741386644
+    },
+    "out_of_bounds_qv": {
+      "count": 445,
+      "pct": 4.732028923862186
+    },
+    "pair_iou": {
+      "n": 8664,
+      "mean": 0.5248031674499244,
+      "median": 0.6,
+      "p90": 1.0
+    },
+    "raw_pair_iou": {
+      "n": 9026,
+      "mean": 0.503728530541849,
+      "median": 0.5714285714285714,
+      "p90": 1.0
+    },
+    "start_abs_diff": {
+      "n": 9336,
+      "mean": 24.84490145672665,
+      "median": 1.0,
+      "p90": 101.0
+    },
+    "end_abs_diff": {
+      "n": 9336,
+      "mean": 29.884104541559555,
+      "median": 1.0,
+      "p90": 114.0
+    },
+    "start_shift": {
+      "n": 9336,
+      "mean": -15.953084832904885,
+      "median": 0.0,
+      "p90": 1.0
+    },
+    "end_shift": {
+      "n": 9336,
+      "mean": -13.942587832047986,
+      "median": -1.0,
+      "p90": 8.0
+    },
+    "normalized_max_endpoint_diff": {
+      "n": 9336,
+      "mean": 0.25647901711863647,
+      "median": 0.06077488361355854,
+      "p90": 0.8074136854104258
+    },
+    "iou_video_query": {
+      "n": 9404,
+      "mean": 0.4941838815983384,
+      "median": 0.5,
+      "p90": 0.964788649127993
+    },
+    "iou_query_video": {
+      "n": 9404,
+      "mean": 0.3794639541686171,
+      "median": 0.290994623655914,
+      "p90": 0.967741935483871
+    },
+    "iou_delta": {
+      "n": 9404,
+      "mean": -0.11471992742972133,
+      "median": 0.0,
+      "p90": 0.19999999999999996
+    },
+    "pair_iou_ge_0.3": {
+      "count": 5667,
+      "denominator": 8664,
+      "pct": 65.40858725761773
+    },
+    "pair_iou_ge_0.5": {
+      "count": 4974,
+      "denominator": 8664,
+      "pct": 57.40997229916898
+    },
+    "pair_iou_ge_0.7": {
+      "count": 3706,
+      "denominator": 8664,
+      "pct": 42.774699907663894
+    },
+    "pair_iou_ge_0.9": {
+      "count": 2248,
+      "denominator": 8664,
+      "pct": 25.946445060018466
+    },
+    "both_endpoints_within_1s": {
+      "count": 3905,
+      "denominator": 9336,
+      "pct": 41.82733504712939
+    },
+    "both_endpoints_within_2s": {
+      "count": 4476,
+      "denominator": 9336,
+      "pct": 47.94344473007712
+    },
+    "both_endpoints_within_5s": {
+      "count": 5217,
+      "denominator": 9336,
+      "pct": 55.88046272493573
+    },
+    "zero_overlap": {
+      "count": 1907,
+      "denominator": 8664
+    },
+    "gt_comparison": {
+      "query_first_better": {
+        "count": 2405,
+        "pct": 25.57422373458103
+      },
+      "video_first_better": {
+        "count": 4028,
+        "pct": 42.832837090599746
+      },
+      "tie": {
+        "count": 2971,
+        "pct": 31.592939174819225
+      }
+    },
+    "success": {
+      "0.3": {
+        "both_success": {
+          "count": 4119,
+          "pct": 43.80051042109741
+        },
+        "video_only": {
+          "count": 2145,
+          "pct": 22.809442790302
+        },
+        "query_only": {
+          "count": 567,
+          "pct": 6.029349213100808
+        },
+        "both_fail": {
+          "count": 2573,
+          "pct": 27.36069757549979
+        }
+      },
+      "0.5": {
+        "both_success": {
+          "count": 3117,
+          "pct": 33.145470012760526
+        },
+        "video_only": {
+          "count": 1984,
+          "pct": 21.097405359421522
+        },
+        "query_only": {
+          "count": 678,
+          "pct": 7.209698000850702
+        },
+        "both_fail": {
+          "count": 3625,
+          "pct": 38.54742662696725
+        }
+      },
+      "0.7": {
+        "both_success": {
+          "count": 1832,
+          "pct": 19.48107188430455
+        },
+        "video_only": {
+          "count": 1409,
+          "pct": 14.982985963419821
+        },
+        "query_only": {
+          "count": 657,
+          "pct": 6.986388770735857
+        },
+        "both_fail": {
+          "count": 5506,
+          "pct": 58.54955338153977
+        }
+      }
+    }
+  }
+}

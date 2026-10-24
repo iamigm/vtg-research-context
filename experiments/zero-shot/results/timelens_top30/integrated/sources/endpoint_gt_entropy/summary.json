@@ -1,0 +1,311 @@
+{
+  "groups": [
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "endpoint": "start",
+      "n": 100,
+      "r50": 73.0,
+      "mean_endpoint_iou": 0.661014355819619,
+      "mean_absolute_error_seconds": 2.83,
+      "joint_failure_endpoint_success": 31,
+      "first_loss_count": 27,
+      "numeric_first_loss_count": 27,
+      "boundary_first_loss_count": 0,
+      "first_loss_entropy": 1.839594587131783,
+      "numeric_first_loss_entropy": 1.839594587131783,
+      "paired_count": 20,
+      "first_loss_minus_last_feasible_numeric_entropy": 1.0332136854529381,
+      "paired_difference_ci95": [
+        0.7855438540503382,
+        1.2674901129305356
+      ]
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "endpoint": "start",
+      "n": 100,
+      "r50": 67.0,
+      "mean_endpoint_iou": 0.6032465704349987,
+      "mean_absolute_error_seconds": 11.83,
+      "joint_failure_endpoint_success": 40,
+      "first_loss_count": 33,
+      "numeric_first_loss_count": 33,
+      "boundary_first_loss_count": 0,
+      "first_loss_entropy": 1.8745623244762872,
+      "numeric_first_loss_entropy": 1.8745623244762872,
+      "paired_count": 17,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.1876488933339715,
+      "paired_difference_ci95": [
+        -0.212129948410096,
+        0.5411207945469547
+      ]
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "start",
+      "n": 100,
+      "r50": 82.0,
+      "mean_endpoint_iou": 0.7195396409300231,
+      "mean_absolute_error_seconds": 8.51,
+      "joint_failure_endpoint_success": 58,
+      "first_loss_count": 18,
+      "numeric_first_loss_count": 18,
+      "boundary_first_loss_count": 0,
+      "first_loss_entropy": 1.697985397444831,
+      "numeric_first_loss_entropy": 1.697985397444831,
+      "paired_count": 11,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.7082600092346018,
+      "paired_difference_ci95": [
+        0.3918745384974913,
+        1.00606986338442
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "endpoint": "start",
+      "n": 100,
+      "r50": 82.0,
+      "mean_endpoint_iou": 0.7372829483382115,
+      "mean_absolute_error_seconds": 2.23,
+      "joint_failure_endpoint_success": 33,
+      "first_loss_count": 18,
+      "numeric_first_loss_count": 18,
+      "boundary_first_loss_count": 0,
+      "first_loss_entropy": 1.3215584997087717,
+      "numeric_first_loss_entropy": 1.3215584997087717,
+      "paired_count": 10,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.5844984360039234,
+      "paired_difference_ci95": [
+        0.07615778394043446,
+        1.0583085606805978
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "endpoint": "start",
+      "n": 96,
+      "r50": 68.75,
+      "mean_endpoint_iou": 0.6368172119301047,
+      "mean_absolute_error_seconds": 16.989583333333332,
+      "joint_failure_endpoint_success": 25,
+      "first_loss_count": 30,
+      "numeric_first_loss_count": 30,
+      "boundary_first_loss_count": 0,
+      "first_loss_entropy": 1.218448490401109,
+      "numeric_first_loss_entropy": 1.218448490401109,
+      "paired_count": 13,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.4134829262128243,
+      "paired_difference_ci95": [
+        0.15577900744974615,
+        0.6520388882893782
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "start",
+      "n": 98,
+      "r50": 74.48979591836735,
+      "mean_endpoint_iou": 0.7181110759341188,
+      "mean_absolute_error_seconds": 13.306122448979592,
+      "joint_failure_endpoint_success": 12,
+      "first_loss_count": 25,
+      "numeric_first_loss_count": 23,
+      "boundary_first_loss_count": 2,
+      "first_loss_entropy": 0.9672016756236553,
+      "numeric_first_loss_entropy": 0.9456551896165246,
+      "paired_count": 16,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.14637941517867148,
+      "paired_difference_ci95": [
+        -0.19430449289502574,
+        0.4773449131695088
+      ]
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "endpoint": "end",
+      "n": 100,
+      "r50": 56.00000000000001,
+      "mean_endpoint_iou": 0.5330645363519295,
+      "mean_absolute_error_seconds": 4.42,
+      "joint_failure_endpoint_success": 14,
+      "first_loss_count": 44,
+      "numeric_first_loss_count": 43,
+      "boundary_first_loss_count": 1,
+      "first_loss_entropy": 1.3589248252964437,
+      "numeric_first_loss_entropy": 1.3905272902704255,
+      "paired_count": 23,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.8537110923719845,
+      "paired_difference_ci95": [
+        0.4905923870584482,
+        1.1728610398748929
+      ]
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "endpoint": "end",
+      "n": 100,
+      "r50": 43.0,
+      "mean_endpoint_iou": 0.4208521803065806,
+      "mean_absolute_error_seconds": 19.44,
+      "joint_failure_endpoint_success": 16,
+      "first_loss_count": 57,
+      "numeric_first_loss_count": 56,
+      "boundary_first_loss_count": 1,
+      "first_loss_entropy": 0.9676500097575308,
+      "numeric_first_loss_entropy": 0.984925147645429,
+      "paired_count": 36,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.7799704359949575,
+      "paired_difference_ci95": [
+        0.5215262229818475,
+        1.010059531493302
+      ]
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "end",
+      "n": 100,
+      "r50": 45.0,
+      "mean_endpoint_iou": 0.4348146945282481,
+      "mean_absolute_error_seconds": 19.56,
+      "joint_failure_endpoint_success": 21,
+      "first_loss_count": 55,
+      "numeric_first_loss_count": 54,
+      "boundary_first_loss_count": 1,
+      "first_loss_entropy": 0.9988562832408744,
+      "numeric_first_loss_entropy": 1.0173533551183742,
+      "paired_count": 31,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.81811817128491,
+      "paired_difference_ci95": [
+        0.565086999600742,
+        1.063463899509236
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "endpoint": "end",
+      "n": 100,
+      "r50": 63.0,
+      "mean_endpoint_iou": 0.5617073314757138,
+      "mean_absolute_error_seconds": 4.23,
+      "joint_failure_endpoint_success": 14,
+      "first_loss_count": 37,
+      "numeric_first_loss_count": 34,
+      "boundary_first_loss_count": 3,
+      "first_loss_entropy": 1.315879391040653,
+      "numeric_first_loss_entropy": 1.357455759514671,
+      "paired_count": 21,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.8808251047323991,
+      "paired_difference_ci95": [
+        0.41576104960175664,
+        1.2955654322556387
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "endpoint": "end",
+      "n": 96,
+      "r50": 55.208333333333336,
+      "mean_endpoint_iou": 0.5068495600138302,
+      "mean_absolute_error_seconds": 21.427083333333332,
+      "joint_failure_endpoint_success": 12,
+      "first_loss_count": 43,
+      "numeric_first_loss_count": 41,
+      "boundary_first_loss_count": 2,
+      "first_loss_entropy": 1.0565225258487823,
+      "numeric_first_loss_entropy": 1.1077385493896346,
+      "paired_count": 26,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.879681351673534,
+      "paired_difference_ci95": [
+        0.48137864558988724,
+        1.2194576887736241
+      ]
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "end",
+      "n": 98,
+      "r50": 77.55102040816327,
+      "mean_endpoint_iou": 0.7101420612314218,
+      "mean_absolute_error_seconds": 13.46938775510204,
+      "joint_failure_endpoint_success": 15,
+      "first_loss_count": 22,
+      "numeric_first_loss_count": 19,
+      "boundary_first_loss_count": 3,
+      "first_loss_entropy": 0.8500013957102717,
+      "numeric_first_loss_entropy": 0.868214524042981,
+      "paired_count": 13,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.3349780099854867,
+      "paired_difference_ci95": [
+        -0.28180152390106317,
+        0.8197355312707187
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_00646",
+      "answer": "The event happens in 1:09.0 - 1:13.0 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01308",
+      "answer": "The event happens in 1:36.0 - 1:40.0 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03109",
+      "answer": "The event happens in 2:13 - 2:16 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03113",
+      "answer": "The event happens in 2:36 - 2:39 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00147",
+      "answer": "The event happens in 2:12 - 2:14 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00334",
+      "answer": "The event happens in 1:11 - 1:18 seconds.",
+      "reason": "outside seconds with at most one decimal grammar"
+    }
+  ],
+  "thresholds": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "validation": {
+    "exhaustive_oracle_checks": 2000,
+    "monotone_prefix_oracle": true,
+    "final_matches_fixed_gt_endpoint_iou": true,
+    "original_distributions_unchanged": true
+  }
+}

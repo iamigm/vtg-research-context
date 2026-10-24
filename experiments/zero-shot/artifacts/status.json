@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-10-23T23:59:51.497904+09:00",
+  "state": "complete",
+  "completed": 18808,
+  "total": 18808,
+  "percent": 100.0,
+  "added": 0,
+  "counts": {
+    "qwen25": {
+      "activitynet-timelens": 4500,
+      "charades-timelens": 3363,
+      "qvhighlights-timelens": 1541
+    },
+    "qwen3": {
+      "activitynet-timelens": 4500,
+      "charades-timelens": 3363,
+      "qvhighlights-timelens": 1541
+    }
+  },
+  "sha256_verified_on_ingest": true
+}

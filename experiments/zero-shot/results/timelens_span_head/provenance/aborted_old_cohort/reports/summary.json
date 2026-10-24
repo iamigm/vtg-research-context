@@ -1,0 +1,225 @@
+{
+  "complete": false,
+  "groups": {
+    "qwen25/charades-timelens": {
+      "baseline": {
+        "n": 15,
+        "mIoU": 45.80547793591272,
+        "R1@0.3": 73.33333333333333,
+        "R1@0.5": 46.666666666666664,
+        "R1@0.7": 26.666666666666668,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "no_overlap": 1,
+        "out_of_bounds": 1,
+        "mean_output_tokens": 17.333333333333332,
+        "token_limit": 0
+      },
+      "restricted": {
+        "n": 15,
+        "mIoU": 41.068579568579565,
+        "R1@0.3": 60.0,
+        "R1@0.5": 40.0,
+        "R1@0.7": 26.666666666666668,
+        "parse_failures": 0,
+        "invalid_intervals": 1,
+        "no_overlap": 2,
+        "out_of_bounds": 2,
+        "mean_output_tokens": 13.2,
+        "token_limit": 0
+      },
+      "delta_percentage_points": {
+        "mIoU": -4.736898367333154,
+        "R1@0.3": -13.333333333333329,
+        "R1@0.5": -6.666666666666664,
+        "R1@0.7": 0.0
+      },
+      "success_to_failure": 1,
+      "failure_to_success": 0,
+      "identical_spans": 5,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -17.117065563261217,
+          4.339965509530723
+        ],
+        "R1_05": [
+          -20.0,
+          0.0
+        ]
+      }
+    },
+    "qwen3/charades-timelens": {
+      "baseline": {
+        "n": 5,
+        "mIoU": 61.49769585253456,
+        "R1@0.3": 80.0,
+        "R1@0.5": 80.0,
+        "R1@0.7": 60.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "no_overlap": 1,
+        "out_of_bounds": 1,
+        "mean_output_tokens": 17.8,
+        "token_limit": 0
+      },
+      "restricted": {
+        "n": 5,
+        "mIoU": 68.43378607809846,
+        "R1@0.3": 100.0,
+        "R1@0.5": 80.0,
+        "R1@0.7": 40.0,
+        "parse_failures": 0,
+        "invalid_intervals": 0,
+        "no_overlap": 0,
+        "out_of_bounds": 1,
+        "mean_output_tokens": 24.8,
+        "token_limit": 0
+      },
+      "delta_percentage_points": {
+        "mIoU": 6.936090225563902,
+        "R1@0.3": 20.0,
+        "R1@0.5": 0.0,
+        "R1@0.7": -20.0
+      },
+      "success_to_failure": 1,
+      "failure_to_success": 1,
+      "identical_spans": 2,
+      "bootstrap_95ci_percentage_points": {
+        "mIoU": [
+          -23.928571428571423,
+          34.73684210526316
+        ],
+        "R1_05": [
+          -60.0,
+          60.0
+        ]
+      }
+    }
+  },
+  "comparison": "Saved original zero-shot vs same prompt and visual input with alphabet-restricted output head; no training or grammar enforcement",
+  "baseline_source": "/home/irteam/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/setting_case_metrics.json",
+  "baseline_sha256": "04686bfe67f1b9234ebf912b70a9b116afca2b7e12d73a94c58af4b5668bd658",
+  "baseline_reproduction": [
+    {
+      "sample_id": "charades-timelens/FLLUJ/2",
+      "saved_answer": "The event happens in 0.0 - 21.4 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 21.4 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          0,
+          21
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          0,
+          21
+        ]
+      ],
+      "model": "qwen25"
+    },
+    {
+      "sample_id": "charades-timelens/T42IZ/0",
+      "saved_answer": "The event happens in 20.1 - 25.4 seconds.",
+      "reproduced_answer": "The event happens in 20.1 - 25.4 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          20,
+          25
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          20,
+          25
+        ]
+      ],
+      "model": "qwen25"
+    },
+    {
+      "sample_id": "charades-timelens/0FM93/1",
+      "saved_answer": "The event happens in 18.0 - 23.0 seconds.",
+      "reproduced_answer": "The event happens in 18.0 - 23.0 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          18,
+          23
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          18,
+          23
+        ]
+      ],
+      "model": "qwen25"
+    },
+    {
+      "sample_id": "charades-timelens/FLLUJ/2",
+      "saved_answer": "The event happens in 0.0 - 30.6 seconds.",
+      "reproduced_answer": "The event happens in 0.0 - 30.6 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          0,
+          31
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          0,
+          31
+        ]
+      ],
+      "model": "qwen3"
+    },
+    {
+      "sample_id": "charades-timelens/T42IZ/0",
+      "saved_answer": "The event happens in 21.5 - 25.5 seconds.",
+      "reproduced_answer": "The event happens in 21.5 - 25.5 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          22,
+          26
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          22,
+          26
+        ]
+      ],
+      "model": "qwen3"
+    },
+    {
+      "sample_id": "charades-timelens/0FM93/1",
+      "saved_answer": "The event happens in 32.0 - 38.0 seconds.",
+      "reproduced_answer": "The event happens in 32.0 - 38.0 seconds.",
+      "exact_match": true,
+      "saved_timestamps": [
+        [
+          32,
+          38
+        ]
+      ],
+      "reproduced_timestamps": [
+        [
+          32,
+          38
+        ]
+      ],
+      "model": "qwen3"
+    }
+  ],
+  "validation": {
+    "unique_sample_ids": true,
+    "all_output_tokens_allowed": true,
+    "input_token_counts_and_video_grids_match": true,
+    "official_parser_rounding_and_iou_match": true
+  },
+  "speed_comparison": "Historical timings are not comparable to concurrent runs; only output token counts are compared."
+}

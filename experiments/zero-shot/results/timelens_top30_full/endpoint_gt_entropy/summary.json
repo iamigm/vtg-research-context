@@ -1,0 +1,1523 @@
+{
+  "excluded": [
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_00646",
+      "answer": "The event happens in 1:09.0 - 1:13.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_00697",
+      "answer": "The event happens in 1:13.0 - 1:19.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_00964",
+      "answer": "The event happens in 1:16 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01172",
+      "answer": "The event happens in 1:13 - 1:15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01182",
+      "answer": "The event happens in 0:29 - 0:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01185",
+      "answer": "The event happens in 1:05 - 1:10 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01186",
+      "answer": "The event happens in 0:02 - 0:04 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01190",
+      "answer": "The event happens in 6 seconds - 15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01285",
+      "answer": "The event happens in 1:20 - 1:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01308",
+      "answer": "The event happens in 1:36.0 - 1:40.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01320",
+      "answer": "The event happens in 1:36 - 1:39 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01359",
+      "answer": "The event happens in 1:22 - 1:26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01361",
+      "answer": "The event happens in 1:17 - 1:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01389",
+      "answer": "The event happens in 1:19 - 1:22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01414",
+      "answer": "The event happens in 1:37.0 - 1:38.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01433",
+      "answer": "The event happens in 1:33 - 1:39 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01472",
+      "answer": "The event happens in 1:12 - 1:15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01473",
+      "answer": "The event happens in 1:11 - 1:13 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01489",
+      "answer": "The event happens in 5 seconds - 113 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01529",
+      "answer": "The event happens in 1:10 - 1:14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01555",
+      "answer": "The event happens in 1:33 - 1:36 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01617",
+      "answer": "The event happens in 1:18 - 1:37 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01666",
+      "answer": "The event happens in 5 seconds - 101 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01758",
+      "answer": "The event happens in 1:16 - 1:22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01759",
+      "answer": "The event happens in 1:16 - 1:21 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01818",
+      "answer": "The event happens in 7 seconds - 11 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01824",
+      "answer": "The event happens in 1:01 - 1:18 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01852",
+      "answer": "The event happens in 12 seconds - 20 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01883",
+      "answer": "The event happens in 1:28 - 1:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01925",
+      "answer": "The event happens in 5 seconds - 12 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_01966",
+      "answer": "The event happens in 4 seconds - 15 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02008",
+      "answer": "The event happens in 1:17 - 1:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02040",
+      "answer": "The event happens in 1:13 - 1:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02044",
+      "answer": "The event happens in 5 seconds - 126 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02058",
+      "answer": "The event happens in 1:17 - 1:27 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02140",
+      "answer": "The event happens in 11 seconds - 133 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02143",
+      "answer": "The event happens in 1:24 - 1:26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02148",
+      "answer": "The event happens in 2:05 - 2:07 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02209",
+      "answer": "The event happens in 1:22 - 1:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02239",
+      "answer": "The event happens in 1:20 - 1:36 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02335",
+      "answer": "The event happens in 2:20 - 2:23 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02423",
+      "answer": "The event happens in 7 seconds - 10 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02480",
+      "answer": "The event happens in 1:10 - 1:13 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02494",
+      "answer": "The event happens in 1:24 - 1:40 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02515",
+      "answer": "The event happens in 5 seconds - 11 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02520",
+      "answer": "The event happens in 2:25 - 2:28 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02560",
+      "answer": "The event happens in 1:14 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02618",
+      "answer": "The event happens in 4 seconds - 11 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02663",
+      "answer": "The event happens in 8 seconds - 30 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02671",
+      "answer": "The event happens in 9 seconds - 15 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02695",
+      "answer": "The event happens in 5 seconds - 10 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02697",
+      "answer": "The event happens in 4 seconds - 19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02722",
+      "answer": "The event happens in 16 seconds - 41 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02735",
+      "answer": "The event happens in 2:12 - 2:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02805",
+      "answer": "The event happens in 5 seconds - 14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02806",
+      "answer": "The event happens in 5 seconds - 14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02851",
+      "answer": "The event happens in 2:00 - 2:03 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02860",
+      "answer": "The event happens in 2:25 - 2:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_02889",
+      "answer": "The event happens in 2:23 - 2:42 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03029",
+      "answer": "The event happens in 4 seconds - 6 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03030",
+      "answer": "The event happens in 12 seconds - 26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03032",
+      "answer": "The event happens in 2:17 - 2:37 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03087",
+      "answer": "The event happens in 1:15 - 1:18 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03109",
+      "answer": "The event happens in 2:13 - 2:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03113",
+      "answer": "The event happens in 2:36 - 2:39 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03138",
+      "answer": "The event happens in 2:20 - 2:32 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03178",
+      "answer": "The event happens in 2:55 - 2:58 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03179",
+      "answer": "The event happens in 3:09 - 3:22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03194",
+      "answer": "The event happens in 2:18 - 3:13 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03200",
+      "answer": "The event happens in 2:58 - 3:00 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03206",
+      "answer": "The event happens in 1:25 - 1:30 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03208",
+      "answer": "The event happens in 1:13 - 1:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03222",
+      "answer": "The event happens in 1:25 - 1:27 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03238",
+      "answer": "The event happens in 4 seconds - 9 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03270",
+      "answer": "The event happens in 1:14 - 1:20 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03276",
+      "answer": "The event happens in 4 seconds - 7 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03279",
+      "answer": "The event happens in 8 seconds - 203 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03291",
+      "answer": "The event happens in 15 seconds - 18 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03315",
+      "answer": "The event happens in 3:09 - 3:29 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03376",
+      "answer": "The event happens in 1:10 - 1:27 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03381",
+      "answer": "The event happens in 4 seconds - 193 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03396",
+      "answer": "The event happens in 10 seconds - 20 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03414",
+      "answer": "The event happens in 3:01 - 3:06 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03426",
+      "answer": "The event happens in 3:05 - 3:15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03427",
+      "answer": "The event happens in 3:04 - 3:26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03428",
+      "answer": "The event happens in 3:06 - 3:08 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03431",
+      "answer": "The event happens in 2:52 - 2:55 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03435",
+      "answer": "The event happens in 2:23 - 2:26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03446",
+      "answer": "The event happens in 5 seconds - 197 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03451",
+      "answer": "The event happens in 5 seconds - 26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03455",
+      "answer": "The event happens in 1:15 - 1:22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03466",
+      "answer": "The event happens in 2:22 - 2:28 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03470",
+      "answer": "The event happens in 1:33 - 1:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03471",
+      "answer": "The event happens in 8 seconds - 24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03488",
+      "answer": "The event happens in 2:51 - 2:55 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03489",
+      "answer": "The event happens in 12 seconds - 19 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03506",
+      "answer": "The event happens in 11 seconds - 14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03515",
+      "answer": "The event happens in 8 seconds - 34 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03528",
+      "answer": "The event happens in 7 seconds - 187 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03542",
+      "answer": "The event happens in 2:56 - 2:58 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03572",
+      "answer": "The event happens in 1:13 - 1:25 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03573",
+      "answer": "The event happens in 10 seconds - 36 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03582",
+      "answer": "The event happens in 11 seconds - 198 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03586",
+      "answer": "The event happens in 2:16 - 3:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03601",
+      "answer": "The event happens in 5 seconds - 22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03613",
+      "answer": "The event happens in 10 seconds - 13 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03628",
+      "answer": "The event happens in 2:28 - 2:32 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03629",
+      "answer": "The event happens in 2:53 - 2:57 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03641",
+      "answer": "The event happens in 12 seconds - 14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03644",
+      "answer": "The event happens in 2:50 - 2:52 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03651",
+      "answer": "The event happens in 8 seconds - 13 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03657",
+      "answer": "The event happens in 1:08 - 1:10 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03664",
+      "answer": "The event happens in 18 seconds - 45 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03667",
+      "answer": "The event happens in 13 seconds - 25 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03676",
+      "answer": "The event happens in 1:34 - 3:07 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03688",
+      "answer": "The event happens in 12 seconds - 175 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03700",
+      "answer": "The event happens in 2:11 - 2:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03704",
+      "answer": "The event happens in 1:14 - 1:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03718",
+      "answer": "The event happens in 1:06 - 1:14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03734",
+      "answer": "The event happens in 3:15 - 3:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03738",
+      "answer": "The event happens in 1:08 - 1:12 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03757",
+      "answer": "The event happens in 1:26 - 1:31 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03772",
+      "answer": "The event happens in 18 seconds - 21 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03812",
+      "answer": "The event happens in 1:14 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03819",
+      "answer": "The event happens in 3:27 - 3:30 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03851",
+      "answer": "The event happens in 2:07 - 2:10 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03854",
+      "answer": "The event happens in 3:30 - 3:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03857",
+      "answer": "The event happens in 2:58 - 3:00 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03860",
+      "answer": "The event happens in 3:25 - 3:32 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03896",
+      "answer": "The event happens in 3:28 - 3:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03899",
+      "answer": "The event happens in 3:34 - 3:36 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03941",
+      "answer": "The event happens in 3 seconds - 6 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03957",
+      "answer": "The event happens in 3:03 - 3:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03963",
+      "answer": "The event happens in 3:02 - 3:06 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_03985",
+      "answer": "The event happens in 1:09 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04010",
+      "answer": "The event happens in 1:09 - 1:23 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04013",
+      "answer": "The event happens in 1:09 - 1:23 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04027",
+      "answer": "The event happens in 2:13 - 2:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04052",
+      "answer": "The event happens in 1:15 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04080",
+      "answer": "The event happens in 2:50 - 2:55 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04089",
+      "answer": "The event happens in 4 seconds - 23 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04091",
+      "answer": "The event happens in 1:17 - 1:21 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04099",
+      "answer": "The event happens in 3:04 - 3:07 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04112",
+      "answer": "The event happens in 2:30.0 - 2:37.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04127",
+      "answer": "The event happens in 4 seconds - 12 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04169",
+      "answer": "The event happens in 4 seconds - 7 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04183",
+      "answer": "The event happens in 2:54 - 3:12 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04185",
+      "answer": "The event happens in 2:18 - 2:25 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04188",
+      "answer": "The event happens in 5 seconds - 48 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04215",
+      "answer": "The event happens in 3:33 - 3:36 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04219",
+      "answer": "The event happens in 7 seconds - 220 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04241",
+      "answer": "The event happens in 3:00 - 3:05 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04242",
+      "answer": "The event happens in 3:40 - 3:45 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04281",
+      "answer": "The event happens in 1:25 - 1:27 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04325",
+      "answer": "The event happens in 3:40 - 3:43 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04331",
+      "answer": "The event happens in 3:41 - 3:47 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04339",
+      "answer": "The event happens in 3:47.0 - 3:50.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04346",
+      "answer": "The event happens in 4 seconds - 9 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04350",
+      "answer": "The event happens in 3 seconds - 5 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04352",
+      "answer": "The event happens in 1:10 - 1:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04354",
+      "answer": "The event happens in 4 seconds - 11 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04381",
+      "answer": "The event happens in 1:20 - 1:25 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04396",
+      "answer": "The event happens in 2:31 - 2:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04408",
+      "answer": "The event happens in 3:55.0 - 3:57.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04446",
+      "answer": "The event happens in 3:32 - 3:44 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "sample_key": "activitynet-timelens_04497",
+      "answer": "The event happens in 12 seconds - 135 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00051",
+      "answer": "The event happens in 2:15 - 2:28 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00080",
+      "answer": "The event happens in 1:35 - 1:38 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00120",
+      "answer": "The event happens in 1:15 - 2:29 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00147",
+      "answer": "The event happens in 2:12 - 2:14 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00159",
+      "answer": "The event happens in 1:18 - 1:22 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00170",
+      "answer": "The event happens in 1:09 - 1:15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00249",
+      "answer": "The event happens in 2:12 - 2:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00255",
+      "answer": "The event happens in 1:19 - 1:21 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00269",
+      "answer": "The event happens in 1:17.0 - 2:29.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00281",
+      "answer": "The event happens in 1:15 - 1:17 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00304",
+      "answer": "The event happens in 2:13 - 2:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00334",
+      "answer": "The event happens in 1:11 - 1:18 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00373",
+      "answer": "The event happens in 1:10 - 1:28 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00399",
+      "answer": "The event happens in 1:09 - 1:11 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00412",
+      "answer": "The event happens in 1:21 - 1:26 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00463",
+      "answer": "The event happens in 4 seconds - 28 seconds seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00561",
+      "answer": "The event happens in 1:13 - 1:28 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00629",
+      "answer": "The event happens in 1:12 - 1:21 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00655",
+      "answer": "The event happens in 1:10 - 2:09 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00671",
+      "answer": "The event happens in 1:47 - 1:56 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00696",
+      "answer": "The event happens in 1:13 - 1:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00703",
+      "answer": "The event happens in 2:15 - 2:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00716",
+      "answer": "The event happens in 2:05 - 2:29 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00726",
+      "answer": "The event happens in 1:07.0 - 1:12.0 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00813",
+      "answer": "The event happens in 1:10 - 2:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00817",
+      "answer": "The event happens in 1:38 - 1:40 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00843",
+      "answer": "The event happens in 1:31 - 1:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00851",
+      "answer": "The event happens in 1:30 - 1:33 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00950",
+      "answer": "The event happens in 1:34 - 2:29 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_00975",
+      "answer": "The event happens in 1:13 - 1:16 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01041",
+      "answer": "The event happens in 1:20 - 1:23 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01045",
+      "answer": "The event happens in 1:14 - 2:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01061",
+      "answer": "The event happens in 1:14 - 1:45 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01081",
+      "answer": "The event happens in 7 seconds - 18 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01098",
+      "answer": "The event happens in 7 seconds - 117 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01146",
+      "answer": "The event happens in 4 seconds - 19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01190",
+      "answer": "The event happens in 2:02 - 2:29 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01198",
+      "answer": "The event happens in 1:35 - 1:47 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01203",
+      "answer": "The event happens in 14 seconds - 47 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01212",
+      "answer": "The event happens in 2:17 - 2:30 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01253",
+      "answer": "The event happens in 1:17 - 2:03 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01322",
+      "answer": "The event happens in 1:10 - 1:24 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01333",
+      "answer": "The event happens in 1:32 - 1:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01362",
+      "answer": "The event happens in 1:12 - 1:15 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01380",
+      "answer": "The event happens in 14 seconds - 150 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01381",
+      "answer": "The event happens in 1:17 - 1:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01419",
+      "answer": "The event happens in 1:49 - 2:19 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01427",
+      "answer": "The event happens in 1:20 - 1:23 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01436",
+      "answer": "The event happens in 1:12 - 1:20 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01470",
+      "answer": "The event happens in 1:13 - 1:50 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "sample_key": "qvhighlights-timelens_01486",
+      "answer": "The event happens in 1:29 - 1:35 seconds.",
+      "reason": "outside canonical nonnegative seconds with at most one decimal"
+    }
+  ]
+}

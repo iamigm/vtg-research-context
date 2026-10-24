@@ -1,0 +1,55 @@
+{
+  "expected_pairs": 9404,
+  "completed_pairs": 9404,
+  "completed_runs": 18808,
+  "datasets": {
+    "charades-timelens": {
+      "video_query": {
+        "completed": 3363,
+        "mean_gt_mass": 0.21105934120432418,
+        "truncated": 0
+      },
+      "query_video": {
+        "completed": 3363,
+        "mean_gt_mass": 0.1970989306528522,
+        "truncated": 0
+      },
+      "paired": {
+        "completed": 3363,
+        "mean_attention_tv": 0.14291207677622292
+      }
+    },
+    "activitynet-timelens": {
+      "video_query": {
+        "completed": 4500,
+        "mean_gt_mass": 0.21511801734311228,
+        "truncated": 0
+      },
+      "query_video": {
+        "completed": 4500,
+        "mean_gt_mass": 0.18436241462578842,
+        "truncated": 0
+      },
+      "paired": {
+        "completed": 4500,
+        "mean_attention_tv": 0.23652176648550025
+      }
+    },
+    "qvhighlights-timelens": {
+      "video_query": {
+        "completed": 1541,
+        "mean_gt_mass": 0.27134113651373704,
+        "truncated": 0
+      },
+      "query_video": {
+        "completed": 1541,
+        "mean_gt_mass": 0.225310407550929,
+        "truncated": 0
+      },
+      "paired": {
+        "completed": 1541,
+        "mean_attention_tv": 0.25641111781313264
+      }
+    }
+  }
+}
