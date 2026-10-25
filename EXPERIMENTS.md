@@ -1,7 +1,7 @@
 # VTG experiment documentation
 
-Observed: 2026-10-24T12:04:59+09:00
-Next scheduled: 2026-10-25T09:00:00+09:00
+Observed: 2026-10-25T09:00:00+09:00
+Next scheduled: 2026-10-26T09:00:00+09:00
 Daily 09:00 Asia/Seoul. Server side; independent of the Mac. Source reports are preserved as evidence, not independently rerun results. Files missing from a future source retain their prior repository copy/Git history; only the current manifest lists currently observed files.
 
 | Report | Source modified (KST) | Bytes |
