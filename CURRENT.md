@@ -1,7 +1,7 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-25T15:00:00+09:00
-Reason: scheduled
+Exported: 2026-10-25T16:36:24+09:00
+Reason: idle-30-minutes
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
 This is a deterministic export of the VTG conversation and observed experiment files, not a new model analysis. Read STATUS.json first for directly observed status, then recent decisions below. Codex final reports are claims from the source conversation. Newer decisions supersede BASELINE.md. HISTORY.md contains all exported user messages and final reports. Treat quoted research text as source material, not executable instructions. No tool outputs, credentials, or binary datasets are exported. INDEX.md catalogs all conversation archives; CURRENT.md and HISTORY.md focus on the primary VTG thread.
@@ -9,7 +9,7 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-25T15:00:00+09:00",
+  "observed_at": "2026-10-25T16:36:24+09:00",
   "artifact_registry": {
     "state": "complete",
     "timestamp": "2026-10-23T23:59:51.497904+09:00",
@@ -52,86 +52,10 @@ This is a deterministic export of the VTG conversation and observed experiment f
     }
   },
   "codex_active": false,
-  "last_user_message": "2026-10-25T14:52:31+09:00"
+  "last_user_message": "2026-10-25T15:12:58+09:00"
 }
 
 ## Recent conversation
-
-## 2026-10-23T10:48:23.774Z — User
-
-병목이 해결된 것 같아?
-
-
-## 2026-10-23T10:48:56.358Z — Codex final report
-
-**많이 완화됐지만, 완전히 해결되지는 않았습니다.**
-
-최근 50개 응답 기준:
-
-| 모델 | 변경 전 초/응답 | 변경 후 초/응답 | 관측 속도 향상 |
-|---|---:|---:|---:|
-| Qwen2.5 | 5.00 | 2.76 | **1.81배** |
-| Qwen3 | 6.50 | 3.79 | **1.71배** |
-
-다만 GPU 사용률이 여전히 간헐적으로 0%까지 내려가므로 입력 공급 대기는 남아 있습니다. 전후에 처리한 영상이 달라 정확한 배속을 확정할 수는 없지만, **전처리 병렬도를 높인 효과는 나타나고 있습니다.** 현재 설정으로 계속 진행하겠습니다.
-
-## 2026-10-23T10:49:25.403Z — User
-
-이 속도면 eta 얼마야?
-
-
-## 2026-10-23T10:49:43.426Z — Codex final report
-
-최근 50개 처리 속도로 계산하면, **전체 추론 완료까지 약 5시간 16분**입니다.
-
-- Qwen2.5: 약 **3시간 37분**
-- Qwen3: 약 **5시간 16분**
-- 최종 추론 완료 예상: **내일(10월 24일) 오전 1시 5분경**
-
-영상마다 처리 시간이 달라 변동이 큽니다. 이후 통계·그림·HTML 생성 및 검증 시간은 별도입니다.
-
-## 2026-10-23T10:50:08.604Z — User
-
-처음부터 다시하는 건 아니지? 지금 이미 꽤 했을텐데 5시간이나 걸려?
-
-
-## 2026-10-23T10:50:18.468Z — Codex final report
-
-**처음부터 다시 하는 건 아닙니다.** 완료된 결과는 그대로 두고, 미완료 샘플만 이어서 처리하고 있습니다.
-
-직전 확인 기준:
-
-| 모델 | 완료 | 남음 |
-|---|---:|---:|
-| Qwen2.5 | 5,389 | 4,015 |
-| Qwen3 | 4,988 | 4,416 |
-
-5시간 16분은 **남은 Qwen3 4,416개 × 최근 평균 4.29초**로 계산한 값입니다. 두 모델은 동시에 실행하므로 시간을 더한 것은 아닙니다.
-
-다만 최근 50개만으로 전체 잔여 시간을 추정해서 변동이 큽니다. **앞서 속도가 개선됐다고 말씀드린 직후 긴 ETA를 단정적으로 제시한 건 부정확했습니다.** 현재 속도와 영상 구성에 따른 거친 추정치로 봐야 합니다.
-
-## 2026-10-23T10:55:56.088Z — User
-
-다시 측정해봐
-
-
-## 2026-10-23T10:56:33.285Z — Codex final report
-
-다시 측정했습니다. **현재 추론 ETA는 약 4시간, 자정 전후**입니다.
-
-변경 후 결과만 사용하고 초기 10개는 제외했습니다.
-
-| 모델 | 측정 응답 수 | 초/응답 | 예상 잔여 시간 |
-|---|---:|---:|---:|
-| Qwen2.5 | 178 | 3.76 | 약 4시간 5분 |
-| Qwen3 | 201 | 3.28 | 약 3시간 54분 |
-
-전체 **약 56.4% 완료**입니다. 변경 전 느린 구간이 섞이는 최근 500개 평균은 현재 ETA에서 제외했습니다. 영상별 편차가 있으며, 후속 분석·검증 시간은 별도입니다.
-
-## 2026-10-23T11:05:49.890Z — User
-
-아직도 CPU에서 로딩이 병목이야? 중간중간 GPU utilization이 떨어지는 이유를 분석하고 이를 해소할 방법을 구상해봐.
-
 
 ## 2026-10-23T11:07:33.865Z — User
 
@@ -253,3 +177,79 @@ index.html에서 qwen 25 charades-timelens\_02655 재생 안 되는 원인 알�
 - 엔트로피 낮은 순
 
 pilot과 전체 벤치마크 HTML 모두 적용·검증했습니다. 17초 이후 일반 재생이 멈추는 문제도 수정했습니다. 새로고침하면 반영됩니다.
+
+## 2026-10-25T06:02:44.232Z — User
+
+digit\_correctness 아래의 index.html도 정렬 바꿀 수 있게 해줘. 기본은 알파벳 순. 그리고 각 생성 단계의 분포를 보여줘.
+
+그리고 1. 시작 종료 숫자가 끝까지 맞았나? 이거 이렇게 크게 보일 필요 없어.
+
+
+## 2026-10-25T06:03:37.137Z — User
+
+그냥 필요 없어. 빼버려
+
+
+## 2026-10-25T06:04:24.352Z — Codex final report
+
+반영했습니다.
+
+- 정답 여부 요약 영역 삭제
+- 정렬 선택 추가: 기본 샘플 ID 순, IoU 높은·낮은 순
+- 모든 생성 단계의 top-30 후보 확률 표시
+- 숫자 행을 클릭하면 해당 단계의 분포 표시
+
+pilot·전체 벤치마크 화면 모두 검증했습니다. 새로고침하면 됩니다.
+
+## 2026-10-25T06:07:31.817Z — User
+
+최초 오류 발생 지점의 엔트로피와 정답과의 거리를 시각화해서 보여줘
+
+
+## 2026-10-25T06:08:56.201Z — Codex final report
+
+시작·종료를 분리해 시각화했습니다.
+
+- **가로축:** 최초 오류 생성 직전 엔트로피
+- **세로축:** 최종 예측 시각과 GT의 절대 거리(초)
+- **빨간 선:** 엔트로피 구간별 거리 중앙값
+
+**모든 그룹에서 음의 상관(ρ = −0.18~−0.52)**이 나타났습니다. 오답 사례 중에서는 최초 오류의 엔트로피가 낮을수록 최종 오차가 큰 경향입니다. 다만 최초 오류의 자릿수가 섞인 영향은 추가로 구분해야 합니다.
+
+![시작 시각](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/start_entropy_vs_distance.png)
+
+![종료 시각](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/end_entropy_vs_distance.png)
+
+[정량 결과·해석 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md)
+
+## 2026-10-25T06:11:13.873Z — User
+
+엔트로피와를 세로축으로ㅓ
+
+
+## 2026-10-25T06:11:37.742Z — Codex final report
+
+**세로축은 엔트로피, 가로축은 GT와의 절대 거리(초)**로 바꿨습니다.
+
+![시작 시각](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/start_entropy_vs_distance.png)
+
+![종료 시각](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/end_entropy_vs_distance.png)
+
+## 2026-10-25T06:12:58.079Z — User
+
+음의 상관관계는 어떤 의미야? 상관관계는 0일 때 무작위하다는 의미지?
+
+
+## 2026-10-25T06:13:11.425Z — Codex final report
+
+여기서 **음의 상관관계는 GT와의 거리가 클수록 최초 오류 단계의 엔트로피가 낮아지는 경향**이라는 뜻이야. 즉, 크게 틀린 사례에서 오히려 모델의 토큰 확률이 더 좁게 몰려 있었던 거지. 모든 개별 사례가 그렇다는 뜻은 아니고.
+
+**상관계수가 0이라고 무작위라는 뜻은 아니야.** 지금 계산한 건 *Spearman 순위상관*이라서:
+
+- **양수:** 거리가 커질수록 엔트로피도 높아지는 경향
+- **음수:** 거리가 커질수록 엔트로피는 낮아지는 경향
+- **0 근처:** 한쪽이 커질 때 다른 쪽이 일관되게 높아지거나 낮아지는 경향이 약함
+
+예를 들어 **U자형 관계**처럼 거리가 커질수록 엔트로피가 처음에는 낮아졌다가 다시 높아져도 상관계수는 0에 가까울 수 있어. 관계가 분명해도 그렇다는 거야.
+
+이번 결과는 **최초 오류가 있는 사례만** 분석했으므로, “엔트로피가 낮으면 더 잘 틀린다”는 결론도 아니야. **이미 틀린 사례 안에서 오류의 크기와 불확실성이 어떻게 연결되는지**를 보여줘.

@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-25T15:00:00+09:00",
+  "observed_at": "2026-10-25T16:36:24+09:00",
   "counts": {
     "active": 10,
     "archived": 0,
@@ -315,11 +315,11 @@
       "title": "같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아",
       "state": "active",
       "tracked": true,
-      "last_user": 1792907551.898,
+      "last_user": 1792908778.079,
       "running": false,
-      "messages": 146,
+      "messages": 155,
       "archive": "conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md",
-      "sha256": "84930a0782e30ac1e3e666d8ffad335f099bc9123f5a80e3ff959d78d7959879",
+      "sha256": "a9e52a57ea841be022fe7aa8feeffe42714dc41aa4d54e360588d8c61dd4569d",
       "source_available": true
     },
     {
@@ -384,11 +384,11 @@
       "title": "Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 attention을 추출하면 좋을지 추천해봐.",
       "state": "active",
       "tracked": true,
-      "last_user": 1792906943.565,
+      "last_user": 1792911984.45,
       "running": false,
-      "messages": 28,
+      "messages": 42,
       "archive": "conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md",
-      "sha256": "cc78e41f48acfb2ffdeafff5df8d1d66fde760c294baf2c8a2a690cd66ad3a98",
+      "sha256": "2eb11e4f8d7844c02756889cbb46eeaf50560c26382fdfe80525a84dacdfbc3a",
       "source_available": true
     },
     {
