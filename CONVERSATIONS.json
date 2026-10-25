@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-25T18:00:00+09:00",
+  "observed_at": "2026-10-25T21:00:00+09:00",
   "counts": {
-    "active": 10,
+    "active": 11,
     "archived": 0,
     "deleted": 18
   },
@@ -384,11 +384,11 @@
       "title": "Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 attention을 추출하면 좋을지 추천해봐.",
       "state": "active",
       "tracked": true,
-      "last_user": 1792911984.45,
+      "last_user": 1792924604.087,
       "running": false,
-      "messages": 42,
+      "messages": 44,
       "archive": "conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md",
-      "sha256": "2eb11e4f8d7844c02756889cbb46eeaf50560c26382fdfe80525a84dacdfbc3a",
+      "sha256": "62a02c2810fba5838f3f3065495afe6a546e5fd795891cea3ae3afee6d8c8e8a",
       "source_available": true
     },
     {
@@ -405,6 +405,19 @@
       "source_available": false,
       "deletion_reason": "archived_source_file_removed",
       "deleted_at": "2026-10-25T14:15:50+09:00"
+    },
+    {
+      "id": "01a172a6-e6ec-7360-aa6c-a9227f9b0bb0",
+      "first_seen": "2026-10-25T19:41:56+09:00",
+      "title": "Qwen Chat 서버 실행 방법",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1792929075.708,
+      "running": false,
+      "messages": 61,
+      "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
+      "sha256": "d91f9e44981a7874aeb7104fc8acb0daf977d71223cedc29966cd2823ca3ed32",
+      "source_available": true
     }
   ]
 }
