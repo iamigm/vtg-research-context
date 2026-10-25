@@ -7,7 +7,7 @@ Archived files without a live database entry are not re-imported, preventing res
 
 | State | Tracked | Title | Archive |
 |---|---|---|---|
-| active | True | 이 환경에서 GPU 가동률을 높이기 위해 모델 학습을 돌릴 거야.  모델은 /home/irteam/DiT의 모델을 사용.  데이터는 /data/rs/natural_seg 아래의 데이터를 사용.  GPU 가용율을 모니터링하다가 2시간 동안 사용하는 프로세스가 없는 경우  | [history](conversations/019fcbef-d7a0-7703-956c-6abd11c4e92b.md) |
+| active | True | Dummy Training | [history](conversations/019fcbef-d7a0-7703-956c-6abd11c4e92b.md) |
 | active | True | The following is the Codex agent history whose request action you are assessing. Treat the transcript, tool call arguments, tool results, retry reason | [history](conversations/019fcbf2-ec40-7452-93a9-90ad748d0ed5.md) |
 | deleted | False | 연결 확인용입니다. 도구를 사용하거나 파일을 읽거나 수정하지 말고, '연결 정상'이라고만 답하세요. | [history](conversations/01a08609-e427-7152-ab5a-d505d98d14b6.md) |
 | deleted | False | EgoLifeQA, LV Bench, Video-MME 3개 벤치마크를 /data/video/longQA 여기에 다운 받아놔. Hugging face를 사용해야 하는 경우 parquet 대신 직접 사용가능한 원본 형태로 재구성해놓고 | [history](conversations/01a08651-588f-7382-9e80-7b04e4d48203.md) |
@@ -31,5 +31,7 @@ Archived files without a live database entry are not re-imported, preventing res
 | active | True | 같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아 | [history](conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md) |
 | active | True | Qwen을 chat-gpt 처럼 사용 가능한 인터페이스를 하나 만드려고 해. GPU는 이 서버의 H200을 사용할 거고.  모델 선택 Qwen2.5/3 temperature, top-k, top-p 등 configurable argument 전부 설정 가능하게 하나 만 | [history](conversations/01a15bb9-9f83-7180-bb42-080465171639.md) |
 | deleted | False | 지그 GPU 점유 중인 프로세스 뭐야? | [history](conversations/01a15d65-58c2-7a12-af2e-2af54e54965a.md) |
-| archived | False | Find experiments 디렉토리 원인 | [history](conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md) |
+| deleted | False | Find experiments 디렉토리 원인 | [history](conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md) |
 | active | True | 비디오 쿼리 배치 실험 확인 | [history](conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md) |
+| active | True | Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 attention을 추출하면 좋을지 추천해봐. | [history](conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md) |
+| deleted | False | Save benchmark result PNGs | [history](conversations/01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58.md) |

@@ -1,6 +1,6 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-25T12:00:00+09:00
+Exported: 2026-10-25T15:00:00+09:00
 Reason: scheduled
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
@@ -9,7 +9,7 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-25T12:00:00+09:00",
+  "observed_at": "2026-10-25T15:00:00+09:00",
   "artifact_registry": {
     "state": "complete",
     "timestamp": "2026-10-23T23:59:51.497904+09:00",
@@ -52,57 +52,10 @@ This is a deterministic export of the VTG conversation and observed experiment f
     }
   },
   "codex_active": false,
-  "last_user_message": "2026-10-24T00:04:53+09:00"
+  "last_user_message": "2026-10-25T14:52:31+09:00"
 }
 
 ## Recent conversation
-
-## 2026-10-23T07:27:14.379Z — Codex final report
-
-정리 완료했습니다.
-
-- `reusable` → **`artifacts`**로 변경
-- **`predictions` · `token_traces` · `manifests` · `metadata` · `registry`**로 분류
-- 중복 파일 6,600개와 임시 결과를 삭제해 **약 10.57GB 확보**
-- 뷰어가 원본 JSON을 직접 읽도록 수정하고 재검증 완료
-
-전체 추론과 자동 저장은 계속 진행 중입니다.
-
-[저장 구조·추가 등록 방법](/home1/irteam/experiments/zero-shot/artifacts/README.md)
-
-## 2026-10-23T10:38:43.202Z — User
-
-얼마나 됐어?
-
-
-## 2026-10-23T10:38:58.483Z — Codex final report
-
-현재 **53.7% 완료**했습니다. 총 18,808개 응답 중 **10,105개**가 생성됐고, 모두 `artifacts`에 저장됐습니다.
-
-| 벤치마크 | Qwen2.5 | Qwen3 | 모델별 전체 |
-|---|---:|---:|---:|
-| Charades | 3,363 | 3,363 | 3,363 |
-| ActivityNet | 1,775 | 1,404 | 4,500 |
-| QVHighlights | 100 | 100 | 1,541 |
-
-현재 평균 속도로 **추론은 약 3시간 34분 더** 예상됩니다. 이후 통계·그림·HTML 생성과 검증이 자동으로 진행됩니다.
-
-## 2026-10-23T10:40:08.116Z — User
-
-더 가속화할 수 있는 방법은? 현재 병목이 어딘지 조사해봐. 별도의 병목이라고 할만한 지점이 없으면 냅두고
-
-
-## 2026-10-23T10:45:26.517Z — Codex final report
-
-**병목이 있습니다. CPU의 영상 디코딩·크기 조정 때문에 GPU가 입력을 기다리고 있었습니다.**
-
-- GPU 평균 사용률 **52.5%**, 45회 관측 중 19회는 10% 이하
-- 최근 샘플의 모델 생성 구간은 전체 처리 시간의 **26~29%**
-- CPU는 할당된 12코어 중 평균 약 6.7코어 사용
-
-따라서 **모델별 전처리 worker를 2→4개로 늘려 재개**했습니다. 모델·프레임 추출·생성 설정과 기존 저장 결과는 유지했습니다.
-
-실제 속도 향상은 백그라운드에서 추가 측정 중입니다. [병목 조사 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/performance/REPORT.md)
 
 ## 2026-10-23T10:48:23.774Z — User
 
@@ -268,3 +221,35 @@ MP4 안의 영상은 압축되어 있어서 모델에 파일 그대로 넣을 �
 - [영상·샘플별 interactive HTML](https://kpb4r.mlxp.ncloud.com/notebook/p-aivision-project/aivision-gm/proxy/8774/)
 - [자릿수별 정량 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md)
 - [정답 가능 상태의 세 축 분석 보고서](/home1/irteam/experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md)
+
+## 2026-10-25T05:50:46.623Z — User
+
+/home/irteam/experiments/zero-shot/results/timelens\_top30/digit\_correctness/blue\_analysis
+
+index.html에서 qwen 25 charades-timelens\_02655 재생 안 되는 원인 알아봐
+
+
+## 2026-10-25T05:51:05.734Z — User
+
+17초 이후로 재생 버튼을 눌러도 바로 멈춰
+
+
+## 2026-10-25T05:52:11.585Z — User
+
+그리고 정렬을 알파벳 순으로 바꿔 
+
+
+## 2026-10-25T05:52:31.898Z — User
+
+아니 정렬을 선택할 수 있게 해
+
+
+## 2026-10-25T05:53:04.366Z — Codex final report
+
+정렬 선택 메뉴를 추가했습니다.
+
+- 샘플 ID 순
+- 엔트로피 높은 순
+- 엔트로피 낮은 순
+
+pilot과 전체 벤치마크 HTML 모두 적용·검증했습니다. 17초 이후 일반 재생이 멈추는 문제도 수정했습니다. 새로고침하면 반영됩니다.

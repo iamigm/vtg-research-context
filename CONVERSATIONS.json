@@ -1,22 +1,22 @@
 {
-  "observed_at": "2026-10-25T12:00:00+09:00",
+  "observed_at": "2026-10-25T15:00:00+09:00",
   "counts": {
-    "active": 9,
-    "archived": 1,
-    "deleted": 16
+    "active": 10,
+    "archived": 0,
+    "deleted": 18
   },
   "conversations": [
     {
       "id": "019fcbef-d7a0-7703-956c-6abd11c4e92b",
       "first_seen": "2026-10-23T17:44:34+09:00",
-      "title": "이 환경에서 GPU 가동률을 높이기 위해 모델 학습을 돌릴 거야.\n\n모델은 /home/irteam/DiT의 모델을 사용.\n\n데이터는 /data/rs/natural_seg 아래의 데이터를 사용.\n\nGPU 가용율을 모니터링하다가 2시간 동안 사용하는 프로세스가 없는 경우 자동으로 다시 학습 시작하도록.\n\n그리고 GPU 가용률 99%가 되는 세팅을 너가 여러번의 시도를 통해 직접 찾아봐",
+      "title": "Dummy Training",
       "state": "active",
       "tracked": true,
-      "last_user": 1792458304.809,
+      "last_user": 1792904971.555,
       "running": false,
-      "messages": 20,
+      "messages": 24,
       "archive": "conversations/019fcbef-d7a0-7703-956c-6abd11c4e92b.md",
-      "sha256": "2d0077ff83a93238badeef75dcebbe3af790e629aa075223a7cad142e342a3d9",
+      "sha256": "40bd194494f58af7c10e4473e735f2858f0bf14231aceb6720f6d8954491effb",
       "source_available": true
     },
     {
@@ -315,11 +315,11 @@
       "title": "같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아",
       "state": "active",
       "tracked": true,
-      "last_user": 1792767893.521,
+      "last_user": 1792907551.898,
       "running": false,
-      "messages": 141,
+      "messages": 146,
       "archive": "conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md",
-      "sha256": "deb6f9d9d06b2b8b48eb0d99b9e444172da6ea3f75b39bd491b8f0ee5fd2f6cb",
+      "sha256": "84930a0782e30ac1e3e666d8ffad335f099bc9123f5a80e3ff959d78d7959879",
       "source_available": true
     },
     {
@@ -354,14 +354,16 @@
       "id": "01a16858-dc44-7e32-a8b8-06297693ee84",
       "first_seen": "2026-10-23T19:40:42+09:00",
       "title": "Find experiments 디렉토리 원인",
-      "state": "archived",
+      "state": "deleted",
       "tracked": false,
       "last_user": 1792752252.313,
       "running": false,
       "messages": 4,
       "archive": "conversations/01a16858-dc44-7e32-a8b8-06297693ee84.md",
       "sha256": "551352a9bdbf2c162b00564742784f4901c5175891a2ec5848082ba714c4df3a",
-      "source_available": true
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-25T14:15:50+09:00"
     },
     {
       "id": "01a1689a-0c59-7920-8e01-475d6b29c0c5",
@@ -375,6 +377,34 @@
       "archive": "conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md",
       "sha256": "54278249ab7b1bf081a2412064b940a37a6042daf09c3266626f35b528e04968",
       "source_available": true
+    },
+    {
+      "id": "01a1715b-f50f-7c52-83e4-6d235e825199",
+      "first_seen": "2026-10-25T13:40:15+09:00",
+      "title": "Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 attention을 추출하면 좋을지 추천해봐.",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1792906943.565,
+      "running": false,
+      "messages": 28,
+      "archive": "conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md",
+      "sha256": "cc78e41f48acfb2ffdeafff5df8d1d66fde760c294baf2c8a2a690cd66ad3a98",
+      "source_available": true
+    },
+    {
+      "id": "01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58",
+      "first_seen": "2026-10-25T13:44:03+09:00",
+      "title": "Save benchmark result PNGs",
+      "state": "deleted",
+      "tracked": false,
+      "last_user": 1792903442.834,
+      "running": false,
+      "messages": 2,
+      "archive": "conversations/01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58.md",
+      "sha256": "301f7719e56a95de2524bbf45c47fa0ee55969bf278479c4527568ba8ad51b16",
+      "source_available": false,
+      "deletion_reason": "archived_source_file_removed",
+      "deleted_at": "2026-10-25T14:15:50+09:00"
     }
   ]
 }
