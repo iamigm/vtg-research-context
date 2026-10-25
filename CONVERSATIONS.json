@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-25T21:00:00+09:00",
+  "observed_at": "2026-10-25T21:51:25+09:00",
   "counts": {
     "active": 11,
     "archived": 0,
@@ -412,11 +412,11 @@
       "title": "Qwen Chat 서버 실행 방법",
       "state": "active",
       "tracked": true,
-      "last_user": 1792929075.708,
+      "last_user": 1792930885.056,
       "running": false,
-      "messages": 61,
+      "messages": 65,
       "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
-      "sha256": "d91f9e44981a7874aeb7104fc8acb0daf977d71223cedc29966cd2823ca3ed32",
+      "sha256": "f766fa1561bfd1f7493faf6864ef6e6c74613116d6d11d2baa4288ab5471ee51",
       "source_available": true
     }
   ]
