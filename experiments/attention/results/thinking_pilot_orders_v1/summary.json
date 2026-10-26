@@ -1,0 +1,72 @@
+{
+  "completed": 600,
+  "total": 600,
+  "groups": {
+    "activitynet-timelens/video_query": {
+      "completed": 100,
+      "mean_reasoning_tokens": 394.81,
+      "median_reasoning_tokens": 170.5,
+      "p95_reasoning_tokens": 1544.2999999999997,
+      "max_reasoning_tokens": 2496,
+      "mean_iou": 0.4215369471061232,
+      "truncated": 0,
+      "unclosed_thinking": 0,
+      "attention_gib": 14.276827175170183
+    },
+    "charades-timelens/video_query": {
+      "completed": 100,
+      "mean_reasoning_tokens": 379.94,
+      "median_reasoning_tokens": 133.5,
+      "p95_reasoning_tokens": 1625.799999999999,
+      "max_reasoning_tokens": 4629,
+      "mean_iou": 0.42357456665701493,
+      "truncated": 0,
+      "unclosed_thinking": 0,
+      "attention_gib": 10.535153428092599
+    },
+    "qvhighlights-timelens/video_query": {
+      "completed": 100,
+      "mean_reasoning_tokens": 400.85,
+      "median_reasoning_tokens": 114.5,
+      "p95_reasoning_tokens": 709.1499999999993,
+      "max_reasoning_tokens": 16384,
+      "mean_iou": 0.613505004956036,
+      "truncated": 1,
+      "unclosed_thinking": 1,
+      "attention_gib": 18.59458272624761
+    },
+    "activitynet-timelens/query_video": {
+      "completed": 100,
+      "mean_reasoning_tokens": 1910.72,
+      "median_reasoning_tokens": 1440.0,
+      "p95_reasoning_tokens": 5109.4,
+      "max_reasoning_tokens": 15787,
+      "mean_iou": 0.3898140374789311,
+      "truncated": 0,
+      "unclosed_thinking": 0,
+      "attention_gib": 74.54664898104966
+    },
+    "charades-timelens/query_video": {
+      "completed": 100,
+      "mean_reasoning_tokens": 1374.33,
+      "median_reasoning_tokens": 952.0,
+      "p95_reasoning_tokens": 3718.6999999999994,
+      "max_reasoning_tokens": 6171,
+      "mean_iou": 0.44036614887461845,
+      "truncated": 0,
+      "unclosed_thinking": 0,
+      "attention_gib": 41.08160564862192
+    },
+    "qvhighlights-timelens/query_video": {
+      "completed": 100,
+      "mean_reasoning_tokens": 1010.65,
+      "median_reasoning_tokens": 646.0,
+      "p95_reasoning_tokens": 3200.999999999999,
+      "max_reasoning_tokens": 6558,
+      "mean_iou": 0.6071853380125919,
+      "truncated": 0,
+      "unclosed_thinking": 0,
+      "attention_gib": 40.0226495238021
+    }
+  }
+}

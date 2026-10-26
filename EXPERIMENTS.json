@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-25T09:00:00+09:00",
-  "daily_date": "2026-10-25",
+  "observed_at": "2026-10-26T09:00:00+09:00",
+  "daily_date": "2026-10-26",
   "schedule": "09:00 Asia/Seoul daily; catch up on next collector run after 09:00",
-  "next_scheduled_at": "2026-10-26T09:00:00+09:00",
+  "next_scheduled_at": "2026-10-27T09:00:00+09:00",
   "reason": "scheduled",
-  "file_count": 71,
+  "file_count": 77,
   "files": [
     {
       "path": "experiments/zero-shot/README.md",
@@ -31,9 +31,9 @@
     {
       "path": "experiments/zero-shot/results/input_order/REPORT.md",
       "source_relative_path": "zero-shot/results/input_order/REPORT.md",
-      "sha256": "9b80aa0c5fff7ac0131eed02abe5f6bc9c5a4aea28a91b3f11b116878b34bba6",
-      "bytes": 2505,
-      "source_modified_at": "2026-10-23T23:19:23+09:00"
+      "sha256": "54da965d2b7fd405edbb690c6f1a19083773a06d734b608cb6bde1228c7b3397",
+      "bytes": 2840,
+      "source_modified_at": "2026-10-25T13:45:04+09:00"
     },
     {
       "path": "experiments/zero-shot/results/input_order/summary.json",
@@ -274,6 +274,13 @@
       "source_modified_at": "2026-10-23T23:59:15+09:00"
     },
     {
+      "path": "experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md",
+      "source_relative_path": "zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md",
+      "sha256": "da8ed64c6e4173c8cb9a21865df254338dbbb2a4f096741a210b8e8bd24ee01e",
+      "bytes": 3528,
+      "source_modified_at": "2026-10-25T15:11:33+09:00"
+    },
+    {
       "path": "experiments/zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json",
       "source_relative_path": "zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json",
       "sha256": "73237e689b5ead696c76a501d5ce0fdfa530275b51c1e7969ffda77f3157bc06",
@@ -304,9 +311,9 @@
     {
       "path": "experiments/attention/README.md",
       "source_relative_path": "attention/README.md",
-      "sha256": "f0c5c2218c24237aa3afed7e78eae077533d360fa8d0d973dec9c8ffb085ff38",
-      "bytes": 2126,
-      "source_modified_at": "2026-10-23T23:19:54+09:00"
+      "sha256": "db353c6e294912f5666dcb2dee46d2470aae10e9f81da3649489c65cfd849bcc",
+      "bytes": 2399,
+      "source_modified_at": "2026-10-25T14:21:07+09:00"
     },
     {
       "path": "experiments/attention/protocol.json",
@@ -468,6 +475,41 @@
       "sha256": "c5192b695dcf4db4cd6fcaa6d3543f0df96830422cd2510206d2fb028cf7d139",
       "bytes": 2274,
       "source_modified_at": "2026-09-29T15:05:45+09:00"
+    },
+    {
+      "path": "experiments/attention/results/thinking_live_benchmark_v1/PRODUCTION_COMPARISON.md",
+      "source_relative_path": "attention/results/thinking_live_benchmark_v1/PRODUCTION_COMPARISON.md",
+      "sha256": "6cb6302fc8b497098ca9a290d7bb6e295474237a4f9e1b635b98059ef8384a5d",
+      "bytes": 1835,
+      "source_modified_at": "2026-10-25T19:38:05+09:00"
+    },
+    {
+      "path": "experiments/attention/results/thinking_live_benchmark_v1/REPORT.md",
+      "source_relative_path": "attention/results/thinking_live_benchmark_v1/REPORT.md",
+      "sha256": "b523bba2027b1e4f18cfe15e153da7f82f5d2282c7309ccf820cfa2f8a2961ff",
+      "bytes": 889,
+      "source_modified_at": "2026-10-25T15:51:12+09:00"
+    },
+    {
+      "path": "experiments/attention/results/thinking_pilot_orders_v1/REPORT.md",
+      "source_relative_path": "attention/results/thinking_pilot_orders_v1/REPORT.md",
+      "sha256": "c8c4791cec2ae21313ed2a4fcb72aabdaf051f9f648d7a50c8e1896aa97d7a47",
+      "bytes": 2368,
+      "source_modified_at": "2026-10-25T19:54:21+09:00"
+    },
+    {
+      "path": "experiments/attention/results/thinking_pilot_orders_v1/SCHEMA.md",
+      "source_relative_path": "attention/results/thinking_pilot_orders_v1/SCHEMA.md",
+      "sha256": "b1c033ca695505161506077cce5d752610ee025471f561228164bbdfe28b3511",
+      "bytes": 4582,
+      "source_modified_at": "2026-10-25T16:05:06+09:00"
+    },
+    {
+      "path": "experiments/attention/results/thinking_pilot_orders_v1/summary.json",
+      "source_relative_path": "attention/results/thinking_pilot_orders_v1/summary.json",
+      "sha256": "89eb33de3c219c19ecff2058ce378cf394172c6a9886b165ac8ff7dc93e1d27f",
+      "bytes": 2260,
+      "source_modified_at": "2026-10-25T19:54:21+09:00"
     },
     {
       "path": "experiments/attention/results/timelens_order/final_report.md",

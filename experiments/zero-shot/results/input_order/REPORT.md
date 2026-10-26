@@ -1,5 +1,7 @@
 # Zero-shot 성능 비교
 
+PNG 정량 표: [전체 벤치마크](../../predictions/quantitative_results_v1/full_benchmark.png) · [공통 pilot300](../../predictions/quantitative_results_v1/pilot300.png). 기존 predictions 원본과 12개 지표 행을 대조해 검증했다. 재생성 코드: [`zeroshot_metrics_png.py`](../../_lib/zeroshot_metrics_png.py).
+
 공용 저장소의 원본 예측만으로 재집계했다. Attention 측정값이나 NPZ를 읽지 않는다. Qwen3 전체 9,404개 입력 순서 비교와 두 모델의 동일 pilot 300개를 구분한다.
 
 | 모델 | 표본 | 순서 | 벤치마크 | N | mIoU (%) | R@1 .3 (%) | R@1 .5 (%) | R@1 .7 (%) |
