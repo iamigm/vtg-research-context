@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-27T00:00:00+09:00",
+  "observed_at": "2026-10-27T00:32:18+09:00",
   "counts": {
     "active": 11,
     "archived": 0,
@@ -412,11 +412,11 @@
       "title": "qwen chat 서버 띄우는 법",
       "state": "active",
       "tracked": true,
-      "last_user": 1793025883.121,
+      "last_user": 1793026938.452,
       "running": false,
-      "messages": 97,
+      "messages": 99,
       "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
-      "sha256": "5c922bb9933700cd00e1919675d0179fc5b45045c6cabb9383b2f777ff554dd9",
+      "sha256": "cc1c74d7f190a1caf9c01436bd96f98fdd7912a25aa694241441162215d4955f",
       "source_available": true
     }
   ]
