@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-26T21:00:00+09:00",
+  "observed_at": "2026-10-27T00:00:00+09:00",
   "counts": {
     "active": 11,
     "archived": 0,
@@ -12,11 +12,11 @@
       "title": "이 환경에서 GPU 가동률을 높이기 위해 모델 학습을 돌릴 거야.\n\n모델은 /home/irteam/DiT의 모델을 사용.\n\n데이터는 /data/rs/natural_seg 아래의 데이터를 사용.\n\nGPU 가용율을 모니터링하다가 2시간 동안 사용하는 프로세스가 없는 경우 자동으로 다시 학습 시작하도록.\n\n그리고 GPU 가용률 99%가 되는 세팅을 너가 여러번의 시도를 통해 직접 찾아봐",
       "state": "active",
       "tracked": true,
-      "last_user": 1792997459.333,
+      "last_user": 1793025913.522,
       "running": false,
-      "messages": 26,
+      "messages": 28,
       "archive": "conversations/019fcbef-d7a0-7703-956c-6abd11c4e92b.md",
-      "sha256": "90b6a7f827786a358132e8e37ebd84fc32bc530ed94d599756d596e6d49e0e6d",
+      "sha256": "25c4b9696e8a51a8bdcd0197957d9ef3e997d58b1911360a36f81e8740ed3585",
       "source_available": true
     },
     {
@@ -412,11 +412,11 @@
       "title": "qwen chat 서버 띄우는 법",
       "state": "active",
       "tracked": true,
-      "last_user": 1793002010.412,
+      "last_user": 1793025883.121,
       "running": false,
-      "messages": 95,
+      "messages": 97,
       "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
-      "sha256": "6d18ad01f1375a3c860e86e8b34579ede50ebd92835b5754f36cf939f68b8559",
+      "sha256": "5c922bb9933700cd00e1919675d0179fc5b45045c6cabb9383b2f777ff554dd9",
       "source_available": true
     }
   ]
