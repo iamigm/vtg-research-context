@@ -1,0 +1,373 @@
+{
+  "matched_sample_order_pairs": 600,
+  "distinct_samples": 300,
+  "input_validation": "All 600 expanded prompts match exactly except the Thinking-only trailing <think> newline. Prompts, video grids, sampled timestamps and decoder metadata match.",
+  "scoring": "Same upstream extract_time; first prediction vs single GT; no rounding or clipping; parse failures score 0. Rounded sensitivity included.",
+  "groups": {
+    "charades-timelens/video_query": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.4689947139751293,
+        "miou_rounded": 0.47526640209206,
+        "r05": 0.48,
+        "r07": 0.31,
+        "mean_generated_tokens": 17.14,
+        "median_generated_tokens": 17.0,
+        "mean_answer_tokens": 16.14,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.42357456665701493,
+        "miou_rounded": 0.4239588584665311,
+        "r05": 0.47,
+        "r07": 0.24,
+        "mean_generated_tokens": 400.51,
+        "median_generated_tokens": 154.5,
+        "mean_answer_tokens": 18.57,
+        "truncated": 0,
+        "parse_failures": 1
+      },
+      "delta_miou": -0.0454201473181143,
+      "paired_bootstrap_95ci": [
+        -0.08668752543114502,
+        -0.0024136739029354394
+      ],
+      "thinking_better": 27,
+      "thinking_worse": 56,
+      "tied": 17,
+      "generated_token_ratio": 23.366977829638273
+    },
+    "charades-timelens/query_video": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.47118267363185706,
+        "miou_rounded": 0.4687171107779093,
+        "r05": 0.51,
+        "r07": 0.35,
+        "mean_generated_tokens": 17.14,
+        "median_generated_tokens": 17.0,
+        "mean_answer_tokens": 16.14,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.4403661488746185,
+        "miou_rounded": 0.4553579755590625,
+        "r05": 0.5,
+        "r07": 0.23,
+        "mean_generated_tokens": 1393.7,
+        "median_generated_tokens": 970.5,
+        "mean_answer_tokens": 17.37,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "delta_miou": -0.03081652475723862,
+      "paired_bootstrap_95ci": [
+        -0.0915154911301879,
+        0.030212170412258262
+      ],
+      "thinking_better": 38,
+      "thinking_worse": 48,
+      "tied": 14,
+      "generated_token_ratio": 81.31271878646442
+    },
+    "activitynet-timelens/video_query": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.40629432540591076,
+        "miou_rounded": 0.4077140466189892,
+        "r05": 0.42,
+        "r07": 0.27,
+        "mean_generated_tokens": 18.22,
+        "median_generated_tokens": 18.0,
+        "mean_answer_tokens": 17.22,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.4215369471061232,
+        "miou_rounded": 0.42228084693969753,
+        "r05": 0.44,
+        "r07": 0.29,
+        "mean_generated_tokens": 411.69,
+        "median_generated_tokens": 187.5,
+        "mean_answer_tokens": 14.88,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "delta_miou": 0.015242621700212549,
+      "paired_bootstrap_95ci": [
+        -0.023358524605705703,
+        0.053538447204974096
+      ],
+      "thinking_better": 44,
+      "thinking_worse": 30,
+      "tied": 26,
+      "generated_token_ratio": 22.59549945115258
+    },
+    "activitynet-timelens/query_video": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.2746387827867309,
+        "miou_rounded": 0.2750180727003198,
+        "r05": 0.3,
+        "r07": 0.22,
+        "mean_generated_tokens": 17.19,
+        "median_generated_tokens": 17.0,
+        "mean_answer_tokens": 16.19,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.38981403747893106,
+        "miou_rounded": 0.3920726735720831,
+        "r05": 0.42,
+        "r07": 0.25,
+        "mean_generated_tokens": 1930.01,
+        "median_generated_tokens": 1460.5,
+        "mean_answer_tokens": 17.29,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "delta_miou": 0.11517525469220026,
+      "paired_bootstrap_95ci": [
+        0.053408586583470787,
+        0.17543661203746352
+      ],
+      "thinking_better": 50,
+      "thinking_worse": 22,
+      "tied": 28,
+      "generated_token_ratio": 112.27515997673065
+    },
+    "qvhighlights-timelens/video_query": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.5712925919964558,
+        "miou_rounded": 0.5713175178565493,
+        "r05": 0.6,
+        "r07": 0.45,
+        "mean_generated_tokens": 18.48,
+        "median_generated_tokens": 18.0,
+        "mean_answer_tokens": 17.48,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.613505004956036,
+        "miou_rounded": 0.6115367708942839,
+        "r05": 0.63,
+        "r07": 0.55,
+        "mean_generated_tokens": 417.74,
+        "median_generated_tokens": 135.5,
+        "mean_answer_tokens": 14.91,
+        "truncated": 1,
+        "parse_failures": 1
+      },
+      "delta_miou": 0.04221241295958026,
+      "paired_bootstrap_95ci": [
+        -0.016899820567212245,
+        0.10535801116445849
+      ],
+      "thinking_better": 35,
+      "thinking_worse": 45,
+      "tied": 20,
+      "generated_token_ratio": 22.604978354978353
+    },
+    "qvhighlights-timelens/query_video": {
+      "n": 100,
+      "instruct": {
+        "miou": 0.33058350721645824,
+        "miou_rounded": 0.33072794500291186,
+        "r05": 0.34,
+        "r07": 0.24,
+        "mean_generated_tokens": 17.03,
+        "median_generated_tokens": 17.0,
+        "mean_answer_tokens": 16.03,
+        "truncated": 0,
+        "parse_failures": 2
+      },
+      "thinking": {
+        "miou": 0.6071853380125919,
+        "miou_rounded": 0.6065343596766903,
+        "r05": 0.65,
+        "r07": 0.5,
+        "mean_generated_tokens": 1031.84,
+        "median_generated_tokens": 666.5,
+        "mean_answer_tokens": 19.19,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "delta_miou": 0.2766018307961336,
+      "paired_bootstrap_95ci": [
+        0.19050997455336702,
+        0.3624229816007521
+      ],
+      "thinking_better": 59,
+      "thinking_worse": 31,
+      "tied": 10,
+      "generated_token_ratio": 60.58954785672342
+    },
+    "all/video_query": {
+      "n": 300,
+      "instruct": {
+        "miou": 0.4821938771258319,
+        "miou_rounded": 0.48476598885586614,
+        "r05": 0.5,
+        "r07": 0.3433333333333333,
+        "mean_generated_tokens": 17.946666666666665,
+        "median_generated_tokens": 18.0,
+        "mean_answer_tokens": 16.946666666666665,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "thinking": {
+        "miou": 0.48620550623972475,
+        "miou_rounded": 0.4859254921001709,
+        "r05": 0.5133333333333333,
+        "r07": 0.36,
+        "mean_generated_tokens": 409.98,
+        "median_generated_tokens": 155.0,
+        "mean_answer_tokens": 16.12,
+        "truncated": 1,
+        "parse_failures": 2
+      },
+      "delta_miou": 0.00401162911389284,
+      "paired_bootstrap_95ci": [
+        -0.023443729926772742,
+        0.03209532136107056
+      ],
+      "thinking_better": 106,
+      "thinking_worse": 131,
+      "tied": 63,
+      "generated_token_ratio": 22.84435364041605
+    },
+    "all/query_video": {
+      "n": 300,
+      "instruct": {
+        "miou": 0.3588016545450154,
+        "miou_rounded": 0.35815437616038037,
+        "r05": 0.38333333333333336,
+        "r07": 0.27,
+        "mean_generated_tokens": 17.12,
+        "median_generated_tokens": 17.0,
+        "mean_answer_tokens": 16.12,
+        "truncated": 0,
+        "parse_failures": 2
+      },
+      "thinking": {
+        "miou": 0.4791218414553805,
+        "miou_rounded": 0.4846550029359454,
+        "r05": 0.5233333333333333,
+        "r07": 0.32666666666666666,
+        "mean_generated_tokens": 1451.85,
+        "median_generated_tokens": 986.5,
+        "mean_answer_tokens": 17.95,
+        "truncated": 0,
+        "parse_failures": 0
+      },
+      "delta_miou": 0.1203201869103651,
+      "paired_bootstrap_95ci": [
+        0.07728703294964209,
+        0.16332249011928351
+      ],
+      "thinking_better": 147,
+      "thinking_worse": 101,
+      "tied": 52,
+      "generated_token_ratio": 84.80432242990653
+    }
+  },
+  "configs": {
+    "instruct": {
+      "upstream_commit": "5d2110fb3faf74f4b0fc5957cd7ab73bea4763dc",
+      "model": "/home/irteam/backbones/models/Qwen3-VL-8B-Instruct",
+      "samples": 9404,
+      "orders": [
+        "video_query",
+        "query_video"
+      ],
+      "fps": 2,
+      "min_tokens": 64,
+      "total_tokens": 14336,
+      "dtype": "bfloat16",
+      "attention_backend": "flash_attention_2",
+      "max_new_tokens": 512,
+      "do_sample": false,
+      "seed": 42,
+      "environment": {
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "transformers": "4.57.1",
+        "qwen-vl-utils": "0.0.14",
+        "flash-attn": "2.7.4.post1",
+        "nncore": "0.4.5",
+        "accelerate": "1.6.0",
+        "huggingface-hub": "0.34.0"
+      },
+      "annotations_sha256": {
+        "charades-timelens.json": "03fce0f6ae7471d7bbaa0e9b86aaee3688d54884aac81a959fd37c4fc7d1cefd",
+        "qvhighlights-timelens.json": "a7f70291a531eaee6efde598c0a1674f0fef05c0a57a01aa3a1f5fb30390189d",
+        "activitynet-timelens.json": "75ef9a1c5c62532b6436aa9004cf051fccac9f712b16a9a2dc6c90e7e70f3061"
+      },
+      "provenance": {
+        "source": "attention/results/timelens_order",
+        "generation": "original full-head greedy predictions; no rerun during separation",
+        "attention_capture_present_in_source_run": true
+      }
+    },
+    "thinking": {
+      "measurement_method": "live_with_saved_generation_replay_fallback",
+      "previous_config": "migration_to_live/config_replay.json",
+      "model": "/home1/irteam/backbones/models/Qwen3-VL-8B-Thinking",
+      "manifest": "/home1/irteam/experiments/zero-shot/predictions/cohorts/pilot_300/samples.json",
+      "manifest_sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf",
+      "samples": 300,
+      "orders": [
+        "video_query",
+        "query_video"
+      ],
+      "total": 600,
+      "detail_layers": [
+        0,
+        7,
+        14,
+        21,
+        28,
+        35
+      ],
+      "head_mode": "mean",
+      "detail_dtype": "float32",
+      "summary_dtype": "float32",
+      "summary_heads": 32,
+      "summary_layers": 36,
+      "categories": [
+        "video",
+        "input_query",
+        "input_other",
+        "reasoning",
+        "answer",
+        "generated_boundary",
+        "current_position"
+      ],
+      "seed": 42,
+      "max_new_tokens": 16384,
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "input_fps": 2,
+      "min_tokens": 64,
+      "total_tokens": 14336,
+      "workers": 4,
+      "replay_chunk": 1,
+      "source_sha256": "ff8e07753d35055f84e797e9f6eedbd24e65860c6b24f0f87c5f66dddef56a06",
+      "attention_alignment": "predictive",
+      "backend": "flash_attention_2"
+    }
+  },
+  "limitations": [
+    "Greedy Instruct vs sampled Thinking: checkpoint and decoding-policy effects are confounded.",
+    "Token budgets differ: 512 vs 16384.",
+    "One rollout per model/order; bootstrap does not account for generation-seed variation.",
+    "No model runtime or attention-pattern comparison: capture protocols differ."
+  ]
+}

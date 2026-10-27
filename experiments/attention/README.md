@@ -2,7 +2,7 @@
 
 Attention 분석 코드와 측정 결과를 모은 독립 실험 폴더다. 기존 MTLA 기반 300개 분석과 TimeLens 9,404쌍의 answer → video 분석을 보관한다.
 
-- [Thinking pilot 300 × 입력 순서 2종](results/thinking_pilot_orders_v1/REPORT.md): 전체 생성 토큰의 attention, 선택한 6개 layer의 head 평균 및 전체 36개 layer의 head별 범주 합계. [실행 상태](results/thinking_pilot_orders_v1/status.json).
+- [Thinking pilot 300 × 입력 순서 2종 최종 요약](results/thinking_pilot_orders_v1/FINAL_REPORT.md): 전체 생성 토큰의 attention, 선택한 6개 layer의 head 평균 및 전체 36개 layer의 head별 범주 합계. [실행 상태](results/thinking_pilot_orders_v1/status.json).
 - [기존 300개 분석](results/REPORT.md): query / generation / dynamics / hidden / spatial.
 - [TimeLens answer → video 분석](results/timelens_order/final_report.md): 입력 순서별 attention 총량, GT 집중도, 시간 분포.
 - [별도 zero-shot 실험](../zero-shot/README.md): 입력 순서별 성능, span-head, top-30.

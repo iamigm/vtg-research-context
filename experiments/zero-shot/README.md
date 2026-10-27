@@ -4,6 +4,7 @@
 
 | 분석 | 보고서 |
 |---|---|
+| Thinking vs Instruct 동일 pilot 비교 | [성능·생성량·조건 차이](results/thinking_vs_instruct_v1/REPORT.md) |
 | 전체 벤치마크 자릿수별 정답 가능성과 불확실성 | [전체 digit_correctness](results/timelens_top30_full/digit_correctness/REPORT.md) |
 | 전체 벤치마크 정답 가능 상태의 세 축 분석 | [전체 blue_analysis](results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) |
 | pilot 자릿수별 정답 가능성과 불확실성 | [pilot digit_correctness](results/timelens_top30/digit_correctness/REPORT.md) |

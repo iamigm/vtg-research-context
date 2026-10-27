@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-26T09:00:00+09:00",
-  "daily_date": "2026-10-26",
+  "observed_at": "2026-10-27T09:00:00+09:00",
+  "daily_date": "2026-10-27",
   "schedule": "09:00 Asia/Seoul daily; catch up on next collector run after 09:00",
-  "next_scheduled_at": "2026-10-27T09:00:00+09:00",
+  "next_scheduled_at": "2026-10-28T09:00:00+09:00",
   "reason": "scheduled",
-  "file_count": 77,
+  "file_count": 78,
   "files": [
     {
       "path": "experiments/zero-shot/README.md",
       "source_relative_path": "zero-shot/README.md",
-      "sha256": "80768000018b1284d1628d6eb71f99815d49ccfb7d4f586d5e937c31dd55d084",
-      "bytes": 2428,
-      "source_modified_at": "2026-10-23T21:37:50+09:00"
+      "sha256": "ed8c5571e27b3ea72e4b61d72c8693bec1fa23f0e5cdac7685b0f9878be148b1",
+      "bytes": 2553,
+      "source_modified_at": "2026-10-26T16:26:05+09:00"
     },
     {
       "path": "experiments/zero-shot/artifacts/README.md",
@@ -55,6 +55,20 @@
       "sha256": "0fe62ca26f1596dd5268f6a7350e31a595ff83d676603a8b637f4a71ad55b93c",
       "bytes": 18677,
       "source_modified_at": "2026-10-23T21:20:18+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_v1/REPORT.md",
+      "sha256": "ed59a4d44365838b80a55ac17c4749a0e7692d8f891b30b6b32d00456d42287e",
+      "bytes": 3667,
+      "source_modified_at": "2026-10-26T16:26:07+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_v1/summary.json",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_v1/summary.json",
+      "sha256": "d6ec9123caeb255979ffe577050a2a5c42b3fa07f9be82449b242b36b6f8865c",
+      "bytes": 11402,
+      "source_modified_at": "2026-10-26T16:26:07+09:00"
     },
     {
       "path": "experiments/zero-shot/results/timelens_rollout/REPORT.md",
@@ -311,9 +325,9 @@
     {
       "path": "experiments/attention/README.md",
       "source_relative_path": "attention/README.md",
-      "sha256": "db353c6e294912f5666dcb2dee46d2470aae10e9f81da3649489c65cfd849bcc",
-      "bytes": 2399,
-      "source_modified_at": "2026-10-25T14:21:07+09:00"
+      "sha256": "5f1379dcec8e96bd30006c3e317085a3354d672289cc8b84d691caf380b36646",
+      "bytes": 2419,
+      "source_modified_at": "2026-10-26T16:22:51+09:00"
     },
     {
       "path": "experiments/attention/protocol.json",
@@ -477,18 +491,11 @@
       "source_modified_at": "2026-09-29T15:05:45+09:00"
     },
     {
-      "path": "experiments/attention/results/thinking_live_benchmark_v1/PRODUCTION_COMPARISON.md",
-      "source_relative_path": "attention/results/thinking_live_benchmark_v1/PRODUCTION_COMPARISON.md",
-      "sha256": "6cb6302fc8b497098ca9a290d7bb6e295474237a4f9e1b635b98059ef8384a5d",
-      "bytes": 1835,
-      "source_modified_at": "2026-10-25T19:38:05+09:00"
-    },
-    {
-      "path": "experiments/attention/results/thinking_live_benchmark_v1/REPORT.md",
-      "source_relative_path": "attention/results/thinking_live_benchmark_v1/REPORT.md",
-      "sha256": "b523bba2027b1e4f18cfe15e153da7f82f5d2282c7309ccf820cfa2f8a2961ff",
-      "bytes": 889,
-      "source_modified_at": "2026-10-25T15:51:12+09:00"
+      "path": "experiments/attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md",
+      "source_relative_path": "attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md",
+      "sha256": "b6b97d017f04e1936895724587e2cff13fb4e0979ea49edaa0bc9bb1d97d629c",
+      "bytes": 3681,
+      "source_modified_at": "2026-10-26T16:22:45+09:00"
     },
     {
       "path": "experiments/attention/results/thinking_pilot_orders_v1/REPORT.md",
