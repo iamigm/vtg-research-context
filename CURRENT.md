@@ -1,6 +1,6 @@
 # Video Temporal Grounding — current context
 
-Exported: 2026-10-27T09:00:00+09:00
+Exported: 2026-10-27T12:00:00+09:00
 Reason: scheduled
 Source thread: 01a153a1-eddc-75b1-a442-3b3ed0ebf708
 
@@ -9,7 +9,7 @@ This is a deterministic export of the VTG conversation and observed experiment f
 ## Observed experiment status
 
 {
-  "observed_at": "2026-10-27T09:00:00+09:00",
+  "observed_at": "2026-10-27T12:00:00+09:00",
   "artifact_registry": {
     "state": "complete",
     "timestamp": "2026-10-23T23:59:51.497904+09:00",
