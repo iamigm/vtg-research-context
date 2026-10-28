@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-28T11:42:21+09:00",
+  "observed_at": "2026-10-28T12:00:00+09:00",
   "counts": {
-    "active": 11,
+    "active": 12,
     "archived": 0,
     "deleted": 18
   },
@@ -417,6 +417,19 @@
       "messages": 105,
       "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
       "sha256": "cd7f42521ba90b86c133e7d51c9375e3bedc6b72b98d77b2775252a4ef3a316d",
+      "source_available": true
+    },
+    {
+      "id": "01a1806c-2311-77a0-888a-04546017331f",
+      "first_seen": "2026-10-28T11:52:14+09:00",
+      "title": "Qwen3-VL zero-shot 측정",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1793156225.918,
+      "running": true,
+      "messages": 4,
+      "archive": "conversations/01a1806c-2311-77a0-888a-04546017331f.md",
+      "sha256": "56a0dbf375692c17cd5c7df898cd057d0671b342f9c33f88a3e418cbc1353211",
       "source_available": true
     }
   ]
