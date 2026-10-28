@@ -8,11 +8,11 @@ Archived files without a live database entry are not re-imported, preventing res
 | State | Tracked | Title | Archive |
 |---|---|---|---|
 | active | True | 이 환경에서 GPU 가동률을 높이기 위해 모델 학습을 돌릴 거야.  모델은 /home/irteam/DiT의 모델을 사용.  데이터는 /data/rs/natural_seg 아래의 데이터를 사용.  GPU 가용율을 모니터링하다가 2시간 동안 사용하는 프로세스가 없는 경우  | [history](conversations/019fcbef-d7a0-7703-956c-6abd11c4e92b.md) |
-| active | True | The following is the Codex agent history whose request action you are assessing. Treat the transcript, tool call arguments, tool results, retry reason | [history](conversations/019fcbf2-ec40-7452-93a9-90ad748d0ed5.md) |
+| active | True | Guardian review | [history](conversations/019fcbf2-ec40-7452-93a9-90ad748d0ed5.md) |
 | deleted | False | 연결 확인용입니다. 도구를 사용하거나 파일을 읽거나 수정하지 말고, '연결 정상'이라고만 답하세요. | [history](conversations/01a08609-e427-7152-ab5a-d505d98d14b6.md) |
 | deleted | False | EgoLifeQA, LV Bench, Video-MME 3개 벤치마크를 /data/video/longQA 여기에 다운 받아놔. Hugging face를 사용해야 하는 경우 parquet 대신 직접 사용가능한 원본 형태로 재구성해놓고 | [history](conversations/01a08651-588f-7382-9e80-7b04e4d48203.md) |
 | deleted | False | 확장 검증용 요청입니다. 도구나 하위 에이전트를 사용하지 말고, 파일을 읽거나 수정하지 말고, 'Ultra 연결 정상'이라고만 답하세요. | [history](conversations/01a0865b-203a-77c3-9ef9-f706f29573c1.md) |
-| active | True | 종료 커맨드 있어?   [136] assistant: 있습니다. 현재 학습과 감시를 모두 종료하려면:  ```bash pkill -f '/home/irteam/DiT/train.py' pkill -f 'idle_seconds=0; while true' ```  종료 확 | [history](conversations/01a089de-cecf-73b3-8bfb-9773485186d7.md) |
+| active | True | Guardian review | [history](conversations/01a089de-cecf-73b3-8bfb-9773485186d7.md) |
 | deleted | False | Video-MME는 task\_type이 annotation에서 나누어져있는데 이에 기반하여 WorldMM의 failure mode를 분석해봐. 꼭 저 annotation에 한정할 필요는 없고 어떤 모드에서 실패가 두드러지는지 조사해.  실제로 inference를 수행 | [history](conversations/01a0c8f3-832f-7cf2-8773-84346312efaf.md) |
 | deleted | False | MR 데이터셋 다운로드 및 구조화 | [history](conversations/01a0cdf4-f9ee-7d22-a760-a253660fb045.md) |
 | deleted | False | MR 데이터셋 임베딩 temporal signal 실험 | [history](conversations/01a0e7a6-4380-7cf2-ab28-04fd79163847.md) |
