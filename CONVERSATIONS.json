@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-28T15:00:00+09:00",
+  "observed_at": "2026-10-28T18:00:00+09:00",
   "counts": {
     "active": 12,
     "archived": 0,
@@ -412,24 +412,24 @@
       "title": "qwen chat 서버 띄우는 법",
       "state": "active",
       "tracked": true,
-      "last_user": 1793153540.26,
+      "last_user": 1793176969.45,
       "running": false,
-      "messages": 105,
+      "messages": 110,
       "archive": "conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md",
-      "sha256": "cd7f42521ba90b86c133e7d51c9375e3bedc6b72b98d77b2775252a4ef3a316d",
+      "sha256": "514e62b878175e48cd9bbe2f3a1bd7fb0e2c58c95bc6a1d2f3c486fc220fa6ac",
       "source_available": true
     },
     {
       "id": "01a1806c-2311-77a0-888a-04546017331f",
       "first_seen": "2026-10-28T11:52:14+09:00",
-      "title": "Qwen3-VL zero-shot 측정",
+      "title": "Qwen3-vl-Instruct/Thinking 각각 8fps로 pilot 샘플에 대해 zero-shot 측정해봐",
       "state": "active",
       "tracked": true,
-      "last_user": 1793160055.827,
+      "last_user": 1793176317.012,
       "running": false,
-      "messages": 11,
+      "messages": 16,
       "archive": "conversations/01a1806c-2311-77a0-888a-04546017331f.md",
-      "sha256": "e4314528d553e6975021feafa12c76b8d0d0dcf811f448dd81adbf1d27983853",
+      "sha256": "9b07cad7f238a98b283316759cae42c28d9b5efd97a41f1639b1fbb765aa22a7",
       "source_available": true
     }
   ]

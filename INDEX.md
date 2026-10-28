@@ -36,4 +36,4 @@ Archived files without a live database entry are not re-imported, preventing res
 | active | True | Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 attention을 추출하면 좋을지 추천해봐. | [history](conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md) |
 | deleted | False | Save benchmark result PNGs | [history](conversations/01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58.md) |
 | active | True | qwen chat 서버 띄우는 법 | [history](conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md) |
-| active | True | Qwen3-VL zero-shot 측정 | [history](conversations/01a1806c-2311-77a0-888a-04546017331f.md) |
+| active | True | Qwen3-vl-Instruct/Thinking 각각 8fps로 pilot 샘플에 대해 zero-shot 측정해봐 | [history](conversations/01a1806c-2311-77a0-888a-04546017331f.md) |
