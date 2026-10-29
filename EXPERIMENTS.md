@@ -1,18 +1,24 @@
 # VTG experiment documentation
 
-Observed: 2026-10-28T09:00:00+09:00
-Next scheduled: 2026-10-29T09:00:00+09:00
+Observed: 2026-10-29T09:00:00+09:00
+Next scheduled: 2026-10-30T09:00:00+09:00
 Daily 09:00 Asia/Seoul. Server side; independent of the Mac. Source reports are preserved as evidence, not independently rerun results. Files missing from a future source retain their prior repository copy/Git history; only the current manifest lists currently observed files.
 
 | Report | Source modified (KST) | Bytes |
 |---|---|---:|
-| [zero-shot/README.md](experiments/zero-shot/README.md) | 2026-10-26T16:26:05+09:00 | 2553 |
+| [zero-shot/README.md](experiments/zero-shot/README.md) | 2026-10-28T17:21:58+09:00 | 3045 |
 | [zero-shot/artifacts/README.md](experiments/zero-shot/artifacts/README.md) | 2026-10-23T16:25:57+09:00 | 5823 |
 | [zero-shot/artifacts/status.json](experiments/zero-shot/artifacts/status.json) | 2026-10-23T23:59:51+09:00 | 461 |
+| [zero-shot/results/all_zeroshot_v1/REPORT.md](experiments/zero-shot/results/all_zeroshot_v1/REPORT.md) | 2026-10-28T11:56:59+09:00 | 12451 |
+| [zero-shot/results/all_zeroshot_v1/summary.json](experiments/zero-shot/results/all_zeroshot_v1/summary.json) | 2026-10-28T11:56:59+09:00 | 52546 |
 | [zero-shot/results/input_order/REPORT.md](experiments/zero-shot/results/input_order/REPORT.md) | 2026-10-25T13:45:04+09:00 | 2840 |
 | [zero-shot/results/input_order/summary.json](experiments/zero-shot/results/input_order/summary.json) | 2026-10-23T23:19:23+09:00 | 3393 |
 | [zero-shot/results/input_order/consistency_v1/REPORT.md](experiments/zero-shot/results/input_order/consistency_v1/REPORT.md) | 2026-10-23T21:48:44+09:00 | 7683 |
 | [zero-shot/results/input_order/consistency_v1/summary.json](experiments/zero-shot/results/input_order/consistency_v1/summary.json) | 2026-10-23T21:20:18+09:00 | 18677 |
+| [zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md) | 2026-10-28T18:25:51+09:00 | 8533 |
+| [zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md) | 2026-10-28T18:25:50+09:00 | 3033 |
+| [zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json) | 2026-10-28T18:25:09+09:00 | 4244 |
+| [zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md) | 2026-10-28T12:06:13+09:00 | 1820 |
 | [zero-shot/results/thinking_vs_instruct_v1/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md) | 2026-10-26T16:26:07+09:00 | 3667 |
 | [zero-shot/results/thinking_vs_instruct_v1/summary.json](experiments/zero-shot/results/thinking_vs_instruct_v1/summary.json) | 2026-10-26T16:26:07+09:00 | 11402 |
 | [zero-shot/results/timelens_rollout/REPORT.md](experiments/zero-shot/results/timelens_rollout/REPORT.md) | 2026-10-21T10:29:22+09:00 | 5950 |

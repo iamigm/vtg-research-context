@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-28T09:00:00+09:00",
-  "daily_date": "2026-10-28",
+  "observed_at": "2026-10-29T09:00:00+09:00",
+  "daily_date": "2026-10-29",
   "schedule": "09:00 Asia/Seoul daily; catch up on next collector run after 09:00",
-  "next_scheduled_at": "2026-10-29T09:00:00+09:00",
+  "next_scheduled_at": "2026-10-30T09:00:00+09:00",
   "reason": "scheduled",
-  "file_count": 78,
+  "file_count": 84,
   "files": [
     {
       "path": "experiments/zero-shot/README.md",
       "source_relative_path": "zero-shot/README.md",
-      "sha256": "ed8c5571e27b3ea72e4b61d72c8693bec1fa23f0e5cdac7685b0f9878be148b1",
-      "bytes": 2553,
-      "source_modified_at": "2026-10-26T16:26:05+09:00"
+      "sha256": "2e2d91fd1a56777a8d25f0bcf4dc12cbd0cf01296e42f483d0479bb06fe6b648",
+      "bytes": 3045,
+      "source_modified_at": "2026-10-28T17:21:58+09:00"
     },
     {
       "path": "experiments/zero-shot/artifacts/README.md",
@@ -27,6 +27,20 @@
       "sha256": "e4e6f020381945391b81020998904f7b9520f09e6d95b48c25ff7dca5964114f",
       "bytes": 461,
       "source_modified_at": "2026-10-23T23:59:51+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/all_zeroshot_v1/REPORT.md",
+      "source_relative_path": "zero-shot/results/all_zeroshot_v1/REPORT.md",
+      "sha256": "da96638eb3b4282d83916dd79b448e0f0464a6ee1be276d19c3eace1b5fa7092",
+      "bytes": 12451,
+      "source_modified_at": "2026-10-28T11:56:59+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/all_zeroshot_v1/summary.json",
+      "source_relative_path": "zero-shot/results/all_zeroshot_v1/summary.json",
+      "sha256": "0a63ce969eefe954c1ad1fe0d31f64de0c5690379dddb8db1af5e6b9eca248ef",
+      "bytes": 52546,
+      "source_modified_at": "2026-10-28T11:56:59+09:00"
     },
     {
       "path": "experiments/zero-shot/results/input_order/REPORT.md",
@@ -55,6 +69,34 @@
       "sha256": "0fe62ca26f1596dd5268f6a7350e31a595ff83d676603a8b637f4a71ad55b93c",
       "bytes": 18677,
       "source_modified_at": "2026-10-23T21:20:18+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md",
+      "sha256": "abaf8c5c4892275f424c81a8a7fd572d59aa8d9ba1e5352f48f14b5d8ff4f7da",
+      "bytes": 8533,
+      "source_modified_at": "2026-10-28T18:25:51+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md",
+      "sha256": "7ae9daf1a8e43828ce7c7613f47a851554edbd950d4684ef0f9ba44da2a2f3ee",
+      "bytes": 3033,
+      "source_modified_at": "2026-10-28T18:25:50+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json",
+      "sha256": "53687a75f6589b496c9e2327556b05af10f0c8abb75b0aca2c9375eaaa51a9e8",
+      "bytes": 4244,
+      "source_modified_at": "2026-10-28T18:25:09+09:00"
+    },
+    {
+      "path": "experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md",
+      "source_relative_path": "zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md",
+      "sha256": "7f7f9a3c25ba439be0df058255a5c86539112e110b3d2ee095ce9b01da17b337",
+      "bytes": 1820,
+      "source_modified_at": "2026-10-28T12:06:13+09:00"
     },
     {
       "path": "experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md",
