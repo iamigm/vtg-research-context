@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-29T18:00:00+09:00",
+  "observed_at": "2026-10-29T18:45:01+09:00",
   "counts": {
-    "active": 12,
+    "active": 13,
     "archived": 0,
     "deleted": 18
   },
@@ -430,6 +430,19 @@
       "messages": 16,
       "archive": "conversations/01a1806c-2311-77a0-888a-04546017331f.md",
       "sha256": "9b07cad7f238a98b283316759cae42c28d9b5efd97a41f1639b1fbb765aa22a7",
+      "source_available": true
+    },
+    {
+      "id": "01a186f0-efb7-7550-b57f-7340962f10e3",
+      "first_seen": "2026-10-29T18:15:00+09:00",
+      "title": "유사도 실험 설계 검토",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1793265300.882,
+      "running": false,
+      "messages": 2,
+      "archive": "conversations/01a186f0-efb7-7550-b57f-7340962f10e3.md",
+      "sha256": "9c1893cc47ef2ce07bef2168bea4ae5f64e97d6bd1a1b7277e00afd160c1ab19",
       "source_available": true
     }
   ]
