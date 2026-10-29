@@ -38,3 +38,4 @@ Archived files without a live database entry are not re-imported, preventing res
 | active | True | qwen chat 서버 띄우는 법 | [history](conversations/01a172a6-e6ec-7360-aa6c-a9227f9b0bb0.md) |
 | active | True | Qwen3-vl-Instruct/Thinking 각각 8fps로 pilot 샘플에 대해 zero-shot 측정해봐 | [history](conversations/01a1806c-2311-77a0-888a-04546017331f.md) |
 | active | True | 유사도 실험 설계 검토 | [history](conversations/01a186f0-efb7-7550-b57f-7340962f10e3.md) |
+| active | True | experiments 실험 디렉토리 정리 | [history](conversations/01a18768-b4b2-7f93-ae85-f81d8b873b5f.md) |

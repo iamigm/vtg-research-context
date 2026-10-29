@@ -1,7 +1,7 @@
 {
-  "observed_at": "2026-10-29T18:45:01+09:00",
+  "observed_at": "2026-10-29T21:00:00+09:00",
   "counts": {
-    "active": 13,
+    "active": 14,
     "archived": 0,
     "deleted": 18
   },
@@ -438,11 +438,24 @@
       "title": "유사도 실험 설계 검토",
       "state": "active",
       "tracked": true,
-      "last_user": 1793265300.882,
+      "last_user": 1793273642.846,
       "running": false,
-      "messages": 2,
+      "messages": 30,
       "archive": "conversations/01a186f0-efb7-7550-b57f-7340962f10e3.md",
-      "sha256": "9c1893cc47ef2ce07bef2168bea4ae5f64e97d6bd1a1b7277e00afd160c1ab19",
+      "sha256": "2f78bbbf3272a02e6c88bbe14e2b8455441891aecbf2f7d82bc61f3ad6fa3f32",
+      "source_available": true
+    },
+    {
+      "id": "01a18768-b4b2-7f93-ae85-f81d8b873b5f",
+      "first_seen": "2026-10-29T20:26:59+09:00",
+      "title": "experiments 실험 디렉토리 정리",
+      "state": "active",
+      "tracked": true,
+      "last_user": 1793274951.666,
+      "running": true,
+      "messages": 5,
+      "archive": "conversations/01a18768-b4b2-7f93-ae85-f81d8b873b5f.md",
+      "sha256": "fc44284a804a011deea7a847fab1aa7c8f7ca62f10ffc7995efaa6ccd9780e8f",
       "source_available": true
     }
   ]
