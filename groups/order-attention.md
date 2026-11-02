@@ -40,6 +40,14 @@
 
 현재 관련 코드 73개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
+## 관련 실험 대화
+
+- [./experiments에 이 실험을 대표하는 이름으로 디렉토리를 하나 만들고 거기서 실험을 진행해.](../conversations/01a0eb98-2716-7e21-8366-1f182062f967.md) — deleted
+- [MTLA moment retrieval 구현 확인](../conversations/01a0ebf8-47fb-7fd0-b80a-36c612c5f275.md) — deleted
+- [query attention, generated answer attention이 그리는 분포의 차이를 계산해봐. 얼마나 다른지 경향성은 유지하는지 등](../conversations/01a0eca8-0b26-78f2-bbae-59a2a32c457e.md) — deleted
+- [GT attention mass 실험 확인](../conversations/01a0f0a4-087b-7912-88d8-2b2d7053a830.md) — deleted
+- [기존 attention 관련 실험 하나의 폴더 아래에 정리해봐. 세팅만 살짝 다르고 실험의 목적은 동일하니까 필요 없는 건 없애고 하나의 스크립트 및 실험 결과로 통합해버려](../conversations/01a13f33-09f0-7042-985f-7d112c123f6a.md) — deleted
+- [이전에 쿼리; 비디오, 비디오; 쿼리 두 입력의 배치 순서를 바꿔본 적이 있잖아. 이때의 같은 샘플로 수행했는지, 몇 개의 샘플로 수행했는지, 저장해놓은 산출물 종류 알려줘.](../conversations/01a1689a-0c59-7920-8e01-475d6b29c0c5.md) — deleted
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.

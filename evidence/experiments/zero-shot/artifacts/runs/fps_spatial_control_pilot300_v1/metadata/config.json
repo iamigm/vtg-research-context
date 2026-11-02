@@ -1,0 +1,48 @@
+{
+  "run_id": "fps_spatial_control_pilot300_v1",
+  "fps": [
+    2,
+    3,
+    4,
+    6,
+    8
+  ],
+  "models": [
+    "instruct",
+    "thinking"
+  ],
+  "orders": [
+    "video_query",
+    "query_video"
+  ],
+  "cohort": "nested_pilot_v1/pilot_300",
+  "target_pixels": 100352,
+  "area_tolerance": 0.1,
+  "spatial_policy": "one fixed H,W per video for all FPS, models and orders; multiples of 32; aspect-ratio error first, then area error",
+  "temporal_policy": "GT-blind nearest measured PTS to k/fps starting at zero, ties earlier; deduplicate; full duration; no 768 frame cap; duplicate final frame only for temporal patch packing",
+  "total_video_token_cap": null,
+  "resize": "torchvision bicubic antialias uint8, directly from source RGB",
+  "dtype": "bfloat16",
+  "attention": "flash_attention_2",
+  "batch_size": 1,
+  "seed": 42,
+  "zero_shot": true,
+  "instruct": {
+    "do_sample": false,
+    "temperature": null,
+    "top_p": null,
+    "top_k": null,
+    "repetition_penalty": 1.0,
+    "max_new_tokens": 512,
+    "use_cache": true
+  },
+  "thinking": {
+    "do_sample": true,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "repetition_penalty": 1.0,
+    "max_new_tokens": 16384,
+    "use_cache": true
+  }
+}

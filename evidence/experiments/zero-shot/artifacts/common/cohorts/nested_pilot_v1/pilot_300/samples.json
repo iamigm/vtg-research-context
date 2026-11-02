@@ -1,0 +1,4502 @@
+[
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/KOVTR.mp4",
+    "duration": 35.29765484064943,
+    "query": "A man is taking some medicine",
+    "span": [
+      [
+        29,
+        34
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00027"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/XMYXI.mp4",
+    "duration": 40.266666666666666,
+    "query": "A person took out a broom",
+    "span": [
+      [
+        28,
+        29
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00103"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/XE19C.mp4",
+    "duration": 30.35976996121439,
+    "query": "A woman puts a cup on the bathroom counter",
+    "span": [
+      [
+        4,
+        6
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00109"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/B82GJ.mp4",
+    "duration": 24.533333333333335,
+    "query": "the person takes a paper towel from the table",
+    "span": [
+      [
+        19,
+        20
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00123"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/6ZWSU.mp4",
+    "duration": 30.60405378286173,
+    "query": "person puts the books down",
+    "span": [
+      [
+        3,
+        5
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00131"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/GHC5X.mp4",
+    "duration": 27.026999999999997,
+    "query": "A person picks up a glass of water from the stairs",
+    "span": [
+      [
+        23,
+        25
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00178"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/TEV5K.mp4",
+    "duration": 30.754130541469,
+    "query": "A person holding a broom",
+    "span": [
+      [
+        7,
+        30
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00188"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/N0ZPI.mp4",
+    "duration": 30.096733333333333,
+    "query": "person take a drink from the cup",
+    "span": [
+      [
+        16,
+        19
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00285"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/8SDK5.mp4",
+    "duration": 21.7,
+    "query": "A person sat on the chair",
+    "span": [
+      [
+        16,
+        21
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00293"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/TJZ0P.mp4",
+    "duration": 17.733333333333334,
+    "query": "the person is seated in a chair",
+    "span": [
+      [
+        0,
+        17
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00323"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/759MY.mp4",
+    "duration": 20.24996995553419,
+    "query": "A person puts the phone on the table",
+    "span": [
+      [
+        9,
+        10
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00327"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/4H64T.mp4",
+    "duration": 43.10344827586207,
+    "query": "A person opens a refrigerator",
+    "span": [
+      [
+        16,
+        18
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00357"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/YQT32.mp4",
+    "duration": 26.625840378086934,
+    "query": "A person is tidying up the table",
+    "span": [
+      [
+        5,
+        19
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00380"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/2Z8G8.mp4",
+    "duration": 29.97542997542997,
+    "query": "A person is tidying up a blanket",
+    "span": [
+      [
+        17,
+        26
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00384"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/C0CMQ.mp4",
+    "duration": 19.22845811801466,
+    "query": "A man walks in from the doorway",
+    "span": [
+      [
+        16,
+        18
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00397"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/T9Y1N.mp4",
+    "duration": 30.55668427468509,
+    "query": "A man smiles at the mirror",
+    "span": [
+      [
+        23,
+        30
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00414"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AX46Z.mp4",
+    "duration": 31.77689136191466,
+    "query": "A woman is standing by the bed and smiling",
+    "span": [
+      [
+        14,
+        26
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00419"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AX46Z.mp4",
+    "duration": 31.77689136191466,
+    "query": "A woman lies down on the bed",
+    "span": [
+      [
+        0,
+        3
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00420"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/LSFJG.mp4",
+    "duration": 24.666666666666668,
+    "query": "A man uses his hand to brush his hair",
+    "span": [
+      [
+        18,
+        20
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00457"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/HHNTA.mp4",
+    "duration": 33.80914086583568,
+    "query": "A person is walking around the room, eating a sandwich",
+    "span": [
+      [
+        0,
+        15
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00512"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ATIAW.mp4",
+    "duration": 31.989554431206138,
+    "query": "A person turned on the light",
+    "span": [
+      [
+        29,
+        30
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00572"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/W8CWW.mp4",
+    "duration": 30.545573342045085,
+    "query": "a person opens a door and goes into a room",
+    "span": [
+      [
+        0,
+        4
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00637"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DSZYT.mp4",
+    "duration": 30.797433333333334,
+    "query": "A person put down a cup",
+    "span": [
+      [
+        3,
+        5
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00654"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/M9NAG.mp4",
+    "duration": 33.46666666666667,
+    "query": "A woman stretched",
+    "span": [
+      [
+        18,
+        23
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00667"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/TJJKK.mp4",
+    "duration": 9.333333333333334,
+    "query": "The person is smiling at the phone",
+    "span": [
+      [
+        1,
+        3
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00701"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/VJ0LT.mp4",
+    "duration": 31.999011613540898,
+    "query": "A person pours Coke into a glass",
+    "span": [
+      [
+        4,
+        11
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00788"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/CUSTU.mp4",
+    "duration": 34.24254166666667,
+    "query": "person opens a laptop",
+    "span": [
+      [
+        30,
+        34
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00815"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/KZS5M.mp4",
+    "duration": 35.8730921764211,
+    "query": "A person is eating a sandwich",
+    "span": [
+      [
+        25,
+        29
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00859"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/5R7VN.mp4",
+    "duration": 29.362666666666666,
+    "query": "the person is throwing shoes",
+    "span": [
+      [
+        2,
+        3
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00882"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/W7EDM.mp4",
+    "duration": 20.55041461362817,
+    "query": "A man is eating in bed",
+    "span": [
+      [
+        13,
+        20
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00896"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/B6XQZ.mp4",
+    "duration": 30.8,
+    "query": "A person is looking at a laptop and laughing",
+    "span": [
+      [
+        4,
+        15
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00903"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/V8IGX.mp4",
+    "duration": 26.966666666666665,
+    "query": "A person opened the door",
+    "span": [
+      [
+        2,
+        5
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00915"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/LXEPT.mp4",
+    "duration": 31.066666666666666,
+    "query": "person sits in a chair",
+    "span": [
+      [
+        3,
+        5
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00934"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/VNMNF.mp4",
+    "duration": 27.266666666666666,
+    "query": "A man is sitting on a chair",
+    "span": [
+      [
+        23,
+        27
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00953"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/9U82D.mp4",
+    "duration": 34.63333333333333,
+    "query": "This person took out his phone",
+    "span": [
+      [
+        15,
+        17
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_00954"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/XJA7Z.mp4",
+    "duration": 30.678851174934724,
+    "query": "A person picks up a can of beer",
+    "span": [
+      [
+        2,
+        3
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01003"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/XJA7Z.mp4",
+    "duration": 30.678851174934724,
+    "query": "A person finished drinking the beverage in the cup",
+    "span": [
+      [
+        27,
+        30
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01004"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/Y0MCG.mp4",
+    "duration": 30.7,
+    "query": "A woman puts a pillow on the sofa",
+    "span": [
+      [
+        7,
+        8
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01084"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/PC7H2.mp4",
+    "duration": 31.183011789924972,
+    "query": "A person is sitting on a chair",
+    "span": [
+      [
+        3,
+        12
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01094"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/YIIFF.mp4",
+    "duration": 30.1795277712284,
+    "query": "a person is tidying up a shelf",
+    "span": [
+      [
+        0,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01127"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DLOS7.mp4",
+    "duration": 41.470588235294116,
+    "query": "A person is repairing the lit ceiling light",
+    "span": [
+      [
+        0,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01139"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DLOS7.mp4",
+    "duration": 41.470588235294116,
+    "query": "A person is sitting and wiping the door",
+    "span": [
+      [
+        30,
+        35
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01140"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/D7W4E.mp4",
+    "duration": 30.733333333333334,
+    "query": "a person puts a cup into a cupboard",
+    "span": [
+      [
+        7,
+        13
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01186"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/2KGV3.mp4",
+    "duration": 30.8,
+    "query": "A person puts a book on the sofa",
+    "span": [
+      [
+        20,
+        21
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01201"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/HXUI5.mp4",
+    "duration": 48.01936059100751,
+    "query": "A man took out his phone",
+    "span": [
+      [
+        36,
+        39
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01379"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/FK143.mp4",
+    "duration": 36.625245258338786,
+    "query": "A person took medicine",
+    "span": [
+      [
+        32,
+        36
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01394"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/E5ZF5.mp4",
+    "duration": 35.665202963161605,
+    "query": "A person is wrapped in a blanket",
+    "span": [
+      [
+        25,
+        35
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01409"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/2ZICJ.mp4",
+    "duration": 35.123483607927014,
+    "query": "person they open up a refrigerator",
+    "span": [
+      [
+        7,
+        8
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01456"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/9ZE0J.mp4",
+    "duration": 32.1,
+    "query": "a person runs up stairs",
+    "span": [
+      [
+        0,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01471"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/QMKZV.mp4",
+    "duration": 33.71889239397126,
+    "query": "A person picks up the plate from the ground",
+    "span": [
+      [
+        24,
+        26
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01482"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AZPOX.mp4",
+    "duration": 32.69933333333333,
+    "query": "A person takes the towel off their shoulder",
+    "span": [
+      [
+        0,
+        2
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01495"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/N6FZ7.mp4",
+    "duration": 18.206946280495135,
+    "query": "The man puts the white packaged item in his hand on the table",
+    "span": [
+      [
+        10,
+        11
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01517"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/FNBYE.mp4",
+    "duration": 38.43555555555556,
+    "query": "A person pulls a chair over and sits down",
+    "span": [
+      [
+        0,
+        2
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01551"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/HNPX7.mp4",
+    "duration": 29.9299,
+    "query": "A man sits on the ground and opens a plastic bag",
+    "span": [
+      [
+        0,
+        1
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01557"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ZL3QP.mp4",
+    "duration": 30.597233333333335,
+    "query": "person starts laughing",
+    "span": [
+      [
+        4,
+        9
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01719"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/OTUV7.mp4",
+    "duration": 16.907408640085205,
+    "query": "The man puts down the square-shaped small object in his left hand",
+    "span": [
+      [
+        6,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01729"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/2OHTZ.mp4",
+    "duration": 33.233200000000004,
+    "query": "the person takes a couple drinks from a cup",
+    "span": [
+      [
+        9,
+        29
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01732"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/1L5D3.mp4",
+    "duration": 30.816892222403393,
+    "query": "The boy takes a pillow from the cabinet",
+    "span": [
+      [
+        1,
+        4
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01840"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/1XOQ8.mp4",
+    "duration": 29.82573726541555,
+    "query": "A person throws multiple pairs of shoes from the cabinet to the side",
+    "span": [
+      [
+        2,
+        12
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01858"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/PXY5Q.mp4",
+    "duration": 32.266666666666666,
+    "query": "person takes out a glass of water",
+    "span": [
+      [
+        8,
+        12
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_01882"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/RBQ9Y.mp4",
+    "duration": 58.38773854456947,
+    "query": "A man puts on a brown plaid shirt",
+    "span": [
+      [
+        17,
+        37
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02070"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DR7K0.mp4",
+    "duration": 31.41176470588235,
+    "query": "A person is getting dressed",
+    "span": [
+      [
+        20,
+        31
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02188"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AHBE8.mp4",
+    "duration": 28.499749121926744,
+    "query": "a person opens a box",
+    "span": [
+      [
+        14,
+        15
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02197"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/28BVI.mp4",
+    "duration": 43.201825888490376,
+    "query": "The man puts the glass in his hand on the table",
+    "span": [
+      [
+        31,
+        32
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02233"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/28BVI.mp4",
+    "duration": 43.201825888490376,
+    "query": "The man closes the lunch box on the table and pushes it away",
+    "span": [
+      [
+        32,
+        37
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02234"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/6XB10.mp4",
+    "duration": 35.83050847457627,
+    "query": "a person walks through a doorway into a room",
+    "span": [
+      [
+        1,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02262"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/WK9HE.mp4",
+    "duration": 34.08023614651818,
+    "query": "A person is looking at a phone",
+    "span": [
+      [
+        31,
+        34
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02299"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/SS3IL.mp4",
+    "duration": 21.478852054629687,
+    "query": "A person puts down a plate",
+    "span": [
+      [
+        5,
+        8
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02365"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/OKHVL.mp4",
+    "duration": 36.191718291490055,
+    "query": "The man puts the sandwich into the bowl",
+    "span": [
+      [
+        5,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02414"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/J2XFQ.mp4",
+    "duration": 28.661966666666668,
+    "query": "A person took a sandwich from the refrigerator",
+    "span": [
+      [
+        16,
+        20
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02419"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/02SKC.mp4",
+    "duration": 32.2,
+    "query": "a smiling person snuggles a blanket on their bed",
+    "span": [
+      [
+        2,
+        19
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02466"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/JQRMQ.mp4",
+    "duration": 27.293933333333335,
+    "query": "A man turns off the light",
+    "span": [
+      [
+        21,
+        23
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02473"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/4BEZX.mp4",
+    "duration": 43.35294117647059,
+    "query": "A man puts a towel over his shoulder",
+    "span": [
+      [
+        37,
+        38
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02496"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ME4YL.mp4",
+    "duration": 23.828541001064963,
+    "query": "The man glanced at the camera",
+    "span": [
+      [
+        6,
+        7
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02534"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/4A28I.mp4",
+    "duration": 29.533333333333335,
+    "query": "a person is smiling",
+    "span": [
+      [
+        0,
+        28
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02575"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/BEJVY.mp4",
+    "duration": 15.066666666666666,
+    "query": "A person takes something out of a bag to eat",
+    "span": [
+      [
+        0,
+        4
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02601"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/SLAH4.mp4",
+    "duration": 15.553072625698325,
+    "query": "a person is holding a doorknob",
+    "span": [
+      [
+        0,
+        1
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02604"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/0TKKR.mp4",
+    "duration": 44.16094210009813,
+    "query": "The man pours water into the cup",
+    "span": [
+      [
+        28,
+        32
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02620"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ZJRCS.mp4",
+    "duration": 31.133333333333333,
+    "query": "The man in white clothes closes the window",
+    "span": [
+      [
+        10,
+        17
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02655"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/FQOGZ.mp4",
+    "duration": 32.57420833333333,
+    "query": "A person takes something out of the cabinet",
+    "span": [
+      [
+        16,
+        18
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02662"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/610PZ.mp4",
+    "duration": 31.96526666666667,
+    "query": "A person is drinking from a cup",
+    "span": [
+      [
+        0,
+        27
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02709"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/TU9K1.mp4",
+    "duration": 41.25224196967226,
+    "query": "person close the closet door",
+    "span": [
+      [
+        36,
+        39
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02746"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/C6INR.mp4",
+    "duration": 35.2352,
+    "query": "A man is sweeping the floor with a broom",
+    "span": [
+      [
+        1,
+        9
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02772"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/FAO7J.mp4",
+    "duration": 45.2,
+    "query": "person turns the light off",
+    "span": [
+      [
+        37,
+        38
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02800"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AFUBX.mp4",
+    "duration": 24.666666666666668,
+    "query": "A person comes out holding something in their hand",
+    "span": [
+      [
+        7,
+        9
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02860"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DOYQE.mp4",
+    "duration": 35.56666666666667,
+    "query": "A woman holds a card in one hand while taking a sip of water from a cup",
+    "span": [
+      [
+        30,
+        34
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02873"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ZPRJH.mp4",
+    "duration": 30.941958766331407,
+    "query": "a person is sitting on a floor",
+    "span": [
+      [
+        0,
+        4
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02875"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/44PFW.mp4",
+    "duration": 24.734982332155475,
+    "query": "A person is eating something",
+    "span": [
+      [
+        0,
+        20
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02886"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/0F7LW.mp4",
+    "duration": 30.630630630630627,
+    "query": "A person opens the wardrobe door",
+    "span": [
+      [
+        3,
+        6
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02933"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/9VF2C.mp4",
+    "duration": 23.666666666666668,
+    "query": "A person runs out of the frame",
+    "span": [
+      [
+        18,
+        19
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02987"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/32K2C.mp4",
+    "duration": 32.766666666666666,
+    "query": "A person reaches out to tidy their hair",
+    "span": [
+      [
+        12,
+        17
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_02989"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/OQ54Y.mp4",
+    "duration": 33.8,
+    "query": "A person puts a box of milk back into the refrigerator",
+    "span": [
+      [
+        11,
+        18
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03017"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/OGLCO.mp4",
+    "duration": 31.6,
+    "query": "person eating chips out of a bag",
+    "span": [
+      [
+        3,
+        31
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03034"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/DAA3F.mp4",
+    "duration": 32.03333333333333,
+    "query": "A person stretched",
+    "span": [
+      [
+        4,
+        10
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03038"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/UETQS.mp4",
+    "duration": 31.05590062111801,
+    "query": "A person is cooking eggs on the stove",
+    "span": [
+      [
+        24,
+        30
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03109"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/ZNQVC.mp4",
+    "duration": 31.23115880863379,
+    "query": "A man sits on the bed taking off his shoes",
+    "span": [
+      [
+        16,
+        27
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03128"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/D04GX.mp4",
+    "duration": 13.159476024516284,
+    "query": "A person walks in holding a camera",
+    "span": [
+      [
+        4,
+        13
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03167"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/GL7E6.mp4",
+    "duration": 30.205720020070245,
+    "query": "A person wakes up in the living room and sneezes",
+    "span": [
+      [
+        1,
+        5
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03301"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/WC5QK.mp4",
+    "duration": 30.4304,
+    "query": "person they sit in a chair",
+    "span": [
+      [
+        18,
+        28
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03306"
+  },
+  {
+    "source": "Charades-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/120YL.mp4",
+    "duration": 42.57017952902775,
+    "query": "A person is eating a cookie",
+    "span": [
+      [
+        39,
+        40
+      ]
+    ],
+    "dataset": "charades-timelens",
+    "sample_key": "charades-timelens_03316"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Fky1ioAUt38.mp4",
+    "duration": 54.0,
+    "query": "A person mops the floor while a dog chase the mop",
+    "span": [
+      [
+        0,
+        53
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00054"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_lCX7y_KAihU.mp4",
+    "duration": 58.68,
+    "query": "Kevin reaches into an envelope and pulls something out",
+    "span": [
+      [
+        9,
+        10
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00205"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_n2wq_9TeNYM.mp4",
+    "duration": 41.08,
+    "query": "They are having a bicycle race",
+    "span": [
+      [
+        1,
+        41
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00218"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_0PmrImNqA2w.mp4",
+    "duration": 54.220000000000006,
+    "query": "The woman continues painting and smiling to the camera",
+    "span": [
+      [
+        43,
+        46
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00245"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_kWtY5wkkAMY.mp4",
+    "duration": 56.68996666666667,
+    "query": "The screen goes black and we see the website address",
+    "span": [
+      [
+        53,
+        56
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00261"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_x8cuLOUppmU.mp4",
+    "duration": 45.1451,
+    "query": "She swings a ball on a chain around her several times",
+    "span": [
+      [
+        10,
+        34
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00263"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_MkKUQ4MMHd8.mp4",
+    "duration": 37.44,
+    "query": "People are riding camels in the desert",
+    "span": [
+      [
+        0,
+        37
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00356"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Lf3oTCD4d08.mp4",
+    "duration": 39.28033333333334,
+    "query": "The black-haired woman is grinning",
+    "span": [
+      [
+        7,
+        12
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00376"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Qci4EFEIZuo.mp4",
+    "duration": 57.03333333333333,
+    "query": "The person holding the rattle starts shaking it",
+    "span": [
+      [
+        39,
+        47
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00386"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_gUR1wXosHMo.mp4",
+    "duration": 50.3,
+    "query": "The boy pointed at the bottle with his finger",
+    "span": [
+      [
+        46,
+        47
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00459"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_KbEoaYhMZ6c.mp4",
+    "duration": 44.53333333333333,
+    "query": "He turns the tool and uses the cutting edge to slice the carpet at the wall seam and tears off the cut strip",
+    "span": [
+      [
+        0,
+        34
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00543"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_tCQiu-qY9XA.mp4",
+    "duration": 71.2,
+    "query": "The woman in a white shirt and yellow hat holds the racket with both hands and hits the ball out",
+    "span": [
+      [
+        43,
+        46
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00570"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_dDN37ufNu84.mp4",
+    "duration": 85.16841111111111,
+    "query": "She then is shown holding two balls and the paddle, she hits one and and then gets another from the bin on the right",
+    "span": [
+      [
+        7,
+        25
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00585"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_jmSrbVNKF6U.mp4",
+    "duration": 81.24783333333333,
+    "query": "The girl extends her arm in a yellow long sleeve to turn off the camera",
+    "span": [
+      [
+        80,
+        81
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00646"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_aOTtBZynDOQ.mp4",
+    "duration": 79.61286666666666,
+    "query": "An athlete practices tossing a Javelin in a track a field course",
+    "span": [
+      [
+        8,
+        79
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00654"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_bfBTnUiGVUo.mp4",
+    "duration": 69.5,
+    "query": "The boy spits into the sink then gives a big smile to the camera",
+    "span": [
+      [
+        64,
+        69
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00713"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_57buK1yvKPk.mp4",
+    "duration": 74.8,
+    "query": "The girl touched the corner of her mouth while peeling a potato",
+    "span": [
+      [
+        3,
+        4
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00745"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_IjULOynkK5I.mp4",
+    "duration": 71.539,
+    "query": "The woman is talking while riding a stationary bike",
+    "span": [
+      [
+        15,
+        16
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00760"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_-_gDSRlC1kg.mp4",
+    "duration": 65.16,
+    "query": "The athlete stands within the blue circle to get ready",
+    "span": [
+      [
+        4,
+        22
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00768"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_ETHVjrG7S4k.mp4",
+    "duration": 67.1,
+    "query": "A man climbs over the railing and cheers with others",
+    "span": [
+      [
+        24,
+        60
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00793"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Vncj0EkAGio.mp4",
+    "duration": 61.42803333333333,
+    "query": "The woman inserts a straw into the glass",
+    "span": [
+      [
+        52,
+        53
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00828"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_w9CC0wf27zs.mp4",
+    "duration": 78.84543333333333,
+    "query": "Something fell off the table",
+    "span": [
+      [
+        76,
+        78
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00838"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Px08sPeSsG0.mp4",
+    "duration": 86.2,
+    "query": "man is doing a tattoo on a man's ribs",
+    "span": [
+      [
+        22,
+        32
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00840"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_VFqkLp5mzBM.mp4",
+    "duration": 79.07900000000001,
+    "query": "There is a polo match with horses",
+    "span": [
+      [
+        21,
+        50
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_00913"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_aS0wGPhD48o.mp4",
+    "duration": 79.94653333333333,
+    "query": "Apply black nail polish on the nails and draw beautiful patterns",
+    "span": [
+      [
+        40,
+        53
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01023"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_mFDC1CLt6B4.mp4",
+    "duration": 74.841,
+    "query": "The short gate is released",
+    "span": [
+      [
+        33,
+        34
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01134"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_dcsQy55tjw4.mp4",
+    "duration": 60.06,
+    "query": "The person in green clothing threw a shot put once",
+    "span": [
+      [
+        45,
+        60
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01144"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_BfLrltipDDU.mp4",
+    "duration": 114.94816666666667,
+    "query": "The man kicks a person into the water",
+    "span": [
+      [
+        75,
+        76
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01171"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_yPA6klGWEsc.mp4",
+    "duration": 104.16666666666667,
+    "query": "There is a slanted tree in the river",
+    "span": [
+      [
+        15,
+        19
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01274"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_cFzo-Zgxk1M.mp4",
+    "duration": 99.92,
+    "query": "Blonde-haired girl is standing and talking on the phone",
+    "span": [
+      [
+        95,
+        99
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01308"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_aDWrPrNFdR0.mp4",
+    "duration": 111.9,
+    "query": "The man puts a banknote on the waitress's jeans, and she walks toward one of the men",
+    "span": [
+      [
+        84,
+        95
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01333"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_EI_6eT-0-X4.mp4",
+    "duration": 102.93333333333334,
+    "query": "A woman begins to hop in place while holding a jump rope",
+    "span": [
+      [
+        48,
+        103
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01339"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_PZ1FVhgTRWU.mp4",
+    "duration": 91.35793333333334,
+    "query": "She does a gymnastic routine on the balance beam",
+    "span": [
+      [
+        6,
+        83
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01402"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_rMZtiiLAqoY.mp4",
+    "duration": 118.05126666666666,
+    "query": "The man puts a coin into the game machine",
+    "span": [
+      [
+        34,
+        36
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01576"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_UNbC2c1C824.mp4",
+    "duration": 90.63333333333334,
+    "query": "The woman did a split",
+    "span": [
+      [
+        44,
+        45
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01629"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_5PgDTLR7wFQ.mp4",
+    "duration": 106.4063,
+    "query": "A woman is standing behind a sink",
+    "span": [
+      [
+        0,
+        106
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01717"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_cfaBPxE-A5k.mp4",
+    "duration": 95.1,
+    "query": "He starts chopping wood",
+    "span": [
+      [
+        6,
+        23
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01729"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_5ptxyeHlcwM.mp4",
+    "duration": 91.001,
+    "query": "A man wearing pink clothes is bowling",
+    "span": [
+      [
+        31,
+        36
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01742"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_yFPxSn69pcc.mp4",
+    "duration": 93.76,
+    "query": "A man is bare-chested, pours something into his hand, and then rubs it on his body",
+    "span": [
+      [
+        22,
+        28
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01764"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_9VWoQpg9wqE.mp4",
+    "duration": 127.92,
+    "query": "A man holding a dog is sitting on a chair",
+    "span": [
+      [
+        34,
+        37
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01792"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_O3HFalRZVts.mp4",
+    "duration": 123.45666666666666,
+    "query": "Put the beef slices on the bread",
+    "span": [
+      [
+        30,
+        36
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01797"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_J4rzLO4u_pI.mp4",
+    "duration": 147.71423333333334,
+    "query": "He puts on a pair of blue gloves",
+    "span": [
+      [
+        54,
+        59
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01800"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_U_ia-tINzpw.mp4",
+    "duration": 129.00386666666665,
+    "query": "When he's finished, he starts to play the saxophone using his mouth and his fingers",
+    "span": [
+      [
+        89,
+        108
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01806"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_gmnwqOPcOo0.mp4",
+    "duration": 136.3362,
+    "query": "A woman is standing with her hands on her hips",
+    "span": [
+      [
+        111,
+        112
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01829"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_mHVmDOxtVt0.mp4",
+    "duration": 126.5,
+    "query": "A man and a woman are practicing boxing together",
+    "span": [
+      [
+        3,
+        61
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01867"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_U0d68z5HTwE.mp4",
+    "duration": 127.3272,
+    "query": "Pour some of the beaten eggs into the bowl",
+    "span": [
+      [
+        32,
+        34
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01877"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_U36rsW_WhUA.mp4",
+    "duration": 133.36,
+    "query": "A person touched the black cat's head",
+    "span": [
+      [
+        94,
+        97
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01906"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_vy91mJTl7rQ.mp4",
+    "duration": 137.53300000000002,
+    "query": "They float through the turbulent waters",
+    "span": [
+      [
+        79,
+        124
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_01908"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_LIJBolW8k5o.mp4",
+    "duration": 131.20833333333334,
+    "query": "The person wearing black clothes is holding a blue sailboat and preparing to launch it into the water",
+    "span": [
+      [
+        83,
+        85
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02006"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_LIJBolW8k5o.mp4",
+    "duration": 131.20833333333334,
+    "query": "The man wearing white clothes is surfing on a green sailboat",
+    "span": [
+      [
+        38,
+        60
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02007"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_XyQSmMYbP6o.mp4",
+    "duration": 124.5,
+    "query": "The woman puts the phone into the water",
+    "span": [
+      [
+        24,
+        25
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02021"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_s5y4xXcphcc.mp4",
+    "duration": 131.81665555555557,
+    "query": "People are surfing on the water on sailboards with sails",
+    "span": [
+      [
+        0,
+        131
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02153"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v__vUE7PhDBcA.mp4",
+    "duration": 136.36666666666667,
+    "query": "He sprays himself with water while continuing to run",
+    "span": [
+      [
+        120,
+        121
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02167"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_Cu-p0FZOqi8.mp4",
+    "duration": 136.97016666666667,
+    "query": "A man in red stands on the shore with his hands on his hips",
+    "span": [
+      [
+        33,
+        39
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02170"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_eyBSKNXo6Vo.mp4",
+    "duration": 124.7,
+    "query": "A man squats and talks to a little boy",
+    "span": [
+      [
+        11,
+        14
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02188"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_P_zz379qSuo.mp4",
+    "duration": 123.87374444444445,
+    "query": "The man in black tied a white rope to the tree stump",
+    "span": [
+      [
+        9,
+        10
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02194"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_VwmYoF9Rh_8.mp4",
+    "duration": 132.49903333333333,
+    "query": "A man and a woman lifted a kayak by the shore",
+    "span": [
+      [
+        15,
+        16
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02212"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_rQZIJBinOsw.mp4",
+    "duration": 128.96216666666666,
+    "query": "The chef introduces the honing rod",
+    "span": [
+      [
+        30,
+        36
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02254"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_4SecbKo1iGE.mp4",
+    "duration": 148.649,
+    "query": "the man then paints the wood with a brown paint",
+    "span": [
+      [
+        16,
+        28
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02277"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_4SecbKo1iGE.mp4",
+    "duration": 148.649,
+    "query": "The man starts painting other colors on the wood",
+    "span": [
+      [
+        30,
+        89
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02278"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_4SecbKo1iGE.mp4",
+    "duration": 148.649,
+    "query": "The man wipes back and forth on the wood with a cloth",
+    "span": [
+      [
+        97,
+        120
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02279"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_aNE5ZWD5E34.mp4",
+    "duration": 140.66666666666666,
+    "query": "A man first sprayed some sunscreen spray on himself, then sprayed some on the woman next to him",
+    "span": [
+      [
+        67,
+        75
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02371"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_kbe4iowYMqM.mp4",
+    "duration": 139.93176666666665,
+    "query": "A person pours noodles into a pot",
+    "span": [
+      [
+        64,
+        65
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02402"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_uwLM5n-rYmA.mp4",
+    "duration": 177.4,
+    "query": "A weight trainer explains flexing and stretching for proper squat position",
+    "span": [
+      [
+        0,
+        16
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02578"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_yDH9iAn82Q8.mp4",
+    "duration": 178.44493333333332,
+    "query": "A close up of a salad is shown and leads into a person cutting up vegetables",
+    "span": [
+      [
+        0,
+        30
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02585"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_GnLUmMkyvCo.mp4",
+    "duration": 176.30946666666668,
+    "query": "A man wearing black clothes and black pants turns around and throws an object into the distance",
+    "span": [
+      [
+        4,
+        34
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02657"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_l7gWFOa7FnI.mp4",
+    "duration": 168.04,
+    "query": "A man squats on the ground, looks directly at the camera, and speaks while holding two floor tiles in his hands",
+    "span": [
+      [
+        114,
+        117
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02758"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_9qVcdqGeAzE.mp4",
+    "duration": 155.12163333333334,
+    "query": "She starts styling her hair with a hair dryer and a comb at the same time",
+    "span": [
+      [
+        30,
+        130
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02788"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v__QTQEw1b_-U.mp4",
+    "duration": 157.44,
+    "query": "The man in white rests one hand on the wooden building and places the other hand on his hip, and talks with the man in yellow",
+    "span": [
+      [
+        8,
+        23
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02818"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_WPVb8fYLFUM.mp4",
+    "duration": 177.56,
+    "query": "A man holds a freshly baked chocolate pie with both hands and shows it to the camera",
+    "span": [
+      [
+        132,
+        145
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02911"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_3TxZTZEEg44.mp4",
+    "duration": 156.73992222222222,
+    "query": "A man wearing white clothes is holding a tennis racket, and another person wearing red clothes is speaking beside him",
+    "span": [
+      [
+        51,
+        74
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02941"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_VLjfzOpn-AQ.mp4",
+    "duration": 167.04,
+    "query": "We see several people wearing wetsuits getting ready outside",
+    "span": [
+      [
+        3,
+        10
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02963"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_IjwOh2YmT9U.mp4",
+    "duration": 176.17600000000002,
+    "query": "A person skateboards and jumps over a gasoline barrel",
+    "span": [
+      [
+        8,
+        9
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02966"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_vbHLA5l_BRc.mp4",
+    "duration": 154.6378085363928,
+    "query": "A man is adjusting the position of a video camera",
+    "span": [
+      [
+        5,
+        7
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_02989"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_K0MzjnMzbj4.mp4",
+    "duration": 175.66666666666666,
+    "query": "A group of shadow figures are moving",
+    "span": [
+      [
+        0,
+        3
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03033"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_UuLBAMSmwgc.mp4",
+    "duration": 189.189,
+    "query": "The man in black leaves the foosball table",
+    "span": [
+      [
+        186,
+        189
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03101"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_7-_Nur_xiV4.mp4",
+    "duration": 185.85233333333335,
+    "query": "Man in green clothes raises his hands with his back to the camera",
+    "span": [
+      [
+        155,
+        156
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03109"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_ByIIq3jFOKo.mp4",
+    "duration": 192.95943333333335,
+    "query": "A person appears in front of the camera riding a small green boat",
+    "span": [
+      [
+        156,
+        159
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03113"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_GI8tylrKKlA.mp4",
+    "duration": 199.22183333333334,
+    "query": "She moves the cat from her left side to her right side",
+    "span": [
+      [
+        113,
+        117
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03114"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_immCYvN8pwQ.mp4",
+    "duration": 198.66666666666666,
+    "query": "a couple of men pick up the skateboards, and ride them down the road",
+    "span": [
+      [
+        19,
+        163
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03242"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_wLKePf07V14.mp4",
+    "duration": 197.13026666666667,
+    "query": "A man cuts green wrapping paper with scissors",
+    "span": [
+      [
+        17,
+        21
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03272"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_5_M10vevgJg.mp4",
+    "duration": 206.80766666666665,
+    "query": "The man spreads his hands",
+    "span": [
+      [
+        192,
+        195
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03287"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_3j2d27w3x5Q.mp4",
+    "duration": 194.2774111111111,
+    "query": "He stirs around the ingredients while adding more as well as putting noodles in a pot",
+    "span": [
+      [
+        49,
+        108
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03437"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_No5ZwqHdEQU.mp4",
+    "duration": 180.07999999999998,
+    "query": "The woman in a blue bikini turns around, claps, and points both thumbs toward herself",
+    "span": [
+      [
+        6,
+        10
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03457"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_iRwRwpVLE_Y.mp4",
+    "duration": 196.58333333333334,
+    "query": "A man appeared",
+    "span": [
+      [
+        167,
+        170
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03463"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_9PP5_HGpu4c.mp4",
+    "duration": 186.153,
+    "query": "The man put a bunch of cilantro on the cutting board and chopped it",
+    "span": [
+      [
+        162,
+        170
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03510"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_SrKGO2Xu670.mp4",
+    "duration": 209.5093,
+    "query": "A man wearing stripes walks to the glass counter",
+    "span": [
+      [
+        64,
+        68
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03680"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_rzIaKwWJDZI.mp4",
+    "duration": 201.78491111111111,
+    "query": "She puts lace and small stuffed animals onto the cake",
+    "span": [
+      [
+        116,
+        167
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03715"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_dRAn_gsx9Wc.mp4",
+    "duration": 192.86666666666667,
+    "query": "A person stands on the field, first takes a few steps back, and then takes a few steps forward",
+    "span": [
+      [
+        19,
+        30
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03759"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_45gAK3x_0ds.mp4",
+    "duration": 188.35483333333335,
+    "query": "A man wearing a purple top and black jeans is bouncing up and down on an elastic rope",
+    "span": [
+      [
+        16,
+        20
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03764"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_otq24Pdm3sc.mp4",
+    "duration": 211.04416666666668,
+    "query": "A woman is pulled into a pool",
+    "span": [
+      [
+        204,
+        208
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_03787"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_xbQQhK7wQZQ.mp4",
+    "duration": 217.7175,
+    "query": "A woman pours seasoning into the ingredients",
+    "span": [
+      [
+        129,
+        132
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04043"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_JWN0cMm-8ug.mp4",
+    "duration": 217.56,
+    "query": "man is in front of the bullring talking to the camera",
+    "span": [
+      [
+        41,
+        65
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04090"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_p8MvTi8hJdE.mp4",
+    "duration": 219.88633333333334,
+    "query": "Many people are behind the man, and sunlight shines on the ground",
+    "span": [
+      [
+        174,
+        219
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04140"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_g-rw2Kyh9xo.mp4",
+    "duration": 238.8386,
+    "query": "A man walks up to the side of a pool",
+    "span": [
+      [
+        0,
+        2
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04175"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_AimG8xzchfI.mp4",
+    "duration": 227.12,
+    "query": "An old man in a blue sweater walks past the camera, smiling",
+    "span": [
+      [
+        146,
+        149
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04376"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_QQBmydn6--I.mp4",
+    "duration": 226.59303333333332,
+    "query": "He is killing a fish and removing its internal organs",
+    "span": [
+      [
+        142,
+        215
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04393"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_HEw5wIWVpWE.mp4",
+    "duration": 235.96906666666666,
+    "query": "The camera follows the children walking into a different room",
+    "span": [
+      [
+        30,
+        46
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04416"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_qY7LG7r_IA8.mp4",
+    "duration": 228.5,
+    "query": "A young girl is bending over facing the camera",
+    "span": [
+      [
+        0,
+        5
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04465"
+  },
+  {
+    "source": "ActivityNet-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_6EWzgWd72Cs.mp4",
+    "duration": 237.87096666666667,
+    "query": "A man wearing glasses and a woman in red clothes sit behind a table broadcasting news",
+    "span": [
+      [
+        2,
+        11
+      ]
+    ],
+    "dataset": "activitynet-timelens",
+    "sample_key": "activitynet-timelens_04468"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/RoripwjYFp8_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman wearing glasses eating something at a street market",
+    "span": [
+      [
+        35,
+        60
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00014"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/IdpHJK90VDw_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Man in black holds a bouquet next to a purple wall",
+    "span": [
+      [
+        0,
+        36
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00052"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/IdpHJK90VDw_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "The man took the bottle from the woman’s hand and screwed the cap on",
+    "span": [
+      [
+        6,
+        11
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00055"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/wUgPzvcKK5c_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A man films himself while standing in front of a beach",
+    "span": [
+      [
+        103,
+        143
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00062"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/8yHwJ3f7Fi4_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "a young woman dances in defferent outfits",
+    "span": [
+      [
+        15,
+        107
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00066"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/PS5rtWdxn3A_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A group of people pose for group photos",
+    "span": [
+      [
+        34,
+        40
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00089"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/izeyQalOwGg_210.0_360.0.mp4",
+    "duration": 128.0,
+    "query": "Liverpool player is interviewed next to a logo wall",
+    "span": [
+      [
+        92,
+        115
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00094"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/6Mzo1y19iTU_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A woman in a pink swimsuit is taking a selfie in the swimming pool",
+    "span": [
+      [
+        124,
+        144
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00115"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/h6QKDqomIPk_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A toddler is sitting in his car seat",
+    "span": [
+      [
+        110,
+        119
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00143"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Gwdizqh16JY_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A teacher giving a lecture to a group of children",
+    "span": [
+      [
+        131,
+        133
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00147"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/O5RKn-qeIVI_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Blonde man is walking past palm trees",
+    "span": [
+      [
+        54,
+        79
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00162"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/E6yFTWlChmE_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Two athletes are playing a table tennis match",
+    "span": [
+      [
+        0,
+        36
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00164"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/_i9qWLsZToY_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A woman is sitting in a bar with a large sandwich next to her, and after taking a big bite, she slowly savors it",
+    "span": [
+      [
+        121,
+        149
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00179"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/XpVt6Z1Gjjo_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The man kissed his bird",
+    "span": [
+      [
+        29,
+        30
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00190"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/XpVt6Z1Gjjo_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "Blonde man eats shirtless next to his friend",
+    "span": [
+      [
+        123,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00192"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/qBe1PUrRHUo_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A woman is looking through a clear plastic container with different clothes in it",
+    "span": [
+      [
+        22,
+        40
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00199"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Z-L9RjWBTHg_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A couple is showing the huge shopping mall",
+    "span": [
+      [
+        136,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00207"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/74jtgDnsEBU_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman in a sun hat relaxes in an overflowing pool at the hotel",
+    "span": [
+      [
+        57,
+        61
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00210"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/tlQPRLVDyH4_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A blonde woman in beige suite and white blouse is talking in front of a camera",
+    "span": [
+      [
+        5,
+        10
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00229"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/6OV8g7JkMvg_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Two women are driving a sea vehicle with an orange wheel on the sea surface",
+    "span": [
+      [
+        33,
+        40
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00256"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/GOzEeIvLZO4_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "They are driving through a green desert",
+    "span": [
+      [
+        0,
+        24
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00286"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/xb-GHGr3s6k_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Friends receive their food from the waiter and eat it during their conversation",
+    "span": [
+      [
+        102,
+        130
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00319"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/B1RpWUrs06U_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A man is sitting in a car talking, with a woman sitting beside him",
+    "span": [
+      [
+        79,
+        99
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00327"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/g614xfyWKoE_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman wearing a shower cap and a bath towel walks into the bathroom and then pulls the shower curtain closed",
+    "span": [
+      [
+        73,
+        77
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00334"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/g614xfyWKoE_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman is brushing her teeth in front of a mirror",
+    "span": [
+      [
+        58,
+        61
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00335"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/W4FSEuEgG-E_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "Blonde woman holds up a big white box",
+    "span": [
+      [
+        41,
+        43
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00351"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/t83PFfp4TFA_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A girl displaying here decorated hands",
+    "span": [
+      [
+        81,
+        141
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00394"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Z8MR9i08l6g_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A man and a woman at the airport",
+    "span": [
+      [
+        20,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00408"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/NM0rYteX0DU_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A hamburger appears on the screen",
+    "span": [
+      [
+        87,
+        89
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00430"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/SD3Rg6hTEzw_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Asian man wearing a cap without glasses walks through a airport",
+    "span": [
+      [
+        139,
+        147
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00441"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/ebCzdax-fjA_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The woman takes off her mask",
+    "span": [
+      [
+        114,
+        115
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00448"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/ebCzdax-fjA_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Three people are riding in the back of a van",
+    "span": [
+      [
+        48,
+        90
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00450"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/0zDV_cVzPiI_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "An Asian girl wearing a white face mask with a heart on it walking on the street",
+    "span": [
+      [
+        91,
+        141
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00452"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/iJmrusvmEns_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Some children run toward the seaside",
+    "span": [
+      [
+        39,
+        40
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00458"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/gcrsfhqTmmk_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "V logger sharing some footage from hotel room and his plan for the day",
+    "span": [
+      [
+        0,
+        47
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00467"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/hYGAJNV6eYY_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A man wearing a blue top and glasses is speaking next to a neon sign",
+    "span": [
+      [
+        27,
+        50
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00477"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/hpcc5pGNKZk_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "A man puts his drone on the ground",
+    "span": [
+      [
+        148,
+        149
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00502"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/PWdPLZvdO_I_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A team wearing matching black wetsuits are standing in a row together",
+    "span": [
+      [
+        110,
+        130
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00542"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/iH1-Z6eB2cY_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Blonde woman shows an eyelash curler and curls her eyelashes",
+    "span": [
+      [
+        139,
+        148
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00547"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Upou7XP_KoM_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "People are eating in a busy café",
+    "span": [
+      [
+        0,
+        19
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00553"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/xqe9FSBJDx0_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "The person in blue clothes hugs the man in white clothes",
+    "span": [
+      [
+        36,
+        39
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00564"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/k4cmv7wjjt0_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A person makes a heart gesture underwater",
+    "span": [
+      [
+        69,
+        70
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00570"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/_RiI6qVZ1Hk_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "People walk through beautiful man made enviroments",
+    "span": [
+      [
+        106,
+        121
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00593"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/H3fhZxUC5M8_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "Children are playing on the bed",
+    "span": [
+      [
+        92,
+        116
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00601"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/pmGyw055pQg_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Indian Girl sharing some beautiful flowers and plants clips",
+    "span": [
+      [
+        1,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00665"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/3fESWnyZC0o_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "The woman in a black camisole wipes her mouth with a red handkerchief",
+    "span": [
+      [
+        4,
+        6
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00690"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/DTh3uCDtres_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "Woman holds a beer stein and drinks it",
+    "span": [
+      [
+        123,
+        131
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00697"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/AW6IgzeMjpE_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "City is in rubble and cars are on fire",
+    "span": [
+      [
+        45,
+        58
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00705"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/msAkt_9q6H0_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A toddler plays with a camera with his parents",
+    "span": [
+      [
+        110,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00728"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/7sf0ZL5KNZ8_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A reporter is showing the yellow interior of a large airplane and interviewing people inside of it",
+    "span": [
+      [
+        0,
+        75
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00736"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/BanSEQnGfFg_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Woman waits for ride at the airport then gets in",
+    "span": [
+      [
+        124,
+        140
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00741"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/3Bk5MJEo2EA_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A man is sitting and drinking a beverage",
+    "span": [
+      [
+        5,
+        18
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00748"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/7PKEbzSNwts_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A woman is speaking to the camera in the living room, and a man is sitting on the sofa",
+    "span": [
+      [
+        0,
+        117
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00759"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/bowYAwxuG-c_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "tourist gather to film beautiful Chicago skyscraper",
+    "span": [
+      [
+        131,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00776"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/bowYAwxuG-c_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman is having snacks and hanging out near a Christmas tree with a city view of skyscrapers behind her at night",
+    "span": [
+      [
+        48,
+        80
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00778"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/3UPP_WRL86c_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The woman is applying medicine to her foot",
+    "span": [
+      [
+        0,
+        36
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00779"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/ocLUzCNodj4_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Girl making chocolate juice",
+    "span": [
+      [
+        73,
+        99
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00860"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/2I9-kvemtSU_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Two heart stickers appeared in the woman's nostrils",
+    "span": [
+      [
+        3,
+        4
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00865"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/2I9-kvemtSU_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A shopping couple take a french pastry break at a Japanese mall",
+    "span": [
+      [
+        50,
+        65
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00866"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/UPwSDYkpzlk_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "Three little girls wearing dresses are playing together",
+    "span": [
+      [
+        79,
+        87
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00920"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/13U4xVzZFQ8_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A woman wearing glasses and a woman in red clothes clink cups with spoons",
+    "span": [
+      [
+        130,
+        131
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00929"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/koupdIrQ4Xg_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Three women are taking a selfie with their phones in an elevator",
+    "span": [
+      [
+        67,
+        73
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00941"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/9Xzrtwiint4_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "The woman stretches out three fingers and waves them in front of the television",
+    "span": [
+      [
+        5,
+        8
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_00947"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/m_-A8xoc1Oo_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A man helps a young boy brush his teeth",
+    "span": [
+      [
+        103,
+        115
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01035"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/gDgMQI6q448_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "In the distance, a row of wind turbines is rotating, and there are two ships on the sea",
+    "span": [
+      [
+        93,
+        97
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01094"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/NzyjaMWxNrU_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Two TV show hosts sit on a red couch and discuss the news",
+    "span": [
+      [
+        66,
+        89
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01099"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/A5PIgmXGIdI_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Four cars are shown in a split screen",
+    "span": [
+      [
+        31,
+        50
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01117"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Iu7nF2VLF3c_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A woman wearing blue clothes is shaking her body in the car",
+    "span": [
+      [
+        137,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01131"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/R_ZGwbK0aXE_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The man throws the basketball to a child",
+    "span": [
+      [
+        3,
+        4
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01141"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/Z2hmY5JrQmo_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A huge red statue was captured",
+    "span": [
+      [
+        103,
+        107
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01150"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/71Fa81Wr-dE_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "A woman and a man are talking in the car, and a child sitting in the back seat is eating snacks",
+    "span": [
+      [
+        0,
+        84
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01183"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/w1UC0rFTPcM_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A man opens the car door and sticks his head out",
+    "span": [
+      [
+        14,
+        19
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01207"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/L8IkH3DPsVo_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Couple enjoying at pukka shell beach Philippines",
+    "span": [
+      [
+        87,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01210"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/xRClGm0DmzU_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "The girl wearing a gray hat is selecting cosmetics",
+    "span": [
+      [
+        63,
+        99
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01233"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/xRClGm0DmzU_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "She is sitting on a spinning carousel",
+    "span": [
+      [
+        135,
+        147
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01237"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/-l-ZfQfRs3I_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Woman rides in the car with headwrap and scarf",
+    "span": [
+      [
+        18,
+        31
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01248"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/EriqfBlZe5Y_660.0_810.0.mp4",
+    "duration": 150.0,
+    "query": "A green hand was raised",
+    "span": [
+      [
+        58,
+        60
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01267"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/A0JmK8Dwv3Q_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A man in a red tank top is smoking from a bong",
+    "span": [
+      [
+        53,
+        85
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01288"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/OtMUZzca89Q_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A video captured from a vehicles's window",
+    "span": [
+      [
+        56,
+        118
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01301"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/OtMUZzca89Q_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Someone jumps into the water from the boat",
+    "span": [
+      [
+        41,
+        45
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01302"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/8s9fLWEi4So_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The man talks to the camera, then takes a picture of the little girl and turns toward himself",
+    "span": [
+      [
+        77,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01310"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/8s9fLWEi4So_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "The girl gets onto the chair and talks to someone while pointing at the cookie bag on the table",
+    "span": [
+      [
+        114,
+        122
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01311"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/1rguOCdMIY8_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "A group of volunteers wearing yellow clothes stand next to a fire truck",
+    "span": [
+      [
+        129,
+        131
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01328"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/m8tif6c-u8w_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "There are sweeping views of the coast from a high viewpoint",
+    "span": [
+      [
+        0,
+        17
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01331"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/RH9FHjHgiJI_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A couple is strolling outside with their child",
+    "span": [
+      [
+        0,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01355"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/4HeSJ7tMo48_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A man in sunglasses by a window is eating a noodle soup dish",
+    "span": [
+      [
+        114,
+        137
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01373"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/bEmdM0Peb_o_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "The man in the yellow T-shirt is standing on Lego and then pretending to be hurt",
+    "span": [
+      [
+        45,
+        64
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01386"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/OIbtyKaPsCI_510.0_660.0.mp4",
+    "duration": 150.0,
+    "query": "The little girl is putting a book on the bookshelf on the wall",
+    "span": [
+      [
+        60,
+        66
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01400"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/rsNuM2HcRh8_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The girl shares her snacks in the car",
+    "span": [
+      [
+        15,
+        41
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01403"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/rRpUM9ZoNkU_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "The woman sits and takes out a plate of food to display",
+    "span": [
+      [
+        111,
+        121
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01410"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/TSi_JjS_nmk_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A helicopter is flying in the sky",
+    "span": [
+      [
+        25,
+        26
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01430"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/KDpsbJHx1RI_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "File explorer showing the games tab",
+    "span": [
+      [
+        0,
+        16
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01437"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/KDpsbJHx1RI_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "The man is reading reviews about keyboards",
+    "span": [
+      [
+        137,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01438"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/mbdj8xfSIKo_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "There are many foods on the blue table",
+    "span": [
+      [
+        29,
+        39
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01443"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/VUV77-5ERxA_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "A hat-wearing instructor bends down and talks to a man in white",
+    "span": [
+      [
+        112,
+        128
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01467"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/xDaZ261SHZA_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "Shirtless man walks past the stairs",
+    "span": [
+      [
+        126,
+        137
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01494"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/iB1iaveR00c_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "The camera faces the window, zooms in, then a hand is placed in front of the window, and the scenery outside the window is still visible",
+    "span": [
+      [
+        55,
+        61
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01495"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/_OiTj9QUt_g_360.0_510.0.mp4",
+    "duration": 150.0,
+    "query": "Couples share some scenes of Paris from Eiffel tower",
+    "span": [
+      [
+        127,
+        150
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01509"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/4IYQN95j6ok_60.0_210.0.mp4",
+    "duration": 150.0,
+    "query": "A woman scoops water with a ladle",
+    "span": [
+      [
+        133,
+        134
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01517"
+  },
+  {
+    "source": "QVHighlights-TimeLens",
+    "data_type": "grounding",
+    "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/4IYQN95j6ok_210.0_360.0.mp4",
+    "duration": 150.0,
+    "query": "The girl wearing a dark blue coat in the video is pretending to vomit",
+    "span": [
+      [
+        75,
+        80
+      ]
+    ],
+    "dataset": "qvhighlights-timelens",
+    "sample_key": "qvhighlights-timelens_01519"
+  }
+]

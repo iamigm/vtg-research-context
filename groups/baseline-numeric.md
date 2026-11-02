@@ -40,6 +40,10 @@
 
 현재 관련 코드 74개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
+## 관련 실험 대화
+
+- [같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아](../conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md) — active
+- [Save benchmark result PNGs](../conversations/01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58.md) — deleted
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.

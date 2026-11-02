@@ -45,14 +45,10 @@ def aggregate():
   for p in sorted(result_glob((relocate_path(ROOT/'results/timelens_span_head'/m)), 'shard*/predictions.jsonl')):
    b=p.read_bytes();sources.append(dict(path=os.path.relpath(p,ROOT),sha256=hashlib.sha256(b).hexdigest(),bytes=len(b)))
    for lineno,line in enumerate(b.splitlines(),1):add(json.loads(line),p,'restricted_head_526',label,'video_query',2,'greedy restricted526, max512',line=lineno)
- # Snapshot only atomically completed 8fps records; incomplete dataset groups remain explicit.
- paths=sorted(result_glob((relocate_path(ROOT/'results/thinking_vs_instruct_8fps_v1/samples')), '*/*/*/*/result.json'))
- for p in paths:
-  r=load(p);m=r['model'];add(r,p,'pilot_8fps_v1','Qwen3-VL-8B-'+('Instruct' if m=='instruct' else 'Thinking'),r['order'],8,'greedy, max512' if m=='instruct' else 'sample T1 p.95 k20 seed42, max16384','raw')
  status('metrics')
  grouped=defaultdict(list)
  for r in records:
-  cohorts=['pilot_300'] if r['run'] in ['legacy_qwen25_pilot','thinking_pilot_2fps','restricted_head_526','pilot_8fps_v1'] else ['full_9404']+(['pilot_300'] if r['is_pilot'] else [])
+  cohorts=['pilot_300'] if r['run'] in ['legacy_qwen25_pilot','thinking_pilot_2fps','restricted_head_526'] else ['full_9404']+(['pilot_300'] if r['is_pilot'] else [])
   for cohort in cohorts:
    for ds in [r['dataset'],'all']:grouped[(r['run'],r['model'],cohort,r['order'],r['fps'],r['policy'],ds)].append(r)
  metrics=[]
@@ -80,15 +76,14 @@ def aggregate():
  summary=dict(timestamp=now(),response_records_rescored=len(records),rollout_records_in_existing_validated_summary=6000,inventory=inventory,metrics=metrics,rollout=roll,run_version_comparisons=comparisons,source_count=len(sources),scoring='raw and integer-rounded, first predicted interval vs single GT; parse failures zero; no clipping',note='Cohorts overlap; pilot rows are subsets of full rows. Run versions and sampling repeats must never be pooled as independent queries.')
  write(relocate_path(OUT/'summary.json'),summary);write(relocate_path(OUT/'sources.json'),sources)
  write(relocate_path(OUT/'validation.json'),dict(passed=True,records_rescored=len(records),unique_run_model_sample_order=True,stored_iou_reproduced=True,gt_checked=True,expected_run_counts=expectedcounts,source_sha256_recorded=True,rollout_validation='existing validated summary and counted 6000 files; not a fresh candidate-trace verification'))
- lines=['# 기존 zero-shot 전체 집계','',f'집계 시각: {now()}. GPU 추론 없이 기존 응답 {len(records):,}개를 재채점하고, 별도 sampling rollout 6,000개는 기존 검증된 통계를 통합했다. 8fps는 집계 시점에 저장된 완료분만 포함한다.','', '동일 실행의 response·top30 trace·attention 사본은 한 번만 집계했다. pilot은 full의 부분집합이며, 서로 다른 실행 버전과 rollout을 합쳐 하나의 성능으로 계산하지 않았다.','', '## 전체 실행 목록','', '| Run | 응답 수 | 근거 |','|---|---:|---|']
+ lines=['# 기존 zero-shot 전체 집계','',f'집계 시각: {now()}. GPU 추론 없이 기존 응답 {len(records):,}개를 재채점하고, 별도 sampling rollout 6,000개는 기존 검증된 통계를 통합했다.','', '동일 실행의 response·top30 trace·attention 사본은 한 번만 집계했다. pilot은 full의 부분집합이며, 서로 다른 실행 버전과 rollout을 합쳐 하나의 성능으로 계산하지 않았다.','', '## 전체 실행 목록','', '| Run | 응답 수 | 근거 |','|---|---:|---|']
  for x in inventory:lines.append(f"| {x['run']} | {x['records']:,} | {x['source']} |")
  def table(title,selected):
   lines.extend(['',f'## {title}','','모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.','', '| Run | 모델 | FPS | 입력 순서 | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |','|---|---|---:|---|---|---:|---:|---:|---:|---:|'])
   for r in selected:lines.append(f"| {r['run']} | {r['model']} | {r['fps']} | {r['order']} | {r['dataset']} | {r['n']}/{r['expected']} | "+' | '.join(f"{100*r[k+'_raw']:.2f}" for k in ['miou','r03','r05','r07'])+' |')
  table('전체 벤치마크', [r for r in metrics if r['cohort']=='full_9404'])
  table('동일 pilot 300개', [r for r in metrics if r['cohort']=='pilot_300' and r['run']!='restricted_head_526' and r['fps']==2])
- table('8fps 진행 중인 결과', [r for r in metrics if r['fps']==8])
- lines+=['','부분 완료 행은 선택된 일부 샘플의 결과이므로 완료된 300개 결과와 직접 비교하면 안 된다. Instruct greedy(max512)와 Thinking sampling(T=1,p=.95,k=20,seed42,max16384)은 생성 정책과 예산이 달라 checkpoint만의 효과가 아니다. 모든 실행의 요청 FPS는 2 또는 8이며, 실제 프레임 sampling은 원본 fps 및 기존 최대 768프레임 제한을 따른다. min_tokens=64,total_tokens=14336을 유지한다.']
+ lines+=['','부분 완료 행은 선택된 일부 샘플의 결과이므로 완료된 300개 결과와 직접 비교하면 안 된다. Instruct greedy(max512)와 Thinking sampling(T=1,p=.95,k=20,seed42,max16384)은 생성 정책과 예산이 달라 checkpoint만의 효과가 아니다. 이 집계에 남은 실행의 요청 FPS는 2이며, 실제 프레임 sampling은 원본 fps 및 기존 최대 768프레임 제한을 따른다. min_tokens=64,total_tokens=14336을 유지한다.']
  table('별도 비교군: 제한 head', [r for r in metrics if r['run']=='restricted_head_526'])
  lines+=['','## 별도 비교군: stochastic rollout','', '기존 검증된 summary.json과 validation.json을 사용했다. 이 섹션은 원래 반올림 채점 값이며 raw 재채점이 아니다. 각 query 5회 생성, 벤치마크별 100 query / 500 rollout이다. Oracle any-of-5는 GT를 본 상한이며 실제 추론 성능이 아니다.','', '| 모델 | 방식 | Dataset | Query | Rollout | mIoU % | R@.5 % | Oracle any5 R@.5 % |','|---|---|---|---:|---:|---:|---:|---:|']
  for r in roll['groups']:lines.append(f"| {r['model']} | {r['variant']} | {r['dataset']} | {r['queries']} | {r['rollouts']} | {r['miou']:.2f} | {r['r50']:.2f} | {r['oracle_any5_r50']:.2f} |")
@@ -103,15 +98,7 @@ def aggregate():
  status('complete',metric_rows=len(metrics));print(json.dumps({'records':len(records),'metrics':len(metrics),'inventory':inventory,'report':str(relocate_path(OUT/'REPORT.md'))},ensure_ascii=False),flush=True)
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--watch-8fps',action='store_true');args=ap.parse_args()
  aggregate()
- if args.watch_8fps:
-  while True:
-   p=relocate_path(ROOT/'results/thinking_vs_instruct_8fps_v1/status.json');s=read(p) if p.exists() else {}
-   write(relocate_path(OUT/'watcher.json'),dict(timestamp=now(),pid=os.getpid(),state='watching_8fps',inference_stage=s.get('stage'),inference_completed=s.get('completed')))
-   if s.get('stage') in ['complete','failed']:
-    aggregate();write(relocate_path(OUT/'watcher.json'),dict(timestamp=now(),pid=os.getpid(),state='refreshed',inference_stage=s['stage']));break
-   time.sleep(30)
 if __name__=='__main__':
  try:main()
  except BaseException:

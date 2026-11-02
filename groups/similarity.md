@@ -22,6 +22,11 @@ CLIP ViT-L/14와 Qwen3-VL-Embedding-8B. 2fps pilot300 query/292 videos →full9,
 
 현재 관련 코드 44개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
+## 관련 실험 대화
+
+- [MR 데이터셋 임베딩 temporal signal 실험](../conversations/01a0e7a6-4380-7cf2-ab28-04fd79163847.md) — deleted
+- [Compare vector similarity and scores](../conversations/01a0f09d-8388-75d0-b859-814e032a9039.md) — deleted
+- [experiments/similarity 하나 만들어서 2개 실험을 돌리자.](../conversations/01a186f0-efb7-7550-b57f-7340962f10e3.md) — active
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.

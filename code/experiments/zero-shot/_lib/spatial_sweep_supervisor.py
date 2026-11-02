@@ -8,7 +8,7 @@ def main():
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         for attempt,workers in enumerate([4,2,1],1):
             pressure_since=None;guard=False
-            with (OUT/'logs/runner.log').open('ab',buffering=0) as log:
+            with (OUT/'logs/singleton_fallback.log').open('ab',buffering=0) as log:
                 child=subprocess.Popen([sys.executable,'-u',str(ROOT/'_lib/spatial_sweep_runtime.py')],cwd=ROOT,env=dict(os.environ,VTG_VIDEO_WORKERS=str(workers)),stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
                 write(OUT/'metadata/child_process.json',dict(pid=child.pid,supervisor_pid=os.getpid(),attempt=attempt,workers=workers,started_at=stamp()))
                 while child.poll() is None:

@@ -1,0 +1,7 @@
+model,sample_key,answer,reason
+qwen3,activitynet-timelens_00646,The event happens in 1:09.0 - 1:13.0 seconds.,outside declared seconds/at-most-one-decimal grammar
+qwen3,activitynet-timelens_01308,The event happens in 1:36.0 - 1:40.0 seconds.,outside declared seconds/at-most-one-decimal grammar
+qwen3,activitynet-timelens_03109,The event happens in 2:13 - 2:16 seconds.,outside declared seconds/at-most-one-decimal grammar
+qwen3,activitynet-timelens_03113,The event happens in 2:36 - 2:39 seconds.,outside declared seconds/at-most-one-decimal grammar
+qwen3,qvhighlights-timelens_00147,The event happens in 2:12 - 2:14 seconds.,outside declared seconds/at-most-one-decimal grammar
+qwen3,qvhighlights-timelens_00334,The event happens in 1:11 - 1:18 seconds.,outside declared seconds/at-most-one-decimal grammar

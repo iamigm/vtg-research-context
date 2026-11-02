@@ -4,6 +4,11 @@
 
 ## 실행별 보고서·관련 코드
 
+## 관련 실험 대화
+
+- [MR 데이터셋 다운로드 및 구조화](../conversations/01a0cdf4-f9ee-7d22-a760-a253660fb045.md) — deleted
+- [TimeLens 데이터 다운로드](../conversations/01a11511-6b4d-7120-abec-81d084deaba4.md) — deleted
+- [지금까지 진행한 실험에서 embedding vector 자체를 저장한 게 몇 개나 되나 봐봐](../conversations/01a1902b-c9f9-7243-aa08-3f6204b2e32e.md) — deleted
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.

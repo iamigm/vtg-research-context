@@ -10,6 +10,12 @@ Charades·QVHighlights 각100 query. Qwen2.5 native / TimeLens-7B식 입력 / Qw
 
 현재 관련 코드 24개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
+## 관련 실험 대화
+
+- [MLLM zero-shot의 TimeLens-Bench에서 failure case를 분석해보자.](../conversations/01a11543-617e-7c51-89d2-4878a1b84d65.md) — deleted
+- [Temporal grounding이 modality gap에 의한 건지 한 번 조사해보자.](../conversations/01a11a8b-1fbb-7991-94dc-3a3ba2db00a4.md) — deleted
+- [파일럿 100개 정성 평가](../conversations/01a11b61-a962-76e0-9337-5892b74d66e1.md) — deleted
+- [Design query-conditioned captioning](../conversations/01a13f3f-a47e-7c80-9c2e-0be40df386d7.md) — deleted
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
