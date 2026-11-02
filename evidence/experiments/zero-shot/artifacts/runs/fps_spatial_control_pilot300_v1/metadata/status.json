@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-02T23:59:53.298528+09:00",
+  "timestamp": "2026-11-03T00:32:55.108616+09:00",
   "state": "waiting",
   "stage": "waiting_for_previous_experiment",
   "completed": 0,
@@ -8,10 +8,10 @@
   "dependency": "/home1/irteam/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json",
   "dependency_state": "building",
   "dependency_stage": "parallel_generation",
-  "dependency_completed": 36168,
+  "dependency_completed": 39278,
   "dependency_total": 46800,
   "smoke_passed": true,
-  "elapsed_seconds": 16075.567851297557,
+  "elapsed_seconds": 18057.377936344594,
   "eta_seconds": null,
   "eta_scope": "waiting on dependency; no inference ETA yet",
   "counts": {}
