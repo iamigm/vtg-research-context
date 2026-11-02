@@ -1,0 +1,38 @@
+{
+  "state": "complete",
+  "stage": "complete",
+  "timestamp": "2026-10-21T01:29:40.703619+00:00",
+  "completed": 6000,
+  "total": 6000,
+  "percent": 100.0,
+  "elapsed_seconds": 5747,
+  "inference_eta_seconds": 0,
+  "counts": {
+    "qwen25": {
+      "top_k": {
+        "qvhighlights-timelens": 500,
+        "charades-timelens": 500,
+        "activitynet-timelens": 500
+      },
+      "top_p": {
+        "qvhighlights-timelens": 500,
+        "charades-timelens": 500,
+        "activitynet-timelens": 500
+      }
+    },
+    "qwen3": {
+      "top_k": {
+        "qvhighlights-timelens": 500,
+        "charades-timelens": 500,
+        "activitynet-timelens": 500
+      },
+      "top_p": {
+        "qvhighlights-timelens": 500,
+        "charades-timelens": 500,
+        "activitynet-timelens": 500
+      }
+    }
+  },
+  "html": "index.html",
+  "markdown": "REPORT.md"
+}

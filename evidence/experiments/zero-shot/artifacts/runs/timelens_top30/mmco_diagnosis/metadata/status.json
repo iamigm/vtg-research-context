@@ -1,0 +1,10 @@
+{
+  "state": "complete",
+  "stage": "CPU sparse / sequential decoder comparison",
+  "completed": 292,
+  "total": 292,
+  "percent": 100.0,
+  "elapsed_seconds": 1371,
+  "eta_seconds": 0,
+  "updated_at": "2026-10-20T01:33:13.760011+00:00"
+}

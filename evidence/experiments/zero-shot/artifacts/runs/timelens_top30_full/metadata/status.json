@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-10-23T23:59:41+0900",
+  "state": "complete",
+  "stage": "complete",
+  "completed": 18808,
+  "total": 18808,
+  "percent": 100.0,
+  "elapsed_seconds": 13340.98811841011,
+  "eta_seconds": null,
+  "eta_scope": "remaining inference only; excludes GPU waiting, media and analysis",
+  "counts": {
+    "qwen25": {
+      "activitynet-timelens": 4500,
+      "charades-timelens": 3363,
+      "qvhighlights-timelens": 1541
+    },
+    "qwen3": {
+      "activitynet-timelens": 4500,
+      "charades-timelens": 3363,
+      "qvhighlights-timelens": 1541
+    }
+  },
+  "digit_report": "digit_correctness/REPORT.md",
+  "blue_report": "digit_correctness/blue_analysis/REPORT.md"
+}

@@ -1,0 +1,20 @@
+{
+  "embedding_spec_version": 1,
+  "model": "qwen",
+  "cohort_sha256": "79b43362e537d63d2453d23d215ae216c5cb1f7a5cacccd266662b6e04a947b5",
+  "image_source": "shared 2fps JPEG quality95, RGB, max side512; GT independent",
+  "cosine": "FP32 L2-normalized independent embeddings dot product; no learned logit scale",
+  "extraction": "official final-layer last valid token; float32 normalization",
+  "text": "official chat template; system: Represent the user's input.",
+  "qwen_max_pixels": 262144,
+  "qwen_min_pixels": 4096,
+  "qwen_attention": "sdpa",
+  "qwen_vendor_commit": "393e2978d27852b0d0230d6994f37f9c15bed73c",
+  "versions": {
+    "torch": "2.6.0+cu124",
+    "transformers": "4.57.6",
+    "qwen-vl-utils": "0.0.14",
+    "decord": "0.6.0"
+  },
+  "code_sha256": "5ba454ed71eaeb3758c940ab6484dd692697bde53cf6104552a5b93760315db8"
+}

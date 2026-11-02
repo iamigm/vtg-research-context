@@ -1,92 +1,39 @@
-# VTG experiment documentation
+# VTG 실험 History
 
-Observed: 2026-10-29T09:00:00+09:00
-Next scheduled: 2026-10-30T09:00:00+09:00
-Daily 09:00 Asia/Seoul. Server side; independent of the Mac. Source reports are preserved as evidence, not independently rerun results. Files missing from a future source retain their prior repository copy/Git history; only the current manifest lists currently observed files.
+관찰: 2026-11-02T19:12:52.797388+09:00
 
-| Report | Source modified (KST) | Bytes |
-|---|---|---:|
-| [zero-shot/README.md](experiments/zero-shot/README.md) | 2026-10-28T17:21:58+09:00 | 3045 |
-| [zero-shot/artifacts/README.md](experiments/zero-shot/artifacts/README.md) | 2026-10-23T16:25:57+09:00 | 5823 |
-| [zero-shot/artifacts/status.json](experiments/zero-shot/artifacts/status.json) | 2026-10-23T23:59:51+09:00 | 461 |
-| [zero-shot/results/all_zeroshot_v1/REPORT.md](experiments/zero-shot/results/all_zeroshot_v1/REPORT.md) | 2026-10-28T11:56:59+09:00 | 12451 |
-| [zero-shot/results/all_zeroshot_v1/summary.json](experiments/zero-shot/results/all_zeroshot_v1/summary.json) | 2026-10-28T11:56:59+09:00 | 52546 |
-| [zero-shot/results/input_order/REPORT.md](experiments/zero-shot/results/input_order/REPORT.md) | 2026-10-25T13:45:04+09:00 | 2840 |
-| [zero-shot/results/input_order/summary.json](experiments/zero-shot/results/input_order/summary.json) | 2026-10-23T23:19:23+09:00 | 3393 |
-| [zero-shot/results/input_order/consistency_v1/REPORT.md](experiments/zero-shot/results/input_order/consistency_v1/REPORT.md) | 2026-10-23T21:48:44+09:00 | 7683 |
-| [zero-shot/results/input_order/consistency_v1/summary.json](experiments/zero-shot/results/input_order/consistency_v1/summary.json) | 2026-10-23T21:20:18+09:00 | 18677 |
-| [zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md) | 2026-10-28T18:25:51+09:00 | 8533 |
-| [zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md) | 2026-10-28T18:25:50+09:00 | 3033 |
-| [zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/summary.json) | 2026-10-28T18:25:09+09:00 | 4244 |
-| [zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md) | 2026-10-28T12:06:13+09:00 | 1820 |
-| [zero-shot/results/thinking_vs_instruct_v1/REPORT.md](experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md) | 2026-10-26T16:26:07+09:00 | 3667 |
-| [zero-shot/results/thinking_vs_instruct_v1/summary.json](experiments/zero-shot/results/thinking_vs_instruct_v1/summary.json) | 2026-10-26T16:26:07+09:00 | 11402 |
-| [zero-shot/results/timelens_rollout/REPORT.md](experiments/zero-shot/results/timelens_rollout/REPORT.md) | 2026-10-21T10:29:22+09:00 | 5950 |
-| [zero-shot/results/timelens_rollout/summary.json](experiments/zero-shot/results/timelens_rollout/summary.json) | 2026-10-21T10:29:22+09:00 | 5197 |
-| [zero-shot/results/timelens_rollout/sources/Qwen2.5-VL-7B-Instruct_README.md](experiments/zero-shot/results/timelens_rollout/sources/Qwen2.5-VL-7B-Instruct_README.md) | 2026-10-21T08:49:25+09:00 | 18574 |
-| [zero-shot/results/timelens_rollout/sources/Qwen3-VL-8B-Instruct_README.md](experiments/zero-shot/results/timelens_rollout/sources/Qwen3-VL-8B-Instruct_README.md) | 2026-10-21T08:49:26+09:00 | 7133 |
-| [zero-shot/results/timelens_span_head/REPORT.md](experiments/zero-shot/results/timelens_span_head/REPORT.md) | 2026-10-20T15:46:24+09:00 | 11086 |
-| [zero-shot/results/timelens_span_head/summary.json](experiments/zero-shot/results/timelens_span_head/summary.json) | 2026-10-20T15:46:23+09:00 | 13054 |
-| [zero-shot/results/timelens_span_head/provenance/aborted_old_cohort/reports/summary.json](experiments/zero-shot/results/timelens_span_head/provenance/aborted_old_cohort/reports/summary.json) | 2026-10-19T19:13:38+09:00 | 5669 |
-| [zero-shot/results/timelens_top30/REPORT.md](experiments/zero-shot/results/timelens_top30/REPORT.md) | 2026-10-23T16:24:34+09:00 | 4749 |
-| [zero-shot/results/timelens_top30/summary.json](experiments/zero-shot/results/timelens_top30/summary.json) | 2026-10-20T15:46:26+09:00 | 3346 |
-| [zero-shot/results/timelens_top30/digit_correctness/REPORT.md](experiments/zero-shot/results/timelens_top30/digit_correctness/REPORT.md) | 2026-10-23T14:31:37+09:00 | 6617 |
-| [zero-shot/results/timelens_top30/digit_correctness/summary.json](experiments/zero-shot/results/timelens_top30/digit_correctness/summary.json) | 2026-10-23T14:12:32+09:00 | 450449 |
-| [zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md](experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) | 2026-10-23T15:18:47+09:00 | 43188 |
-| [zero-shot/results/timelens_top30/digit_correctness/blue_analysis/summary.json](experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/summary.json) | 2026-10-23T15:18:47+09:00 | 511485 |
-| [zero-shot/results/timelens_top30/entropy_iou/REPORT.md](experiments/zero-shot/results/timelens_top30/entropy_iou/REPORT.md) | 2026-10-22T16:35:16+09:00 | 4505 |
-| [zero-shot/results/timelens_top30/entropy_iou/summary.json](experiments/zero-shot/results/timelens_top30/entropy_iou/summary.json) | 2026-10-22T16:35:16+09:00 | 11437 |
-| [zero-shot/results/timelens_top30/integrated/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/REPORT.md) | 2026-10-22T20:08:41+09:00 | 5204 |
-| [zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/REPORT.md) | 2026-10-22T17:48:43+09:00 | 6310 |
-| [zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/digit_role_entropy/summary.json) | 2026-10-22T17:48:43+09:00 | 65279 |
-| [zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/REPORT.md) | 2026-10-22T17:36:50+09:00 | 4385 |
-| [zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/endpoint_gt_entropy/summary.json) | 2026-10-22T17:36:50+09:00 | 10109 |
-| [zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/REPORT.md) | 2026-10-22T16:56:30+09:00 | 5826 |
-| [zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/summary.json](experiments/zero-shot/results/timelens_top30/integrated/sources/prefix_entropy/summary.json) | 2026-10-22T16:56:30+09:00 | 367854 |
-| [zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md](experiments/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md) | 2026-10-20T10:33:13+09:00 | 4515 |
-| [zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md](experiments/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md) | 2026-10-22T20:19:38+09:00 | 4768 |
-| [zero-shot/results/timelens_top30/numeric_uncertainty/summary.json](experiments/zero-shot/results/timelens_top30/numeric_uncertainty/summary.json) | 2026-10-22T20:19:38+09:00 | 199307 |
-| [zero-shot/results/timelens_top30/prefix_entropy/REPORT.md](experiments/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md) | 2026-10-22T16:56:30+09:00 | 5826 |
-| [zero-shot/results/timelens_top30/prefix_entropy/summary.json](experiments/zero-shot/results/timelens_top30/prefix_entropy/summary.json) | 2026-10-22T16:56:30+09:00 | 367854 |
-| [zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md](experiments/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md) | 2026-10-23T23:58:11+09:00 | 7309 |
-| [zero-shot/results/timelens_top30_full/digit_correctness/summary.json](experiments/zero-shot/results/timelens_top30_full/digit_correctness/summary.json) | 2026-10-23T23:57:30+09:00 | 610537 |
-| [zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md](experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) | 2026-10-23T23:59:16+09:00 | 47577 |
-| [zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/summary.json](experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/summary.json) | 2026-10-23T23:59:15+09:00 | 977037 |
-| [zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md](experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md) | 2026-10-25T15:11:33+09:00 | 3528 |
-| [zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json](experiments/zero-shot/results/timelens_top30_full/endpoint_gt_entropy/summary.json) | 2026-10-23T23:56:52+09:00 | 59029 |
-| [zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md](experiments/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md) | 2026-10-23T20:21:24+09:00 | 3247 |
-| [zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md](experiments/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md) | 2026-10-23T20:10:35+09:00 | 8038 |
-| [zero-shot/results/timelens_top30_full/performance/REPORT.md](experiments/zero-shot/results/timelens_top30_full/performance/REPORT.md) | 2026-10-23T19:48:49+09:00 | 2940 |
-| [attention/README.md](experiments/attention/README.md) | 2026-10-26T16:22:51+09:00 | 2419 |
-| [attention/protocol.json](experiments/attention/protocol.json) | 2026-10-15T20:02:57+09:00 | 823 |
-| [attention/source_provenance.json](experiments/attention/source_provenance.json) | 2026-09-29T14:18:03+09:00 | 127 |
-| [attention/provenance/dynamics/FINDINGS.md](experiments/attention/provenance/dynamics/FINDINGS.md) | 2026-09-29T20:14:54+09:00 | 4871 |
-| [attention/provenance/dynamics/README.md](experiments/attention/provenance/dynamics/README.md) | 2026-09-29T19:32:24+09:00 | 4782 |
-| [attention/provenance/generation/FINDINGS.md](experiments/attention/provenance/generation/FINDINGS.md) | 2026-09-29T16:45:42+09:00 | 7415 |
-| [attention/provenance/generation/README.md](experiments/attention/provenance/generation/README.md) | 2026-09-29T20:30:36+09:00 | 10152 |
-| [attention/provenance/pilot/FINDINGS.md](experiments/attention/provenance/pilot/FINDINGS.md) | 2026-09-29T19:32:24+09:00 | 3056 |
-| [attention/provenance/pilot/README.md](experiments/attention/provenance/pilot/README.md) | 2026-09-29T19:32:24+09:00 | 8863 |
-| [attention/provenance/query/FINDINGS.md](experiments/attention/provenance/query/FINDINGS.md) | 2026-09-29T19:32:24+09:00 | 6378 |
-| [attention/provenance/query/README.md](experiments/attention/provenance/query/README.md) | 2026-09-29T19:32:24+09:00 | 9602 |
-| [attention/provenance/separation_before/README.md](experiments/attention/provenance/separation_before/README.md) | 2026-10-20T15:16:31+09:00 | 10215 |
-| [attention/results/REPORT.md](experiments/attention/results/REPORT.md) | 2026-10-20T15:42:02+09:00 | 2047 |
-| [attention/results/summary.json](experiments/attention/results/summary.json) | 2026-10-20T15:42:02+09:00 | 4733 |
-| [attention/results/dynamics/FINDINGS.md](experiments/attention/results/dynamics/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 4807 |
-| [attention/results/dynamics/summary.json](experiments/attention/results/dynamics/summary.json) | 2026-09-29T19:17:16+09:00 | 314183 |
-| [attention/results/generation/FINDINGS.md](experiments/attention/results/generation/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 7327 |
-| [attention/results/generation/summary.json](experiments/attention/results/generation/summary.json) | 2026-09-29T16:45:05+09:00 | 16099 |
-| [attention/results/generation/distribution_analysis/REPORT.md](experiments/attention/results/generation/distribution_analysis/REPORT.md) | 2026-10-15T20:02:57+09:00 | 5831 |
-| [attention/results/generation/distribution_analysis/summary.json](experiments/attention/results/generation/distribution_analysis/summary.json) | 2026-09-29T19:33:38+09:00 | 264202 |
-| [attention/results/generation/head_analysis/REPORT.md](experiments/attention/results/generation/head_analysis/REPORT.md) | 2026-10-15T20:02:57+09:00 | 7497 |
-| [attention/results/hidden/summary.json](experiments/attention/results/hidden/summary.json) | 2026-09-30T14:12:57+09:00 | 568842 |
-| [attention/results/query/FINDINGS.md](experiments/attention/results/query/FINDINGS.md) | 2026-10-15T20:02:57+09:00 | 6210 |
-| [attention/results/query/summary.json](experiments/attention/results/query/summary.json) | 2026-09-29T15:05:45+09:00 | 2274 |
-| [attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md](experiments/attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md) | 2026-10-26T16:22:45+09:00 | 3681 |
-| [attention/results/thinking_pilot_orders_v1/REPORT.md](experiments/attention/results/thinking_pilot_orders_v1/REPORT.md) | 2026-10-25T19:54:21+09:00 | 2368 |
-| [attention/results/thinking_pilot_orders_v1/SCHEMA.md](experiments/attention/results/thinking_pilot_orders_v1/SCHEMA.md) | 2026-10-25T16:05:06+09:00 | 4582 |
-| [attention/results/thinking_pilot_orders_v1/summary.json](experiments/attention/results/thinking_pilot_orders_v1/summary.json) | 2026-10-25T19:54:21+09:00 | 2260 |
-| [attention/results/timelens_order/final_report.md](experiments/attention/results/timelens_order/final_report.md) | 2026-10-23T23:20:35+09:00 | 1468 |
-| [attention/results/timelens_order/summary.json](experiments/attention/results/timelens_order/summary.json) | 2026-10-23T23:20:21+09:00 | 1277 |
-| [analysis/failure_mode_timestamp/failure_cases/README.md](experiments/analysis/failure_mode_timestamp/failure_cases/README.md) | 2026-10-08T16:02:42+09:00 | 6790 |
-| [analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/REPORT.md](experiments/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/REPORT.md) | 2026-10-08T16:04:18+09:00 | 12820 |
-| [analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/summary.json](experiments/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/summary.json) | 2026-10-08T16:03:37+09:00 | 951 |
+실험 보고서를 원본 근거로 정리했다. 실험 재실행 없이 보고된 수치를 인용하며, 완료·진행중·폐기를 구분한다. 코드 원본경로·SHA-256·파일수정시각·수집시각은 [manifest](EXPERIMENTS.json)에 기록한다. 현재 코드를 역사적 실행 당시 코드와 동일하다고 단정하지 않는다.
+
+## 연구 맥락별 계보
+
+### [Zero-shot 기준선과 숫자 불확실성](groups/baseline-numeric.md)
+
+전체9,404 query/model과 pilot300, 제한 head·full-head top30·자릿수·endpoint·rollout의 계보. Full 18,808응답과 rollout6,000응답은 별도 실행이며 부분집합을 합산하지 않는다.
+
+### [입력 순서와 Attention](groups/order-attention.md)
+
+영상→질문 / 질문→영상 성능·예측 일관성과 query/generation/hidden/spatial/dynamics attention. MTLA pilot과 TimeLens 전체평가를 구분하며 계측량과 성능의 인과를 단정하지 않는다.
+
+### [Thinking/Instruct와 FPS](groups/thinking-fps.md)
+
+고정pilot300 ×두 입력순서. 2fps Thinking600회, 8fps 두모델1,200응답·trace1,200개 완료 보고. 8fps mIoU Instruct VQ48.49/QV36.96%, Thinking49.24/46.43%; 2fps대비 +.27/+1.08/+.62/−1.48pp. Decoding·토큰예산·공간해상도·768frame cap이 함께 영향을 준다.
+
+### [공간 해상도 통제와 Temporal Sampling](groups/spatial-sampling.md)
+
+Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목표50,176/100,352픽셀 ×4조건=7,200논리응답. 후속v2는 A/B ×두공간목표 ×19조건 ×900=68,400응답 목표. 완료 전 명세·임시보고서를 최종결과로 간주하지 않는다. 11월2일 폐기된 공간 비통제10실험의 결과는 제외한다. 남은 과거 구현은 보존하되 재실행·결과복원하지 않는다. GT oracle 결과와 실제 추론 알고리즘을 구분한다.
+
+### [Frame–Query 유사도와 비용](groups/similarity.md)
+
+CLIP ViT-L/14와 Qwen3-VL-Embedding-8B. 2fps pilot300 query/292 videos →full9,404 query/4,279 videos →16fps pilot300 비용비교. Full mAP .4508/.5103, MRR .5594/.6247. 16fps GPU forward CLIP .7251s/Qwen15.0923s/Instruct7.8314s. 네이티브 전처리·해상도·구조가 달라 파이프라인 비용비교다. 인접frame cosine은 저장embedding의 파생분석이다.
+
+### [입력 변환과 실패 유형](groups/failure-timestamp.md)
+
+Charades·QVHighlights 각100 query. Qwen2.5 native / TimeLens-7B식 입력 / Qwen3 native. Qwen2.5 변환 R@IoU.5 −19/−28pp. Frame복제·fps·modality·시간표현·지시문이 함께 바뀌므로 단일원인 효과로 해석하지 않는다.
+
+### [공용 전처리와 코드 의존성](groups/shared.md)
+
+공용 입력·저장·결과 경로·검증 코드 및 TimeLens/Qwen embedding/MTLA 외부 소스·라이선스. 독립 실험이 아니라 재현을 위한 공통 의존성이다.
+
+## 보관 범위
+
+실행·분석·보고서 생성·검증 코드 및 작은 설정·결과 요약을 함께 보관한다. 외부 vendor 소스와 라이선스도 포함한다. 큰 원자료와 모델 가중치는 서버 원본을 참조한다. 삭제된 결과는 현재 manifest에서 제외하며 Git 과거 이력은 유지한다. 일반 채팅과 수집기 운영 로그는 실험 이력에 포함하지 않는다.

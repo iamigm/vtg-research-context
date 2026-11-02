@@ -1,0 +1,213 @@
+{
+  "created_at": "2026-11-01T01:45:54.426102+09:00",
+  "sources": [
+    {
+      "path": "/home1/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json",
+      "resolved": "/home1/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json",
+      "bytes": 123839,
+      "sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf"
+    },
+    {
+      "path": "/home1/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/qwen3/samples.json",
+      "resolved": "/home1/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/qwen3/samples.json",
+      "bytes": 3879293,
+      "sha256": "79b43362e537d63d2453d23d215ae216c5cb1f7a5cacccd266662b6e04a947b5"
+    }
+  ],
+  "files": [
+    {
+      "path": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json",
+      "resolved": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json",
+      "bytes": 123839,
+      "sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf"
+    },
+    {
+      "path": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json",
+      "resolved": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json",
+      "bytes": 248929,
+      "sha256": "d7fb4b7cc1c28842be0fa81e9b277c688ccfddf862371a3253a1000db25e4752"
+    },
+    {
+      "path": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json",
+      "resolved": "/home1/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json",
+      "bytes": 373783,
+      "sha256": "e92620e9b56da0ca62af58b2da07ab2fb3fa5bac58ab20aa880b709426124db7"
+    }
+  ],
+  "policy": "Retain original sample objects/order; add100 per dataset per stage; select least-populated available joint cell then prefer unused video then SHA256(nested_pilot_v1|42|sample_key); no response/performance used",
+  "duration_edges": [
+    0,
+    30,
+    60,
+    120,
+    180,
+    null
+  ],
+  "GT_fraction_edges": [
+    0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    1.000001
+  ],
+  "excluded": [
+    {
+      "sample_key": "charades-timelens_00611",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_00787",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_01042",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_01373",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_01403",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_01915",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_01917",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_02149",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_02260",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_02263",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_02292",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "charades-timelens_03029",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00269",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00373",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00463",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00547",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00548",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00617",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00649",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00960",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00982",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_00984",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01024",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01073",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01340",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01413",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01414",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01596",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01666",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_01727",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_02393",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03010",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03218",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03237",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03385",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03477",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03499",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_03500",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    },
+    {
+      "sample_key": "activitynet-timelens_04345",
+      "reason": "invalid or out-of-annotation-duration single GT"
+    }
+  ],
+  "scope": "diagnostic stratified expansion, not representative random benchmark average or independent test"
+}

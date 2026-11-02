@@ -1,0 +1,17 @@
+{
+  "stage": "complete",
+  "completed_samples": 9404,
+  "total_samples": 9404,
+  "percent": 100.0,
+  "per_dataset": {
+    "charades-timelens": 3363,
+    "activitynet-timelens": 4500,
+    "qvhighlights-timelens": 1541
+  },
+  "elapsed_seconds": 0.0019410252571105957,
+  "eta_seconds": null,
+  "eta_scope": "remaining CPU cosine scoring only",
+  "updated_at": "2026-10-30T10:19:04.618362+09:00",
+  "completed_videos": 4279,
+  "total_videos": 4279
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-23T15:18:50+0900",
+  "state": "complete",
+  "stage": "complete",
+  "completed": 3,
+  "total": 3,
+  "percent": 100.0,
+  "elapsed_seconds": 5.145650863647461,
+  "eta_seconds": 0.0,
+  "eta_scope": "complete",
+  "counts": {
+    "qwen25/charades-timelens": 100,
+    "qwen25/activitynet-timelens": 100,
+    "qwen25/qvhighlights-timelens": 100,
+    "qwen3/charades-timelens": 100,
+    "qwen3/activitynet-timelens": 96,
+    "qwen3/qvhighlights-timelens": 98
+  }
+}

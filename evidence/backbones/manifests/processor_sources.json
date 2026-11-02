@@ -1,0 +1,5 @@
+{
+  "repo": "TencentARC/TimeLens-7B",
+  "revision": "1740e2694669a4d03549454ed4af1cd740769f4f",
+  "scope": "processor/configuration source only; no TimeLens model weights downloaded"
+}

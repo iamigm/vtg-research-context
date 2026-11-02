@@ -1,0 +1,26 @@
+{
+  "stage": "complete",
+  "completed": 1200,
+  "total": 1200,
+  "counts": {
+    "instruct/charades-timelens": 200,
+    "instruct/activitynet-timelens": 200,
+    "instruct/qvhighlights-timelens": 200,
+    "thinking/charades-timelens": 200,
+    "thinking/activitynet-timelens": 200,
+    "thinking/qvhighlights-timelens": 200
+  },
+  "started_at": "2026-10-28T17:21:08.984137+09:00",
+  "model": "thinking",
+  "dataset": "qvhighlights-timelens",
+  "sample_key": "qvhighlights-timelens_01519",
+  "order": "query_video",
+  "measurement_method": "live_generation",
+  "validation_passed": true,
+  "report": "/home1/irteam/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md",
+  "timestamp": "2026-10-28T18:25:51.096838+09:00",
+  "elapsed_seconds": 3882.112677335739,
+  "percentage": 100.0,
+  "eta_seconds": 0.0,
+  "eta_scope": "remaining inference and final aggregation; estimated from completed records in this process"
+}

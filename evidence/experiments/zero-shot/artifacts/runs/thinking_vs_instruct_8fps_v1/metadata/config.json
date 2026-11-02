@@ -1,0 +1,38 @@
+{
+  "fps": 8,
+  "min_tokens": 64,
+  "total_tokens": 14336,
+  "models": [
+    "instruct",
+    "thinking"
+  ],
+  "orders": [
+    "video_query",
+    "query_video"
+  ],
+  "samples": 300,
+  "total": 1200,
+  "manifest_sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf",
+  "seed": 42,
+  "instruct": {
+    "do_sample": false,
+    "max_new_tokens": 512
+  },
+  "thinking": {
+    "do_sample": true,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 16384
+  },
+  "source_sha256": "923120399b75deed0071eb8e1079ebf4b3127ede9bae3965fb57405419e7b637",
+  "attention_capture": false,
+  "token_trace_capture": true,
+  "trace_capture_version": "gpu-buffered-v2",
+  "vision_cache": "exact per-sample input-order pair; reset between samples and models",
+  "trace_source_sha256": "bc86a640d80c45f815a22965d7604e19ae2d64a4af66f1a8b935492bd1c02623",
+  "top_k_recorded": 30,
+  "processed_distribution": "after temperature and top-k/top-p; before token selection",
+  "completed_response_trace": "fixed saved prefix replay; original response preserved",
+  "rollouts": false
+}

@@ -1,0 +1,48 @@
+{
+  "measurement_method": "live_with_saved_generation_replay_fallback",
+  "previous_config": "artifacts/data/migration_to_live/config_replay.json",
+  "model": "/home1/irteam/backbones/models/Qwen3-VL-8B-Thinking",
+  "manifest": "/home1/irteam/experiments/zero-shot/predictions/cohorts/pilot_300/samples.json",
+  "manifest_sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf",
+  "samples": 300,
+  "orders": [
+    "video_query",
+    "query_video"
+  ],
+  "total": 600,
+  "detail_layers": [
+    0,
+    7,
+    14,
+    21,
+    28,
+    35
+  ],
+  "head_mode": "mean",
+  "detail_dtype": "float32",
+  "summary_dtype": "float32",
+  "summary_heads": 32,
+  "summary_layers": 36,
+  "categories": [
+    "video",
+    "input_query",
+    "input_other",
+    "reasoning",
+    "answer",
+    "generated_boundary",
+    "current_position"
+  ],
+  "seed": 42,
+  "max_new_tokens": 16384,
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "top_k": 20,
+  "input_fps": 2,
+  "min_tokens": 64,
+  "total_tokens": 14336,
+  "workers": 4,
+  "replay_chunk": 1,
+  "source_sha256": "ff8e07753d35055f84e797e9f6eedbd24e65860c6b24f0f87c5f66dddef56a06",
+  "attention_alignment": "predictive",
+  "backend": "flash_attention_2"
+}

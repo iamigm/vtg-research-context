@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-23T12:20:18.503460+00:00",
+  "state": "complete",
+  "stage": "CPU paired prediction analysis",
+  "completed": 9404,
+  "total": 9404,
+  "percent": 100.0,
+  "elapsed_seconds": 1.4211942590773106,
+  "counts": {
+    "charades-timelens": 3363,
+    "activitynet-timelens": 4500,
+    "qvhighlights-timelens": 1541
+  }
+}

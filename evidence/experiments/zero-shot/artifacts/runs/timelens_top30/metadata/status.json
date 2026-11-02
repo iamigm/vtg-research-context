@@ -1,0 +1,10 @@
+{
+  "state": "complete",
+  "updated_epoch": 1792464291.0052216,
+  "completed": {
+    "qwen25": 300,
+    "qwen3": 300
+  },
+  "html": "index.html",
+  "markdown": "REPORT.md"
+}

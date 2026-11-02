@@ -1,0 +1,21 @@
+{
+  "cohort": "Original pilot: 100 Charades-TimeLens + 100 QVHighlights-TimeLens per model",
+  "selection_seed": 20261007,
+  "models": [
+    "Qwen2.5-VL-7B-Instruct",
+    "Qwen3-VL-8B-Instruct"
+  ],
+  "intervention": "Select existing LM-head weight rows, project 526 allowed tokens and scatter to original token IDs. No gradient updates.",
+  "allowed_characters": "0123456789.,-[] :\\n",
+  "eos_ids": [
+    151643,
+    151645
+  ],
+  "input": "Original native video inputs and original grounding prompt; no changes to prompt format",
+  "generation": "Greedy, original model repetition penalty, max_new_tokens=512, EOS stopping",
+  "evaluation": "Official TimeLens extract_time, Python integer round, first predicted span, no clipping or correction",
+  "runtime": "PyTorch 2.6.0+cu124, Transformers 4.57.6, BF16, SDPA, 4 concurrent model replicas, 8 CPU prefetch workers, H200 141GB",
+  "source_manifest_sha256": "9c4131e7d7df0ecd9a5864a0ae52a79ff49000c2ac57dbffc31d7e4a5e003238",
+  "original_baseline_location_missing": true,
+  "baseline_recovered_from": "/home/irteam/analysis/failure_mode_timestamp/failure_cases/reports/pilot_100/setting_case_metrics.json"
+}

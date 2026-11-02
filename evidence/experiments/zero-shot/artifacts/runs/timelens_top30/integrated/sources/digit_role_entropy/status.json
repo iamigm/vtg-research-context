@@ -1,0 +1,11 @@
+{
+  "state": "complete",
+  "completed": 18,
+  "total": 18,
+  "percent": 100,
+  "responses": 594,
+  "endpoint_evaluations": 1188,
+  "steps": 5905,
+  "plots": 18,
+  "elapsed_seconds": 9.521691083908081
+}

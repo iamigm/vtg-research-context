@@ -1,0 +1,29 @@
+{
+  "run_id": "spatial_budget_pilot900_v1",
+  "parent": "gt_extent_boundary_density_pilot900_v1",
+  "areas": {
+    "low": 50176,
+    "high": 100352
+  },
+  "conditions": [
+    "uniform",
+    "gt_whole_r8",
+    "random_whole_r8_s42",
+    "random_whole_r8_s43"
+  ],
+  "cohort": "nested_pilot_v1/pilot_900",
+  "model": "/home1/irteam/backbones/models/Qwen3-VL-8B-Instruct",
+  "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+  "seed": 42,
+  "do_sample": false,
+  "max_new_tokens": 512,
+  "repetition_penalty": 1.0,
+  "dtype": "bfloat16",
+  "attention": "flash_attention_2",
+  "resize": "torchvision bicubic antialias uint8; directly from original RGB",
+  "grid_policy": "H,W multiples32; area within10%; minimize abs(log((W/H)/(sourceW/sourceH))), then relative area error, then H,W",
+  "temporal_policy": "exact parent frame IDs, source PTS, original frame count; no total video token cap",
+  "batch_policy": "batch4 only if six prespecified inputs exactly match singleton; otherwise singleton",
+  "gpu_free_required_GiB": 60,
+  "cpu_workers": 4
+}

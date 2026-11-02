@@ -1,0 +1,9 @@
+{
+  "state": "completed",
+  "pid": 1376825,
+  "updated_at": "2026-10-16T09:25:16+0900",
+  "completed_pairs": 9404,
+  "completed_runs": 18808,
+  "expected_pairs": 9404,
+  "failures": 0
+}

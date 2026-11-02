@@ -1,0 +1,14 @@
+{
+  "state": "completed",
+  "model_query_pairs": 600,
+  "unique_queries": 300,
+  "models": 2,
+  "benchmarks": 3,
+  "per_benchmark_per_model": 100,
+  "official_metric_groups_verified": 12,
+  "cuda_mps_stopped": true,
+  "finished_at": "2026-10-19T19:44:17+0900",
+  "report_format": "markdown",
+  "report": "REPORT.md",
+  "markdown_links_valid": true
+}

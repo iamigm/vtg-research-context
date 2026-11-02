@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-11-02T12:17:26.284239+09:00",
+  "user_requested_deletion": true,
+  "deleted_runs": [
+    "adaptive_temporal_sampling_pilot_v1",
+    "boundary_oracle_budget_pilot_v1",
+    "temporal_sampling_pilot300_v2",
+    "gt_interval_density_pilot300_v1",
+    "gt_extent_boundary_density_pilot300_v1",
+    "gt_actual_density_pilot300_v1",
+    "gt_density_allocation_comparison_v1",
+    "gt_extent_boundary_density_pilot900_v1",
+    "gt_actual_density_pilot900_v1",
+    "gt_density_allocation_comparison_pilot900_v1"
+  ],
+  "deleted_paths": [
+    "/home1/irteam/experiments/zero-shot/results/adaptive_temporal_sampling_pilot_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/adaptive_temporal_sampling_pilot_v1",
+    "/home1/irteam/experiments/zero-shot/results/boundary_oracle_budget_pilot_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/boundary_oracle_budget_pilot_v1",
+    "/home1/irteam/experiments/zero-shot/results/temporal_sampling_pilot300_v2",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/temporal_sampling_pilot300_v2",
+    "/home1/irteam/experiments/zero-shot/results/gt_interval_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_interval_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_extent_boundary_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_extent_boundary_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_actual_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_actual_density_pilot300_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_density_allocation_comparison_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_density_allocation_comparison_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_extent_boundary_density_pilot900_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_extent_boundary_density_pilot900_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_actual_density_pilot900_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_actual_density_pilot900_v1",
+    "/home1/irteam/experiments/zero-shot/results/gt_density_allocation_comparison_pilot900_v1",
+    "/home1/irteam/experiments/zero-shot/artifacts/runs/gt_density_allocation_comparison_pilot900_v1"
+  ],
+  "deleted_shared_cache_bytes": 616745097728,
+  "retained": "Only source metadata/plans in spatial_sampling_sources_v2; controlled spatial7200 responses; original dataset/model/benchmark references"
+}

@@ -1,0 +1,414 @@
+[
+  {
+    "name": "Qwen3-VL-8B-Instruct",
+    "repo_id": "Qwen/Qwen3-VL-8B-Instruct",
+    "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "path": "/home/irteam/backbones/models/Qwen3-VL-8B-Instruct",
+    "previous_path": "/home/irteam/experiments/mtla_query_prefill_temporal_attention/model",
+    "action": "moved; compatibility symlink at old path",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-8B-Instruct",
+    "is_symlink": false,
+    "weight_files": 4,
+    "missing_weight_files": [],
+    "weight_bytes_present": 17534339512,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "generation_config.json": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+      "chat_template.json": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+      "model.safetensors.index.json": "520b2e05079402e9468a8701d03d1154d14b2599593afb6effa7fb60c1bff070",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 28.1,
+      "reasoning_separated": false,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "sd-vae-ft-ema",
+    "repo_id": "stabilityai/sd-vae-ft-ema",
+    "revision": "f04b2c4b98319346dad8c65879f680b1997b204a",
+    "path": "/home/irteam/backbones/models/sd-vae-ft-ema",
+    "original_path": "/home/irteam/.cache/huggingface/hub/models--stabilityai--sd-vae-ft-ema/snapshots/f04b2c4b98319346dad8c65879f680b1997b204a",
+    "action": "moved whole Hugging Face cache repository into central storage; compatibility symlink at original cache path",
+    "resolved_path": "/home1/irteam/backbones/huggingface/hub/models--stabilityai--sd-vae-ft-ema/snapshots/f04b2c4b98319346dad8c65879f680b1997b204a",
+    "is_symlink": true,
+    "weight_files": 1,
+    "missing_weight_files": [],
+    "weight_bytes_present": 334643276,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "92d3dfb746fca211a2c9e019e285f8597412211728dce3c5bcf4eda0f2d62e7e"
+    }
+  },
+  {
+    "name": "Qwen3.5-122B-A10B",
+    "repo_id": "Qwen/Qwen3.5-122B-A10B",
+    "revision": "dc4d348443bc740c68e2d77492492c11606384d5",
+    "path": "/home/irteam/backbones/models/Qwen3.5-122B-A10B",
+    "original_path": "/data/models/hub/models--Qwen--Qwen3.5-122B-A10B/snapshots/dc4d348443bc740c68e2d77492492c11606384d5",
+    "action": "registered with symlink; shared cache preserved",
+    "resolved_path": "/data/models/hub/models--Qwen--Qwen3.5-122B-A10B/snapshots/dc4d348443bc740c68e2d77492492c11606384d5",
+    "is_symlink": true,
+    "weight_files": 39,
+    "missing_weight_files": [],
+    "weight_bytes_present": 250173250864,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+      "generation_config.json": "303aba891d66ab63908a7b3cc9163bcb835fdf8b9f6301c73216f3f1eb3992dd",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "model.safetensors.index.json": "c77116075a29fc3472512618b981645c84752348c350e34a87ca87d7bf6d2ba7",
+      "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+      "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+      "config.json": "af07d0423658865afb52bd0d6fd3c2cc45d988425b76193467fd19129655cecd"
+    }
+  },
+  {
+    "name": "gemma-4-26B-A4B-it",
+    "repo_id": "google/gemma-4-26B-A4B-it",
+    "revision": "4d7ae4984b7db7de8f8457170b3f1a419ee76d52",
+    "path": "/home/irteam/backbones/models/gemma-4-26B-A4B-it",
+    "original_path": "/data/models/hub/models--google--gemma-4-26B-A4B-it/snapshots/4d7ae4984b7db7de8f8457170b3f1a419ee76d52",
+    "action": "registered with symlink; shared cache preserved",
+    "resolved_path": "/data/models/hub/models--google--gemma-4-26B-A4B-it/snapshots/4d7ae4984b7db7de8f8457170b3f1a419ee76d52",
+    "is_symlink": true,
+    "weight_files": 2,
+    "missing_weight_files": [],
+    "weight_bytes_present": 51612009916,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "ed0c1eb3633de771906e9ba004a44cc5635bcc06ee2062077c3d2e88a50707d3",
+      "processor_config.json": "32bdf45d2ad4cc29a0822ddd157a182de76644f0419a6228d151495256e9813c",
+      "tokenizer.json": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "tokenizer_config.json": "9f4fec4b1dc6ecddf8f4a92e9caea5971c0e67d81309f3f9066a2bee8c362633",
+      "generation_config.json": "d4226bbe3117d2d253ba4609720ba82c6c4ce4627a9a6ae05387c78983ac03de",
+      "model.safetensors.index.json": "907826a6e46ff454272bd6db1fee629d5531a2303be22986d825a0871d7dc7a7"
+    }
+  },
+  {
+    "name": "CoLaGuard-8B",
+    "repo_id": "Saidarth/CoLaGuard-8B",
+    "revision": "37e48c071c585dce83e8f4b70da712987ed27d5e",
+    "path": "/home/irteam/backbones/models/CoLaGuard-8B",
+    "original_path": "/data/cache/huggingface/hub/models--Saidarth--CoLaGuard-8B/snapshots/37e48c071c585dce83e8f4b70da712987ed27d5e",
+    "action": "registered with symlink; shared cache preserved",
+    "resolved_path": "/data/cache/huggingface/hub/models--Saidarth--CoLaGuard-8B/snapshots/37e48c071c585dce83e8f4b70da712987ed27d5e",
+    "is_symlink": true,
+    "weight_files": 4,
+    "missing_weight_files": [],
+    "weight_bytes_present": 16077409920,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "88c6f35b046436b5ecc40c08828b69e0e529e342f3d9a2b55046d9a0a08a8171",
+      "tokenizer.json": "33b6804858a48cd76783fcefe02ce74635cfca73d6154610484193e4b7a8441a",
+      "model.safetensors.index.json": "d2a59e8ffba81d5af5e09c9da32d5cc726eeb9af671b42bfe9bcaec6b638d3e8",
+      "generation_config.json": "c4a1112f0bc751b2074481bd091eabd299ddb8e1903113e70961256d9a4de8b8",
+      "special_tokens_map.json": "cc2e013b7545f183ef03e079a3c91c6f364fa37e4068c512d7dd843e59024535",
+      "tokenizer_config.json": "2636234a80b19773f343dbe87a063709a1e7514cbfa4a63eaeb2d59b9b062d48"
+    }
+  },
+  {
+    "name": "GuardReasoner-8B",
+    "repo_id": "yueliu1999/GuardReasoner-8B",
+    "revision": "f3f57a9c3e94c94dd029903b667aa144b7d7dfb8",
+    "path": "/home/irteam/backbones/models/GuardReasoner-8B",
+    "original_path": "/data/cache/huggingface/hub/models--yueliu1999--GuardReasoner-8B/snapshots/f3f57a9c3e94c94dd029903b667aa144b7d7dfb8",
+    "action": "registered with symlink; shared cache preserved",
+    "resolved_path": "/data/cache/huggingface/hub/models--yueliu1999--GuardReasoner-8B/snapshots/f3f57a9c3e94c94dd029903b667aa144b7d7dfb8",
+    "is_symlink": true,
+    "weight_files": 4,
+    "missing_weight_files": [],
+    "weight_bytes_present": 16060556376,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "1eab22225f06919595e4615317a2ad8b246845d6f404c8458349c461cbe1d4f3",
+      "all_results.json": "a5bd846a2aabcf83f23a6ddcde02b39cc22e28a16c55d89bcac23941bd490e6e",
+      "train_results.json": "a5bd846a2aabcf83f23a6ddcde02b39cc22e28a16c55d89bcac23941bd490e6e",
+      "tokenizer.json": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b",
+      "trainer_state.json": "995948a18ac4d34528e8e6cb083257cb1bf1eb78787b648f116448210fbdf67f",
+      "model.safetensors.index.json": "146776fce3f6db1103aa6f249e65ee5544c5923ce6f971b092eee79aa6e5d37b",
+      "generation_config.json": "e6bd0b30e743618c41de600b71fe491ba7060cd6f728d737371e55c6cd544352",
+      "special_tokens_map.json": "208d307467cabecb563e033fdb478b7c11a1bc6eca9a9c761bf6a303ccfce4c1",
+      "tokenizer_config.json": "fdd2ab776c0ad7171e4ba6ed31aba7c04843bc531da2875d91f49b35db660f4a"
+    }
+  },
+  {
+    "name": "Qwen2.5-VL-7B-Instruct",
+    "repo_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "path": "/home/irteam/backbones/models/Qwen2.5-VL-7B-Instruct",
+    "action": "downloaded pinned revision to central storage",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen2.5-VL-7B-Instruct",
+    "is_symlink": false,
+    "weight_files": 5,
+    "missing_weight_files": [],
+    "weight_bytes_present": 16584414560,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "77d9ec7321cc572e3579e2c84799c9cadaded63c49ce93b101733349fc330c43",
+      "generation_config.json": "0a3aea82869fe29f20dc95ccf3e2bcff380eca1f5ad6447a4a4b37110b08e43e",
+      "chat_template.json": "ad60d90252ed0b0705ba14e2d0ad0fec0beac1ea955642b54059b36052d8bc96",
+      "model.safetensors.index.json": "73b333b0b16e5286ddba615d2caebcd495cf7e616f52eb217a81781393d79de9",
+      "preprocessor_config.json": "f2058c716eef96ccaed1cc1e2d0c08306b62586d535b28d9d08e691b2fab7ca0",
+      "tokenizer_config.json": "4abd3520120e266da84c0864fee064d1fb10806f02225911a47253dd38dc5f56",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 24.08,
+      "reasoning_separated": false,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen3-VL-2B-Instruct",
+    "repo_id": "Qwen/Qwen3-VL-2B-Instruct",
+    "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+    "path": "/home1/irteam/backbones/models/Qwen3-VL-2B-Instruct",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-2B-Instruct",
+    "is_symlink": false,
+    "weight_files": 1,
+    "missing_weight_files": [],
+    "weight_bytes_present": 4255140312,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "chat_template.json": "6f8a6a55027e3da5160105556cda5dd69f6423f1c32645f6730d32de7773d0c4",
+      "generation_config.json": "1e241830b48b397cb0900101421df5450baddc7adf01e5fc86b5615865f3bae4",
+      "config.json": "bec4b3d446efa05807365c9e1cec03ac590836879d02f3a6da879971154bdd3b",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 36.17,
+      "reasoning_separated": false,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen3-VL-2B-Thinking",
+    "repo_id": "Qwen/Qwen3-VL-2B-Thinking",
+    "revision": "33e0ad94c327808ebc7d3bbc97e78e600f1eeecd",
+    "path": "/home1/irteam/backbones/models/Qwen3-VL-2B-Thinking",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-2B-Thinking",
+    "is_symlink": false,
+    "weight_files": 1,
+    "missing_weight_files": [],
+    "weight_bytes_present": 4255140312,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "chat_template.json": "efad756db13feb8e8c5fe1341713bf18b82e91916b978d36b7c043f2b1bedf5f",
+      "generation_config.json": "fe72e86576da6dc6886b1083d9216296dcfa085e7a86feb3c8888a1faa52e656",
+      "config.json": "bec4b3d446efa05807365c9e1cec03ac590836879d02f3a6da879971154bdd3b",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "7b501e639b4d107a23effbe30390ee33d553f722467f7ac8e2744d7ff5d3a7d5",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 26.16,
+      "reasoning_separated": true,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen3-VL-4B-Instruct",
+    "repo_id": "Qwen/Qwen3-VL-4B-Instruct",
+    "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+    "path": "/home1/irteam/backbones/models/Qwen3-VL-4B-Instruct",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-4B-Instruct",
+    "is_symlink": false,
+    "weight_files": 2,
+    "missing_weight_files": [],
+    "weight_bytes_present": 8875719344,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "generation_config.json": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+      "chat_template.json": "6f8a6a55027e3da5160105556cda5dd69f6423f1c32645f6730d32de7773d0c4",
+      "config.json": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "model.safetensors.index.json": "58a7841d7bff2548dd91577d216274a83cf1b500bc6a534b809d6c1b1707cf2b",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 26.06,
+      "reasoning_separated": false,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen3-VL-4B-Thinking",
+    "repo_id": "Qwen/Qwen3-VL-4B-Thinking",
+    "revision": "1de27d8c51f12e819435303b9e84c4e25ba8401e",
+    "path": "/home1/irteam/backbones/models/Qwen3-VL-4B-Thinking",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-4B-Thinking",
+    "is_symlink": false,
+    "weight_files": 2,
+    "missing_weight_files": [],
+    "weight_bytes_present": 8875719344,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "chat_template.json": "7dc0b863a3cf9320e063574e0adb1382a22a089f1eeb8bfbe33cc69c5c2cc1e5",
+      "generation_config.json": "fe72e86576da6dc6886b1083d9216296dcfa085e7a86feb3c8888a1faa52e656",
+      "model.safetensors.index.json": "58a7841d7bff2548dd91577d216274a83cf1b500bc6a534b809d6c1b1707cf2b",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "7b501e639b4d107a23effbe30390ee33d553f722467f7ac8e2744d7ff5d3a7d5",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 26.14,
+      "reasoning_separated": true,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen3-VL-8B-Thinking",
+    "repo_id": "Qwen/Qwen3-VL-8B-Thinking",
+    "revision": "92f3c4b4feadd3a016ef468d103bb5f58b2a2c6b",
+    "path": "/home1/irteam/backbones/models/Qwen3-VL-8B-Thinking",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-8B-Thinking",
+    "is_symlink": false,
+    "weight_files": 4,
+    "missing_weight_files": [],
+    "weight_bytes_present": 17534339512,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "chat_template.json": "7dc0b863a3cf9320e063574e0adb1382a22a089f1eeb8bfbe33cc69c5c2cc1e5",
+      "generation_config.json": "fe72e86576da6dc6886b1083d9216296dcfa085e7a86feb3c8888a1faa52e656",
+      "config.json": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "model.safetensors.index.json": "520b2e05079402e9468a8701d03d1154d14b2599593afb6effa7fb60c1bff070",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "7b501e639b4d107a23effbe30390ee33d553f722467f7ac8e2744d7ff5d3a7d5",
+      "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 26.11,
+      "reasoning_separated": true,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "Qwen2.5-VL-3B-Instruct",
+    "repo_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "path": "/home1/irteam/backbones/models/Qwen2.5-VL-3B-Instruct",
+    "action": "downloaded official checkpoint for qwen-chat",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen2.5-VL-3B-Instruct",
+    "is_symlink": false,
+    "weight_files": 2,
+    "missing_weight_files": [],
+    "weight_bytes_present": 7509337976,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "chat_template.json": "ad60d90252ed0b0705ba14e2d0ad0fec0beac1ea955642b54059b36052d8bc96",
+      "generation_config.json": "533f191cc257b7de37a4fccd0a7a1706d75e1aa660f93efaa54e5a2a9f9aace9",
+      "config.json": "7ed3eed5be6924cc800e8a5e53fc405c1aab1aaf36bad65c33403b36c56827f5",
+      "model.safetensors.index.json": "c7dd78a4c6bea60b51332f1baf37b8f8124ecab2c35395a29a29825bf2619768",
+      "preprocessor_config.json": "f2058c716eef96ccaed1cc1e2d0c08306b62586d535b28d9d08e691b2fab7ca0",
+      "tokenizer_config.json": "4abd3520120e266da84c0864fee064d1fb10806f02225911a47253dd38dc5f56",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "qwen_chat_image_smoke": {
+      "date": "2026-10-21",
+      "passed": true,
+      "model_load_seconds": 24.09,
+      "reasoning_separated": false,
+      "report": "/home1/irteam/qwen-chat/runtime/model-preparation/validation.json"
+    }
+  },
+  {
+    "name": "clip-vit-large-patch14",
+    "repo_id": "openai/clip-vit-large-patch14",
+    "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+    "path": "/home/irteam/backbones/models/clip-vit-large-patch14",
+    "resolved_path": "/home1/irteam/backbones/models/clip-vit-large-patch14",
+    "action": "downloaded for similarity pilot",
+    "is_symlink": false,
+    "weight_files": 1,
+    "missing_weight_files": [],
+    "weight_bytes_present": 1710540580,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "config.json": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+      "preprocessor_config.json": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd",
+      "special_tokens_map.json": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf",
+      "tokenizer.json": "a83e0809aa4c3af7208b2df632a7a69668c6d48775b3c3fe4e1b1199d1f8b8f4",
+      "tokenizer_config.json": "deef455e52fa5e8151e339add0582e4235f066009601360999d3a9cda83b1129",
+      "vocab.json": "3f0c4f7d2086b61b38487075278ea9ed04edb53a03cbb045b86c27190fa8fb69"
+    },
+    "weight_sha256": {
+      "model.safetensors": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb"
+    }
+  },
+  {
+    "name": "Qwen3-VL-Embedding-8B",
+    "repo_id": "Qwen/Qwen3-VL-Embedding-8B",
+    "revision": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+    "path": "/home/irteam/backbones/models/Qwen3-VL-Embedding-8B",
+    "resolved_path": "/home1/irteam/backbones/models/Qwen3-VL-Embedding-8B",
+    "action": "downloaded for similarity pilot",
+    "is_symlink": false,
+    "weight_files": 4,
+    "missing_weight_files": [],
+    "weight_bytes_present": 16289679624,
+    "complete_shard_set": true,
+    "metadata_sha256": {
+      "added_tokens.json": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680",
+      "config.json": "1eaa88d8d8824a47304e864c14101fe9efe3286607a7573f27eb723637f0d73d",
+      "config_sentence_transformers.json": "ab0d95430e4a88750bf613c7bea69cf878818a77c4047150599e1b586a7e8ab0",
+      "model.safetensors.index.json": "f8656aa4a0a666568f6f6befe980a2ba02d9702eb909bd4c211d6f5db1f980ea",
+      "modules.json": "e8a7a1593c7bf0f34022abf341a434f7e6cc32f99bad7a031f36b20cdddf1576",
+      "preprocessor_config.json": "d6ccdc0fe0f6b49aaeb3c10d2687289a057233ed685b30155202898a0e5e470f",
+      "sentence_bert_config.json": "34fa8b72309d23362db7c6a619f63987daa41143c4092ad91e4bcfc247d45666",
+      "special_tokens_map.json": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "tokenizer_config.json": "355f2b4e5bad7b01f11ef6cb68ebc176f61b95c3276092ea225b1bea0e01e95c",
+      "video_preprocessor_config.json": "59c5c9eb52182eb14c06ffb10ca9effd29adce5f238a95de23ca14a38dbd2cb1",
+      "tokenizer.json": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "weight_sha256": {
+      "model-00001-of-00004.safetensors": "79ef275ec5f751d5fb59357c00d473268f9fd74abf5e38aa30137d268e7733c4",
+      "model-00002-of-00004.safetensors": "a4da61f512e84fc0f0b80bcb7bcc5137eb3bf25b658a7d55f84f4056078545f0",
+      "model-00003-of-00004.safetensors": "7fb17cf8f06d6fe5aaacf114e85c4e6d8318799f24b517f50d1ec154a8d47007",
+      "model-00004-of-00004.safetensors": "000213b6d1d03ed9023fac23716da51ec4c5be221a04526c2f732d31d8fed1f5"
+    }
+  }
+]

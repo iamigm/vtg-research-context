@@ -1,0 +1,10 @@
+{
+  "state": "complete",
+  "completed": 600,
+  "total": 600,
+  "percent": 100,
+  "analyzed_responses": 594,
+  "endpoint_evaluations": 1188,
+  "excluded": 6,
+  "elapsed_seconds": 4.083395957946777
+}

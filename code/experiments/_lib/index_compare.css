@@ -1,0 +1,13 @@
+button{font:inherit;cursor:pointer;border:1px solid #b9cfc2;border-radius:8px;padding:10px 14px;background:#fff;color:#256650}
+button:hover:enabled{background:#edf4f2}button:disabled{opacity:.45;cursor:default}button:focus-visible{outline:3px solid #85b9a6;outline-offset:3px}
+.compare-choice{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:20px;color:#527366;cursor:pointer}
+.compare-choice input{flex:none;width:18px;height:18px;accent-color:#256650}
+article:has(input[name=compare]:checked){border-color:#256650;box-shadow:0 0 0 1px #256650}
+#compare-tray{position:sticky;bottom:16px;z-index:2;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:32px;padding:16px;background:#edf4f2;border:1px solid #b9cfc2;border-radius:12px;box-shadow:0 4px 24px #20373016}
+#selection-status{flex:1;min-width:200px;font-size:14px}#open-comparison{background:#256650;color:white}#open-comparison:hover:enabled{background:#174b3b}
+body.comparing{overflow:hidden}.comparison-toolbar{height:72px;display:flex;align-items:center;gap:20px;padding:12px 20px;background:#edf4f2;border-bottom:1px solid #cedbd3}
+.comparison-toolbar h1{font-size:20px;margin:0;flex:1}.comparison-panes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:calc(100dvh - 72px);gap:8px;padding:8px}
+.comparison-pane{display:flex;flex-direction:column;min-width:0;min-height:0;background:white;border:1px solid #cedbd3;border-radius:10px;overflow:hidden}
+.pane-toolbar{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #dbe3dd}.pane-toolbar label,.pane-toolbar a{font-size:13px;white-space:nowrap}.pane-toolbar select{min-width:0;flex:1;width:0;padding:8px;font-size:13px}
+.comparison-pane iframe{width:100%;flex:1;min-height:0;border:0;background:white}
+@media(max-width:800px){body.comparing{overflow:auto}.comparison-toolbar{position:sticky;top:0;z-index:3;height:auto;min-height:64px;gap:10px;padding:10px}.comparison-toolbar h1{font-size:16px}.comparison-toolbar button{font-size:13px;padding:8px}.comparison-panes{grid-template-columns:minmax(0,1fr);height:auto}.comparison-pane{height:75dvh;min-height:360px}#compare-tray{bottom:8px;padding:12px}}

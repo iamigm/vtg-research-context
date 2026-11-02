@@ -1,0 +1,2756 @@
+{
+  "size": 600,
+  "per_dataset": 200,
+  "original_300_unchanged": true,
+  "selection_order": [
+    {
+      "sample_key": "activitynet-timelens_00181",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "016628d5447f202cc42363ab10ba09f85cc1c086ae45970929d54e8f03b33387"
+    },
+    {
+      "sample_key": "activitynet-timelens_00187",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "03a11a639b32f6dbaee418bccf629a3fc1e051d4d0b013ae5cb0c6339850f84a"
+    },
+    {
+      "sample_key": "activitynet-timelens_03505",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0056395333a1f5d8f9b0a8c42a412271ff296bf54f4f01980e44db1fcdd30629"
+    },
+    {
+      "sample_key": "activitynet-timelens_03599",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "032cf4725bc5c0844ad306042e1145ef6adbb6755c0efed96e043d660a9c93dd"
+    },
+    {
+      "sample_key": "activitynet-timelens_00303",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "01d56cf94671f5529c7bfc081592557e22f0480b37f31032a038114f2f7b2cc9"
+    },
+    {
+      "sample_key": "activitynet-timelens_00447",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "04d424caacc35af4ee6bcacb1fc1173e3befb66868c0cc081cc4a067ad4ab9ed"
+    },
+    {
+      "sample_key": "activitynet-timelens_00024",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "009b8a349a0839abb5c9e1170747ba3b6498fa56c89739f9579f42f6bc6b7dc1"
+    },
+    {
+      "sample_key": "activitynet-timelens_00485",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "04cd6d406b8d12e05779f018f8d9a7afa752f31c797cfef971d4f435dcd8166f"
+    },
+    {
+      "sample_key": "activitynet-timelens_02163",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "003f851559ffff6cb1d9ac03414df423770c159e62da98f53d249e35a48d161e"
+    },
+    {
+      "sample_key": "activitynet-timelens_03117",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "01b967d85f14a9178e82478e8c5b923e94eac6e74cf33ce221a7dffb72ffaf1c"
+    },
+    {
+      "sample_key": "activitynet-timelens_03962",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "00ddac4c167e218244a1b1a497b50ce0a0209ae754187358091aa5ff2791fb91"
+    },
+    {
+      "sample_key": "activitynet-timelens_03675",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0642d13831920aed335c2a52ce7ad866d03b3d6ac6816dad4198869d094fb4cb"
+    },
+    {
+      "sample_key": "activitynet-timelens_00278",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "06a537cc3101a24eb8c783174dff66ab1592346b8b115a19f92f339213796ceb"
+    },
+    {
+      "sample_key": "activitynet-timelens_00425",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0a4c8da3c281b51d5352aaf2355ad7e7ea9db217076163c86707fbcf90c55a3c"
+    },
+    {
+      "sample_key": "activitynet-timelens_00253",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "036683bd58273c6b993f55a878047f59a298bf79a0e94e12eb0c62544af8541c"
+    },
+    {
+      "sample_key": "activitynet-timelens_00439",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0dbf0dc951dc8989beb2d22999e2475802b75977b527036037c019968a90dfa0"
+    },
+    {
+      "sample_key": "activitynet-timelens_01562",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "012430151232905fbaa1044c549430fdd0371a6556b7749299e8b6c1b5d3a9a4"
+    },
+    {
+      "sample_key": "activitynet-timelens_02686",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "00488d060da4857bdcdeb493b2957ed5bdf09ace4fcda4c35d8000efe5d06e01"
+    },
+    {
+      "sample_key": "activitynet-timelens_02821",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "049ca6de2d83f198a12925819a445af179e592efb512c6e821256b0a1b51a698"
+    },
+    {
+      "sample_key": "activitynet-timelens_03190",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "01cd4ae1748c74c27cd0117adc83dc4d94a05d4c05679d6fcadbedfff46447e6"
+    },
+    {
+      "sample_key": "activitynet-timelens_04368",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "02e8f9c5cbd7639c9e531dfed7921a3e919d426c9b4c97948ef1a7f376306c28"
+    },
+    {
+      "sample_key": "activitynet-timelens_03959",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0ddfef243c12deb737c32455412afdc5fc9c9e6bbf5e9485dd8aab4cf5bf81d7"
+    },
+    {
+      "sample_key": "activitynet-timelens_00530",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "06bea4c81b06bee10d1ddb8778ffd86179f286f80e6071703f7728eeccfdcb6b"
+    },
+    {
+      "sample_key": "activitynet-timelens_00125",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0a901eeb60a2c44200d7345dfa49ff8a4566505bf687e52fd9e8411daae02c6e"
+    },
+    {
+      "sample_key": "activitynet-timelens_00309",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "03f8e2e00c3b9fdb337ef2283507177a7f82a69345125f7070c4ccedc58fe1dd"
+    },
+    {
+      "sample_key": "activitynet-timelens_00398",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "188a5e91762db89f9651b31774f16f5a18f8410a2b4a59ab8e8107db0fa7ef46"
+    },
+    {
+      "sample_key": "activitynet-timelens_00691",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0096697513ddeea99adb6575d301e8855b604563a7cca9329ea7b08bbb8028f5"
+    },
+    {
+      "sample_key": "activitynet-timelens_00830",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0524435112f7fc34df3e1e43a57e202ef37bdbb2a34f40730f550caf36b83b62"
+    },
+    {
+      "sample_key": "activitynet-timelens_01407",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "01f7e19c3b90772dcb89840c352b0debb0d65dd8d289ff58cd3b2a33f38aa8c4"
+    },
+    {
+      "sample_key": "activitynet-timelens_02884",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "03c3510c083cc030c94de47145e8148e2910eac5aae75e3ea895363327712587"
+    },
+    {
+      "sample_key": "activitynet-timelens_02885",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "05872acdf0ed055ed9bcd73a68d54f23a3c780c788c29dba58d634a65338ec72"
+    },
+    {
+      "sample_key": "activitynet-timelens_03874",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "030d83ae666262667cee601a995e7546238b3a35c13c96af521c42c91277e1a5"
+    },
+    {
+      "sample_key": "activitynet-timelens_03353",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0608fa9999cfb82564379f3854333fea3d6d0b7a979db9dc1927611568b576b9"
+    },
+    {
+      "sample_key": "activitynet-timelens_04116",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "00d99d58ab9b63dbd8c9214e550737a9f7179de8ff775f917f0d35306dd2611b"
+    },
+    {
+      "sample_key": "activitynet-timelens_03166",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "13e24390f88d24b676199635cb1621d0ddb6b3a06a55baf7ed34b909c52ac1c9"
+    },
+    {
+      "sample_key": "activitynet-timelens_00313",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "07ece3922cbf89b073762b5812e69c06592e673d1a4200cfe30cde575a840e65"
+    },
+    {
+      "sample_key": "activitynet-timelens_00556",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0ce4e9399b9736c9bdc116cee3882a709e7b18f29308ea77c45bba7e36842af6"
+    },
+    {
+      "sample_key": "activitynet-timelens_00437",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "046f9cc1c62b8d009603801ca98e2dfb41d04e9adcc910a0348b64c28e2d54c6"
+    },
+    {
+      "sample_key": "activitynet-timelens_00050",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "217862b8cd77aedc208e9dc749beed3ae7ecf6530059eff067cfaf70bc1de1a0"
+    },
+    {
+      "sample_key": "activitynet-timelens_00328",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "00803ac139e688c861836ec2ed475202d397af37c26410877a41b12d09fd47a6"
+    },
+    {
+      "sample_key": "activitynet-timelens_01228",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "00bcf15ca4d458cb41697368a793e8c25dc0ed6557c4c67b08ba4b006274afbc"
+    },
+    {
+      "sample_key": "activitynet-timelens_00992",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06211cb6e8954d94bb7d61f7afcfa411fea0d6207f7e0322bf7e8793a2459c09"
+    },
+    {
+      "sample_key": "activitynet-timelens_01215",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "050c34623e607abc8d1d78c2535129acfd375e55ac00d8acb509abaa6248c043"
+    },
+    {
+      "sample_key": "activitynet-timelens_01723",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "01183c460ab043b14d971b235a2db8a08fc2bca2b4b4266683168df65617e722"
+    },
+    {
+      "sample_key": "activitynet-timelens_02048",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "001e7988ca6aa52ddef0ced7aa1c2c5b9e7eb9bf7edea996e061195824f0fd4d"
+    },
+    {
+      "sample_key": "activitynet-timelens_02928",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "042620f90016f8ddbd6c52643f0b245e93d6061948d2e3cbdb0a742d92124a3a"
+    },
+    {
+      "sample_key": "activitynet-timelens_01851",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "05964212cec6b20a46b560c262c40596d3e672c6eaef2dcf9a0371d11a643f64"
+    },
+    {
+      "sample_key": "activitynet-timelens_03226",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0412af2fc46de390d92c6bfbf49d439648a4318bd63654e6bbc145c02f80343a"
+    },
+    {
+      "sample_key": "activitynet-timelens_04197",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06d9abbc77cf2eebd5478d4fecf9378e463a78e6b6d483f4ffe6c7e997afa121"
+    },
+    {
+      "sample_key": "activitynet-timelens_03823",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "01b15cd0e8e184ce69d7cef4ebd8f52b0b00e123f3c3a44f11095b896255a758"
+    },
+    {
+      "sample_key": "activitynet-timelens_03638",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "15ca31b8ec1517a80f4f0a3576e617806c9f822e2d8a92976f7a7e2666224fd1"
+    },
+    {
+      "sample_key": "activitynet-timelens_00514",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0808a0f2a4ea57e5069bbd90de2573935e651048ddd8a6bd60d2ac4a8b83e884"
+    },
+    {
+      "sample_key": "activitynet-timelens_00289",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "138a10cd885af81777696c25ae2401bdc72b2983f627fe1115fcde2d835f1d2a"
+    },
+    {
+      "sample_key": "activitynet-timelens_00100",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "079a3d35bffd44ade40a1b07a64c24865c5715229b475988f230238d6d0d04db"
+    },
+    {
+      "sample_key": "activitynet-timelens_00154",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "249d0073bbc4f039cdc6750281f23532fded0d5dfd2ea23917f702fd1bcd339b"
+    },
+    {
+      "sample_key": "activitynet-timelens_00189",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0144d8a4c8a8d393f000baf40ba6a3aa17145c13e84525c60aafe3fb8eeac4ea"
+    },
+    {
+      "sample_key": "activitynet-timelens_01668",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "01f0a275d11f7f85d6d5a48ac6969097fc4b6dabedead155a716a17fb674303d"
+    },
+    {
+      "sample_key": "activitynet-timelens_01155",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06474cf5b50f2b1dbd4498ebec870d23504c504a42120a2c635d97253532ff1c"
+    },
+    {
+      "sample_key": "activitynet-timelens_01396",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "06e74d56cadd13340fdcef99b13e390e1b097c6ba613d651cc40c38b9d6ba4ab"
+    },
+    {
+      "sample_key": "activitynet-timelens_01347",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "014d9e8b0bd50f2abbba0002636235295721d8cf7f4fbb19e8c193f6974274a8"
+    },
+    {
+      "sample_key": "activitynet-timelens_02572",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "016669b06374876658b1719ba8cab84b36bd8f4401c38823df11e3cd5861c3e3"
+    },
+    {
+      "sample_key": "activitynet-timelens_02629",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "01188018768b00a22a1faa43938d6858c0a77922d05360611ce2fe7dc4bd709d"
+    },
+    {
+      "sample_key": "activitynet-timelens_02354",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "08660e4af81be7593954bdfacc25e20cee611ce0f55ab83c021696187da78e84"
+    },
+    {
+      "sample_key": "activitynet-timelens_02810",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "077b4ba6076c9b4c723b6a41fbe4f02aeddae7cd2c9ad22e1590eff12d9b044c"
+    },
+    {
+      "sample_key": "activitynet-timelens_03141",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "05c5be8b510c95cfc60f04bef277fa4b7343d09cf41562f47975d4473bc40463"
+    },
+    {
+      "sample_key": "activitynet-timelens_03970",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "07c98cac54895bdc7c7dc6112d78c6b2f31f0225e8b9d93c986c131c35e9e6b5"
+    },
+    {
+      "sample_key": "activitynet-timelens_03611",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0246fa089e4e3ec7d18cb74339529410ff7d73912a6a292e62d0873598b28840"
+    },
+    {
+      "sample_key": "activitynet-timelens_04235",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "16843f8f59f0f81e2651788961f5ddad5585fa03200a0de4f3af366157a4a5a8"
+    },
+    {
+      "sample_key": "activitynet-timelens_00116",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0b0fb5a9dbee68e3cc8ea90b34496b6ccca072d1e2f893e87d6b36ece3751629"
+    },
+    {
+      "sample_key": "activitynet-timelens_00275",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "144b129657f9124752c8aa674f807032480eabf46948ce0d0c3d3030fc5c2fd6"
+    },
+    {
+      "sample_key": "activitynet-timelens_00062",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0b6472fd8a30d8b99200ca07b0d69efc34cdf21e5f1fc13d211540b258f504ba"
+    },
+    {
+      "sample_key": "activitynet-timelens_00192",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "2ad4753742432cf695d9c509f8a39e5c89c37796a015cb278e9eea369cb723ca"
+    },
+    {
+      "sample_key": "activitynet-timelens_00477",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0344227473c3e658b433f1eb9ee9f94269b68cd85de77fc2ff300b75d1bff25f"
+    },
+    {
+      "sample_key": "activitynet-timelens_01173",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "021fceb3c447f11ef900580056fef78ee0382f579aff44e43243633320b24486"
+    },
+    {
+      "sample_key": "activitynet-timelens_01324",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "07d597af5799deee8ac0483c9eb50d9e92c57db35e7cc004d89ae4deb33cd024"
+    },
+    {
+      "sample_key": "activitynet-timelens_01090",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "07106b84f95372f23d50a9fe52a7f207f891274d46c30a87dcf36e43984aeb33"
+    },
+    {
+      "sample_key": "activitynet-timelens_01450",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "01605a5422e43288b3aca11ab0f96838b3bdc664388ffaf667a2f11cda9f8215"
+    },
+    {
+      "sample_key": "activitynet-timelens_02136",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "01b56b3cab9a34d38b73637abe7699bf0836cf13283afd2b213f400b9145c050"
+    },
+    {
+      "sample_key": "activitynet-timelens_02160",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "03e8de353896cfecba7927128f5761c0acbf1b74b5db01959be77ebf4c0ce1d5"
+    },
+    {
+      "sample_key": "activitynet-timelens_02222",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0e25596219cb6a18b8255abb1b2dc261f32892010d7189331c38ef94e0ae0e18"
+    },
+    {
+      "sample_key": "activitynet-timelens_01970",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "08b368992d97153a033ca41478c8e30cf0a652b421d52970e4d9bfba7f9036df"
+    },
+    {
+      "sample_key": "activitynet-timelens_03129",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "05cf1d71a365cc0daaeda664bb9a0c74ada8ad2d153fb0625abc6239ca5946ea"
+    },
+    {
+      "sample_key": "activitynet-timelens_03348",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0ccd83128415c1deb1c0dc1e9a0aa9f2f8b1725b6fd94d53fb883486a690f8b9"
+    },
+    {
+      "sample_key": "activitynet-timelens_03743",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "03f349bf01c88e69db7093ed336ef64df5fa375ee97eb49e32dc25247b1bfc34"
+    },
+    {
+      "sample_key": "activitynet-timelens_04456",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "16c90fb377d87e5e6d7b9983a9748b293d64343284be2bba8583e4d7a97e6ae3"
+    },
+    {
+      "sample_key": "activitynet-timelens_00065",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0e976e30036e835d7c11de95ecc0cad16a2d052a7ebfec40740f5e2676600129"
+    },
+    {
+      "sample_key": "activitynet-timelens_00142",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "17102477e607063656aedfb4ca048cb82468a028fda09a65db7c764e90e3f8dd"
+    },
+    {
+      "sample_key": "activitynet-timelens_00471",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0b82be15c6c6957db89525f53983ec99b2753ab94833286e06559fa57581b2f3"
+    },
+    {
+      "sample_key": "activitynet-timelens_00533",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "2e1dfa9189bdd08acc969018f1af7444a0315a9ba0970b1f0d904ecca9bb829a"
+    },
+    {
+      "sample_key": "activitynet-timelens_00096",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "03ac252a79f84304e9b54094adedaf92289d79318341ee5189ffc620b88c9d51"
+    },
+    {
+      "sample_key": "activitynet-timelens_00812",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "024b1cd94fae7bd90080d8822c2c9adf842b8969a76065386c807c592a0b563b"
+    },
+    {
+      "sample_key": "activitynet-timelens_00751",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "08dc6fbc8181cda90d1fa37775558a1a913306d2b06ed07318e20b18ac8798de"
+    },
+    {
+      "sample_key": "activitynet-timelens_00910",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0af2625d613b86083be531ecc6ce070beca9389448bd5fd0904454efa3a27cde"
+    },
+    {
+      "sample_key": "activitynet-timelens_00933",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "01c20a522f468d4db10142a05ca3eb00642a7188a09741c4f7a3b2ca1c325935"
+    },
+    {
+      "sample_key": "activitynet-timelens_02200",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "05e11a7103edb7ee67d054dd242f83d4991bcc41e4607909e13a8bbb89d6f8cc"
+    },
+    {
+      "sample_key": "activitynet-timelens_02476",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "03ee6cfc14028354ca2a268fec353f55ae5fd8d078870a2b6fb4340a8688f899"
+    },
+    {
+      "sample_key": "activitynet-timelens_03004",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "10e4547a8ea00458ed2f9cc93635ac7e5bc046f2c40bf54dafd61cacdbf2ddd7"
+    },
+    {
+      "sample_key": "activitynet-timelens_02980",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0be5c115e178d118b2c14460e40ee99f24628c4bfe26628b81f65ac1eccf502d"
+    },
+    {
+      "sample_key": "activitynet-timelens_03583",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "06aba37688bf858dd98dab48972bd7cb719e52d782e64fb1a6ef2059a33cf319"
+    },
+    {
+      "sample_key": "activitynet-timelens_03362",
+      "dataset": "activitynet-timelens",
+      "added_at_size": 600,
+      "duration_bin": 4,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "141e81824b9c4db015301db09f93f6dbc9cc6511109298b7edf6648906ca35a5"
+    },
+    {
+      "sample_key": "charades-timelens_02146",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 2,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "1430f479a8c111aaaae3fea2bc7cd50dcf525ed050148c729f9cc93fc40760bd"
+    },
+    {
+      "sample_key": "charades-timelens_03051",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "013ccb687199fbfe0bb2ebe1bfa263d811edefe5755887fc622e93c0a24dad76"
+    },
+    {
+      "sample_key": "charades-timelens_02967",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0194fa48a6169b58bdc58e05f0a724efc0ceb38bfc574d1af79434896945ec96"
+    },
+    {
+      "sample_key": "charades-timelens_00559",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "018acdd0427cf6e44b4873a9553810adaba17eb4df1be7976a2b65834dde536d"
+    },
+    {
+      "sample_key": "charades-timelens_02253",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0412ea7203b95a2073b3c47818b5d433fdbecc97629bb713834e96c5d6150a23"
+    },
+    {
+      "sample_key": "charades-timelens_02638",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "01bad555afc03d01dd0f64a1f1314257ea44a3359a6c0b2a650d86d863f830c4"
+    },
+    {
+      "sample_key": "charades-timelens_03285",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0035a4be19094f61c71ff89e4788248ecb06bb605362cf2639e89fd8bc94ad4c"
+    },
+    {
+      "sample_key": "charades-timelens_02752",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "002a119b21614d3169b45019412902dbb4fa381aec06a744a49cb8159e9441d8"
+    },
+    {
+      "sample_key": "charades-timelens_02141",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "004ae4037fa05622cd137bfc413da1a3397d94e2a886bf2c53b6bf592a2e0789"
+    },
+    {
+      "sample_key": "charades-timelens_02835",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "03057da34dd3f159e859093869943eeab66e932a6b83ddb37a693a2652b3f1c9"
+    },
+    {
+      "sample_key": "charades-timelens_03190",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "052ea88ff2551627667890cb43903bb382fe7b44b2e93401054e044f50f6298f"
+    },
+    {
+      "sample_key": "charades-timelens_03338",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0234dec859a08f271a74f6ffab017c76e87621b5e90c3647e2a92956ea1b94e7"
+    },
+    {
+      "sample_key": "charades-timelens_01296",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "029ce4fd197c23607f84410ce5372e3bcf6ed6524c72d95cb7d7051d20b29cdb"
+    },
+    {
+      "sample_key": "charades-timelens_02363",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "00700fd9b55579aecd82c29e68fe98e927e37105e3f8873cc184105c625eb18c"
+    },
+    {
+      "sample_key": "charades-timelens_03084",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "021b8e155a726ad1a398677e0d34bb1ac03b7ba12deb662a764fd68e2563db49"
+    },
+    {
+      "sample_key": "charades-timelens_02382",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "035372ed3e68c3e7c6900d3c1bd286c4731048786379b5d1b736bb554afd1715"
+    },
+    {
+      "sample_key": "charades-timelens_01569",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "06254a05f29c1640501337021cd9300f8d360ef1fc51610067ed2a1d444c63af"
+    },
+    {
+      "sample_key": "charades-timelens_00692",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "02f0f3b3e39eb9479876542fef2e375ef1222241a4df40634064b9d8761de00f"
+    },
+    {
+      "sample_key": "charades-timelens_02725",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "03578d48abab5c5a90491ef73d27e2d37a94aecdd1e375cdeaa880fc004d3389"
+    },
+    {
+      "sample_key": "charades-timelens_03210",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0485733a388492db6a638ef4b65751f1efd273bad5e72f5e65080ef2d43604a0"
+    },
+    {
+      "sample_key": "charades-timelens_01832",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "03358a652e8272e18b27d6e5a3e855125bd2492f73a3dff76e86898bf8a8fc35"
+    },
+    {
+      "sample_key": "charades-timelens_01764",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "03e21747cb338a773ea1d76216a3a2c9b60b71c480c40d6aa4ae8a8345e0d9c7"
+    },
+    {
+      "sample_key": "charades-timelens_02822",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "064286e9f02af0afa9a482001ff856b5c5e7fe048287f5ca3c47dadd49dd9c01"
+    },
+    {
+      "sample_key": "charades-timelens_01169",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "03125eb0be983263f6d969bd53a21510eb66f38c6c4174a47f1758cebf2ddab7"
+    },
+    {
+      "sample_key": "charades-timelens_00281",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0379a149e3d8527db99262ef6dd686f559c42d8caecafd321419b6f65c7a9496"
+    },
+    {
+      "sample_key": "charades-timelens_01853",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "064711738f99f0856760eb1bb34c5ff0d4dba5910adb397cc32d9e53cb85d44d"
+    },
+    {
+      "sample_key": "charades-timelens_00237",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "037a5c8ae6451a3c2a3600c851d604d4e72311ecb068938115f4470f892264e4"
+    },
+    {
+      "sample_key": "charades-timelens_02845",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "060121a2833e149a2d200eab1816de8c57a52121076dbe8dbdacb0ff5354865c"
+    },
+    {
+      "sample_key": "charades-timelens_03047",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "06a0afb362b78d660fb4bf66f68916a31c476416d5ed2e7dd58367f4c78a640a"
+    },
+    {
+      "sample_key": "charades-timelens_03095",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "088b10f71fbc736f8fa36e13db355148fd815fb605fab822a3bb202bd89908af"
+    },
+    {
+      "sample_key": "charades-timelens_00005",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "03b9f89d2b1fb2a9f8254e7b6b4df904a0579ffe0d01038255d13d3c7371a6df"
+    },
+    {
+      "sample_key": "charades-timelens_02598",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "08b2f62f24a1c9ee37113b3a670de12cb22877927469ce4c1cf1c5285ddd9de8"
+    },
+    {
+      "sample_key": "charades-timelens_02305",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "03bca00b3abcbd4bda389df53ed63d437a810b158cb4b9777b54bb154ef91391"
+    },
+    {
+      "sample_key": "charades-timelens_01803",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "069046a59cfa220bcb6d3af9301018ae4b0a276f69ea1252b620cf8c03d4c641"
+    },
+    {
+      "sample_key": "charades-timelens_01241",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "082cc095e85715beb1ac2f05494f5538151214006452d864fd96618eb9af3864"
+    },
+    {
+      "sample_key": "charades-timelens_01611",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0a11bd5ca59018fe297170aef8d3dfcc898e4faff8224a2672ac47455933a2f3"
+    },
+    {
+      "sample_key": "charades-timelens_00691",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "003eac79a08e4c145f93c0c82494377078a6974c71f9729d41324fd6f2fdbdba"
+    },
+    {
+      "sample_key": "charades-timelens_00548",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "06dd44823a9c64567dfb6f507dd5a4a9a7c79ff5791a32191c7c68dc22f9fef2"
+    },
+    {
+      "sample_key": "charades-timelens_02007",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0d775166a83c716ef455771e42f8f156aea9c87f07399dd3a5fb1eaeae1a19d8"
+    },
+    {
+      "sample_key": "charades-timelens_01279",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "067fcbbeaa8a7ad67302e813e5717561e7af3f45a84d71278e9017cbb501bc24"
+    },
+    {
+      "sample_key": "charades-timelens_01268",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06ce3406549e4693aa69106a0ef0eb008f45bc2de2f47c5fe069df0f412a18ec"
+    },
+    {
+      "sample_key": "charades-timelens_01331",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0a0735a6f92e9039b8be8329689ba822ee9e0861372d025ff3dcfa970af5ee1b"
+    },
+    {
+      "sample_key": "charades-timelens_00682",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0a5b9023ab1fd04737a9aa7cc01d21ca025bc1855c610e2d3c8e1fcd4b5d6421"
+    },
+    {
+      "sample_key": "charades-timelens_00875",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0063ac372e31a7bda2a643e18614dc94bf06bf5bd543b890a405c7de0e0d9cab"
+    },
+    {
+      "sample_key": "charades-timelens_02754",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "070b939d0bb8538a35fc363107bb513e29362bd6cb1a6b287732271c0259244f"
+    },
+    {
+      "sample_key": "charades-timelens_02045",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0de891bfd1d1e54574af15d7914e11c1e6800dffb36ae7371d7027f7476cbeef"
+    },
+    {
+      "sample_key": "charades-timelens_03063",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "06d699ee3b1e04383fab87b55bb2bdd0bbc33a494aa9c348e7c2d80dd29e3477"
+    },
+    {
+      "sample_key": "charades-timelens_02587",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "075f829cdb50a6575e6c6e2086cde06bcb079de69b335d730bc7046e83636119"
+    },
+    {
+      "sample_key": "charades-timelens_03305",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0abc8240cc20bdeac592624bd1483b9619dd7715b80386b6e7847542a9ce7e9b"
+    },
+    {
+      "sample_key": "charades-timelens_01564",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0abc7985a2c8270ecc50242c5bfafe797e8c183eb43a93827f905a3b757afd57"
+    },
+    {
+      "sample_key": "charades-timelens_00320",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "031696225a6ec5ba01dbdbacac8b5b79da934a2f900e6f14daf3b207768fb908"
+    },
+    {
+      "sample_key": "charades-timelens_02637",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "077949bff8152fdfbfe8b01229850c8b632df39db31d1109909b606c264b8ce3"
+    },
+    {
+      "sample_key": "charades-timelens_02009",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "0e6874673767da61f4d4d7b40e2a503a1e570ff008b068e6e49ad30f0c5348bf"
+    },
+    {
+      "sample_key": "charades-timelens_02123",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0766e0f04d5e75d58ad952836aaeef5b2d2333f57bfbb20f2a7ad7b8f26cdcdd"
+    },
+    {
+      "sample_key": "charades-timelens_02909",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "078a83493e176e5a0f5b0717d2805b50cda186d289e46b4c318485b9e98f1541"
+    },
+    {
+      "sample_key": "charades-timelens_00252",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0ad5bceb87b4b6e1196402eb783acdb9db6b3885425fc99cebc20bc3f97f528f"
+    },
+    {
+      "sample_key": "charades-timelens_01628",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0ac340150db54cb9e9a624327aeed68292e4edcf4818912b48c2420b01f9b26b"
+    },
+    {
+      "sample_key": "charades-timelens_01608",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "044132122f6b584d0322a8e80b93e542c24f09301dd6af292f613d0081b2eba8"
+    },
+    {
+      "sample_key": "charades-timelens_02916",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "09174846a74c9db48aeafd7d084ae44c5249dbede64acabefcb577d486b60483"
+    },
+    {
+      "sample_key": "charades-timelens_00661",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "12cad6ec41c624c7f963b9bbc0b5dd5c845df59eb607f22f9df49c69c4e48725"
+    },
+    {
+      "sample_key": "charades-timelens_02556",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0a73fa0982b48902d954f4536aa30704183fe31428ff999ea1b38f9ad7a63c16"
+    },
+    {
+      "sample_key": "charades-timelens_00462",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0943d92446db107ed82404bab3accd01759c432387aae3de5ee10dd1380ad845"
+    },
+    {
+      "sample_key": "charades-timelens_00465",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0d1df909009b7bdfdab9c520509067d3c45ab5d6c789aee748fe8f508a32c5c2"
+    },
+    {
+      "sample_key": "charades-timelens_00216",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0afa3377f67f1857faaca1f2ca7e8b28378deb0843e66029ab1494bb616cf1d8"
+    },
+    {
+      "sample_key": "charades-timelens_02116",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "048957ba3ae8f36f79edd420f19f38129fd4e70b09a62b7712b3e7e0de33c89b"
+    },
+    {
+      "sample_key": "charades-timelens_02606",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "017faa02e94c45e43765a737f05b2feb336e919eb5afb1d7aa362cd70b1c1341"
+    },
+    {
+      "sample_key": "charades-timelens_02848",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0992391dd4f215989740d48d6122a8d527986e49c766876dedc1385479b82352"
+    },
+    {
+      "sample_key": "charades-timelens_03068",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "133d7b895a5bc3becb72b91740f13233ed9a172774b9ae934d319d9561fd4699"
+    },
+    {
+      "sample_key": "charades-timelens_02526",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0b5becd645b3e5cfacfb94bd1e96b69f5711d36e3e0220fde494f6653d2614bd"
+    },
+    {
+      "sample_key": "charades-timelens_01283",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "09cbff13e4750d0bbc0943a8826c79e58225016fa4190acdcfd233a1d60b75e5"
+    },
+    {
+      "sample_key": "charades-timelens_01527",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0e90fb78fe4eaa9a66a28d8df5d2f88f48837e65f4604c2aff858b58b73692e6"
+    },
+    {
+      "sample_key": "charades-timelens_00147",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0dfaa1f445a31a4da947c13ce9acc1857fc59f0148714007c9911c15da1d25ac"
+    },
+    {
+      "sample_key": "charades-timelens_01246",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "086278102a95cde8e33ce4caf21d7019b78bc19d3507af2e2edc285e95338c35"
+    },
+    {
+      "sample_key": "charades-timelens_00900",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "041d05444d03ccabdb39ef305ac067963d7dc2a489b47219203714c89ac1f6e2"
+    },
+    {
+      "sample_key": "charades-timelens_00621",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0a340706c21eec881882ef1728d0f15707e02046770346784a011ced7e8e5b74"
+    },
+    {
+      "sample_key": "charades-timelens_02424",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "15a9c1dbd56f1b931e37e1e66b155d62b1a2c46261412c52a167e71e7265cffe"
+    },
+    {
+      "sample_key": "charades-timelens_00105",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0bbf02063caea2896c2cf4ee4ee654ecd76e9c72d4fccac7f2de2b90e4e89009"
+    },
+    {
+      "sample_key": "charades-timelens_00206",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0a66ef055deecc265aca68c2f46b68bf19cfd569528eab79a9f02732345f476c"
+    },
+    {
+      "sample_key": "charades-timelens_00633",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0fad19712f3dbee6fbcc01bfc7d03b23b491c5ba5e7d88b69da509c78b179b53"
+    },
+    {
+      "sample_key": "charades-timelens_01231",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "162962068bfc6bd3bcd8f1465bef1b55132e7e76b5095dd5a2b514346318d786"
+    },
+    {
+      "sample_key": "charades-timelens_03079",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "089463f378ac461af987361ed92de428bfe9d7a1fa14b075acd200dfd0b3c263"
+    },
+    {
+      "sample_key": "charades-timelens_00911",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "046452e93123e88ae5a51c26832f3a9bd2b3bf9ca5286afd816a0e1dbda83c30"
+    },
+    {
+      "sample_key": "charades-timelens_00126",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0c8ae5a451818bfd9e3164321c8d34bd9e645a3ab0c01f20cb47680e4db8f882"
+    },
+    {
+      "sample_key": "charades-timelens_00018",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "1918513a92243c3cb53e95f86a42bcc9f13e78c872344849d2b8b9a05aa13bba"
+    },
+    {
+      "sample_key": "charades-timelens_01113",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0bed654c49d34a509308f1324ac313a2deac5e96a26eea1ac665a60089560512"
+    },
+    {
+      "sample_key": "charades-timelens_03272",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0de12fb55679e02cdb079f3e7a28da24999f49e72e30e92135b30194cc2bfbc7"
+    },
+    {
+      "sample_key": "charades-timelens_01353",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "104156585d92f10e6628f61ca1e3a8913dd120c12638b9b31dd263fc94642aa5"
+    },
+    {
+      "sample_key": "charades-timelens_01298",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "17dc28bec37052361fe52a8549415f2b5a023c3574a52821a2c818c3593b7b71"
+    },
+    {
+      "sample_key": "charades-timelens_00373",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "09184184f16953c5b05ab7af4b327a43668492a492f22ce57304c46a3d46e0ab"
+    },
+    {
+      "sample_key": "charades-timelens_02922",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "06bb19388d595653037fee6e3b701c2af3802d76d242624897e706af6ed562a2"
+    },
+    {
+      "sample_key": "charades-timelens_02236",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0cdc6dbd7c838e15e9813d9d16de417a5a7913301d87f517587e9e01c943a203"
+    },
+    {
+      "sample_key": "charades-timelens_01237",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "1985f45b74f80aab9beb9d18151c8eb2c6cba1569c3be1403b2c4d2bded8b72e"
+    },
+    {
+      "sample_key": "charades-timelens_00526",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "105ce7a003b536645529c8b3f4267765137b1f45fbc89c9c4bfa0859a78b615b"
+    },
+    {
+      "sample_key": "charades-timelens_02603",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0f1f41af576b3fdd7ae88b147ac78f8e2cb2ec279deea7f6956c991bffbb3e5b"
+    },
+    {
+      "sample_key": "charades-timelens_01103",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "10dc3043f74f9fc79e38e5b63a36438cd9a8a18fa8f03e9e370dc78f8b21336e"
+    },
+    {
+      "sample_key": "charades-timelens_02896",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 0,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "18ecd3c774a75ace8412282ec0e3fc52ce55c765d62a591a969dd6981027fad7"
+    },
+    {
+      "sample_key": "charades-timelens_02866",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "09bcd50ccf6504292d82465de8e20066e5251258d263c06c82791cd526f123d9"
+    },
+    {
+      "sample_key": "charades-timelens_02884",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0048c5b02c394cd28d03a956c41adb3e62ebdaf0ee5baef6e4dd94b203430397"
+    },
+    {
+      "sample_key": "charades-timelens_00055",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "000b637f8c155ae15755154e5a4205f048cb2c16948640a81aa2e0ab43dcc789"
+    },
+    {
+      "sample_key": "charades-timelens_02551",
+      "dataset": "charades-timelens",
+      "added_at_size": 600,
+      "duration_bin": 1,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "075356ee86394f8815fcb2119df9b32f6fcabead93bb7b8cbb9f397635e0ce47"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01284",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "028a94db72696c4ccf65bb84d6b6940d94ae52e360b733d9201b69ed6fdf2761"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00517",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "009471e89cb6276630c1b971b15b907fe02b84d6d0ff1c25b5155401bee8f0e6"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00841",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "04dcb14e6b44a43a268f519e6298fc3529d2cd99c32e8a917faa640abf79e4b7"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00127",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0149926aff915816d09f203d6f5a2608351f06378b433e6602c90c92e57866b0"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00863",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0501a7301e1e1959e1d466cffb26b31ece22555e447b44e885a4bccc42a2574f"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00211",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "021a7c99fed475457ebe2e32b27c7c1c11e836b59f1d0417c46bc754ff2d9a3c"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00952",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "05c40ce62e9953ef61fdb198a1df32828c49802d147333a6ac00abd3585db089"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00403",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "03f39cf60f555c3dc18b905f8f2f01f0191dab9b67a71499a98ad95c45ea3b93"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00859",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "079f60229c20d6058b3263735de3fbf4f42c62b48cf13693f4206ac55e9d52f2"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01083",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "04c0a8fcd7fb7c131507b4a2cbb093ccff5e8dfb70dd4487fe7188e322a9e8bb"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01539",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "082d2cd9e954771875854ca436f329bf8ae1c44677d7e716c528022cab1e39e8"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01477",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "05899cac640b8d0dc1b6361d1e944d59d487037415340d51c5f2eff582828ea0"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00957",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "00f08670f2db1d62972958d08feb14acc92527982441f101cabb074b9e3f1066"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01390",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "088e30d7f169510af19f87e7704c942cde037348e214e7cd6c03d663cb242b0a"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00141",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "07002a6fc58f7ee536f53fb73afd7905a89f351a45465d7eeaf82f652b2b6fa5"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00381",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "011afa60de436c87de71304387165af1d658e58042581ff4ccf4d14974c0fee8"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00268",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0a89f20e316ac576297948596281376aab0649bc4e619c5aa21e1632203da75d"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00791",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0736cf71ab768c617e6f985abeb05d0b20362dac46ee9a7e0d1b0061542af789"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00763",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "02f4f57405a06ba2c84385083f81e9325d8dbf816a6065068e5c8378f62b0308"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01091",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0bad79b846f1ba2d433c4ed8afdad21aec6d7bc132f7723ee94ad4eff04b69ef"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01342",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0944cb83c724d53d3f108ae51273d1075fda121929ec9a549dac3484dcc0531d"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01145",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "032c191f2099604e2ce71731035234b43aa9f36bf998d37eb832032481d8fe34"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00364",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0bdb64b5dfae07b7568f3c28a8833c5f3e0966db966a51379715581af9b9e134"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00028",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "09917a735f3dff5c82cac82b90dfcbfe62ca9ba4cab9cccfa288b1a1390a8280"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01378",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "04e07cda422d6767e82312e5fd78aeb0dde0c50f59826ef8734048b3377c4508"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01315",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "0f2654f5399fb18683c05b6ac9e5d557123fb106b627335ab954c53b61a20dee"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00768",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "09e73d52f6c60f40f13781bbd3e65a219409415a78d83c68fe47ed66d42585eb"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00589",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "057c7a2b305facbfb4eac470ab2ba635984d16cc265379d045e1e56b6a2a9754"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00363",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "10bb3e33d87227391fa941cd887c776c7ebea48ebe2a3009b43b73ceccd0b887"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00416",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0aa482ddda8c05b9f778128f025bc05327872856a58fd69c2f66fd9397a64746"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01031",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "06026bb256217ce8dc46bec47b064faef31a89349bd4ca6e9f0f578894b4486a"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01017",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "11d7a948edb0ea8d6edceb15d4b7bbc56ec0577f1e90f33c1da4620d12eeb33c"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01249",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0afdf410413cdfdff3d56f517118fedfe2742ed542f988f9e4d8c5e7724d910f"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01169",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0846e613104f186ac04cd78edfe67a7aaf93f667fdd6a1ddc354aadc03b34c17"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00163",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "13d3b2a0a2ad5d051575d2e60c872fb8615621a6f28eec884e8e8e8eb94f7c01"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01428",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0bf61f0adcb3c174e4b1b7b216ce81b2abcee23a4aa3cfee510950f2da8436e3"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00744",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "08e9c5173e5bfce80e1bdbe53a0edacee2e1b369ef03aad49e77866e4099c865"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00915",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "146b9d8791b178cfc397cb323b76136a83d74437e6c361fef39f06cfdcfb56d2"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00312",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0c53740fbc7315a8bd32491f8caf08f6d20bc9b1a97ce169aede24b011b8a8dc"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00315",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0b2e9b5cff79ca9d010cc7bb6a885d20434794b312e4a3801d68f294c946ceff"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01478",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "14eea2ae0808ddba105463f06be0ee310d701b413b7f1adf49acecf387d233a4"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00173",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0d58ed28977f220bf95c7bdd836f8bdf108caf314138705f869cf5990fad4614"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00389",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0bb4fabb3c2df14cb64752a122a006c3cfc714bf94dfc335d62a97350097e745"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01322",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "174971276b6bd303981ef299b02e524b27a6f217f5279b2119ae6ccbc1265f25"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00049",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0e1ada471a89d16e1424be13d97ab7172136db0e1ebe991a40a0f3e106a7b6a3"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01242",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0ce76b298372f740f949f14d7f63e2bf29ae725bfdc6b007bd363a1a91f3b51f"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00222",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "004d8fdac0cdbb1bde6de0d5883076f5ee4003ca0c83d24837cb05ec3d741c39"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00950",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "180168b888e40c92657a2dd0458d9d5c8e0ddad06d8eb719cd141fd04f79ab93"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01085",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0ec982232028900c6f56c1bcf067a1164477b16900cc25d84e510db56201beb3"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00523",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0df33fae97e3d584b34cd8511332f9437012f929a2b32f2334b1260d13d061d4"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00910",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "04335b2ee95da325e3154b7e9a159bcb806c54ff8af3ec408e03e7c8234f79b0"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00639",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1819cfd1623c4200b1a7608fd712d1e272b64ca84c02a5e84bc9c5d5eb4b05e6"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00535",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "0fa379c87aee6efa33df8fdf4c56072d9fef0decbbdabd23378bd44548e658e8"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01344",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0e0433b8900700d77d1141634cf6cdc4a30d60dc0042b3e7f0f1e0473a946840"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00592",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "069b6cff5d16a975d6bfc1d4e17f9475eb3995e9ab8155f83ca2806a88df26d9"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00429",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "189ee19014b72232f455924d9d7b01bd5a61930f7ee1c73cd7d9227f30247ba0"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00438",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "10750c8ff42af0da93d4fe45c6898b759d4a2b9570160a2247b3378b00618e14"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00054",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0e2518724cec9976add0f330b52c8d264cef15b89cb64e4c3a8281f0d2e30791"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01027",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06e5344b0d08cbabd7b7d76c9d98d371cd3baac1ecf315af7e505419dc9f25aa"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01335",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "18a35e968d907ed4f90754bf0b8a6cc1a32326db2cb46f59b8fc11537b72641b"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01096",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "12b8952540e5e7e910bd293ec3142f308534b3a5d585c0ad31521b5f94f7e269"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00872",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0edb6a77658397f59a19c6b508adf17aa812bc7d5731dc7bbe378ca91ca91c9d"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00831",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "06f0a8855639cb2667ebfbd84eb5b9649051eefc819b24d4f4796418da3d1ac5"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00258",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "191958d6ea36a6e8d0158b6e70841bc1f7c84610d60489c7dbc62f71f7bc21ba"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00680",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "14669755dc1bb744279f730124fefdced5d15725ba9605fdcea5deaeab160b98"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00254",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "005ca2cf06e6e5f2847137603ce4ccbfc01f7addf38d4723df8af08646d5b208"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00484",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0f132829ef3ae12fc9f2c21de97e0d167f7d625b01ca7ac408cb35acd1ac18f6"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01445",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "083dadfada6ef3c2e771e3c3e28da8e44fe6745826a299338d6e5fc3dc4ad6ee"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00558",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1a7ad34458ecc5a16b358d93d65a9f6a866009e200feb18e6d4ad631b9f0742f"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01538",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "171b6e4dd2c5fa5dbaa17ac7732d40c57dc9ef1eca964895287de09e94935deb"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00243",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "019b8434addd96d3db892884561b487ec0e49ffd5dc568206309ca7fe58f14fa"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00853",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "0fd7686719050181171da5b97556584bf4484eab1fdc26fea80bfd748b31379a"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00469",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "08749ce47d0d2b3674fe0401dae9850cafcb26bbebacdee2141ce02507d21f64"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01206",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1b5f9510c3efcb3eb9dacc5e852ef81163fd2d8c2b759d78d027bcda11fdedad"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00459",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "173431a6f7dd12bc71da561a56e604d230810650bfadba663e7ce94a6de60e4d"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01007",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "025dd3fcd94bcdda342b3888b355689849d4c3c7a76bad91232a4b8a80fb31aa"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00530",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "1127ad0c2ff42fc85d58d6835b7fabeafd8c7d899d1bf4cd17ded8010d929019"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01185",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "097c42dd7aadc29e20d32d7782316e86975326b6673c2b485e36fc2c86fc7bba"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00829",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1bf3e02f02eb4c12661d8e0e52d2bae03a6c64571507706544006b03bb6fce20"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01078",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "19636dec5a01a06c9d14a59d0b98d095925b955dd4518661fa3fc42074d480e2"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00169",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "036f1d14ee48b3ec94f6fa146921a33bafa491ba7c598f828245d6e5a3b16687"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01426",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "120ba49aa5453e94b97b82880c0ebf9c1b5632200aecd31434b24194fc649190"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00877",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "099fecd9445559a2f32ffb8d4379011286bf19d05afe34f8a490147db97359b8"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00525",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1cccbece72b3d7e21c84d51e02e424fc61f74e64c577bd66c0f2181ce7624c71"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01112",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "1d6ecbd9b8ab1fa9fba3165a5b33a03cb047387b80e8eb3e207f2fcbc0d66873"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00753",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "039d51b2a12fa814d0e389a988862c3e899840ea885e2eb613e339c022bd43cd"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01489",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "1252c794fe60aba993d99e766a563d667e547d1d221251245db080784d73dc2b"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01419",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0aa025f70d65dd6a7086677c96400bd9192437e132a54a542310967708ce54ee"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00324",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1e6d8c5810971094a47ff01c9d9ec5333aef2a4c4c95da704cd9253cc37c6080"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00352",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "20b96bbd2f65ebcd2e2a725571da44c8178e73f84591292e01f2d97f6e499dca"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01516",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "040f4c19d435ec82444bd300981c20554159e7ddec83def4c3243d4311aee09c"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00021",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "126c8fa5b72d14890380e64c73e7981b12526218e16d2261096c0469268191a7"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00621",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0ae3898545590f444affa671f736cd42db165d68a0c98816fca8113c3c439cd4"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00575",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1ee725270df305cc1c6cd3182a2e0afbe591b32e1a2db3c26ba22735f340c135"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00876",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "20fdcbdf9de77c4389852108c69f4909aec644af2d6dd0b27ca53b05d628b4d9"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01118",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 0,
+      "new_video": true,
+      "selection_hash": "042afb16f107d469656b29731fc5b9fb96a843399499957dcc7861e19356f4ef"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00465",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 1,
+      "new_video": true,
+      "selection_hash": "12b0cd92fa38fb591516bc47dcfdcbef38a7bc1183c91873a1d36b4c9066c84f"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_00611",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 2,
+      "new_video": true,
+      "selection_hash": "0af7ec9f114258a05b9f07669e2a7f137f306ed722bc8713cc4c6513ef1d9acb"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01397",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 3,
+      "new_video": true,
+      "selection_hash": "1f0caaca69f7ed6561531402d0aa1492f64a2b3e7ec64bf154784e79de322481"
+    },
+    {
+      "sample_key": "qvhighlights-timelens_01167",
+      "dataset": "qvhighlights-timelens",
+      "added_at_size": 600,
+      "duration_bin": 3,
+      "GT_fraction_bin": 4,
+      "new_video": true,
+      "selection_hash": "213a56fd95eb773c20281dc28ece517be495d2f04aed03639b84ebc9a5a2323d"
+    }
+  ],
+  "counts": {
+    "activitynet-timelens": {
+      "(1, 0)": 9,
+      "(1, 1)": 9,
+      "(1, 2)": 9,
+      "(1, 3)": 9,
+      "(1, 4)": 9,
+      "(2, 0)": 12,
+      "(2, 1)": 9,
+      "(2, 2)": 9,
+      "(2, 3)": 9,
+      "(2, 4)": 9,
+      "(3, 0)": 20,
+      "(3, 1)": 9,
+      "(3, 2)": 9,
+      "(3, 3)": 9,
+      "(3, 4)": 9,
+      "(4, 0)": 17,
+      "(4, 1)": 9,
+      "(4, 2)": 9,
+      "(4, 3)": 8,
+      "(4, 4)": 8
+    },
+    "charades-timelens": {
+      "(0, 0)": 20,
+      "(0, 1)": 20,
+      "(0, 2)": 20,
+      "(0, 3)": 20,
+      "(0, 4)": 20,
+      "(1, 0)": 20,
+      "(1, 1)": 20,
+      "(1, 2)": 20,
+      "(1, 3)": 20,
+      "(1, 4)": 19,
+      "(2, 1)": 1
+    },
+    "qvhighlights-timelens": {
+      "(3, 0)": 40,
+      "(3, 1)": 40,
+      "(3, 2)": 40,
+      "(3, 3)": 40,
+      "(3, 4)": 40
+    }
+  },
+  "unique_videos": {
+    "activitynet-timelens": 197,
+    "charades-timelens": 196,
+    "qvhighlights-timelens": 199
+  }
+}

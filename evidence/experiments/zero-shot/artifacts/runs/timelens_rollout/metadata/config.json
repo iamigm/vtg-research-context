@@ -1,0 +1,28 @@
+{
+  "rollouts_per_variant": 5,
+  "variants": [
+    "top_k",
+    "top_p"
+  ],
+  "manifest_sha256": "b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf",
+  "max_new_tokens": 512,
+  "full_head": true,
+  "models": {
+    "qwen25": {
+      "temperature": 1.0,
+      "top_k": 50,
+      "top_p": 1.0,
+      "repetition_penalty": 1.0,
+      "presence_penalty": 0.0
+    },
+    "qwen3": {
+      "temperature": 0.7,
+      "top_k": 20,
+      "top_p": 0.8,
+      "repetition_penalty": 1.0,
+      "presence_penalty": 1.5
+    }
+  },
+  "qwen25_setting_note": "사용자 지시에 따라 Qwen2.5는 Transformers 라이브러리 sampling 기본값 temperature=1.0, top_k=50, top_p=1.0, repetition_penalty=1.0을 명시적으로 적용한다. 모델 배포 파일의 temperature=0.000001/repetition_penalty=1.05와 다르다. Top-p only에서는 top_k=0으로 꺼 p=1.0 전체 어휘 sampling을 수행한다. Qwen2.5 모델 카드가 권장하는 수치라고 주장하지 않는다.",
+  "candidate_storage": "All finite post-filter scores; lossless gzip/base64 float32 arrays for large sets. No fixed top-30 truncation."
+}
