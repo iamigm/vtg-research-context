@@ -167,3 +167,12 @@
 - 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md
 - 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md
+
+## 2026-11-02T19:40:10.390500+09:00
+
+원본 파일 직접 관찰: 22개 실행, 336개 코드·의존성 파일. 이전 commit: 6d58ec1949cbc4451ce471295965528c0ef2c59b.
+
+추가 0 / 변경 2 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
