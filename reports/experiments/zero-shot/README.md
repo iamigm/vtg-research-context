@@ -5,7 +5,7 @@
 | 분석 | 보고서 |
 |---|---|
 | 기존 zero-shot 전체 집계: 실행 버전·전체/pilot·fps·입력 순서 | [통합 보고서](results/all_zeroshot_v1/REPORT.md) · [지표 CSV](artifacts/runs/all_zeroshot_v1/metrics/metrics.csv) |
-| 8fps Instruct / Thinking 동일 pilot zero-shot·token trace | [진행 상태](artifacts/runs/thinking_vs_instruct_8fps_v1/metadata/status.json) · [성능 보고서](results/thinking_vs_instruct_8fps_v1/REPORT.md) · [토큰·불확실성 보고서](results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md) |
+| 공간 해상도 통제 FPS2/3/4/6/8 zero-shot (선행 실험 완료 후 자동 실행) | [사양](results/fps_spatial_control_pilot300_v1/SPEC.md) · [기존 공간 변화 감사](results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [상태](artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json) |
 | Thinking vs Instruct 동일 pilot 비교 | [성능·생성량·조건 차이](results/thinking_vs_instruct_v1/REPORT.md) |
 | 전체 벤치마크 자릿수별 정답 가능성과 불확실성 | [전체 digit_correctness](results/timelens_top30_full/digit_correctness/REPORT.md) |
 | 전체 벤치마크 정답 가능 상태의 세 축 분석 | [전체 blue_analysis](results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) |

@@ -126,3 +126,44 @@
 - code/experiments/zero-shot/_lib/spatial_sweep_supervisor.py
 - evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
 - reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md
+
+## 2026-11-02T19:38:41.162177+09:00
+
+원본 파일 직접 관찰: 22개 실행, 336개 코드·의존성 파일. 이전 commit: 75d856ce627c183ef8c8c85932eef249a5d0d3b5.
+
+추가 3 / 변경 12 / 현재 원본에서 사라짐 19. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_supervisor.py
+- context/specs/01a18c45-0978-7563-9999-067f29e4426e/Pasted text.txt
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/aggregate_all_zeroshot.py
+- code/experiments/zero-shot/_lib/fps_spatial_control.py
+- code/experiments/zero-shot/_lib/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metrics/metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
+- reports/experiments/zero-shot/results/all_zeroshot_v1/REPORT.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+- 원본 부재: code/experiments/zero-shot/_lib/pilot_8fps.py
+- 원본 부재: code/experiments/zero-shot/_lib/pilot_8fps_traces.py
+- 원본 부재: code/experiments/zero-shot/_lib/report_pilot_8fps.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/code/response_only_runner.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/digit_conditions.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/paired_2fps_8fps.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/per_endpoint.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/performance_metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/token_trace_metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/metrics/token_trace_per_response.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/performance/code/before_pilot_8fps.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/performance/code/before_pilot_8fps_traces.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_8fps_v1/performance/code/benchmark.py
+- 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/TOKEN_TRACE_REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_8fps_v1/performance/REPORT.md

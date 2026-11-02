@@ -13,7 +13,7 @@ def finalize():
     build()
     from artifact_store import register
     for kind,path in [('predictions',OUT/'responses'),('inputs',OUT/'inputs'),('manifests',OUT/'metadata'),('analyses',REPORT)]:
-        register(RUN+'.'+kind,kind,path,'GT-blind zero-shot fixed spatial grid FPS sweep','_lib/fps_spatial_control.py','pilot_300','complete',['nested_pilot_v1.300.cohort'])
+        register(RUN+'.'+kind,kind,Path(str(path).replace('/home1/irteam/','/home/irteam/')),'GT-blind zero-shot fixed spatial grid FPS sweep','_lib/fps_spatial_control.py','pilot_300','complete',['nested_pilot_v1.300.cohort'])
     subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
 
 def main():
@@ -57,18 +57,35 @@ def main():
                 pressure_since=(pressure_since or time.monotonic()) if pressure else None
                 if pressure_since and time.monotonic()-pressure_since>=15:raise MemoryError('Memory guard: stop this FPS run only; spatial settings will not be reduced')
                 codes=[p.poll() for p in children]
+                if any(s.get('state')=='failed' for s in states):raise RuntimeError('FPS worker reported failure; inspect worker log')
                 if any(c is not None and c!=0 for c in codes):raise RuntimeError('FPS worker failed: '+str(codes))
                 if all(c==0 for c in codes):break
                 time.sleep(20)
             state(state='running',stage='reporting',completed=6000,total=6000)
             finalize();state(state='complete',stage='complete',completed=6000,total=6000,validation_passed=True,report=str(REPORT/'REPORT.md'))
-        except BaseException:
+        except BaseException as error:
             import traceback
             for p in children:
                 if p.poll() is None:os.killpg(p.pid,signal.SIGTERM)
             for p in children:
                 try:p.wait(timeout=10)
                 except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);p.wait()
+            oom=any('OutOfMemoryError' in (OUT/'logs'/f'worker{r}.log').read_text(errors='replace')[-65536:] for r in range(2))
+            if isinstance(error,MemoryError) or oom:
+                # Preserve every scientific setting; only reduce simultaneous inference.
+                state(state='waiting',stage='memory_fallback_to_single_worker',reason=repr(error))
+                while True:
+                    stats=dict(line.split() for line in Path('/sys/fs/cgroup/memory.stat').read_text().splitlines())
+                    if int(stats['anon'])<75*2**30:break
+                    time.sleep(20)
+                with (OUT/'logs/fallback_worker.log').open('ab',buffering=0) as log:
+                    env={k:v for k,v in os.environ.items() if k!='FPS_WORKER_RANK'}
+                    p=subprocess.Popen([sys.executable,'-u',str(ROOT/'_lib/fps_spatial_control.py')],cwd=ROOT,env=env,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+                    write(OUT/'metadata/fallback_process.json',dict(timestamp=stamp(),pid=p.pid,scientific_settings_unchanged=True))
+                    code=p.wait()
+                if code==0:return
+                state(state='failed',stage='fallback_failed',exit_code=code)
+                raise RuntimeError('Singleton fallback failed; inspect fallback_worker.log')
             state(state='failed',stage='failed',error=traceback.format_exc());raise
         finally:
             for log in logs:log.close()

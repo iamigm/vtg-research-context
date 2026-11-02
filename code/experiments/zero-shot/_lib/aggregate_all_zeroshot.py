@@ -94,7 +94,7 @@ def aggregate():
   a,b=by['legacy_qwen3'],by['thinking_pilot_2fps'];lines.append(f"- 2fps pilot {o}: Instruct {100*a['miou_raw']:.2f}%, Thinking {100*b['miou_raw']:.2f}%, 차이 {100*(b['miou_raw']-a['miou_raw']):+.2f}pp mIoU.")
  lines+=['','원본 예측과 파생 측정은 변경하지 않았다. smoke 검사·중단된 old cohort·성능과 무관한 entropy/attention 파생값은 별도 성능 실행으로 세지 않았다. top30 pilot은 full_benchmark_v1에서 재사용한 동일 응답이므로 중복 합산하지 않았다.','', '[지표 CSV](metrics.csv) · [샘플별 재채점 CSV](sample_metrics.csv) · [전체 JSON](summary.json) · [출처 SHA-256](sources.json) · [검증](validation.json) · [rollout 원 보고서](../timelens_rollout/REPORT.md)']
  write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
- register('analysis.all_zeroshot.v1','analyses',OUT,'All historical zero-shot run versions, matched pilot/full cohorts, raw and rounded scoring, rollout appendix','_lib/aggregate_all_zeroshot.py','multiple cohorts','complete',['legacy.qwen3','legacy.qwen25.pilot','full_benchmark_v1.predictions','thinking_vs_instruct.pilot300.v1','pilot.rollouts'])
+ register('analysis.all_zeroshot.v1','analyses',Path(str(OUT).replace('/home1/irteam/','/home/irteam/')),'All historical zero-shot run versions, matched pilot/full cohorts, raw and rounded scoring, rollout appendix','_lib/aggregate_all_zeroshot.py','multiple cohorts','complete',['legacy.qwen3','legacy.qwen25.pilot','full_benchmark_v1.predictions','thinking_vs_instruct.pilot300.v1','pilot.rollouts'])
  status('complete',metric_rows=len(metrics));print(json.dumps({'records':len(records),'metrics':len(metrics),'inventory':inventory,'report':str(relocate_path(OUT/'REPORT.md'))},ensure_ascii=False),flush=True)
 
 def main():

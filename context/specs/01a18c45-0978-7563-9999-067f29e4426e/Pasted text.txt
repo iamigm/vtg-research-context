@@ -1,0 +1,131 @@
+VTG Adaptive Temporal Sampling Pilot을 사전 검증부터 구현·실행·평가·보고까지 완료하라. 함께 제공한 SPEC.md가 상세 실행 명세다. 계획만 제시하고 끝내지 말고, 기술적 중단 조건이 없다면 실제 작업을 진행하라.
+
+이번 요청은 기존 원본을 보존하면서 신규 코드·실험 디렉터리·재사용 산출물 버전을 만들고 GPU 추론을 실행하는 것을 승인한다. 통상적인 구현 선택과 재현 가능한 오류 수정 때문에 재확인을 요청하지 마라. 기존 결과 삭제·덮어쓰기, 공유 환경의 파괴적 변경, 명세의 연구 조건 변경이 필요하면 해당 작업을 중단하고 이유를 보고하라.
+
+## 1. 먼저 확인할 근거
+
+연결된 비공개 GitHub 저장소 `iamigm/vtg-research-context`의 main에서 다음을 직접 읽어라.
+
+- CURRENT.md, STATUS.json, EXPERIMENTS.md, EXPERIMENTS.json
+- experiments/zero-shot/README.md
+- experiments/zero-shot/artifacts/README.md
+- results/thinking_vs_instruct_8fps_v1/REPORT.md 및 summary.json
+- results/thinking_vs_instruct_v1/REPORT.md
+- results/all_zeroshot_v1/REPORT.md
+- results/timelens_span_head/REPORT.md
+- results/timelens_top30/REPORT.md
+- results/timelens_top30/mmco_diagnosis/REPORT.md
+
+위 results 경로는 `experiments/zero-shot/` 아래다.
+
+명세 작성 기준 commit은 `a0824288d3fab917db04d016eeb32d32e170f3c1`이다. 현재 main SHA도 기록하고, 이후 변경 중 이번 실행에 영향을 주는 차이를 확인하라. 보고서의 주장은 서버의 현재 상태와 구분하라. 서버의 AGENTS.md 등 적용 지침도 먼저 읽어라.
+
+## 2. 서버 사전 검증
+
+기준 경로는 `/home1/irteam/experiments/zero-shot`이며 공용 입력·환경은 `/home1/irteam/experiments/shared/timelens/`다. 실제 경로와 symlink를 확인하라. `/home/irteam`과 동일하다고 가정하지 마라.
+
+다음 항목을 실제 파일과 코드로 확인하여 `preflight.json`에 경로·버전·SHA-256·판정 근거를 저장하라.
+
+1. 기존 Python 환경, 모델 checkpoint·revision, tokenizer/processor, BF16·FlashAttention2, GPU 가용 자원과 다른 작업.
+2. 실제 prepare_pair와 video decoder·processor 코드.
+3. 공용 TimeLens extract_time 및 evaluator의 실제 소스와 평가 규칙.
+4. 원본 영상·annotation·duration·split 및 2fps/8fps frame indices·timestamps.
+5. `predictions/cohorts/pilot_300/samples.json`과 `selection.json`.
+6. 최신 `artifacts/registry` 및 `_lib/artifact_store.py`의 읽기·등록 인터페이스.
+7. `full_benchmark_v1`의 Qwen3 Charades 100개 기준선과 완료 8fps 응답의 실제 출처·버전.
+8. 비균일 원본 timestamps를 native Qwen3 video 입력에 정확히 전달할 수 있는지.
+
+GitHub 수출본에 없는 코드·데이터·설정은 서버에서 찾아 확인하라. 이름이 비슷하다는 이유로 실행 버전이나 코호트를 대체하지 마라. 설치 환경을 바꿔야 하면 기존 공유 환경을 보존하고 격리된 환경을 사용하라.
+
+## 3. 고정 실험 조건
+
+- 코호트: 기존 pilot_300 중 Charades-TimeLens 100 query. 재추출하지 말 것. 같은 video의 여러 query도 유지.
+- 모델: Qwen3-VL-8B-Instruct, full-head, video_query.
+- 생성: greedy, do_sample=False, max_new_tokens=512, repetition_penalty=1.0, seed=42.
+- 정밀도·backend: 기존 BF16·FlashAttention2.
+- 프롬프트·chat template·system prompt·special tokens는 기존 실행과 대조하여 유지.
+- min_tokens=64, total_tokens 설정=14,336, 최대 frames 설정=768. 실제 입력값은 별도 기록.
+- 추가 학습, Thinking, 제한 head, 답변 stochastic rollout, attention 기반 선택기, OT/flow matching은 범위 밖.
+
+샘플마다 기존 2fps 입력의 실제 프레임 수 F_i, 공간 grid, temporal packing/padding과 실제 visual-token 수 B_i를 고정하라. 같은 query의 모든 조건과 scout에서 F_i·B_i·공간 grid가 정확히 같아야 한다. 14,336을 실제 토큰 수라고 가정하지 말고 측정하라.
+
+## 4. 샘플링 구현
+
+Uniform / Random-guided / GT-guided / Pred-guided를 비교하라. 상세 알고리즘은 SPEC.md를 따른다.
+
+- Uniform은 기존 2fps ordered frame IDs를 재현한다.
+- 나머지는 baseline frames에서 전역에 분포한 50% anchors를 유지하고, 나머지 50%를 길이 0.4T의 focus window에 배치한다.
+- GT window 중심은 GT midpoint, Pred 중심은 uniform scout 첫 예측 구간 midpoint다.
+- Random 중심은 GT와 독립적으로 생성한다. planner seeds는 42/43/44.
+- 모든 조건에서 window 폭을 같게 하고, 영상 양끝에서는 폭을 유지하며 window를 이동한다.
+- 후보는 실제 8fps와 2fps source frames의 합집합이다. 768 cap 때문에 후보가 부족하면 명세에 따라 원본에서 후보를 추가 추출하고 준비 비용을 기록한다.
+- anchors와 중복되지 않는 window 내부 후보를 균등 rank로 선택하고, 부족하면 window까지의 거리가 가까운 후보로 채운다. fill 비율을 기록한다.
+- 실제 source frames의 중복으로 예산을 맞추지 마라. processor padding은 따로 센다.
+- Pred scout 파싱 실패·비유한·역전 구간은 Uniform fallback이다.
+- final 프롬프트에 scout 답변이나 수정 지시를 추가하지 마라.
+
+비균일 프레임을 가짜 일정 fps로 전달하지 마라. 원본 PTS와 duration, processor timestamp/temporal position의 대응을 검증하라. 설치 버전에서 이를 안전하게 표현할 수 없다면 본 실험을 중단하고 구체적인 원인과 대안을 보고하라. 임의 metadata 필드를 넣고 지원된다고 간주하지 마라.
+
+같은 source frame의 RGB가 sampler별 seek나 cache 때문에 달라지지 않게 하라. decoder 변경이 필요하면 명세의 버전 분리 규칙을 따른다.
+
+## 5. 데이터 누수와 비용
+
+GT는 GT-guided planner와 생성 후 evaluator에서만 사용하라. Uniform·Random·Pred 계획은 GT를 제거·변조해도 동일해야 한다. 기존 IoU·정답 가능성 라벨·성공한 rollout을 선택 신호로 사용하지 마라.
+
+공통 scout 100개, primary finals 400개, Random seed 43/44 sensitivity finals 200개로 최대 700개 응답이다. 기존 scout는 입력·모델·생성 설정의 동일성을 검증한 경우에만 재사용한다.
+
+모든 조건은 공통 scout+final의 두 단계 정책으로 비용을 기록한다. final F_i/B_i와 누적 2F_i/2B_i를 구분하고, 자연스러운 single-pass Uniform 비용도 별도로 보여라. Pred를 single-pass Uniform과 동일 전체 비용이라고 표현하지 마라.
+
+## 6. 구현과 실행 순서
+
+1. 기존 구조에 맞는 최소 코드를 작성하고 SPEC.md를 새 결과 디렉터리에 보존한다.
+2. 사전 검증을 완료하고 config·cohort·code·source hashes를 고정한다.
+3. 공통 scout를 생성하거나 검증된 기존 결과를 연결한다.
+4. final 생성 전에 모든 sampling plans를 저장·hash한다.
+5. 성능과 무관한 sample ID 순 첫 5개에서 모든 조건 smoke 검사를 수행한다.
+6. uniform adapter와 기존 prepare_pair의 pixels·IDs·timestamps·grid·positions를 비교한다.
+7. 반복 Uniform, budget equality, GT 격리, decoder/cache, 저장·resume를 검증한다.
+8. 통과하면 전체 실행을 백그라운드로 진행하고 로그·상태·완료 수를 남긴다.
+9. 저장된 원본으로 평가·보고서를 생성하고 새 artifact 버전을 등록한다.
+
+완료 응답은 원자적으로 저장하고 config/cohort/input/plan hash가 맞는 항목만 재개 시 건너뛰어라. OOM 때문에 특정 조건만 프레임·해상도를 낮추지 마라. 성능 중간 결과를 보고 parameter를 바꾸거나 조기 종료하지 마라.
+
+## 7. 평가
+
+주평가는 공용 extract_time으로 파싱한 첫 구간, raw seconds, 반올림·clipping 없음이다. 파싱 실패와 무효 구간은 IoU 0으로 전체 100개에 포함하라. 과거 Python round 평가값은 별도 호환성 표로 제공하라.
+
+필수 출력:
+
+- mIoU, R@1 IoU≥.3/.5/.7.
+- query별 paired ΔIoU, 개선·악화·동일, .5 성공 전환.
+- start/end 절대 오차와 정규화 오차, 실패를 포함한 boundary-within-1s/2s.
+- GT frame fraction, ε=0.5초 temporal coverage 및 start/end boundary coverage.
+- frame/token/grid equality, fill/fallback, 파싱·종료·범위 오류.
+- scout/final과 CPU 후보 준비를 분리한 시간·VRAM·생성 토큰 비용.
+- video ID 단위 paired cluster bootstrap 20,000회, seed 42, 95% CI.
+- Random 세 seed와 query별 seed 평균. 300개 random 응답을 독립 query로 취급하지 말 것.
+
+주비교는 GT−Uniform 및 Pred−Uniform이다. Random 대비 차이도 보고하라. CI는 탐색적이며 다중비교·일반화의 한계를 명시하라.
+
+연구 판단 기준은 SPEC.md의 사전 기준을 따른다. GT +3pp, Pred +2pp 및 CI·Random 대조·R@.5 조건을 사후 변경하지 마라. GT-guided는 진단용 oracle reference이며 최적 상한이나 실용 방법으로 제시하지 마라.
+
+## 8. 중단과 최종 전달
+
+다음은 즉시 중단 조건이다.
+
+- 코호트·query·GT·video mapping 또는 원본 hash 불일치.
+- 조건별 frame/token/grid 불일치.
+- 원본 timestamps 전달 실패.
+- Uniform·Random·Pred에 GT 누수.
+- sampler/cache에 따른 동일 source frame RGB 불일치.
+- 서로 다른 config 응답 혼합, 원본 덮어쓰기 또는 해결되지 않은 저장 무결성 오류.
+
+중단 시 원본과 완료분을 보존하고 상태를 aborted로 기록하라. 원인, 영향 범위, 재개에 필요한 변경을 보고하라. 완료하지 않은 실행을 complete로 등록하지 마라.
+
+출력 위치:
+
+`/home1/irteam/experiments/zero-shot/results/adaptive_temporal_sampling_pilot_v1/`
+
+config, preflight, cohort, source_manifest, 코드·환경 snapshot, inputs, plans, scouts, responses, logs, status, validation, metrics, paired_samples, sampling_diagnostics, compute_cost, bootstrap, summary 및 REPORT.md를 남겨라. registry는 building으로 등록하고 전량 검증 후 complete로 전환하라. 기존 full_benchmark_v1과 legacy 원본을 수정하지 마라.
+
+최종 응답에는 사전 검증 결과, 실제 변경 코드와 실행 명령, 실행·재사용·실패 수, 예산 일치 검증, 핵심 paired 결과와 CI, 비용, 연구 판단, 보고서 경로를 제시하라. 실행 중에는 중요한 검증 결과와 장애를 간결하게 공유하고, 장시간 실행도 결과 평가·보고까지 추적하라.

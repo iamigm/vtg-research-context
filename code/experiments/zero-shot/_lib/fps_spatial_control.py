@@ -150,7 +150,7 @@ def setup():
         video=s['video_path'];need(video in parents,'Missing reusable source metadata')
         key=hashlib.sha256(video.encode()).hexdigest();groups[video]=dict(video=video,key=key,parent_metadata=parents[video])
     immutable(OUT/'metadata/groups.json',list(groups.values()))
-    sources=[Path(__file__),Path(__file__).with_name('fps_spatial_report.py')]
+    sources=[Path(__file__).resolve().with_name(name) for name in ['fps_spatial_control.py','fps_spatial_report.py','fps_spatial_supervisor.py','fps_spatial_smoke.py']]
     manifest=dict(cohort_sha256=sha(COHORT),files=[dict(path=str(p),sha256=sha(p)) for p in sources])
     immutable(OUT/'metadata/source_manifest.json',manifest)
     for p in sources:
@@ -238,7 +238,7 @@ def run():
         build()
         from artifact_store import register
         for kind,path in [('predictions',OUT/'responses'),('inputs',OUT/'inputs'),('manifests',OUT/'metadata'),('analyses',REPORT)]:
-            register(RUN+'.'+kind,kind,path,'GT-blind zero-shot FPS sweep with fixed per-video spatial grid','_lib/fps_spatial_control.py','pilot_300','complete',['nested_pilot_v1.300.cohort'])
+            register(RUN+'.'+kind,kind,Path(str(path).replace('/home1/irteam/','/home/irteam/')),'GT-blind zero-shot FPS sweep with fixed per-video spatial grid','_lib/fps_spatial_control.py','pilot_300','complete',['nested_pilot_v1.300.cohort'])
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
         progress.update(state='complete',stage='complete',completed=progress.state['total'],report=str(REPORT/'REPORT.md'),validation_passed=True)
     except BaseException:

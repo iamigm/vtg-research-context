@@ -1,6 +1,6 @@
 # 기존 zero-shot 전체 집계
 
-집계 시각: 2026-10-28T11:56:59.734714+09:00. GPU 추론 없이 기존 응답 39,205개를 재채점하고, 별도 sampling rollout 6,000개는 기존 검증된 통계를 통합했다. 8fps는 집계 시점에 저장된 완료분만 포함한다.
+집계 시각: 2026-11-02T19:28:59.795752+09:00. GPU 추론 없이 기존 응답 39,116개를 재채점하고, 별도 sampling rollout 6,000개는 기존 검증된 통계를 통합했다.
 
 동일 실행의 response·top30 trace·attention 사본은 한 번만 집계했다. pilot은 full의 부분집합이며, 서로 다른 실행 버전과 rollout을 합쳐 하나의 성능으로 계산하지 않았다.
 
@@ -11,7 +11,6 @@
 | full_benchmark_v1 | 18,808 | raw responses, re-scored |
 | legacy_qwen25_pilot | 300 | raw responses, re-scored |
 | legacy_qwen3 | 18,808 | raw responses, re-scored |
-| pilot_8fps_v1 | 89 | raw responses, re-scored |
 | restricted_head_526 | 600 | raw responses, re-scored |
 | thinking_pilot_2fps | 600 | raw responses, re-scored |
 | stochastic_rollout | 6,000 | existing validated summary; 6000 response files counted, candidate traces not reloaded |
@@ -74,18 +73,7 @@
 | thinking_pilot_2fps | Qwen3-VL-8B-Thinking | 2 | video_query | charades-timelens | 100/100 | 42.36 | 64.00 | 47.00 | 24.00 |
 | thinking_pilot_2fps | Qwen3-VL-8B-Thinking | 2 | video_query | qvhighlights-timelens | 100/100 | 61.35 | 75.00 | 63.00 | 55.00 |
 
-## 8fps 진행 중인 결과
-
-모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
-
-| Run | 모델 | FPS | 입력 순서 | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
-|---|---|---:|---|---|---:|---:|---:|---:|---:|
-| pilot_8fps_v1 | Qwen3-VL-8B-Instruct | 8 | query_video | all | 44/300 | 44.91 | 61.36 | 52.27 | 27.27 |
-| pilot_8fps_v1 | Qwen3-VL-8B-Instruct | 8 | query_video | charades-timelens | 44/100 | 44.91 | 61.36 | 52.27 | 27.27 |
-| pilot_8fps_v1 | Qwen3-VL-8B-Instruct | 8 | video_query | all | 45/300 | 49.48 | 71.11 | 55.56 | 35.56 |
-| pilot_8fps_v1 | Qwen3-VL-8B-Instruct | 8 | video_query | charades-timelens | 45/100 | 49.48 | 71.11 | 55.56 | 35.56 |
-
-부분 완료 행은 선택된 일부 샘플의 결과이므로 완료된 300개 결과와 직접 비교하면 안 된다. Instruct greedy(max512)와 Thinking sampling(T=1,p=.95,k=20,seed42,max16384)은 생성 정책과 예산이 달라 checkpoint만의 효과가 아니다. 모든 실행의 요청 FPS는 2 또는 8이며, 실제 프레임 sampling은 원본 fps 및 기존 최대 768프레임 제한을 따른다. min_tokens=64,total_tokens=14336을 유지한다.
+부분 완료 행은 선택된 일부 샘플의 결과이므로 완료된 300개 결과와 직접 비교하면 안 된다. Instruct greedy(max512)와 Thinking sampling(T=1,p=.95,k=20,seed42,max16384)은 생성 정책과 예산이 달라 checkpoint만의 효과가 아니다. 이 집계에 남은 실행의 요청 FPS는 2이며, 실제 프레임 sampling은 원본 fps 및 기존 최대 768프레임 제한을 따른다. min_tokens=64,total_tokens=14336을 유지한다.
 
 ## 별도 비교군: 제한 head
 
