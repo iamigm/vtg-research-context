@@ -8,25 +8,25 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
 
-현재 관련 코드 71개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 72개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/selected_frame_cache_migration_v1
 
 [REPORT.md](../reports/experiments/zero-shot/results/selected_frame_cache_migration_v1/REPORT.md)
 
-현재 관련 코드 71개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 72개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/spatial_budget_pilot900_v1
 
 [PILOT_300.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_300.md) · [PILOT_600.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_600.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/SPEC.md)
 
-현재 관련 코드 71개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 72개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/spatial_sampling_pilot900_v2
 
 [REPORT.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md)
 
-현재 관련 코드 71개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 72개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -85,6 +85,7 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/_lib/spatial_sweep_parallel_supervisor.py](../code/experiments/zero-shot/_lib/spatial_sweep_parallel_supervisor.py)
 - [zero-shot/_lib/spatial_sweep_parallel_worker.py](../code/experiments/zero-shot/_lib/spatial_sweep_parallel_worker.py)
 - [zero-shot/_lib/spatial_sweep_report.py](../code/experiments/zero-shot/_lib/spatial_sweep_report.py)
+- [zero-shot/_lib/spatial_sweep_report_s42.py](../code/experiments/zero-shot/_lib/spatial_sweep_report_s42.py)
 - [zero-shot/_lib/spatial_sweep_runtime.py](../code/experiments/zero-shot/_lib/spatial_sweep_runtime.py)
 - [zero-shot/_lib/spatial_sweep_supervisor.py](../code/experiments/zero-shot/_lib/spatial_sweep_supervisor.py)
 - [zero-shot/_lib/wait_for_cache_cleanup.py](../code/experiments/zero-shot/_lib/wait_for_cache_cleanup.py)

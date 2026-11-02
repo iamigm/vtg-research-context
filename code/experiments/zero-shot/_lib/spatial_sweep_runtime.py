@@ -2,6 +2,14 @@
 import os,concurrent.futures,fcntl,multiprocessing,time
 from pathlib import Path
 import spatial_sweep900 as m
+# Execution scope amendment: preserve input identities and completed responses.
+_frozen_preflight=m.preflight
+def active_preflight():
+    jobs,groups=_frozen_preflight()
+    jobs=[j for j in jobs if not j['condition'].endswith('_s43')]
+    assert len(jobs)==46800
+    return jobs,groups
+m.preflight=active_preflight
 quota,period=Path('/sys/fs/cgroup/cpu.max').read_text().split()
 capacity=min(len(os.sched_getaffinity(0)),int(quota)//int(period) if quota!='max' else len(os.sched_getaffinity(0)))
 VIDEO_WORKERS=min(int(os.environ.get('VTG_VIDEO_WORKERS','4')),max(1,capacity-4));INPUT_WORKERS=min(2,max(1,capacity//4))
@@ -38,6 +46,8 @@ def bounded_prepare_all(groups,mapping):
     m.write(m.OUT/'validation/preparation.json',dict(passed=True,videos=len(groups),original_rgb_matches_parent=True,selected_frames_only=True));return mapping
 
 def main():
+    import spatial_sweep_report,spatial_sweep_report_s42
+    spatial_sweep_report.report=spatial_sweep_report_s42.report
     concurrent.futures.ThreadPoolExecutor=ThreadPool
     m.prepare_all=bounded_prepare_all
     original_status=m.status;original_write=m.write

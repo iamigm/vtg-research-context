@@ -20,8 +20,9 @@ def main():
                     row=dict(timestamp=stamp(),child_pid=child.pid,workers=workers,anon_GiB=anon/2**30,file_GiB=int(stat['file'])/2**30,total_GiB=current/2**30,resources=resources)
                     write(OUT/'environment/resource_latest.json',row)
                     with (OUT/'logs/resources.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
-                    # Sustained near-limit pressure stops this child group before the whole environment is lost.
-                    pressure=anon>min(110*2**30,limit*.7) or current>limit*.92
+                    # Guard actual working memory; clean file cache is reclaimable and is not a stop condition.
+                    working=anon+int(stat.get('kernel',0))+int(stat.get('file_dirty',0))+int(stat.get('file_writeback',0))
+                    pressure=anon>min(110*2**30,limit*.7) or working>limit*.8
                     pressure_since=(pressure_since or time.monotonic()) if pressure else None
                     if pressure_since and time.monotonic()-pressure_since>=15:
                         guard=True;write(OUT/'logs/memory_guard_latest.json',row);os.killpg(child.pid,signal.SIGTERM)
