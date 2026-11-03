@@ -95,3 +95,7 @@ The original300 is preserved as the exact prefix of600 and900. The expansion bal
 ## 공간 통제 전체 sweep (2026-11-02)
 
 `spatial_sampling_pilot900_v2`가 현재 전체·경계 비교 실행이다. `common/spatial_sampling_sources_v2/`에 독립 코호트 records와 source-frame metadata를 보관하며, 새 RGB는 `common/selected_frames_v1/frames/`에서 cache key로 재사용한다. `runs/spatial_sampling_pilot900_v2/`에 plans/inputs/responses/metrics/logs를 저장한다. 공간 비통제 이전 실험10개는 사용자 요청으로 삭제됐고, 목록은 `maintenance/spatial_reset_20261102.json`이다. 기존 공간 통제 `spatial_budget_pilot900_v1`의7200응답만 입력 일치 시 재사용한다.
+
+## 조건부 rollout 예산 진단
+
+`runs/conditional_rollout_budget_pilot30_v1/`의 `metadata/`는 동결 설정·코호트·상태, `inputs/`는 기존 FPS 입력 hash와 PTS, `trees/`는 시작 prefix와 조건부 종료 경로, `metrics/`는 예산 곡선·분포 차이, `validation/`는 질량 보존·cache 검증, `logs/`는 detached 실행 로그, `code/`는 코드 snapshot이다. 원래 raw softmax 질량을 재정규화하지 않는다. 재실행은 `_lib/conditional_rollout_budget.py`이며 완료 질문은 재사용한다. 기존 프레임은 FPS 실행의 경로를 참조하고 복제하지 않는다.

@@ -1,0 +1,21 @@
+{
+  "state": "running",
+  "stage": "tree_search",
+  "completed": 14,
+  "total": 30,
+  "model": "qwen3-instruct",
+  "counts": {
+    "charades-timelens": 10,
+    "activitynet-timelens": 4
+  },
+  "eta_seconds": 1758.4730974520955,
+  "eta_scope": "remaining diagnostic inference at observed query rate; excludes queue and report",
+  "timestamp": "2026-11-03T17:05:39.104316+09:00",
+  "elapsed_seconds": 1630.1726817972958,
+  "percentage": 46.666666666666664,
+  "sample_key": "activitynet-timelens_00261",
+  "policy": "balanced",
+  "expansions": 128,
+  "joint_mass": 0.6622162651218108,
+  "start_mass": 0.996003292830502
+}
