@@ -20,11 +20,13 @@ def rules():
  return sorted(layout()['moves'].items(),key=lambda x:len(x[0]),reverse=True)
 def relocate_path(path):
  if not isinstance(path,Path):return path
- s=canonical(os.path.abspath(path));initial=s;moves=layout()['moves'];seen=set()
+ s=canonical(os.path.abspath(path));initial=s;moves=layout()['moves'];seen=set();applied=set()
  while s not in seen:
   seen.add(s);probe=s
   while probe and probe!='/':
    if probe in moves:
+    if probe in applied:raise ValueError('Repeated migration prefix: '+probe)
+    applied.add(probe)
     s=moves[probe]+s[len(probe):];break
    probe=probe.rsplit('/',1)[0]
   else:return Path(s) if s!=initial else path
@@ -73,6 +75,12 @@ def rewrite_document(text,old_file,new_file):
 def write_result_text(path,text,*args,**kwargs):
  path=relocate_path(path)
  if path.suffix in {'.md','.html','.js','.css'}:text=rewrite_document(text,original_path(path),path)
+ if path.suffix == '.md' and '/results/' in canonical(path) and 'rollout' not in str(path):
+  from build_index import scope_label
+  scope=scope_label(path)
+  if scope and text.startswith('# '):
+   first,sep,rest=text.partition('\n')
+   if scope not in first:text=first+' · '+scope+sep+rest
  if path.suffix == '.html' and 'results' in path.parts:
   from build_index import add_navigation
   text=add_navigation(path,text)

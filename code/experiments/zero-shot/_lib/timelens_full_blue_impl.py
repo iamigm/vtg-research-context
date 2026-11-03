@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full');SOURCE=relocate_path(BASE/'digit_correctness');OUT=relocate_path(SOURCE/'blue_analysis')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');SOURCE=relocate_path(BASE/'digit_correctness');OUT=relocate_path(SOURCE/'blue_analysis')
 FONT=relocate_path(ROOT/'_lib/entropy_viewer/NotoSansKR.ttf');font_manager.fontManager.addfont(str(FONT));plt.rcParams['font.family']=font_manager.FontProperties(fname=str(FONT)).get_name()
 START=time.time();rng=np.random.default_rng(42)
 def dump(name,obj):

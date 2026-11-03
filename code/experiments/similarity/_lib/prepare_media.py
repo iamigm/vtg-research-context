@@ -11,7 +11,7 @@ def prepare_media(rows):
     records={}
     for source in dict.fromkeys(s['video_path'] for s in rows):
         key=video_key(source)
-        cached=relocate_path(Path('/home/irteam/experiments/zero-shot/results/timelens_top30_full/media'))
+        cached=relocate_path(Path('/home/irteam/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/media'))
         info=json.loads((cached/f'{key}.json').read_text())
         assert info['source']==source and info['codec']=='h264'
         target=folder/f'{key}.mp4'

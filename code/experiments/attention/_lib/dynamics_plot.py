@@ -1,7 +1,7 @@
 from result_layout import relocate_path, write_result_text
 from paths import ROOT, QUERY, GENERATION, HIDDEN, DYNAMICS, SPATIAL
 """Static scientific figures and an offline interactive token-step viewer."""
-import html,json,textwrap,time,sys
+import html,json,textwrap,time,sys,os
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -63,6 +63,7 @@ def summary_plot(summary):
 
 def make_html(data):
     template=(relocate_path(ROOT/'_lib/viewer_template.html')).read_text()
+    template=template.replace('__SAMPLE_ASSETS__',json.dumps(os.path.relpath(relocate_path(ROOT/'artifacts/runs/dynamics/samples'),relocate_path(OUT))+'/'))
     payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')
     write_result_text((relocate_path(OUT/'report.html')), template.replace('__PAYLOAD__',payload))
 

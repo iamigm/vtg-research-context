@@ -3,6 +3,7 @@
 Two independent CPU processors prepare up to seven future inputs while the
 main thread performs validated native microbatch generation of up to four rows.
 """
+from result_layout import relocate_path
 import sys,time,json,threading,importlib,os
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
@@ -68,7 +69,7 @@ def install(module):
             if path.exists():continue
             fc,fd=future.result()
             if hasattr(module,'PARENT_RUN'):
-                parent=ROOT/'artifacts/runs'/module.PARENT_RUN/'responses'/job['condition']/(job['sample_key']+'.json')
+                parent=relocate_path(ROOT/'artifacts/runs'/module.PARENT_RUN/'responses'/job['condition']/(job['sample_key']+'.json'))
                 if parent.exists() and read(parent)['identity']['input_hash']==objhash(fd['hashes']):continue
             fi=dict(identity,sample_key=job['sample_key'],condition=job['condition'],plan_hash=ph,input_hash=objhash(fd['hashes']))
             items.append((fc,fd,fi));future_details.append((ph,path,fd))
@@ -86,7 +87,7 @@ def install(module):
         results[0]['input_prepare_seconds']=prepare_seconds
         emit(event='batch_generated',batch_size=len(items),wall_seconds=results[0]['batch_wall_seconds'],peak_bytes=results[0]['peak_allocated_bytes'])
         return results[0]
-    gate=ROOT/'artifacts/runs/gt_extent_boundary_density_pilot300_v1/validation'
+    gate=relocate_path(ROOT/'artifacts/runs/gt_extent_boundary_density_pilot300_v1/validation')
     need(read(gate/'batch4_bridge.json')['passed'] and read(gate/'batch4_other_benchmarks_bridge.json')['passed'],'Batch token bridge failed')
     module.old.generate_fresh=generate
     return executor

@@ -1,4 +1,6 @@
 """Validate and report per-query time/compute for all three 16fps methods."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 from collections import Counter
 import csv
 import json
@@ -146,10 +148,10 @@ def main():
     lines+=['','AP는 GT frame을 positive로 한 query 내부 retrieval AP, mAP는 query별 동일 가중 평균이다. First GT rank는 첫 positive의 1-based 순위(낮을수록 좋음), MRR은 1/rank의 평균(높을수록 좋음)이다. GT는 PTS 기준 [start,end) 합집합이다. GT mass=Σ_GT softmax(cosine/τ), uniform=N_GT/N, lift=mass/uniform이며 τ=.01/.03/.07/.1/.3/1.0을 저장한다.',
         '', '| Dataset | Instruct mIoU | R@1 IoU≥.5 | Parse failures | Truncated |','|---|---:|---:|---:|---:|']
     for ds,g in generation.items():lines.append(f"| {ds} | {g['miou']:.4f} | {g['r05']:.4f} | {g['parse_failures']} | {g['truncated']} |")
-    (VIEW/'REPORT.md').write_text('\n'.join(lines)+'\n\n'+adjacent_markdown([r for r in records if r['model']!='instruct']))
+    write_result_text(VIEW/'REPORT.md', '\n'.join(lines)+'\n\n'+adjacent_markdown([r for r in records if r['model']!='instruct']))
     # Reuse the validated interactive viewer, with this run's dense 16fps curves.
     media=OUT/'media';media.mkdir(exist_ok=True)
-    pilot=ROOT/'artifacts/runs/pilot_300_v1/media'
+    pilot=relocate_path(ROOT/'artifacts/runs/pilot_300_v1/media')
     for item in payload:
         path=media/f'{item["video_key"]}.mp4'
         if not path.exists():os.link(pilot/path.name,path)
@@ -158,7 +160,7 @@ def main():
     template=template.replace('artifacts/sample_metrics.csv',f'{base}/measurements/per_sample.csv').replace('artifacts/validation.json',f'{base}/measurements/validation.json')
     data=dict(samples=payload,summary=dict(groups=similarity,temperatures=[.01,.03,.07,.1,.3,1.0]))
     blob=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')
-    (VIEW/'report.html').write_text(template.replace('__DATA__',blob))
+    write_result_text(VIEW/'report.html', template.replace('__DATA__',blob))
     os.environ['SIMILARITY_RUN']=RUN
     import check_viewer
     check_viewer.VIEW=VIEW

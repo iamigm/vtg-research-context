@@ -4,23 +4,17 @@ CLIP ViT-L/14와 Qwen3-VL-Embedding-8B. 2fps pilot300 query/292 videos →full9,
 
 ## 실행별 보고서·관련 코드
 
-### similarity/full_9404_v1
+### similarity/compute_cost
 
-[REPORT.md](../reports/experiments/similarity/results/full_9404_v1/REPORT.md)
+[REPORT.md](../reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/overview/REPORT.md)
 
-현재 관련 코드 44개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 49개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
-### similarity/pilot_300_16fps_cost_v1
+### similarity/frame_query
 
-[REPORT.md](../reports/experiments/similarity/results/pilot_300_16fps_cost_v1/REPORT.md)
+[REPORT.md](../reports/experiments/similarity/results/frame_query/cosine_2fps/full/9404/REPORT.md) · [REPORT.md](../reports/experiments/similarity/results/frame_query/cosine_2fps/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/similarity/results/frame_query/cosine_2fps/pilot/overview/REPORT.md)
 
-현재 관련 코드 43개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### similarity/pilot_300_v1
-
-[REPORT.md](../reports/experiments/similarity/results/pilot_300_v1/REPORT.md)
-
-현재 관련 코드 44개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 50개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -31,6 +25,12 @@ CLIP ViT-L/14와 Qwen3-VL-Embedding-8B. 2fps pilot300 query/292 videos →full9,
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
 
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/benchmark_16fps.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/benchmark_16fps.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/integrate_adjacent.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/integrate_adjacent.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare_media.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare_media.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/report_16fps.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/report_16fps.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/run_pipeline.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/run_pipeline.py)
 - [similarity/_lib/adjacent_similarity.py](../code/experiments/similarity/_lib/adjacent_similarity.py)
 - [similarity/_lib/benchmark_16fps.py](../code/experiments/similarity/_lib/benchmark_16fps.py)
 - [similarity/_lib/check_viewer.py](../code/experiments/similarity/_lib/check_viewer.py)

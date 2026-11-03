@@ -1,4 +1,5 @@
 """Readable evaluation for the prespecified whole/boundary density sweep."""
+from result_layout import write_result_text
 import numpy as np
 from adaptive_temporal_report import score,csvwrite
 from boundary_oracle_analysis import bootstrap_weights,estimate
@@ -71,4 +72,4 @@ def evaluate_run(m,rows):
     lines += ['', '이900개는 기존300개를 포함해 영상 길이×GT 비율의 부족한 구간을 보완한 진단 코호트입니다. 원래 벤치마크의 무작위 평균이나 독립 test 성능으로 해석하지 않습니다. 실제 경계 배정 방식: '+m.CONFIG['boundary_allocation']]
     if 'actual_density' in m.RUN:
         lines=[line.replace('K=round(F×rL/(rL+T−L))로 집중 프레임 수를 정하고, 경계 조건도 같은 K를 시작·끝 ±1초의 합집합에 배치합니다. 따라서 경계 조건의 실제 안/밖 밀도 비율이 2·4·8이라는 뜻은 아닙니다.', 'K=round(F×rD/(rD+T−D))로 각 조건의 실제 집중 합집합 길이 D를 사용합니다. 경계도 안팎 목표 밀도 비율을2·4·8로 맞춥니다.') for line in lines]
-    (m.REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(m.REPORT/'REPORT.md', '\n'.join(lines)+'\n')

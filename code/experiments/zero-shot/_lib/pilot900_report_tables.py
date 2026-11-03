@@ -1,4 +1,6 @@
 """Render all prespecified metrics and axes from completed evaluation, without inference."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 from pathlib import Path
 import csv
 from adaptive_temporal_sampling import ROOT
@@ -13,7 +15,7 @@ def name(c):
     p=c.split('_');return ('GT' if p[0]=='gt' else 'Random')+' '+('전체' if p[1]=='whole' else '경계')+' '+p[2][1:]+'배'+(' (seed 평균)' if p[-1]=='mean' else (' (seed '+p[-1][1:]+')' if p[-1].startswith('s') else ''))
 def table(headers,rows):return ['','| '+' | '.join(headers)+' |','| '+' | '.join(['---']*len(headers))+' |']+['| '+' | '.join(map(str,r))+' |' for r in rows]+['']
 def render():
-    root=ROOT/'results'/RUN;out=ROOT/'artifacts/runs'/RUN
+    root=relocate_path(ROOT/'results'/RUN);out=relocate_path(ROOT/'artifacts/runs'/RUN)
     metrics=list(csv.DictReader((out/'metrics/nested_metrics.csv').open()))
     cells=list(csv.DictReader((out/'metrics/nested_axes.csv').open()))
     ix={(x['size'],x['dataset'],x['design'],x['condition'],x['metric']):x for x in metrics}
@@ -73,7 +75,7 @@ def render():
         '이 표는 관찰된 점수와 차이를 보여 줍니다. 작은 칸의 차이가 통계적으로 확실하다는 뜻은 아닙니다. 원래 실행별 보고서의 영상 단위 bootstrap 95% 구간은 그 보고서에 적힌 mIoU 비교에만 해당하며, 이 교차표나 threshold 차이의 신뢰구간으로 옮겨 해석하면 안 됩니다. 데이터셋의 영상 길이 분포가 겹치지 않는 칸에서는 데이터셋 효과와 영상 길이 효과를 분리할 수 없습니다. 해상도를 고정한 새 실험도 아닙니다.','',
         f'[A 실행별 신뢰구간·오차·비용](../{RUNS["A"]}/REPORT.md) · [B 실행별 신뢰구간·오차·비용](../{RUNS["B"]}/REPORT.md)','',
         f'[전체 점수 CSV](../../artifacts/runs/{RUN}/metrics/nested_metrics.csv) · [각 축과 교차 칸 CSV](../../artifacts/runs/{RUN}/metrics/nested_axes.csv)']
-    (root/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(root/'REPORT.md', '\n'.join(lines)+'\n')
     for d,run in RUNS.items():
         details=[f'# 실험 {d}: 모든 조건과 구간별 비교','', '[통합 보고서와 지표 정의](REPORT.md)','',
             '각 코호트에서 데이터셋별 질문 수는 전체 코호트의 1/3입니다. 점수 표는 실제 % (Uniform 대비 pp)입니다. Random은 각 seed와 두 seed 평균을 모두 표시합니다. 축별·교차표는 GT 조건−Uniform 변화 pp이며, 교차표 괄호는 질문 수입니다. †는 N<10입니다.']
@@ -95,7 +97,7 @@ def render():
                         details+=table(['구간','N']+[l+' 변화 pp' for _,l in METRICS],rows)
                     details+=cross(n,ds,d,c)
         (root/f'DETAIL_{d}.md').write_text('\n'.join(details)+'\n')
-        rp=ROOT/'results'/run/'REPORT.md';old=rp.read_text().split(MARK)[0].rstrip()
+        rp=relocate_path(ROOT/'results'/run/'REPORT.md');old=rp.read_text().split(MARK)[0].rstrip()
         extra=[MARK,'','## IoU 기준별 전체 성능과 두 축 비교','',f'[실험 {d}의 전체 조건·300/600/900·영상 길이×GT 비율 교차표](../{RUN}/DETAIL_{d}.md)','', '아래는 900개에서의 실제 성공률입니다. 각 축과 교차표는 위 상세 보고서에 네 지표 모두 수록했습니다.']
         for ds,label in DS:
             extra+=['','### '+label]

@@ -1,11 +1,13 @@
 """Fixed per-frame spatial area, frozen parent temporal plans, selected-frame cache only."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import os,sys,time,math,copy,hashlib,threading,traceback,fcntl,subprocess
 from pathlib import Path
 import adaptive_temporal_sampling as old
 from adaptive_temporal_sampling import ROOT,read,write,immutable,objhash,sha,stamp,need,fileinfo
 import pilot900_inputs as bridge
 RUN='spatial_budget_pilot900_v1';PARENT='gt_extent_boundary_density_pilot900_v1'
-OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN;PR=ROOT/'artifacts/runs'/PARENT
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN);PR=relocate_path(ROOT/'artifacts/runs'/PARENT)
 CONDITIONS=['uniform','gt_whole_r8','random_whole_r8_s42','random_whole_r8_s43']
 AREAS={'low':50176,'high':100352}
 CONFIG=dict(run_id=RUN,parent=PARENT,areas=AREAS,conditions=CONDITIONS,cohort='nested_pilot_v1/pilot_900',model=str(old.MODEL),revision=old.CONFIG['revision'],seed=42,do_sample=False,max_new_tokens=512,repetition_penalty=1.,dtype='bfloat16',attention='flash_attention_2',resize='torchvision bicubic antialias uint8; directly from original RGB',grid_policy='H,W multiples32; area within10%; minimize abs(log((W/H)/(sourceW/sourceH))), then relative area error, then H,W',temporal_policy='exact parent frame IDs, source PTS, original frame count; no total video token cap',batch_policy='batch4 only if six prespecified inputs exactly match singleton; otherwise singleton',gpu_free_required_GiB=60,cpu_workers=4)
@@ -58,8 +60,8 @@ def preflight():
     for p in [Path(__file__),ROOT/'_lib/spatial_budget_report.py',Path(bridge.__file__),ROOT/'_lib/gt_density_batch.py',ROOT/'_lib/shared_selected_frames.py']:
         (OUT/'code'/p.name).write_bytes(p.read_bytes())
     write(OUT/'metadata/source_manifest.json',dict(files=[fileinfo(p) for p in [Path(__file__),ROOT/'_lib/spatial_budget_report.py',Path(bridge.__file__),ROOT/'_lib/gt_density_batch.py',ROOT/'_lib/shared_selected_frames.py']],model_config=fileinfo(old.MODEL/'config.json'),processor=fileinfo(old.MODEL/'video_preprocessor_config.json')))
-    (REPORT/'SPEC.md').write_text('# 공간 예산 통제 실험\n\n900개 × 두 공간 예산 × Uniform/GT 전체8배/Random42/43 = 7200개 논리 응답.\n\n목표 면적은 50,176·100,352픽셀. 32배수 H/W 중 목표 면적 ±10% 안에서 원본 종횡비 오차가 가장 작은 크기를 선택하며, 동률은 면적 오차, H, W 순. 실제 면적과 종횡비 오차를 모두 보고한다. 기존 temporal plan을 그대로 사용하며 원본 RGB에서 직접 resize한다. 모델/프롬프트/생성 설정은 기존과 같다. 전체 영상 토큰 예산을 다시 적용하지 않는다.\n\n전체·경계2/4/8 기존 sweep은 완료 결과로 보존한다. 이번 신규 실행은 승인된 전체8배 네 조건만 포함한다. 원래300/600/900 각각과 세 데이터셋의 mIoU, IoU≥.3/.5/.7 실제 점수·차이, 영상 길이·GT 비율·두 축 교차표, 영상 cluster bootstrap을 자동 보고한다.\n')
-    (REPORT/'REPORT.md').write_text('# 공간 예산 통제 실험 — 실행 대기\n\n완료 후 자동 보고서로 교체됩니다. [명세](SPEC.md)\n')
+    write_result_text(REPORT/'SPEC.md', '# 공간 예산 통제 실험\n\n900개 × 두 공간 예산 × Uniform/GT 전체8배/Random42/43 = 7200개 논리 응답.\n\n목표 면적은 50,176·100,352픽셀. 32배수 H/W 중 목표 면적 ±10% 안에서 원본 종횡비 오차가 가장 작은 크기를 선택하며, 동률은 면적 오차, H, W 순. 실제 면적과 종횡비 오차를 모두 보고한다. 기존 temporal plan을 그대로 사용하며 원본 RGB에서 직접 resize한다. 모델/프롬프트/생성 설정은 기존과 같다. 전체 영상 토큰 예산을 다시 적용하지 않는다.\n\n전체·경계2/4/8 기존 sweep은 완료 결과로 보존한다. 이번 신규 실행은 승인된 전체8배 네 조건만 포함한다. 원래300/600/900 각각과 세 데이터셋의 mIoU, IoU≥.3/.5/.7 실제 점수·차이, 영상 길이·GT 비율·두 축 교차표, 영상 cluster bootstrap을 자동 보고한다.\n')
+    write_result_text(REPORT/'REPORT.md', '# 공간 예산 통제 실험 — 실행 대기\n\n완료 후 자동 보고서로 교체됩니다. [명세](SPEC.md)\n')
     return jobs,list(groups.values())
 
 def prepare_group(g):

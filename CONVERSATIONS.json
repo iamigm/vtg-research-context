@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T01:47:13.883220+09:00",
+  "observed_at": "2026-11-04T03:02:31.147942+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -407,6 +407,23 @@
       "source_modified_at": "2026-11-04T01:17:39.733162+09:00",
       "messages": 15,
       "last_user_message": "2026-11-03T16:17:13.882Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1a254-4ff9-79f0-9647-3d3934565691",
+      "title": "zero-shot 실험 묶고 legacy 정리",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md",
+      "sha256": "540c71551e48fb1e0185f041a931add9c98d7653e9cdd0ff29472c9db4666c86",
+      "bytes": 4137,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/04/rollout-2026-11-04T01-53-16-01a1a254-4ff9-79f0-9647-3d3934565691.jsonl",
+      "source_modified_at": "2026-11-04T02:43:37.319257+09:00",
+      "messages": 14,
+      "last_user_message": "2026-11-03T17:32:30.381Z",
       "turn_running": false,
       "retained_snapshot": false
     }

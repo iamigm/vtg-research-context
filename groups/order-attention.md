@@ -4,41 +4,23 @@
 
 ## 실행별 보고서·관련 코드
 
-### attention/dynamics
+### attention/input_order
 
-[FINDINGS.md](../reports/experiments/attention/results/dynamics/FINDINGS.md)
+[final_report.md](../reports/experiments/attention/results/input_order/timelens_instruct/full/9404/final_report.md) · [FINAL_REPORT.md](../reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/FINAL_REPORT.md) · [REPORT.md](../reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/REPORT.md) · [SCHEMA.md](../reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/SCHEMA.md) · [REPORT.md](../reports/experiments/attention/results/input_order/timelens_thinking/pilot/overview/REPORT.md)
 
-현재 관련 코드 68개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 71개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
-### attention/generation
+### attention/token_attention
 
-[FINDINGS.md](../reports/experiments/attention/results/generation/FINDINGS.md) · [REPORT.md](../reports/experiments/attention/results/generation/distribution_analysis/REPORT.md) · [REPORT.md](../reports/experiments/attention/results/generation/head_analysis/REPORT.md)
+[REPORT.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/REPORT.md) · [FINDINGS.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/dynamics/FINDINGS.md) · [FINDINGS.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/FINDINGS.md) · [REPORT.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/distribution_analysis/REPORT.md) · [REPORT.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/head_analysis/REPORT.md) · [FINDINGS.md](../reports/experiments/attention/results/token_attention/mtla/pilot/300/query/FINDINGS.md) · [REPORT.md](../reports/experiments/attention/results/token_attention/mtla/pilot/overview/REPORT.md)
 
-현재 관련 코드 68개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 69개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
-### attention/overview
+### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/input_order
 
-[REPORT.md](../reports/experiments/attention/results/overview/REPORT.md)
+[REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/input_order/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/input_order/consistency_v1/REPORT.md)
 
-현재 관련 코드 68개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### attention/query
-
-[FINDINGS.md](../reports/experiments/attention/results/query/FINDINGS.md)
-
-현재 관련 코드 68개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### attention/timelens_order
-
-[final_report.md](../reports/experiments/attention/results/timelens_order/final_report.md)
-
-현재 관련 코드 68개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/input_order
-
-[REPORT.md](../reports/experiments/zero-shot/results/input_order/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/input_order/consistency_v1/REPORT.md)
-
-현재 관련 코드 73개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 74개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -52,11 +34,12 @@
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
 
-- [zero-shot/_lib/zeroshot_metrics_png.py](../code/experiments/zero-shot/_lib/zeroshot_metrics_png.py)
 - [zero-shot/_lib/zeroshot_report.py](../code/experiments/zero-shot/_lib/zeroshot_report.py)
-- [zero-shot/artifacts/runs/input_order/consistency_v1/code/analyze.py](../code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/analyze.py)
-- [zero-shot/artifacts/runs/input_order/consistency_v1/code/build_viewer.py](../code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/build_viewer.py)
-- [zero-shot/artifacts/runs/input_order/consistency_v1/code/serve.py](../code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/serve.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/attention/_lib/timelens_report.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/attention/_lib/timelens_report.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/zeroshot_report.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/zeroshot_report.py)
+- [zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/analyze.py](../code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/analyze.py)
+- [zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/build_viewer.py](../code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/build_viewer.py)
+- [zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/serve.py](../code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/serve.py)
 - [attention/run.py](../code/experiments/attention/run.py)
 - [attention/_lib/comparison.py](../code/experiments/attention/_lib/comparison.py)
 - [attention/_lib/distribution.py](../code/experiments/attention/_lib/distribution.py)
@@ -119,4 +102,4 @@
 - [attention/_lib/vendor/MTLA/third_party/moment_detr_eval/eval.py](../code/experiments/attention/_lib/vendor/MTLA/third_party/moment_detr_eval/eval.py)
 - [attention/_lib/vendor/MTLA/third_party/moment_detr_eval/utils.py](../code/experiments/attention/_lib/vendor/MTLA/third_party/moment_detr_eval/utils.py)
 - [attention/artifacts/common/provenance/history/separation_before/run.py](../code/experiments/attention/artifacts/common/provenance/history/separation_before/run.py)
-- [attention/artifacts/runs/hidden/fonts/LICENSE](../code/experiments/attention/artifacts/runs/hidden/fonts/LICENSE)
+- [attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/fonts/LICENSE](../code/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/fonts/LICENSE)

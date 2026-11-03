@@ -1,4 +1,6 @@
 """Complete thresholds, individual axes and joint cells for spatial-budget pilot."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write,sha,objhash,need,stamp
 from adaptive_temporal_report import score,csvwrite
@@ -10,7 +12,7 @@ LABEL={'uniform':'Uniform','gt_whole_r8':'GT 전체8배','random_whole_r8_s42':'
 def table(headers,rows):return ['','| '+' | '.join(headers)+' |','| '+' | '.join(['---']*len(headers))+' |']+['| '+' | '.join(map(str,row))+' |' for row in rows]+['']
 def report():
     cohort=read(OUT/'metadata/cohort.json');jobs=read(OUT/'metadata/jobs.json');records=[];costs=[];spatial=[]
-    bykey={s['sample_key']:s for s in cohort};parent=ROOT/'artifacts/runs'/PARENT
+    bykey={s['sample_key']:s for s in cohort};parent=relocate_path(ROOT/'artifacts/runs'/PARENT)
     for j in jobs:
         key=j['sample_key'];base=OUT/'responses'/j['level']/j['condition']/(key+'.json');r=read(base);detail=read(OUT/'inputs'/j['level']/j['condition']/(key+'.json'))
         need(r['identity']['input_hash']==objhash(detail['hashes']) and r['input_detail_hash']==objhash(detail),'Input record mismatch');need((r['F'],r['B'],r['grid'])==(j['F'],j['B'],j['grid']),'Spatial budget changed')
@@ -88,8 +90,8 @@ def report():
     lines=intro+build(900)+['','## 비용과 검증','',f"새 논리 응답 {len(jobs)}개. GPU 생성 시간 합계 {sum(x['generation_seconds'] for x in costs):.1f}초(배치 공유 비용은 응답별 배분). Batch bridge: {read(OUT/'validation/batch_bridge.json')}",'',
         '기존 프레임의 제거·추가 없이 원본 픽셀에서 새 공간 크기를 만들었습니다. 낮은 원본 화질, padding, 종횡비 오차까지 동일해진 것은 아닙니다. 공간 크기를 바꿨을 때의 실험적 효과이며, 데이터셋 차이의 유일한 원인을 증명하지 않습니다.','',
         '[기존300개 상세표](PILOT_300.md) · [중첩600개 상세표](PILOT_600.md)',f'[모든 점수](../../artifacts/runs/{RUN}/metrics/metrics.csv) · [모든 축 원자료](../../artifacts/runs/{RUN}/metrics/axes.csv) · [실제 입력 크기](../../artifacts/runs/{RUN}/metrics/spatial_inputs.csv)']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
-    for n in [300,600]:(REPORT/f'PILOT_{n}.md').write_text('\n'.join([f'# 중첩 pilot {n}개','', '[지표 정의와900개 보고서](REPORT.md)']+build(n))+'\n')
+    write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n')
+    for n in [300,600]:write_result_text(REPORT/f'PILOT_{n}.md', '\n'.join([f'# 중첩 pilot {n}개','', '[지표 정의와900개 보고서](REPORT.md)']+build(n))+'\n')
     for p in REPORT.glob('*.md'):
         width=None
         for line in p.read_text().splitlines():

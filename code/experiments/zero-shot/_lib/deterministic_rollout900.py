@@ -1,4 +1,5 @@
 """Run only frozen pilot900[300:], reuse first300, report extra600 and nested600/900."""
+from result_layout import relocate_path
 import ast,collections,fcntl,hashlib,json,multiprocessing,sys,time,traceback
 from pathlib import Path
 import deterministic_rollout300 as m
@@ -6,9 +7,9 @@ from deterministic_rollout300_report import report as base_report
 
 ROOT=m.ROOT
 RUN='deterministic_rollout_additional600_v2'
-OUT=ROOT/'artifacts/runs'/RUN
-REPORT=ROOT/'results'/RUN
-ORIGINAL=ROOT/'artifacts/runs/deterministic_rollout_pilot300_v2'
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT=relocate_path(ROOT/'results'/RUN)
+ORIGINAL=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot300_v2')
 NESTED=ROOT/'artifacts/common/cohorts/nested_pilot_v1'
 PARENTS=ROOT/'artifacts/common/spatial_sampling_sources_v2/source_frames'
 POOL=None
@@ -109,7 +110,7 @@ def reports():
  r.OUT=OUT;r.REPORT=REPORT
  base_report(records=additional,cohort_label='추가600개 (고정900 중 기존300 제외)')
  for n in [600,900]:
-  run=f'deterministic_rollout_pilot{n}_v2';out=ROOT/'artifacts/runs'/run;dest=ROOT/'results'/run
+  run=f'deterministic_rollout_pilot{n}_v2';out=relocate_path(ROOT/'artifacts/runs'/run);dest=relocate_path(ROOT/'results'/run)
   for category in ['metadata','metrics','validation','code']:(out/category).mkdir(parents=True,exist_ok=True)
   dest.mkdir(parents=True,exist_ok=True)
   immutable(out/'metadata/cohort.json',frozen[:n])

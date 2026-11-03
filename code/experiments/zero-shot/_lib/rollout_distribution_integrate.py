@@ -1,24 +1,27 @@
 """Fold finished probability capture into the original pilot900 report and UI."""
+from result_layout import relocate_path
 import argparse,fcntl,hashlib,json,re,time,traceback
 from pathlib import Path
 from deterministic_rollout300 import ROOT,read,write,stamp
 
-OUT=ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2'
-REPORT=ROOT/'results/deterministic_rollout_pilot900_v2'
+OUT=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2')
+REPORT=relocate_path(ROOT/'results/deterministic_rollout_pilot900_v2')
 
 def append_distribution_summary(report,out):
  validation=out/'validation/distribution_capture.json'
+ if not validation.exists():validation=out/'validation/pilot_distribution_ready.json'
  if not validation.exists() or not read(validation).get('passed'):return False
- result=read(validation);assert result['queries']==900
+ result=read(validation);n=result['queries'];assert n in [300,600,900]
+ if (out/'metadata/cohort.json').exists():assert len(read(out/'metadata/cohort.json'))==n
  size=result['compressed_bytes']/1024**3
  block=f'''\n<!-- rollout-distributions:start -->
 ## 토큰 분포와 generation step 확률의 곱
 
-기존900개 rollout 실험에 토큰 분포 측정을 통합했다. 별도 실험이나 별도 결과 페이지가 아니다. 총900개 질문, {result['prefixes']:,}개 고유 prefix의 전체 어휘 FP32 확률을 기록했다. 압축 원자료 크기는 {size:.2f}GiB다. 원래 응답·평가 수치는 유지했다.
+기존{n}개 rollout 실험에 토큰 분포 측정을 통합했다. 별도 분포 실험이 아니라 동일 코호트의 기존 HTML에서 확인한다. 총{n}개 질문, {result['prefixes']:,}개 고유 prefix의 전체 어휘 FP32 확률을 기록했다. 참조하는 압축 원자료 크기는 {size:.2f}GiB다. 원래 응답·평가 수치는 유지했다.
 
 조건부 토큰 확률은 P(다음 토큰 | 영상·질문·현재 prefix)이다. 누적 경로 확률은 각 generation step의 조건부 확률을 곱한 값이고, 전체 응답 확률은 EOS까지 포함한다. 부모에서 선택한 토큰을 서로 다른 색으로 표시하고, 각 토큰을 붙인 뒤의 자식 분포는 같은 색으로 비교한다. 표시한 상위 토큰 안에서 재정규화하지 않으며 나머지 확률도 표시한다.
 
-원래 입력 tensor hash, greedy suffix, 강제 토큰 확률과 전체 응답 확률 곱을 검증했다. [기존 샘플별 HTML에서 보기](viewer.html#preset=greedy_short&sample=activitynet-timelens_01723&candidate=3&panel=distributions). 원자료는 이 실행의 token_traces 자료 종류에 보존한다.
+원래 입력 tensor hash, greedy suffix, 강제 토큰 확률과 전체 응답 확률 곱을 검증했다. [기존 샘플별 HTML에서 보기](viewer.html#panel=distributions). 원자료는 전체900개 실행의 token_traces를 공유하며 pilot별로 복제하지 않는다.
 <!-- rollout-distributions:end -->
 '''
  path=report/'REPORT.md';text=path.read_text()

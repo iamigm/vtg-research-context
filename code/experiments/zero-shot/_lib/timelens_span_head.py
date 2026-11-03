@@ -26,7 +26,7 @@ from timelens.utils import extract_time, iou
 from timelens_paths import QWEN3_ZERO, PILOT_SAMPLES, baseline_path
 from timelens_store import save_prediction
 BASE = QWEN3_ZERO
-OUT = relocate_path(ROOT/'results/timelens_span_head')
+OUT = relocate_path(ROOT/'results/uncertainty/span_head/pilot/300')
 
 
 class RestrictedHead(torch.nn.Module):

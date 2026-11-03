@@ -2,7 +2,7 @@ from result_layout import relocate_path, write_result_text
 from pathlib import Path
 import json,os,time,hashlib
 import timelens_top30_media as media
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full');OLD=relocate_path(ROOT/'results/timelens_top30');media.OUT=BASE;(relocate_path(BASE/'media')).mkdir(exist_ok=True)
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');OLD=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');media.OUT=BASE;(relocate_path(BASE/'media')).mkdir(exist_ok=True)
 rows=json.loads((relocate_path(BASE/'samples.json')).read_text());sources=list(dict.fromkeys(s['video_path'] for s in rows));results={};start=time.time()
 for i,src in enumerate(sources):
     key=hashlib.sha256(src.encode()).hexdigest()[:20]

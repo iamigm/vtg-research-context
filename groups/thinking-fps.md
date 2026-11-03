@@ -4,17 +4,11 @@
 
 ## 실행별 보고서·관련 코드
 
-### attention/thinking_pilot_orders_v1
+### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/thinking_vs_instruct_v1
 
-[FINAL_REPORT.md](../reports/experiments/attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md) · [REPORT.md](../reports/experiments/attention/results/thinking_pilot_orders_v1/REPORT.md) · [SCHEMA.md](../reports/experiments/attention/results/thinking_pilot_orders_v1/SCHEMA.md)
+[REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/thinking_vs_instruct_v1/REPORT.md)
 
-현재 관련 코드 6개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/thinking_vs_instruct_v1
-
-[REPORT.md](../reports/experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md)
-
-현재 관련 코드 6개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 7개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -26,8 +20,9 @@
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
 
 - [zero-shot/_lib/compare_thinking_instruct.py](../code/experiments/zero-shot/_lib/compare_thinking_instruct.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compare_thinking_instruct.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compare_thinking_instruct.py)
 - [attention/_lib/summarize_thinking_pilot.py](../code/experiments/attention/_lib/summarize_thinking_pilot.py)
 - [attention/_lib/thinking_live_benchmark.py](../code/experiments/attention/_lib/thinking_live_benchmark.py)
 - [attention/_lib/thinking_pilot.py](../code/experiments/attention/_lib/thinking_pilot.py)
 - [attention/_lib/thinking_pilot_live.py](../code/experiments/attention/_lib/thinking_pilot_live.py)
-- [attention/artifacts/runs/thinking_pilot_orders_v1/code/source.py](../code/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/code/source.py)
+- [attention/artifacts/runs/input_order/timelens_thinking/pilot/300/code/source.py](../code/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/code/source.py)

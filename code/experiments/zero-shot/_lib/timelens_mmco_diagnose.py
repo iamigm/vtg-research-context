@@ -4,7 +4,7 @@ from pathlib import Path
 import os,sys,json,time,subprocess,hashlib,traceback,concurrent.futures
 from datetime import datetime,timezone
 from timelens_paths import PILOT_SAMPLES,QWEN3_ZERO
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/timelens_top30/mmco_diagnosis');BASE=relocate_path(ROOT/'results/timelens_top30')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/operations/mmco_diagnosis/pilot/300');BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')
 FFMPEG='/home1/irteam/envs/dit/bin/ffmpeg'
 def read(p):return json.loads(p.read_text())
 def write(p,r):

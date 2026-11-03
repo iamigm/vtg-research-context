@@ -3,6 +3,7 @@
 Four independent CPU processors prepare up to fifteen future inputs while the
 main thread performs validated native microbatch generation of up to four rows.
 """
+from result_layout import relocate_path
 import sys,time,json,threading,importlib,os
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
@@ -38,7 +39,7 @@ def install(module):
                 completed.append(job);continue
             candidate=False
             for source_run in module.REUSE_RUNS:
-                source=ROOT/'artifacts/runs'/source_run/'responses'/relative
+                source=relocate_path(ROOT/'artifacts/runs'/source_run/'responses'/relative)
                 if source.exists() and read(source)['identity']['plan_hash']==job['plan_hash']:
                     candidate=True;break
             (reusable if candidate else fresh).append(job)
@@ -80,7 +81,7 @@ def install(module):
     def fast_source_detail(record,cache,plan):
         key=record['sample']['sample_key'];condition=plan['condition'];ph=objhash(plan)
         for source_run in module.REUSE_RUNS:
-            root=ROOT/'artifacts/runs'/source_run;path=root/'responses'/condition/(key+'.json')
+            root=relocate_path(ROOT/'artifacts/runs'/source_run);path=root/'responses'/condition/(key+'.json')
             if not path.exists():continue
             response=read(path)
             if response['identity']['plan_hash']!=ph:continue
@@ -150,7 +151,7 @@ def install(module):
         results[0]['input_prepare_seconds']=prepare_seconds
         emit(event='batch_generated',batch_size=len(items),wall_seconds=results[0]['batch_wall_seconds'],peak_bytes=results[0]['peak_allocated_bytes'])
         return results[0]
-    gate=ROOT/'artifacts/runs/gt_extent_boundary_density_pilot300_v1/validation'
+    gate=relocate_path(ROOT/'artifacts/runs/gt_extent_boundary_density_pilot300_v1/validation')
     need(read(gate/'batch4_bridge.json')['passed'] and read(gate/'batch4_other_benchmarks_bridge.json')['passed'],'Batch token bridge failed')
     module.old.generate_fresh=generate
     return executor

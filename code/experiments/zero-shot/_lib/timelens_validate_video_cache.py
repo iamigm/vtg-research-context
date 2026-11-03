@@ -15,7 +15,7 @@ def same(a,b):
     else: assert a==b,(a,b)
 
 def main():
-    rows=read(relocate_path(ROOT/'results/timelens_top30_full/samples.json'))
+    rows=read(relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404/samples.json'))
     reports=[]
     for model in ['qwen25','qwen3']:
         for ds in ['charades-timelens','activitynet-timelens','qvhighlights-timelens']:
@@ -33,5 +33,5 @@ def main():
                 reports.append(dict(model=model,sample=row['sample_key'],bitwise_equal=True,
                     uncached_seconds=seconds,miss=miss['preparation'],hit=hit['preparation']))
                 print(json.dumps(reports[-1]),flush=True)
-    write(relocate_path(ROOT/'results/timelens_top30_full/performance/cache_validation.json'),reports)
+    write(relocate_path(ROOT/'results/operations/inference_performance/full/9404/cache_validation.json'),reports)
 if __name__=='__main__': main()

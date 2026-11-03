@@ -1,4 +1,6 @@
 """Automatic 300/600/900 and duration×GT-fraction reporting for both designs."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write,fileinfo
 from adaptive_temporal_report import csvwrite
@@ -7,11 +9,11 @@ RUN='gt_density_allocation_comparison_pilot900_v1';A='gt_extent_boundary_density
 TB=[(0,30,'<30'),(30,60,'30–60'),(60,120,'60–120'),(120,180,'120–180'),(180,float('inf'),'≥180')];QB=[(0,.05,'<5%'),(.05,.1,'5–10%'),(.1,.2,'10–20%'),(.2,.4,'20–40%'),(.4,1.000001,'≥40%')]
 DS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];LABELS=['Charades','ActivityNet','QVHighlights']
 def main():
-    out=ROOT/'artifacts/runs'/RUN;report=ROOT/'results'/RUN;report.mkdir(parents=True,exist_ok=True);metrics=[];cells=[];sources=[]
+    out=relocate_path(ROOT/'artifacts/runs'/RUN);report=relocate_path(ROOT/'results'/RUN);report.mkdir(parents=True,exist_ok=True);metrics=[];cells=[];sources=[]
     cohorts={n:read(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{n}/samples.json') for n in [300,600,900]}
     assert cohorts[900][:600]==cohorts[600] and cohorts[600][:300]==cohorts[300]
     for design,run in [('A',A),('B',B)]:
-        p=ROOT/'artifacts/runs'/run;assert read(p/'metadata/status.json')['state']=='complete';data=read(p/'metrics/evaluation_records.json');assert len(data)==17100;sources.append(fileinfo(p/'metrics/evaluation_records.json'));by={(x['sample_key'],x['condition']):x for x in data};conditions=sorted({x['condition'] for x in data});durations={s['sample_key']:read(p/'plans/uniform'/(s['sample_key']+'.json'))['T'] for s in cohorts[900]}
+        p=relocate_path(ROOT/'artifacts/runs'/run);assert read(p/'metadata/status.json')['state']=='complete';data=read(p/'metrics/evaluation_records.json');assert len(data)==17100;sources.append(fileinfo(p/'metrics/evaluation_records.json'));by={(x['sample_key'],x['condition']):x for x in data};conditions=sorted({x['condition'] for x in data});durations={s['sample_key']:read(p/'plans/uniform'/(s['sample_key']+'.json'))['T'] for s in cohorts[900]}
         conditions+= [f'random_{mode}_r{ratio}_mean' for mode in ['whole','boundary'] for ratio in [2,4,8]]
         for size,cohort in cohorts.items():
             for ds in DS+['all']:
@@ -54,7 +56,7 @@ def main():
                 values.append('—' if not x['N'] else f"{x['delta_pp']:+.2f} ({x['N']})"+(' †' if x['N']<10 else ''))
             lines.append('| '+q+' | '+' | '.join(values)+' |')
     lines+=['','## 전체 조건과 불확실성','','2·4·8배, 두 경계 배정 방식, Random 결과와 영상 단위bootstrap 신뢰구간은 아래 실행별 보고서에 있습니다.900개·600개·기존300개 모든 조건의 threshold와 교차 칸 원자료도 제공합니다. 작은 칸의 수치만으로 원인을 단정하지 않습니다.',f'[A: 집중 프레임 수 공유](../{A}/REPORT.md) · [B: 실제 집중 길이로 밀도 일치](../{B}/REPORT.md)',f'[300/600/900 모든 조건 점수](../../artifacts/runs/{RUN}/metrics/nested_metrics.csv) · [길이·GT 비율·두 축 비교](../../artifacts/runs/{RUN}/metrics/nested_axes.csv)']
-    (report/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(report/'REPORT.md', '\n'.join(lines)+'\n')
     from pilot900_report_tables import render
     render()
     register(RUN+'.analyses','analyses',report,'Nested300/600/900 integrated density experiment','_lib/pilot900_overview.py','pilot_900','complete',[A+'.analyses',B+'.analyses'])

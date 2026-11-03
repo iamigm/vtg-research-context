@@ -1,4 +1,5 @@
 """Detached pilot300: prior midpoint hypothesis + boundary and budget follow-up."""
+from result_layout import write_result_text
 from boundary_oracle_sampling import *
 from boundary_oracle_inputs import prepare_pilot,records,input_record,make_input
 import threading,traceback,time,json,collections,statistics,math
@@ -139,7 +140,7 @@ def main():
             progress.update(state='complete',stage='complete',report=str(REPORT/'REPORT.md'))
         except BaseException:
             error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error)
-            (REPORT/'ERROR.md').write_text('# 실행 중단\n\n완료분과 기존 원본은 보존했습니다. 오류:\n\n```text\n'+error+'\n```\n')
+            write_result_text(REPORT/'ERROR.md', '# 실행 중단\n\n완료분과 기존 원본은 보존했습니다. 오류:\n\n```text\n'+error+'\n```\n')
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'Aborted pilot300 v2; see status/error',str(Path(__file__).relative_to(ROOT)),'pilot_300','aborted',['pilot_300.cohort'])
             raise
         finally:progress.stop.set();thread.join()

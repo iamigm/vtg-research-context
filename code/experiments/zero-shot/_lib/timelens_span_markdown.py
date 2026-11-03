@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT = relocate_path(Path(__file__)).resolve().parents[1]
-OUT = relocate_path(ROOT / 'results/timelens_span_head')
+OUT = relocate_path(ROOT / 'results/uncertainty/span_head/pilot/300')
 MODELS = {'qwen25': 'Qwen2.5-VL-7B', 'qwen3': 'Qwen3-VL-8B'}
 DATASETS = {'charades-timelens': 'Charades-TimeLens', 'activitynet-timelens': 'ActivityNet-TimeLens', 'qvhighlights-timelens': 'QVHighlights-TimeLens'}
 

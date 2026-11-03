@@ -23,12 +23,12 @@ for exp in ['timelens_rollout','timelens_top30']:
  traces.rmdir()
 # This temporary snapshot contains the superseded strict-string classification,
 # not any unique model response or probability distribution.
-archive=relocate_path(ROOT/'results/timelens_top30/digit_correctness/strict_archive_20261023_140206')
+archive=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300/digit_correctness/strict_archive_20261023_140206')
 if archive.exists():
  audit['deleted_superseded'].append(str(archive.relative_to(ROOT)));audit['removed_bytes']+=sum(p.stat().st_size for p in archive.rglob('*') if p.is_file());shutil.rmtree(archive)
 # Exact duplicate immutable report assets retain their required viewer paths
 # as hard links, avoiding server restrictions on out-of-root symlinks.
-prefix=relocate_path(ROOT/'results/timelens_top30/prefix_entropy');copied=relocate_path(ROOT/'results/timelens_top30/integrated/sources/prefix_entropy')
+prefix=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300/prefix_entropy');copied=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy')
 for p in copied.iterdir():
  original=relocate_path(prefix/p.name)
  if p.is_file() and original.is_file():
@@ -37,7 +37,7 @@ for p in copied.iterdir():
    size=0 if p.is_symlink() else p.stat().st_size;p.unlink();os.link(original,p);audit['removed_bytes']+=size;audit['deduplicated_files'].append(str(p.relative_to(ROOT)))
 # Fonts and other static figure copies with identical names and bytes.
 groups=defaultdict(list)
-for p in (relocate_path(ROOT/'results/timelens_top30')).rglob('*'):
+for p in (relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')).rglob('*'):
  if p.is_file() and not p.is_symlink() and p.suffix in ['.ttf','.png']:
   groups[(p.name,p.stat().st_size)].append(p)
 for paths in groups.values():

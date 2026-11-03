@@ -5,7 +5,7 @@ from collections import defaultdict,Counter
 import argparse,csv,hashlib,json,statistics,sys,time,os,traceback
 from datetime import datetime
 from zoneinfo import ZoneInfo
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/all_zeroshot_v1')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/baseline/all_zeroshot/overview')
 sys.path[:0]=[str(relocate_path(ROOT/'runtime/timelens_deps')),str(relocate_path(ROOT/'vendor/TimeLens')),str(relocate_path(ROOT/'_lib'))]
 from timelens.utils import extract_time,iou
 from artifact_store import register
@@ -42,7 +42,7 @@ def aggregate():
  for p in sorted(result_glob((relocate_path(ROOT.parent/'attention/results/thinking_pilot_orders_v1/samples')), '*/*/*/result.json')):
   r=load(p);add(r,p,'thinking_pilot_2fps','Qwen3-VL-8B-Thinking',r['order'],2,'sample T1 p.95 k20 seed42, max16384','raw')
  for m,label in [('qwen25','Qwen2.5-VL-7B-Instruct'),('qwen3','Qwen3-VL-8B-Instruct')]:
-  for p in sorted(result_glob((relocate_path(ROOT/'results/timelens_span_head'/m)), 'shard*/predictions.jsonl')):
+  for p in sorted(result_glob((relocate_path(ROOT/'results/uncertainty/span_head/pilot/300'/m)), 'shard*/predictions.jsonl')):
    b=p.read_bytes();sources.append(dict(path=os.path.relpath(p,ROOT),sha256=hashlib.sha256(b).hexdigest(),bytes=len(b)))
    for lineno,line in enumerate(b.splitlines(),1):add(json.loads(line),p,'restricted_head_526',label,'video_query',2,'greedy restricted526, max512',line=lineno)
  status('metrics')

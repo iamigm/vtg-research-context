@@ -11,8 +11,8 @@ from PIL import Image
 ROOT = Path(canonical(Path(__file__).resolve().parents[1]))
 RUN = os.environ.get('SIMILARITY_RUN','pilot_300_v1')
 assert RUN and Path(RUN).name==RUN
-VIEW = ROOT/'results'/RUN
-OUT = ROOT/'artifacts/runs'/RUN
+VIEW = relocate_path(ROOT/'results'/RUN)
+OUT = relocate_path(ROOT/'artifacts/runs'/RUN)
 MANIFEST = relocate_path(Path(os.environ.get('SIMILARITY_MANIFEST','/home/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json')))
 
 def write(path, obj):

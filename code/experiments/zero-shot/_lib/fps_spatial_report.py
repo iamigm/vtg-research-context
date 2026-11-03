@@ -1,4 +1,5 @@
 """Independent annotation-only evaluator and spatial-control integrity checks."""
+from result_layout import write_result_text
 import csv, math, statistics
 from collections import defaultdict
 from pathlib import Path
@@ -86,7 +87,7 @@ def build():
                 lines.append(f"| {model} | {order} | {fps} | {statistics.mean(r['pixels'] for r in rr):.1f} | {statistics.mean(r['unique_frames'] for r in rr):.1f} | {statistics.mean(r['effective_fps'] for r in rr):.3f} | {statistics.mean(r['visual_tokens'] for r in rr):.1f} | {sum(r['parse_failed'] for r in rr)} | {sum(not r['eos_reached'] for r in rr)} |")
     lines+=['','[영상 길이·GT 비율·두 축 교차표의 네 지표와 2fps 대비 변화](AXES.md). 고정 pilot300만 평가했으며 600/900 확장 결과는 없다. 이 코호트는 기존 진단 표본이며 벤치마크 전체의 무작위 평균으로 해석하지 않는다.','',
             f'[질문별 CSV](../../artifacts/runs/{CONFIG["run_id"]}/metrics/per_sample.csv) · [요약 CSV](../../artifacts/runs/{CONFIG["run_id"]}/metrics/summary.csv) · [검증](../../artifacts/runs/{CONFIG["run_id"]}/validation/final.json) · [전체 실험 목록](../../../index.html)']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n')
     axes=['# FPS sweep: 영상 길이·GT 비율별 비교','', '[주 보고서](REPORT.md) · [전체 실험 목록](../../../index.html)','',
           'GT 비율=(정답 종료−시작)/영상 길이. GT는 사후 진단에만 사용했다. 빈 칸은 N=0, 10개 미만은 소표본으로 표시한다. 각 점수는 %, 괄호는 같은 칸의 2fps 대비 pp이며 모든 점수는 높을수록 좋다. 프레임이 아닌 질문을 분모로 쓴다.']
     for model in MODELS:
@@ -106,7 +107,7 @@ def build():
                             m=metric(select(fps));need(m['n']==n,'Unpaired axis bin')
                             vals.append('—' if not n else f"{100*m[metric_key]:.2f}"+(f" ({100*(m[metric_key]-base[metric_key]):+.2f})" if fps!=2 else ''))
                         axes.append(f'| {title} | {n} | '+' | '.join(vals)+' |')
-    (REPORT/'AXES.md').write_text('\n'.join(axes)+'\n')
+    write_result_text(REPORT/'AXES.md', '\n'.join(axes)+'\n')
     write(OUT/'validation/final.json',dict(passed=True,responses=checks,paired_samples=300,fixed_spatial_grid=True,matched_pixels_and_timestamps_across_models_orders=True,
                                         gt_blind_input_schema=True,expected_count=expected,stored_input_hashes_revalidated=True,metrics_independently_scored=True))
 

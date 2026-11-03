@@ -1,4 +1,6 @@
 """Post-hoc analysis of the completed pilot; no inference and no source writes."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -7,8 +9,8 @@ from adaptive_temporal_report import score,csvwrite
 import numpy as np
 
 RUN='temporal_sampling_pilot300_v2'
-OUT=old.ROOT/'artifacts/runs'/RUN
-REPORT=old.ROOT/'results'/RUN
+OUT=relocate_path(old.ROOT/'artifacts/runs'/RUN)
+REPORT=relocate_path(old.ROOT/'results'/RUN)
 
 def bootstrap_weights(videos,seed=42):
     unique=sorted(set(videos));rng=np.random.default_rng(seed);draws=rng.integers(len(unique),size=(20000,len(unique)))
@@ -68,7 +70,7 @@ def analyze_previous():
         '| 종료 오차 감소가 큰 5개 질문 | 종료 오차 감소 초 | 시작 오차 감소 초 | 시간 구간 겹침률 변화 |','|---|---:|---:|---:|']
     for r in c['top5']:lines.append(f"| {r['sample_key']} | {r['end_error_reduction']:+.2f} | {r['start_error_reduction']:+.2f} | {r['iou_change']:+.3f} |")
     lines += ['', '[질문별 변화](../../artifacts/runs/'+RUN+'/metrics/previous_query_changes.csv) · [실제로 추가된 경계 프레임](../../artifacts/runs/'+RUN+'/metrics/previous_added_boundary_frames.csv) · [계산값과 원본 hash](../../artifacts/runs/'+RUN+'/metrics/previous_boundary_analysis.json)']
-    REPORT.mkdir(exist_ok=True,parents=True);(REPORT/'PREVIOUS_RESULTS.md').write_text('\n'.join(lines)+'\n')
+    REPORT.mkdir(exist_ok=True,parents=True);write_result_text(REPORT/'PREVIOUS_RESULTS.md', '\n'.join(lines)+'\n')
     return dict(estimates=stats,concentration=concentration)
 
 if __name__=='__main__':

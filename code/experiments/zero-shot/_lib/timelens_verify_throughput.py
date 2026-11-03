@@ -1,7 +1,7 @@
 from result_layout import relocate_path, write_result_text, result_glob
 from pathlib import Path
 import json,time,subprocess,statistics
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full');OUT=relocate_path(BASE/'performance');START=time.time();gpu=[];initial={m:{p.name for p in result_glob((relocate_path(BASE/m)), '*.json')} for m in ['qwen25','qwen3']}
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');OUT=relocate_path(BASE/'performance');START=time.time();gpu=[];initial={m:{p.name for p in result_glob((relocate_path(BASE/m)), '*.json')} for m in ['qwen25','qwen3']}
 while True:
     groups={m:sorted([p for p in result_glob((relocate_path(BASE/m)), '*.json') if p.name not in initial[m]],key=lambda p:p.stat().st_mtime) for m in initial}
     line=subprocess.check_output(['nvidia-smi','--query-gpu=utilization.gpu','--format=csv,noheader,nounits'],text=True).strip();gpu.append(float(line.splitlines()[0]));elapsed=time.time()-START

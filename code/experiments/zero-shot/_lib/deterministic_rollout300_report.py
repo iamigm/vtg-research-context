@@ -119,9 +119,9 @@ def report(records=None,cohort_label=None):
    assert select(cs,method,[0,1])['ids']==select(cs,method,[10000,10001])['ids']
  write(OUT/'validation/report.json',dict(passed=True,queries=count,rows=len(rows),
    unique_completions=True,gt_free_selectors=True,all_queries_in_denominator=True))
- if OUT.name=='deterministic_rollout_pilot900_v2' and (REPORT/'viewer.html').exists():
+ if OUT.name in [f'deterministic_rollout_pilot{n}_v2' for n in [300,600,900]] and (REPORT/'viewer.html').exists():
   from deterministic_rollout_viewer import build
-  build(refresh_index=False)
+  build(refresh_index=False,pilot_size=count)
  subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
 
 def strata(rows):

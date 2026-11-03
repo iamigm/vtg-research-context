@@ -1,7 +1,7 @@
 from result_layout import relocate_path, write_result_text
 import json, subprocess, time, os
 from pathlib import Path
-root=relocate_path(relocate_path(Path(__file__)).resolve().parents[1]/'results/timelens_span_head')
+root=relocate_path(relocate_path(Path(__file__)).resolve().parents[1]/'results/uncertainty/span_head/pilot/300')
 jobs=json.loads((relocate_path(root/'execution.json')).read_text())['jobs']
 with (relocate_path(root/'logs/gpu.csv')).open('a') as f:
  if f.tell()==0:f.write('time,utilization_percent,memory_mib,power_watts\n')

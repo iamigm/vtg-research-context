@@ -40,7 +40,7 @@ def immutable_json(path,value):
         if json.loads(path.read_text())!=value:raise ValueError('Refusing to replace immutable record '+str(path))
     else:atomic(path,value)
 def sync(conn):
-    source=relocate_path(ROOT/'results/timelens_top30_full');known={(m,k) for m,k in conn.execute('SELECT model,sample_key FROM records WHERE run_id=?',(RUN,))};added=0
+    source=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');known={(m,k) for m,k in conn.execute('SELECT model,sample_key FROM records WHERE run_id=?',(RUN,))};added=0
     for model in ['qwen25','qwen3']:
         for path in sorted(result_glob((source/model), '*.json')):
             if (model,path.stem) in known:continue
@@ -56,14 +56,14 @@ def sync(conn):
                     copy_result_file(path,trace)
             trace_hash=digest(trace)
             if trace_hash!=digest(path):raise ValueError('Trace differs from source '+str(path))
-            pilot=relocate_path(ROOT/'results/timelens_top30'/model/path.name);reused=pilot.exists() and digest(pilot)==trace_hash
+            pilot=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300'/model/path.name);reused=pilot.exists() and digest(pilot)==trace_hash
             response=relocate_path(STORE/'predictions'/RUN/model/ds/path.name)
             value={k:v for k,v in raw.items() if k not in ['steps','elapsed_seconds']}
             value.update(schema_version=1,run_id=RUN,dataset=ds,sample_key=key,order='video_query',source_trace=relative(trace),source_trace_sha256=trace_hash,reused_pilot=reused)
             immutable_json(response,value)
             conn.execute('INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?)',(RUN,model,ds,key,relative(response),relative(trace),digest(response),trace_hash,relative(path),int(reused)));conn.commit();added+=1
     configdest=relocate_path(STORE/'metadata'/RUN)
-    for origin,prefix in [(source,'full_run'),(relocate_path(ROOT/'results/timelens_top30'),'pilot_run')]:
+    for origin,prefix in [(source,'full_run'),(relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300'),'pilot_run')]:
         paths=list(result_glob((relocate_path(origin/'configs')), '*.json'))
         if (relocate_path(origin/'run_config.json')).exists():paths.append(relocate_path(origin/'run_config.json'))
         for p in paths:
@@ -89,7 +89,7 @@ def watch(once=False):
             while True:
                 complete=sync(conn)
                 if once:break
-                p=relocate_path(ROOT/'results/timelens_top30_full/status.json');up=json.loads(p.read_text()) if p.exists() else {}
+                p=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404/status.json');up=json.loads(p.read_text()) if p.exists() else {}
                 if complete and up.get('state')=='complete':break
                 if up.get('state')=='failed':
                     status=json.loads((relocate_path(STORE/'status.json')).read_text());status.update(state='upstream_failed',error=up.get('error'));atomic(relocate_path(STORE/'status.json'),status);raise RuntimeError('Inference supervisor failed; captured records remain reusable')

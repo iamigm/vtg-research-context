@@ -1,4 +1,5 @@
 """Saved-response evaluation only; never generates or edits model answers."""
+from result_layout import write_result_text
 from adaptive_temporal_sampling import *
 import csv
 import numpy as np
@@ -140,7 +141,7 @@ def build():
         f'[상태](../../artifacts/runs/{RUN}/metadata/status.json) · [사전 검증](../../artifacts/runs/{RUN}/metadata/preflight.json) · [전량 검증](../../artifacts/runs/{RUN}/validation/final.json) · [summary](../../artifacts/runs/{RUN}/metrics/summary.json) · [paired samples](../../artifacts/runs/{RUN}/metrics/paired_samples.csv) · [sampling](../../artifacts/runs/{RUN}/metrics/sampling_diagnostics.csv) · [cost](../../artifacts/runs/{RUN}/metrics/compute_cost.csv) · [코드](../../_lib/adaptive_temporal_sampling.py)']
     lines += ['',f'CPU 계획 {planning_seconds:.3f}초, final 입력 준비 {input_prepare_seconds:.1f}초. GPU forward CUDA-event prefill/decode 시간과 응답 전체 wall time을 구분한다. cold/warm 후보 준비 표시는 비용 CSV에 보존했다. 과거 입력에는 픽셀 hash가 없어 역사적 응답을 scout로 재사용하지 않고 100개 모두 새로 생성했다.','',
         f'실행 코드: `_lib/adaptive_temporal_sampling.py`; 평가 코드: `_lib/adaptive_temporal_report.py`. 실행 명령: `.venv/bin/python -u _lib/adaptive_temporal_sampling.py run`; 저장 응답 재평가: `.venv/bin/python _lib/adaptive_temporal_report.py`. config SHA-256 `{config_hash}`, cohort canonical SHA-256 `{cohort_hash}`. model/processor/evaluator/source SHA-256와 환경 lock은 metadata/source_manifest.json 및 environment/에 있다.']
-    REPORT.mkdir(parents=True,exist_ok=True);(REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    REPORT.mkdir(parents=True,exist_ok=True);write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n')
     output_files=[]
     for p in sorted(OUT.rglob('*')):
         if p.is_file() and not any(part in ['logs'] for part in p.relative_to(OUT).parts) and p.name not in ['status.json','run.lock','output_manifest.json']:output_files.append(fileinfo(p))

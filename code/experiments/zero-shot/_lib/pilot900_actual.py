@@ -2,6 +2,8 @@
 
 Whole-event versus endpoint focus; no anchors or Pred. Two planner seeds: 42 and 43.
 """
+from result_layout import write_result_text
+from result_layout import relocate_path
 import sys,os,json,time,math,copy,hashlib,random,bisect,threading,traceback
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -10,7 +12,7 @@ import adaptive_temporal_sampling as old
 from adaptive_temporal_sampling import read,write,immutable,sha,objhash,fileinfo,need,stamp
 RUN='gt_actual_density_pilot900_v1'
 PARENT_RUN='gt_extent_boundary_density_pilot900_v1'
-ROOT=old.ROOT;OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+ROOT=old.ROOT;OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 inputs.RUN=RUN;inputs.OUT=OUT;inputs.REPORT=REPORT
 RATIOS=[2,4,8]
 CONDITIONS=['uniform']+[f'{who}_{mode}_r{r}'+(f'_s{seed}' if who=='random' else '') for r in RATIOS for mode in ['whole','boundary'] for who in ['gt','random'] for seed in ([42,43] if who=='random' else [None])]
@@ -115,7 +117,7 @@ REUSE_RUNS=['gt_extent_boundary_density_pilot900_v1', 'gt_actual_density_pilot30
 _REUSE_CONFIG={};_REUSE_COHORT={}
 def reusable_source(key,condition,h,record):
     for source_run in REUSE_RUNS:
-        root=ROOT/'artifacts/runs'/source_run;path=root/'responses'/condition/(key+'.json')
+        root=relocate_path(ROOT/'artifacts/runs'/source_run);path=root/'responses'/condition/(key+'.json')
         if not path.exists():continue
         if source_run not in _REUSE_CONFIG:
             need(read(root/'metadata/status.json')['state']=='complete','Reuse source incomplete')
@@ -137,7 +139,7 @@ def main():
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);progress=Progress();thread=threading.Thread(target=progress.heartbeat,daemon=True);thread.start()
         try:
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'GT whole/boundary density 2/4/8 pilot900; seeds42/43',str(Path(__file__).relative_to(ROOT)),'pilot_900','building',['nested_pilot_v1.900.cohort'])
-            need(read(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/status.json')['state']=='complete','Parent run is not complete')
+            need(read(relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/status.json'))['state']=='complete','Parent run is not complete')
             rows=inputs.records();resolutions=[]
             for record in rows:
                 s=record['sample'];gt=s['span'][0];T=s['duration'];need(0<=gt[0]<gt[1],'Invalid GT annotation')
@@ -192,7 +194,7 @@ def main():
             subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
             progress.update(state='complete',stage='complete',report=str(REPORT/'REPORT.md'))
         except BaseException:
-            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);(REPORT/'ERROR.md').write_text('# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
+            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);write_result_text(REPORT/'ERROR.md', '# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'Aborted density pilot; see status/error',str(Path(__file__).relative_to(ROOT)),'pilot_900','aborted',['nested_pilot_v1.900.cohort'])
             raise
         finally:progress.stop.set();thread.join()

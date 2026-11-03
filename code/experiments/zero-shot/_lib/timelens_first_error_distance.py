@@ -9,7 +9,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 from artifact_store import register
-ROOT=relocate_path(Path(__file__)).resolve().parents[1]; BASE=relocate_path(ROOT/'results/timelens_top30_full/digit_correctness'); OUT=relocate_path(BASE/'first_error_distance');OUT.mkdir(exist_ok=True)
+ROOT=relocate_path(Path(__file__)).resolve().parents[1]; BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404/digit_correctness'); OUT=relocate_path(BASE/'first_error_distance');OUT.mkdir(exist_ok=True)
 font_manager.fontManager.addfont(str(relocate_path(BASE/'NotoSansKR.ttf')));plt.rcParams['font.family']=font_manager.FontProperties(fname=str(relocate_path(BASE/'NotoSansKR.ttf'))).get_name();plt.rcParams['axes.unicode_minus']=False
 rng=np.random.default_rng(42)
 def read(p):

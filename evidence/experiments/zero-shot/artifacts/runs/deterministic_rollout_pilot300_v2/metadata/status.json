@@ -17,5 +17,11 @@
   "sample_key": "qvhighlights-timelens_01519",
   "candidates": 32,
   "decoder_tokens": 355,
-  "latest_answer": "The event happens in 1.0 - 5.0 seconds."
+  "latest_answer": "The event happens in 1.0 - 5.0 seconds.",
+  "token_distributions": {
+    "state": "complete",
+    "completed": 300,
+    "total": 300,
+    "timestamp": "2026-11-04T02:01:14.312901+09:00"
+  }
 }

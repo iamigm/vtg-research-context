@@ -7,7 +7,7 @@ from scipy.stats import spearmanr
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'entropy_iou')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'entropy_iou')
 DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];MODELS=['qwen25','qwen3']
 rng=np.random.default_rng(42)
 def read(p):return json.loads(p.read_text())

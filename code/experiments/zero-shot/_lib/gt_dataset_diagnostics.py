@@ -1,18 +1,20 @@
 """Pilot-only descriptive statistics and plain-language report regeneration."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 from pathlib import Path
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write,fileinfo,sha
 from adaptive_temporal_report import csvwrite
 A='gt_extent_boundary_density_pilot300_v1';B='gt_actual_density_pilot300_v1';RUN='gt_density_allocation_comparison_v1'
 LABELS={'charades-timelens':'Charades','activitynet-timelens':'ActivityNet','qvhighlights-timelens':'QVHighlights'}
-OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 
 def describe(values):
     a=np.asarray(values,float)
     return dict(N=len(a),mean=float(a.mean()),median=float(np.median(a)),q25=float(np.quantile(a,.25)),q75=float(np.quantile(a,.75)),min=float(a.min()),max=float(a.max()))
 
 def main():
-    pa=ROOT/'artifacts/runs'/A;pb=ROOT/'artifacts/runs'/B
+    pa=relocate_path(ROOT/'artifacts/runs'/A);pb=relocate_path(ROOT/'artifacts/runs'/B)
     cohort=read(pa/'metadata/cohort.json');ev=read(pa/'metrics/evaluation_records.json');by={(x['sample_key'],x['condition']):x for x in ev};rows=[];alloc=[]
     for sample in cohort:
         key=sample['sample_key'];s,e=sample['span'][0];L=e-s;u=read(pa/'plans/uniform'/(key+'.json'));T=u['T'];F=u['F'];response=read(pa/'responses/uniform'/(key+'.json'));base=by[key,'uniform'];pts=u['pts'];inside=sum(s<=t<=e for t in pts)
@@ -44,7 +46,7 @@ def main():
     return stats
 
 def render(stats,groups,alloc):
-    summaries=[read(ROOT/'artifacts/runs'/run/'metrics/summary.json') for run in [A,B]]
+    summaries=[read(relocate_path(ROOT/'artifacts/runs'/run/'metrics/summary.json')) for run in [A,B]]
     lookup=[{(x['dataset'],x['condition']):x for x in s['metrics']} for s in summaries]
     def metric(ds,c,d=0):return lookup[d][ds,c]['miou']*100
     def pair(ds,a,b,d=0):return next(x for x in summaries[d]['comparisons'] if x['dataset']==ds and x['a']==a and x['b']==b)
@@ -117,7 +119,7 @@ def render(stats,groups,alloc):
     if axes_report.exists() and '## 8. GT 비율 × 영상 길이 교차표' in axes_report.read_text():
         cross=axes_report.read_text().split('## 8. GT 비율 × 영상 길이 교차표',1)[1].split('## 9.',1)[0]
         lines+=['','## GT 비율과 영상 길이를 함께 나눈 교차표','',cross.strip(),'','[영상 길이별·GT 비율별 분석과 비교의 한계](GT_FRACTION.md)']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n')
 if __name__=='__main__':
     stats=main()
     for ds,s in stats.items():print(ds,{f:round(s[f]['median'],3) for f in ['T','L','GT_fraction','F','uniform_fps','uniform_inside_frames','extra_inside_r8']},'videos',s['n_video'])

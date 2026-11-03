@@ -1,4 +1,5 @@
 """Pilot 16fps similarity vs Instruct: isolated latency, inputs and analytic FLOPs."""
+from result_layout import relocate_path
 import argparse
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor,ThreadPoolExecutor,as_completed
@@ -26,8 +27,8 @@ from metrics import metrics,labels
 
 ROOT=Path('/home/irteam/experiments/similarity')
 RUN='pilot_300_16fps_cost_v1'
-OUT=ROOT/'artifacts/runs'/RUN
-VIEW=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
+VIEW=relocate_path(ROOT/'results'/RUN)
 LOG=OUT/'logs'
 MANIFEST=Path('/home/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json')
 MODELS=Path('/home/irteam/backbones/models')

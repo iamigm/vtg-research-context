@@ -65,7 +65,7 @@ def main():
         group=[r for r in full['qwen3','video_query'] if r['dataset']==ds and r['sample_key'] in keys]
         assert len(group)==100
         rows.append(stats(group,'qwen3','pilot_300','video_query',ds))
-    target=relocate_path(ROOT/'results/input_order');target.mkdir(parents=True,exist_ok=True)
+    target=relocate_path(ROOT/'results/baseline/input_order/overview');target.mkdir(parents=True,exist_ok=True)
     if invalid:
         with (relocate_path(target/'invalid_prediction_refs.csv')).open('w') as f:
             writer=csv.DictWriter(f,fieldnames=list(invalid[0]));writer.writeheader();writer.writerows(invalid)

@@ -1,8 +1,9 @@
 """Detached sequential900-query sweep and automatic integrated reporting."""
+from result_layout import relocate_path
 import os,sys,time,subprocess,traceback,fcntl
 from pathlib import Path
 from adaptive_temporal_sampling import ROOT,read,write,stamp,need,fileinfo
-RUN='gt_density_allocation_comparison_pilot900_v1';OUT=ROOT/'artifacts/runs'/RUN
+RUN='gt_density_allocation_comparison_pilot900_v1';OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
 A='gt_extent_boundary_density_pilot900_v1';B='gt_actual_density_pilot900_v1'
 def status(stage,state='building',**kw):
     x=dict(state=state,stage=stage,timestamp=stamp(),**kw);write(OUT/'metadata/status.json',x);print(x,flush=True)
@@ -12,11 +13,11 @@ def main():
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         try:
             for module,run in [('pilot900_extent',A),('pilot900_actual',B)]:
-                dest=ROOT/'artifacts/runs'/run;(dest/'logs').mkdir(parents=True,exist_ok=True)
+                dest=relocate_path(ROOT/'artifacts/runs'/run);(dest/'logs').mkdir(parents=True,exist_ok=True)
                 if (dest/'metadata/status.json').exists() and read(dest/'metadata/status.json')['state']=='complete':continue
                 if run==B:
-                    need(read(ROOT/'artifacts/runs'/A/'metadata/status.json')['state']=='complete','A not complete')
-                    write(dest/'metadata/frame_cache_index.json',read(ROOT/'artifacts/runs'/A/'metadata/frame_cache_index.json'))
+                    need(read(relocate_path(ROOT/'artifacts/runs'/A/'metadata/status.json'))['state']=='complete','A not complete')
+                    write(dest/'metadata/frame_cache_index.json',read(relocate_path(ROOT/'artifacts/runs'/A/'metadata/frame_cache_index.json')))
                 with (dest/'logs/runner.log').open('ab',buffering=0) as log:
                     p=subprocess.Popen([sys.executable,'-u',str(ROOT/'_lib/pilot900_prefetch.py'),module],cwd=ROOT,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT)
                     write(dest/'metadata/process.json',dict(pid=p.pid,supervisor_pid=os.getpid(),started_at=stamp()))

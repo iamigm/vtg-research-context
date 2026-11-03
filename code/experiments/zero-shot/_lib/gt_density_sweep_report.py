@@ -1,4 +1,5 @@
 """Readable evaluation for the prespecified whole/boundary density sweep."""
+from result_layout import write_result_text
 import numpy as np
 from adaptive_temporal_report import score,csvwrite
 from boundary_oracle_analysis import bootstrap_weights,estimate
@@ -68,4 +69,4 @@ def evaluate_run(m,rows):
         verdict='경계 집중이 유리한 신호' if x['lower_pp']>0 else ('전체 집중이 유리한 신호' if x['upper_pp']<0 else '두 배치의 우열이 불확실')
         lines.append(f"- {ratio}배 배정: 경계−전체 {x['delta_pp']:+.2f}pp, {verdict}입니다.")
     lines+=['',f"논리적 응답 {len(data)}개, 신규 GPU 생성 {sum(not x['reused'] for x in costs)}개. 동일 질문의 입력이 완전히 같은 경우만 응답을 공유했습니다. GPU 생성 시간 합계 {sum(x['gpu_seconds'] for x in costs):.1f}초.",'', '원본 annotation과 영상 길이 차이 한 건은 GT를 수정하지 않고 실제 컨테이너 재생 길이를 계획에 사용했습니다. 자세한 근거는 validation/annotation_checks.json에 있습니다.','',f'[수치와 질문별 평가](../../artifacts/runs/{m.RUN}/metrics/) · [검증 기록](../../artifacts/runs/{m.RUN}/validation/)']
-    (m.REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(m.REPORT/'REPORT.md', '\n'.join(lines)+'\n')

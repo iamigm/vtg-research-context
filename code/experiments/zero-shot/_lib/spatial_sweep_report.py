@@ -1,4 +1,5 @@
 """Spatially controlled whole/boundary sweep: thresholds, axes, paired video CIs."""
+from result_layout import write_result_text
 import numpy as np
 from adaptive_temporal_sampling import read,write,ROOT,objhash,need
 from adaptive_temporal_report import score,csvwrite
@@ -76,9 +77,9 @@ def report():
       for _,_,q in QB:
        xs=[ax[ds,d,level,'joint',t,q,c,m] for _,_,t in TB];rs.append([q]+['— (0)' if not x['N'] else f"{x['delta_uniform_pp']:+.2f} / {x['delta_random_pp']:+.2f} ({x['N']})"+(' †' if x['N']<10 else '') for x in xs])
       detail+=['','### 두 축 교차표: '+ml]+table(['GT 비율']+[t+'초' for _,_,t in TB],rs)
-   (REPORT/f'{d}_{level}.md').write_text('\n'.join(detail)+'\n')
+   write_result_text(REPORT/f'{d}_{level}.md', '\n'.join(detail)+'\n')
  lines+=['','## 비용',f"논리 응답{len(jobs)}개, 기존 동일 입력 재사용{sum(x['reused'] for x in cost)}개. GPU 생성 시간 합계{sum(x['gpu_seconds'] for x in cost):.1f}초. 원자료와 입력별 비용은 artifacts/runs/{RUN}/metrics/에 있습니다."]
- (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+ write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n')
  for p in REPORT.glob('*.md'):
   width=None
   for l in p.read_text().splitlines():

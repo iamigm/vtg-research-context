@@ -3,6 +3,7 @@
 No sampling. Probabilities are raw full-vocabulary probabilities, conditional on
 the greedily generated answer preamble, not renormalized by the numeric grammar.
 """
+from result_layout import relocate_path
 import os
 for _key in ['OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS']:
     os.environ[_key] = '1'
@@ -14,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN = 'conditional_rollout_budget_pilot30_v1'
-OUT = ROOT/'artifacts/runs'/RUN
-REPORT = ROOT/'results'/RUN
+OUT = relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT = relocate_path(ROOT/'results'/RUN)
 MODEL = Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
 CHECKPOINTS = [8, 16, 32, 64, 128, 256, 512]
 CONFIG = dict(run=RUN, model=str(MODEL), diagnostic_queries=30,
@@ -235,7 +236,7 @@ def validate_cache(evaluator,inputs,anchor,tokenizer,torch):
     return audits
 
 def wait_resources(progress):
-    prior=ROOT/'artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json'
+    prior=relocate_path(ROOT/'artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json')
     while True:
         state=read(prior) if prior.exists() else {}
         result=subprocess.run(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],capture_output=True,text=True,check=True)

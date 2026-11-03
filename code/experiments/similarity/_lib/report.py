@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import numpy as np
-from prepare import ROOT, OUT, VIEW, video_key, write
+from prepare import ROOT, OUT, VIEW, video_key, write, RUN
 from metrics import TEMPERATURES, aggregate, labels, metrics
 from prepare_media import prepare_media
 from adjacent_similarity import attach as attach_adjacent,markdown as adjacent_markdown
@@ -104,7 +104,7 @@ def main():
         '- Softmax는 주어진 영상 안에서만 정규화되며 query relevance가 없는 영상에서도 합이 1이다. GT mass를 절대적인 정답 확률로 해석하지 않는다.',
         '', '## 재실행','', '공유 Python: `/home/irteam/experiments/_shared/timelens/.venv/bin/python`', '', '```bash',
         'cd /home/irteam/experiments/similarity',
-        f'export SIMILARITY_RUN={VIEW.name}',
+        f'export SIMILARITY_RUN={RUN}',
         f'export SIMILARITY_MANIFEST={__import__("prepare").MANIFEST}',
         'PY=/home/irteam/experiments/_shared/timelens/.venv/bin/python',
         '$PY _lib/download_models.py', '$PY _lib/prepare.py',

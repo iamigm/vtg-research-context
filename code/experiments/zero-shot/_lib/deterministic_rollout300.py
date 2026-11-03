@@ -1,4 +1,5 @@
 """Pilot300: unique forced-token branches, greedy completion, accuracy and cost."""
+from result_layout import relocate_path
 import os
 for key in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS']:os.environ[key]='1'
 os.environ['TOKENIZERS_PARALLELISM']='false'
@@ -9,8 +10,8 @@ from conditional_rollout_budget import Evaluator,validate_cache
 
 ROOT=Path(__file__).resolve().parents[1]
 RUN='deterministic_rollout_pilot300_v2'
-OUT=ROOT/'artifacts/runs'/RUN
-REPORT=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT=relocate_path(ROOT/'results'/RUN)
 MODEL=Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
 COHORT=ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json'
 BUDGETS=[1,4,8,16,32]
@@ -212,7 +213,7 @@ def run(rows,p):
    write(OUT/'validation'/(row['dataset']+'_cache.json'),dict(passed=True,audits=audits))
    checked.add(row['dataset']);del ev;torch.cuda.empty_cache();ev=Evaluator(model,inputs,torch)
   result=infer(ev,proc.tokenizer,eos,p)
-  oldpath=ROOT/'artifacts/runs/conditional_rollout_budget_pilot30_v1/trees'/(row['sample_key']+'.json')
+  oldpath=relocate_path(ROOT/'artifacts/runs/conditional_rollout_budget_pilot30_v1/trees'/(row['sample_key']+'.json'))
   if oldpath.exists():
    old=read(oldpath);assert old['input_hashes']==detail['hashes']
    assert old['greedy_ids']==result['candidates'][0]['ids'],'Greedy baseline changed'

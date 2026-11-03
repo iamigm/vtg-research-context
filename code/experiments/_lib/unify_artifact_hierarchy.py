@@ -27,25 +27,25 @@ rs=list(dict.fromkeys([Path(r) for r in old_roots]+[active]))
 for root in rs:
  project=project_for(root)
  if project.name.startswith('audio_caption'):
-  name='resource_survey';dest=project/'results'/name;presentation[str(root)]=str(dest)
+  name='resource_survey';dest=relocate_path(project/'results'/name);presentation[str(root)]=str(dest)
   for p in list(root.iterdir()):
    if p.is_file() and p.name in {'report.html','preview.png'}:add(p,dest/p.name)
   for p in list((project/'artifacts').iterdir()):
    if p.name in {'README.md','runs','common'}:continue
-   add(p,project/'artifacts/runs'/name/p.name)
+   add(p,relocate_path(project/'artifacts/runs'/name/p.name))
   artifact_owners[str(project/'artifacts')]=dict(old_view=str(root),new_view=str(dest),project=str(project))
   continue
  if root==ROOT/'attention/results':
   name='overview';dest=root/'overview';presentation[str(root)]=str(dest)
   for p in list(root.iterdir()):
    if p.is_file() and (p.suffix=='.md' or p.suffix=='.png' or p.name=='report.html'):add(p,dest/p.name)
- elif root.is_relative_to(project/'results'):
-  name=str(root.relative_to(project/'results'));dest=root
+ elif root.is_relative_to(relocate_path(project/'results')):
+  name=str(root.relative_to(relocate_path(project/'results')));dest=root
  else:
-  name='legacy_quantitative';dest=project/'results'/name;presentation[str(root)]=str(dest)
+  name='legacy_quantitative';dest=relocate_path(project/'results'/name);presentation[str(root)]=str(dest)
   for p in list(root.iterdir()):
    if p.is_file():add(p,dest/p.name)
- oldart=root/'artifacts';newart=project/'artifacts/runs'/name
+ oldart=root/'artifacts';newart=relocate_path(project/'artifacts/runs'/name)
  if oldart.is_dir() and not oldart.is_symlink():
   artifact_owners[str(oldart)]=dict(old_view=str(root),new_view=str(dest),project=str(project))
   # Collapse wrapper/category/category produced by the previous organization.

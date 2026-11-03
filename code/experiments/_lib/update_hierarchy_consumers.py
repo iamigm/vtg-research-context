@@ -17,7 +17,7 @@ for name in ['report.py','check_viewer.py','prepare_media.py']:
  if name=='check_viewer.py':s=s.replace('target.write_text(', 'write_result_text(target, ')
  if name=='prepare_media.py':
   s=s.replace('from prepare import OUT, video_key, write','from prepare import OUT, VIEW, video_key, write')
-  s=s.replace("cached=Path('/home/irteam/experiments/zero-shot/results/timelens_top30_full/media')","cached=relocate_path(Path('/home/irteam/experiments/zero-shot/results/timelens_top30_full/media'))")
+  s=s.replace("cached=Path('/home/irteam/experiments/zero-shot/results/uncertainty/token_analysis/timelens_top30_full/media')","cached=relocate_path(Path('/home/irteam/experiments/zero-shot/results/uncertainty/token_analysis/timelens_top30_full/media'))")
   s=s.replace("media=f'artifacts/media/{key}.mp4'","media=os.path.relpath(target,VIEW)")
  ast.parse(s);p.write_text(s);changed.add(str(p))
 link=sim/'result_layout.py'
@@ -38,7 +38,7 @@ for p in servers:
   marker='        self.byte_count = None\n'
   s=s.replace(marker,marker+"        if self.path.split('?',1)[0] == '/':\n            self.send_response(302)\n            self.send_header('Location', LANDING)\n            self.send_header('Content-Length', '0')\n            self.end_headers()\n            return None\n",1)
  ast.parse(s);p.write_text(s);changed.add(str(p))
-p=relocate_path(ROOT/'zero-shot/results/input_order/consistency_v1/artifacts/code/serve.py');s=p.read_text().replace('server.ROOT=ROOT',"server.ROOT=ROOT\nserver.LANDING='/zero-shot/results/input_order/consistency_v1/report.html'");p.write_text(s);changed.add(str(p))
+p=relocate_path(ROOT/'zero-shot/results/baseline/input_order/consistency_v1/artifacts/code/serve.py');s=p.read_text().replace('server.ROOT=ROOT',"server.ROOT=ROOT\nserver.LANDING='/zero-shot/results/baseline/input_order/consistency_v1/report.html'");p.write_text(s);changed.add(str(p))
 # Port 8775 now redirects to its own report; browser checks use the redirected locations.
 p=ROOT/'_lib/check_result_viewers.py';s=p.read_text();s=s.replace("ROOT/'analysis/failure_mode_timestamp/failure_cases/results/pilot_100'","ROOT/'analysis/failure_mode_timestamp/failure_cases/results/pilot_100'");p.write_text(s)
 # Storage docs and immutable resource identity metadata follow their actual new paths.

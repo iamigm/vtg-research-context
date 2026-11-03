@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Organize result trees, preserving an auditable path and file identity manifest."""
+from result_layout import relocate_path
 import os, json, re, hashlib, ast, shutil
 from pathlib import Path
 ROOT=Path('/home/irteam/experiments')
@@ -12,7 +13,7 @@ def walk(root):
 def roots():
  out=[ROOT/'attention/results']
  for family in ['attention','zero-shot','similarity']:
-  r=ROOT/family/'results'
+  r=relocate_path(ROOT/family/'results')
   out.extend(p for p in r.iterdir() if p.is_dir() and p.name!='artifacts')
  # Nested independent analyses retain their own report and artifact root.
  for p in list(walk(ROOT/'attention/results'))+list(walk(ROOT/'zero-shot/results')):

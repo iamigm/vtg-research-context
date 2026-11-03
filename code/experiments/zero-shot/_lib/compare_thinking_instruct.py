@@ -3,7 +3,7 @@ from result_layout import relocate_path, write_result_text
 from pathlib import Path
 import json,sys,hashlib,collections
 import numpy as np
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/thinking_vs_instruct_v1');OUT.mkdir(parents=True,exist_ok=True)
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/baseline/thinking_vs_instruct/pilot/300');OUT.mkdir(parents=True,exist_ok=True)
 THINK=relocate_path(ROOT.parent/'attention/results/thinking_pilot_orders_v1');INST=relocate_path(ROOT/'predictions/qwen3')
 sys.path.insert(0,str(relocate_path(ROOT.parent/'shared/timelens/vendor/TimeLens')))
 from timelens.utils import extract_time,iou

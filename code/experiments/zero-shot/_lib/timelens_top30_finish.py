@@ -2,7 +2,7 @@
 from result_layout import relocate_path, write_result_text, result_glob
 from pathlib import Path
 import os,json,time,subprocess,sys,traceback
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/timelens_top30')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')
 def status(state,**kw):
     p=relocate_path(OUT/'status.json');tmp=p.with_suffix('.tmp');write_result_text(tmp, json.dumps(dict(state=state,updated_epoch=time.time(),**kw),indent=2)+'\n');tmp.replace(p)
 def alive(pid):

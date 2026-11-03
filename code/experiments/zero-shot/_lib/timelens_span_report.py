@@ -13,7 +13,7 @@ ROOT=relocate_path(Path(__file__)).resolve().parents[1]
 sys.path.insert(0,str(relocate_path(ROOT/'runtime/timelens_deps')))
 sys.path.insert(0,str(relocate_path(ROOT/'vendor/TimeLens')))
 from timelens.utils import extract_time,iou
-OUT=relocate_path(ROOT/'results/timelens_span_head')
+OUT=relocate_path(ROOT/'results/uncertainty/span_head/pilot/300')
 from timelens_paths import QWEN3_ZERO, PILOT_SAMPLES, PILOT_SELECTION, pilot_export
 BASE=QWEN3_ZERO
 DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens']

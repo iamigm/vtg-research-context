@@ -2,7 +2,7 @@ from result_layout import relocate_path, write_result_text
 from timelens_paths import RESOURCES
 from pathlib import Path
 import os,sys,json
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/timelens_top30')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')
 sys.path.insert(0,str(relocate_path(RESOURCES/'browser_deps')))
 os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(relocate_path(RESOURCES/'browser_cache'))
 os.environ['LD_LIBRARY_PATH']=str(relocate_path(RESOURCES/'browser_libs/usr/lib/x86_64-linux-gnu'))+':'+os.environ.get('LD_LIBRARY_PATH','')

@@ -1,4 +1,5 @@
 """Update existing runs in place; no new experiment or model inference."""
+from result_layout import relocate_path
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import csv
@@ -21,7 +22,7 @@ def write(path,value):
     temp=path.with_suffix('.tmp');temp.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');temp.replace(path)
 
 def update(run):
-    out=ROOT/'artifacts/runs'/run;view=ROOT/'results'/run
+    out=relocate_path(ROOT/'artifacts/runs'/run);view=relocate_path(ROOT/'results'/run)
     status=out/'logs/adjacent_status.json';start=time.monotonic();last=[0]
     def progress(stage,done,total,force=False):
         now=time.monotonic()
@@ -106,7 +107,7 @@ def main():
     for run in args.runs:
         try:update(run)
         except BaseException as e:
-            status=ROOT/'artifacts/runs'/run/'logs/adjacent_status.json'
+            status=relocate_path(ROOT/'artifacts/runs'/run/'logs/adjacent_status.json')
             write(status,dict(run=run,stage='failed',error=repr(e),updated_at=stamp()))
             raise
 

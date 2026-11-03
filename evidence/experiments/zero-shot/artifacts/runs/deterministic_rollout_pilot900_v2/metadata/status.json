@@ -8,8 +8,8 @@
   "token_distributions": {
     "state": "waiting",
     "stage": "waiting_for_capture",
-    "timestamp": "2026-11-04T01:47:06.638444+09:00",
-    "completed": 270,
+    "timestamp": "2026-11-04T03:02:22.293682+09:00",
+    "completed": 865,
     "total": 900
   }
 }

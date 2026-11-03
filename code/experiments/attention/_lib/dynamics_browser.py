@@ -33,7 +33,7 @@ with sync_playwright() as p:
     for dataset in ['Charades-STA', 'QVHighlights', 'ActivityNet-Captions']:
         page.locator('#dataset').select_option(dataset)
         page.wait_for_function('document.getElementById("staticImg").complete && document.getElementById("staticImg").naturalWidth > 0')
-        assert page.locator('#staticImg').get_attribute('src').startswith(dataset+'/'+dataset+'_')
+        assert page.locator('#staticImg').get_attribute('src').__contains__('/'+dataset+'/'+dataset+'_')
         for href in page.locator('#links a').evaluate_all('(links) => links.map(a => a.getAttribute("href"))'):
             assert (relocate_path(DYNAMICS/href)).is_file(), href
     page.screenshot(path=str(relocate_path(DYNAMICS / 'viewer_preview.png')),full_page=False)

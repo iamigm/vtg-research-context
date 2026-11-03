@@ -2,7 +2,7 @@ from result_layout import relocate_path, write_result_text, result_glob
 from paths import ROOT, QUERY, GENERATION, HIDDEN, DYNAMICS, SPATIAL
 """All sampled-frame attention maps, visual notes, and counterfactual summaries."""
 from pathlib import Path
-import json,csv,html
+import json,csv,html,os
 import numpy as np
 from scipy.stats import spearmanr,rankdata
 from PIL import Image
@@ -148,6 +148,8 @@ function draw(){let call=++serial;let b=Math.min(Math.floor(frame/2),current.att
 function select(){current=DATA[sel.value];slider.max=current.frame_indices.length-1;frame=current.selected_bins.early_peak*2;draw()};sel.onchange=select;slider.oninput=()=>{frame=Number(slider.value);draw()};document.getElementById('prev').onclick=()=>{frame=Math.max(0,frame-1);draw()};document.getElementById('next').onclick=()=>{frame=Math.min(current.frame_indices.length-1,frame+1);draw()};document.getElementById('early').onclick=()=>{frame=current.selected_bins.early_peak*2;draw()};document.getElementById('gt').onclick=()=>{frame=current.selected_bins.GT_peak*2;draw()};document.getElementById('play').onclick=()=>{if(timer){clearInterval(timer);timer=null;document.getElementById('play').textContent='재생'}else{document.getElementById('play').textContent='정지';timer=setInterval(()=>{frame=(frame+1)%current.frame_indices.length;draw()},350)}};select();
 </script></html>'''
     doc=doc.replace('REVIEW_ROWS',rows).replace('CF_TEXT',f'<p>초반 최고점 프레임에서 원래 쿼리와 대조 쿼리 사이 평균 spatial TV는 <b>{cf["tv"]:.3f}</b>, Spearman은 <b>{cf["spearman"]:.3f}</b>, 최고점 유지율은 <b>{cf["peak_same"]:.1%}</b>였다. GT 내부에서는 각각 {gt["tv"]:.3f}, {gt["spearman"]:.3f}, {gt["peak_same"]:.1%}였다. 쿼리에 따른 변화도 있으므로 모든 초반 attention이 쿼리와 무관하다고 단정할 수는 없지만, 육안으로 확인한 배경 최고점을 의미 있는 객체 주시로 해석하는 것은 부적절하다.</p>')
+    asset_base=os.path.relpath(relocate_path(ROOT/'artifacts/runs/spatial/samples'),relocate_path(OUT))+'/'
+    doc=doc.replace('img.src=current.sample_key+', 'img.src='+json.dumps(asset_base)+'+current.sample_key+')
     write_result_text((relocate_path(OUT/'report.html')), doc)
 
 

@@ -1,4 +1,6 @@
 """Combine both allocation experiments without treating reused outputs as independent."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import sys
 from pathlib import Path
 import numpy as np
@@ -8,8 +10,8 @@ from boundary_oracle_analysis import bootstrap_weights,estimate
 RUN='gt_density_allocation_comparison_v1'
 A='gt_extent_boundary_density_pilot300_v1';B='gt_actual_density_pilot300_v1'
 def main():
-    out=ROOT/'artifacts/runs'/RUN;report=ROOT/'results'/RUN;report.mkdir(parents=True,exist_ok=True)
-    paths=[ROOT/'artifacts/runs'/r for r in [A,B]]
+    out=relocate_path(ROOT/'artifacts/runs'/RUN);report=relocate_path(ROOT/'results'/RUN);report.mkdir(parents=True,exist_ok=True)
+    paths=[relocate_path(ROOT/'artifacts/runs'/r) for r in [A,B]]
     for p in paths:need(read(p/'metadata/status.json')['state']=='complete','Both runs must complete')
     need(read(paths[0]/'metadata/cohort.json')==read(paths[1]/'metadata/cohort.json'),'Cohort mismatch')
     records=[read(p/'metrics/evaluation_records.json') for p in paths];summaries=[read(p/'metrics/summary.json') for p in paths]
@@ -44,7 +46,7 @@ def main():
             if x['a'].startswith('gt_boundary') and x['b'].startswith('gt_whole'):lines.append(f"| {label} | {x['dataset']} | {x['a'].split('_')[-1][1:]} | {x['delta_pp']:+.2f} [{x['lower_pp']:+.2f}, {x['upper_pp']:+.2f}] |")
     lines+=['','가장 좋은 비율만 골라 일반화하지 않고 모든 비율과 벤치마크 결과를 함께 제시했습니다. 같은 입력의 재사용은 추가 반복 증거가 아닙니다.','',f'[집중 프레임 수 공유 실험](../{A}/REPORT.md) · [실제 집중 길이로 밀도 일치 실험](../{B}/REPORT.md)',f'[통합 수치](../../artifacts/runs/{RUN}/metrics/combined_metrics.csv) · [시작·종료 오차 변화와 신뢰구간](../../artifacts/runs/{RUN}/metrics/cross_design_comparisons.json)']
     lines+=['','실행 중 속도 개선: CPU 입력 준비를 병렬화하고 최대4개 GPU 배치를 적용했습니다. 세 벤치마크 8개 점검 입력에서 단일/배치 생성 토큰이 정확히 일치했습니다. 모든 입력에서 동일 출력을 보장하는 검증은 아니며, 개별 응답에 실제 batch_size와 batch_group을 기록했습니다. 배치 wall time은 응답 수로 나누어 비용을 집계했습니다. CPU 준비 시간과 GPU 시간은 겹치므로 단순 합계가 실제 wall time은 아닙니다. 각 실행의 environment/prefetch_operation.json 및 logs/prefetch.jsonl에서 적용 시점과 비용을 확인할 수 있습니다.']
-    (report/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(report/'REPORT.md', '\n'.join(lines)+'\n')
     from gt_dataset_diagnostics import main as rebuild_readable_report
     rebuild_readable_report()
     from artifact_store import register

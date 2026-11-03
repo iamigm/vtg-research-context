@@ -1,4 +1,6 @@
 """No-inference GT-fraction stratification and common-bin standardization."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import csv
 from pathlib import Path
 import numpy as np
@@ -6,13 +8,13 @@ from adaptive_temporal_sampling import ROOT,read,write,fileinfo
 from adaptive_temporal_report import csvwrite
 from boundary_oracle_analysis import bootstrap_weights
 RUN='gt_density_allocation_comparison_v1';SOURCE='gt_extent_boundary_density_pilot300_v1'
-OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];NAMES=['Charades','ActivityNet','QVHighlights']
 BINS=[(0,.05,'0–5% 미만'),(.05,.1,'5–10% 미만'),(.1,.2,'10–20% 미만'),(.2,.4,'20–40% 미만'),(.4,1.000001,'40% 이상')]
 def interval(v):
     v=np.asarray(v);v=v[np.isfinite(v)];return [float(x) for x in np.quantile(v,[.025,.975])]
 def main():
-    source=ROOT/'artifacts/runs'/SOURCE/'metrics/evaluation_records.json';data=read(source);by={(r['sample_key'],r['condition']):r for r in data}
+    source=relocate_path(ROOT/'artifacts/runs'/SOURCE/'metrics/evaluation_records.json');data=read(source);by={(r['sample_key'],r['condition']):r for r in data}
     querypath=OUT/'metrics/dataset_query_statistics.csv';query=list(csv.DictReader(querypath.open()));stats=[];metrics=[];effects=[];standard=[];diffs=[];replicas={};details=[]
     for di,ds in enumerate(DATASETS):
         rows=sorted([r for r in query if r['dataset']==ds],key=lambda r:r['sample_key']);keys=[r['sample_key'] for r in rows];fraction=np.array([float(r['GT_fraction']) for r in rows]);videos=[r['video_id'] for r in rows]
@@ -101,5 +103,5 @@ def render(stats,metrics,effects,standard,diffs):
     '표의 평균 차이와 신뢰구간을 함께 보고, 한쪽만 유의하다는 이유로 두 데이터셋의 효과가 다르다고 결론내리지 않습니다. 위 개선 폭 차이가 이를 직접 비교하는 통계입니다.','',
     f'[질문 수·길이·비율 분포](../../artifacts/runs/{RUN}/metrics/GT_fraction_composition.csv) · [모든2/4/8배 점수](../../artifacts/runs/{RUN}/metrics/GT_fraction_metrics.csv) · [구간별 차이·신뢰구간](../../artifacts/runs/{RUN}/metrics/GT_fraction_effects.json) · [질문별 구간·가중치](../../artifacts/runs/{RUN}/metrics/GT_fraction_membership.csv) · [기존 통합 보고서](REPORT.md)']
     lines[2:2]=['**결론: GT 비율이 작은 구간에서 개선 신호는 있지만, GT 비율 구간의 구성 차이만으로 Charades와 다른 두 데이터셋의 격차를 설명하기는 어렵습니다.** Charades의5% 미만18개는 평균 +5.03pp였지만 IoU≥0.7 성공률은 그대로였습니다. 비율에 따라 개선이 단조롭게 증가·감소하지 않으며 작은 집단의 결과는 탐색적으로 봐야 합니다.','']
-    (REPORT/'GT_FRACTION.md').write_text('\n'.join(lines)+'\n')
+    write_result_text(REPORT/'GT_FRACTION.md', '\n'.join(lines)+'\n')
 if __name__=='__main__':main()

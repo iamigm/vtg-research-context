@@ -42,7 +42,7 @@ class Links(HTMLParser):
   for key,val in attrs:
    if key in {'href','src','poster'} and val:self.refs.append(val)
 broken=[];html_count=0;refs=0
-html_roots=list(D['roots'])+[str(p/'artifacts/runs') for p in [ROOT/'attention',ROOT/'zero-shot',ROOT/'similarity',ROOT/'analysis/failure_mode_timestamp/failure_cases',ROOT/'audio_caption_resources_20260930']]
+html_roots=list(D['roots'])+[str(relocate_path(p/'artifacts/runs')) for p in [ROOT/'attention',ROOT/'zero-shot',ROOT/'similarity',ROOT/'analysis/failure_mode_timestamp/failure_cases',ROOT/'audio_caption_resources_20260930']]
 for r in html_roots:
  for p in Path(r).rglob('*.html'):
   if p.is_symlink() or any(x in p.parts for x in ['source_backup','vendor','sources','provenance']):continue
@@ -97,7 +97,7 @@ for family,names in allowed.items():
 counts['project_roots_checked']=len(allowed)
 nested=[];live_aliases=[]
 for family in ['attention','zero-shot','similarity','analysis/failure_mode_timestamp/failure_cases','audio_caption_resources_20260930']:
- for p in (ROOT/family/'results').rglob('artifacts'):
+ for p in (relocate_path(ROOT/family/'results')).rglob('artifacts'):
   if p.is_symlink():live_aliases.append(str(p))
   elif p.is_dir():nested.append(str(p))
 for p in nested:errors.append(['nested_artifact_directory',p])

@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'digit_role_entropy')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'digit_role_entropy')
 MODELS=['qwen25','qwen3'];DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens']
 ROLES=['hundreds','tens','ones','decimal_point','tenths','closing_boundary'];NAMES={'hundreds':'백의 자리','tens':'십의 자리','ones':'일의 자리','decimal_point':'소수점','tenths':'소수 첫째 자리','closing_boundary':'종료 구분자','multi_role':'여러 역할을 포함한 토큰','format_other':'기타 서식'}
 LABELS=['retains_feasibility','first_loss','after_loss','initially_unattainable']

@@ -1,9 +1,10 @@
 """Detached sequential supervisor. Never alter the running predecessor."""
+from result_layout import relocate_path
 import os,sys,time,subprocess,traceback,fcntl
 from pathlib import Path
 from adaptive_temporal_sampling import ROOT,read,write,stamp,need
 A='gt_extent_boundary_density_pilot300_v1';B='gt_actual_density_pilot300_v1';RUN='gt_density_allocation_comparison_v1'
-out=ROOT/'artifacts/runs'/RUN
+out=relocate_path(ROOT/'artifacts/runs'/RUN)
 
 def state(stage,**kw):
     row=dict(state='building',stage=stage,timestamp=stamp(),**kw);write(out/'metadata/queue_status.json',row);print(row,flush=True)
@@ -13,13 +14,13 @@ def main():
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         try:
             while True:
-                s=read(ROOT/'artifacts/runs'/A/'metadata/status.json')
+                s=read(relocate_path(ROOT/'artifacts/runs'/A/'metadata/status.json'))
                 if s['state']=='complete':break
                 need(s['state'] not in ['aborted','superseded'],'Predecessor failed or superseded; successor not started')
                 state('waiting_for_first_experiment',completed=s.get('completed'),total=s.get('total'))
                 time.sleep(20)
-            dest=ROOT/'artifacts/runs'/B;dest.mkdir(parents=True,exist_ok=True)
-            write(dest/'metadata/frame_cache_index.json',read(ROOT/'artifacts/runs'/A/'metadata/frame_cache_index.json'))
+            dest=relocate_path(ROOT/'artifacts/runs'/B);dest.mkdir(parents=True,exist_ok=True)
+            write(dest/'metadata/frame_cache_index.json',read(relocate_path(ROOT/'artifacts/runs'/A/'metadata/frame_cache_index.json')))
             state('running_actual_density_experiment')
             (dest/'logs').mkdir(parents=True,exist_ok=True)
             with (dest/'logs/runner.log').open('ab',buffering=0) as log:

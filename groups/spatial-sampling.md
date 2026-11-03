@@ -4,35 +4,29 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 ## 실행별 보고서·관련 코드
 
+### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/fps_spatial_control_pilot300_v1
+
+[SPATIAL_AUDIT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
+
+현재 관련 코드 134개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+
+### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/spatial_budget_pilot900_v1
+
+[REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md)
+
+현재 관련 코드 134개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+
 ### zero-shot/deterministic_rollout_pilot900_v2
 
 [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/STRATA.md)
 
-현재 관련 코드 104개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 134개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
-### zero-shot/fps_spatial_control_pilot300_v1
+### zero-shot/sampling
 
-[SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
+[SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/600/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/overview/REPORT.md) · [A_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/overview/REPORT.md)
 
-현재 관련 코드 104개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/selected_frame_cache_migration_v1
-
-[REPORT.md](../reports/experiments/zero-shot/results/selected_frame_cache_migration_v1/REPORT.md)
-
-현재 관련 코드 104개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/spatial_budget_pilot900_v1
-
-[PILOT_300.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_300.md) · [PILOT_600.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_600.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/SPEC.md)
-
-현재 관련 코드 104개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/spatial_sampling_pilot900_v2
-
-[A_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md)
-
-현재 관련 코드 104개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 134개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -95,6 +89,36 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/_lib/spatial_sweep_runtime.py](../code/experiments/zero-shot/_lib/spatial_sweep_runtime.py)
 - [zero-shot/_lib/spatial_sweep_supervisor.py](../code/experiments/zero-shot/_lib/spatial_sweep_supervisor.py)
 - [zero-shot/_lib/wait_for_cache_cleanup.py](../code/experiments/zero-shot/_lib/wait_for_cache_cleanup.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/adaptive_temporal_sampling.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/adaptive_temporal_sampling.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_analysis.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_analysis.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_inputs.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_inputs.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compact_selected_frames.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compact_selected_frames.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_control.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_actual_density.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_actual_density.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_dataset_diagnostics.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_dataset_diagnostics.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_combined.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_combined.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_pilot.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_pilot.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_prefetch.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_prefetch.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_queue.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_queue.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_sweep.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_sweep.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_fraction_comparison.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_fraction_comparison.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_threshold_report.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_threshold_report.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_video_fraction_axes.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_video_fraction_axes.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_actual.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_actual.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_extent.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_extent.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_inputs.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_overview.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_overview.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_prefetch.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_prefetch.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_report_tables.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_report_tables.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_supervisor.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_supervisor.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_pilot900.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_pilot900.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_report.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_report.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_supervisor.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_supervisor.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep900.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep900.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_parallel_supervisor.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_parallel_supervisor.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_supervisor.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_supervisor.py)
+- [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/wait_for_cache_cleanup.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/wait_for_cache_cleanup.py)
 - [zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/fps_spatial_control.py)
 - [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/fps_spatial_control.py)
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/fps_spatial_control.py)
@@ -115,35 +139,35 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/distributions.js)
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.css)
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.js)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_supervisor.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_control.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_report.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_smoke.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_supervisor.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py)
-- [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py)
-- [zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/boundary_oracle_inputs.py](../code/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/boundary_oracle_inputs.py)
-- [zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/pilot900_inputs.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/gt_density_batch.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/gt_density_batch.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/pilot900_inputs.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/shared_selected_frames.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/shared_selected_frames.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_before_overlap.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_before_overlap.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_pilot900.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_pilot900.py)
-- [zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_report.py](../code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_report.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/gt_density_batch.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/gt_density_batch.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_runtime.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_runtime.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_supervisor.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_supervisor.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/pilot900_inputs.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/runtime_before_memory_fix.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/runtime_before_memory_fix.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep900.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep900.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_inputs.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_inputs.py)
-- [zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_report.py](../code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_report.py)
+- [zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/boundary_oracle_inputs.py](../code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/boundary_oracle_inputs.py)
+- [zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/pilot900_inputs.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_control.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_report.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_smoke.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_control.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_report.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_smoke.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/gt_density_batch.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/gt_density_batch.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/pilot900_inputs.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/shared_selected_frames.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/shared_selected_frames.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_before_overlap.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_before_overlap.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_pilot900.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_pilot900.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_report.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/gt_density_batch.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/gt_density_batch.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_runtime.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_runtime.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/pilot900_inputs.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/pilot900_inputs.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/runtime_before_memory_fix.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/runtime_before_memory_fix.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep900.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep900.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_inputs.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_inputs.py)
+- [zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_report.py)

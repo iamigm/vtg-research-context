@@ -1,4 +1,5 @@
 """Threshold success metrics, recomputed from per-response raw IoU."""
+from result_layout import relocate_path
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write
 from adaptive_temporal_report import csvwrite
@@ -9,7 +10,7 @@ LABELS={'charades-timelens':'Charades','activitynet-timelens':'ActivityNet','qvh
 def build():
     rows=[];paired=[];strata=[]
     for run in RUNS:
-        data=read(ROOT/'artifacts/runs'/run/'metrics/evaluation_records.json');by={(x['sample_key'],x['condition']):x for x in data};conditions=sorted({x['condition'] for x in data});members={c:[c] for c in conditions}
+        data=read(relocate_path(ROOT/'artifacts/runs'/run/'metrics/evaluation_records.json'));by={(x['sample_key'],x['condition']):x for x in data};conditions=sorted({x['condition'] for x in data});members={c:[c] for c in conditions}
         members.update({f'random_{mode}_r{r}_mean':[f'random_{mode}_r{r}_s{s}' for s in [42,43]] for r in [2,4,8] for mode in ['whole','boundary']})
         for dataset in LABELS:
             base=[x for x in data if x['condition']=='uniform' and (dataset=='all' or x['dataset']==dataset)];keys=[x['sample_key'] for x in base]
@@ -25,7 +26,7 @@ def build():
                     if mask.any():
                         for c in ['uniform','gt_whole_r2','gt_whole_r4','gt_whole_r8']:
                             strata.append(dict(run=run,dataset=dataset,threshold=threshold,GT_fraction_lower=lo,GT_fraction_upper=hi,N=int(mask.sum()),condition=c,success_percent=100*float(vals[c][mask].mean()),delta_vs_uniform_pp=100*float((vals[c]-vals['uniform'])[mask].mean())))
-    out=ROOT/'artifacts/runs'/RUN/'metrics'
+    out=relocate_path(ROOT/'artifacts/runs'/RUN/'metrics')
     csvwrite(out/'threshold_metrics.csv',rows);csvwrite(out/'threshold_paired_changes.csv',paired);csvwrite(out/'threshold_GT_fraction_groups.csv',strata)
     def cell(run,ds,c,t):
         x=next(x for x in rows if (x['run'],x['dataset'],x['condition'],x['threshold'])==(run,ds,c,t))
@@ -42,7 +43,7 @@ def build():
         lines+=['','이 표는 관측된 비율과 차이입니다. mIoU의 신뢰구간을 이 지표에 적용하지 않으며, 표의 작은 차이만으로 유의성을 주장하지 않습니다. 모든 Random·경계 조건과 성공↔실패 변화, GT 비율 집단별 수치는 CSV에 있습니다.','',f'[모든 조건의 기준별 성공률](../../artifacts/runs/{RUN}/metrics/threshold_metrics.csv) · [질문별 성공 여부의 변화 집계](../../artifacts/runs/{RUN}/metrics/threshold_paired_changes.csv) · [GT 길이 비율별 기준 통과율](../../artifacts/runs/{RUN}/metrics/threshold_GT_fraction_groups.csv)']
         return lines
     for run in RUNS:
-        p=ROOT/'results'/run/'REPORT.md';s=p.read_text();marker='<!-- threshold_metrics_begin -->';s=s.split(marker)[0].rstrip();p.write_text(s+'\n\n'+marker+'\n'+'\n'.join(section(run,True))+'\n')
+        p=relocate_path(ROOT/'results'/run/'REPORT.md');s=p.read_text();marker='<!-- threshold_metrics_begin -->';s=s.split(marker)[0].rstrip();p.write_text(s+'\n\n'+marker+'\n'+'\n'.join(section(run,True))+'\n')
     lines=section(RUNS[0]);lines+=['','**경계 배정 공식도 같은 기준으로 비교:** 아래는 전체300개입니다. A는 집중 프레임 수 공유, B는 실제 집중 길이로 밀도 일치입니다.','', '| 공식 | 경계 조건 | IoU≥0.3 | IoU≥0.5 | IoU≥0.7 |','|---|---|---:|---:|---:|']
     for design,run in zip(['A','B'],RUNS):
         for r in [2,4,8]:lines.append('| '+design+f' | GT 경계 {r}배 | '+' | '.join(cell(run,'all',f'gt_boundary_r{r}',t) for t in [.3,.5,.7])+' |')

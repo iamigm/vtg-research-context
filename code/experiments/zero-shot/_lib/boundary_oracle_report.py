@@ -1,4 +1,5 @@
 """Plain-language report for all pilot300 experiments; saved responses only."""
+from result_layout import write_result_text
 from boundary_oracle_sampling import *
 from adaptive_temporal_report import score,csvwrite
 from boundary_oracle_analysis import bootstrap_weights,estimate
@@ -102,4 +103,4 @@ def evaluate(records,cache_index,include_add=False):
         lines.append('추가만 하는 조건에서도 Random과 차이가 작거나 방향이 불확실하면, 이 고정 방식의 확대보다 다음 가설을 검토하는 편이 낫습니다. 반대로 추가만 할 때 좋아지는 패턴은 기존 전체 장면 프레임을 빼는 손실이 있었을 가능성을 보여주지만, 인과 원인을 확정하지는 않습니다.')
     lines+=['',f"실제로 생성한 고유 응답은 {len(seen):,}개이며, GPU 생성 경과시간 합계는 {summary['gpu_generation_seconds']:.1f}초, 실제로 할당받은 GPU 메모리의 최대값는 {summary['peak_allocated_GiB']:.2f}GiB입니다. 공유 Uniform 응답은 비용을 중복 합산하지 않았습니다. Pred 중심 집중만 Uniform 첫 응답을 추가로 이용하므로 자연스러운 single-pass Uniform과 전체 비용이 같지 않습니다.",'',
         '[기존 100개 종료 오차 분석](PREVIOUS_RESULTS.md) · [상태](../../artifacts/runs/'+RUN+'/metadata/status.json) · [전체 수치](../../artifacts/runs/'+RUN+'/metrics/metrics.csv) · [질문별 평가](../../artifacts/runs/'+RUN+'/metrics/evaluation_records.json) · [대응 비교와 신뢰구간](../../artifacts/runs/'+RUN+'/metrics/paired_comparisons.csv) · [추가된 경계 프레임](../../artifacts/runs/'+RUN+'/metrics/sampling_diagnostics.csv) · [비용](../../artifacts/runs/'+RUN+'/metrics/compute_cost.csv)']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n');return summary
+    write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n');return summary

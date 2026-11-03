@@ -9,12 +9,12 @@ ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'
 def read(p):return json.loads(p.read_text())
 def avg(x):return statistics.mean(x)
 def build():
-    config=read(relocate_path(OUT/'config.json'));samples=read(PILOT_SAMPLES);media=read(relocate_path(ROOT/'results/timelens_top30/media_manifest.json'));manifest=[];records=[];steps_total=0
+    config=read(relocate_path(OUT/'config.json'));samples=read(PILOT_SAMPLES);media=read(relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300/media_manifest.json'));manifest=[];records=[];steps_total=0
     assert len(samples)==300 and hashlib.sha256(PILOT_SAMPLES.read_bytes()).hexdigest()==config['manifest_sha256']
     for s in samples:
         manifest.append(dict(s,media=media[s['video_path']]['media']))
         dest=relocate_path(OUT/media[s['video_path']]['media']);dest.parent.mkdir(parents=True,exist_ok=True)
-        if not dest.exists():os.link(relocate_path(ROOT/'results/timelens_top30'/media[s['video_path']]['media']),dest)
+        if not dest.exists():os.link(relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300'/media[s['video_path']]['media']),dest)
         for model in ['qwen25','qwen3']:
             for variant in ['top_k','top_p']:
                 for roll in range(config['rollouts_per_variant']):

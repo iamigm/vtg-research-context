@@ -2,6 +2,7 @@
 
 Run with the existing zero-shot .venv. Input integrity gates precede model load.
 """
+from result_layout import write_result_text
 from pathlib import Path
 import os, sys, json, hashlib, time, copy, math, random, threading, traceback, inspect
 from datetime import datetime
@@ -14,8 +15,8 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF', 'expandable_segments:True')
 for _k in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS']: os.environ[_k]='1'
 RUN = 'adaptive_temporal_sampling_pilot_v1'
-OUT = ROOT/'artifacts/runs'/RUN
-REPORT = ROOT/'results'/RUN
+OUT = relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT = relocate_path(ROOT/'results'/RUN)
 STORE = ROOT/'artifacts/common'
 MODEL = Path('/home1/irteam/backbones/models/Qwen3-VL-8B-Instruct')
 LEGACY = STORE/'predictions/legacy'
@@ -34,10 +35,10 @@ def encoded(x): return json.dumps(x,ensure_ascii=False,sort_keys=True,separators
 def objhash(x): return hashlib.sha256(encoded(x)).hexdigest()
 def sha(p):
     h=hashlib.sha256()
-    with Path(p).open('rb') as f:
+    with relocate_path(Path(p)).open('rb') as f:
         for b in iter(lambda:f.read(8*1024*1024),b''): h.update(b)
     return h.hexdigest()
-def read(p): return json.loads(Path(p).read_text())
+def read(p): return json.loads(relocate_path(Path(p)).read_text())
 def write(p,x):
     p=Path(p);p.parent.mkdir(parents=True,exist_ok=True)
     tmp=p.with_name(p.name+f'.{os.getpid()}.{threading.get_ident()}.tmp')
@@ -169,7 +170,7 @@ def preflight(progress):
             videos[str(video)]=dict(**fileinfo(video),video_id=vid,N=N,fps=fps,pts=pts,pts_error_seconds=err,pts_float32_tolerance=tol,original_annotation_duration=a['duration'],inference_duration=s['duration'])
         old=read(LEGACY/'qwen3'/s['dataset']/key/'metadata.json')
         b=read_record(entries[key],verify=True);need(b['sample']==s and b['order']=='video_query','Full baseline mapping mismatch '+key)
-        d=ROOT/'artifacts/runs/thinking_vs_instruct_8fps_v1/samples/instruct'/s['dataset']/key/'video_query'
+        d=relocate_path(ROOT/'artifacts/runs/thinking_vs_instruct_8fps_v1/samples/instruct'/s['dataset']/key/'video_query')
         eight=read(d/'input.json');er=read(d/'result.json');need(eight['sample']==s and er['sample']==s,'8fps mapping mismatch '+key)
         need(old['sample']==s,'Legacy input mapping mismatch '+key)
         meta=old['decoder_metadata'];F=len(meta['frames_indices']);grid=old['video_grid_thw'];B=math.prod(grid)//4
@@ -263,7 +264,7 @@ def make_input(record,video,cache,plan,processor):
     ids=plan['frame_ids'];pts=plan['pts'];validate_indices(ids,pts)
     need(len(ids)==record['F'],'F budget mismatch')
     loc={i:j for j,i in enumerate(cache['ids'])}
-    selected=np.array(np.load(cache['path'],mmap_mode='r')[[loc[i] for i in ids]])
+    selected=np.array(np.load(relocate_path(Path(cache['path'])),mmap_mode='r')[[loc[i] for i in ids]])
     need(all(hashlib.sha256(a.tobytes()).hexdigest()==cache['resized_rgb_hashes'][loc[i]] for a,i in zip(selected,ids)),'Selected/cache RGB checksum mismatch')
     frames=torch.from_numpy(selected).float()
     meta=dict(fps=video['fps'],frames_indices=ids[:],total_num_frames=video['N'],video_backend='decord')
@@ -290,7 +291,7 @@ def synthetic_processor_gate(processor,record,video,cache):
     # Same pixels, known nonuniform source IDs; supported metadata only.
     import numpy as np,torch
     from evaluation.utils import GROUNDER_PROMPT
-    arr=np.load(cache['path'],mmap_mode='r');frames=torch.from_numpy(np.array(arr[:4])).float()
+    arr=np.load(relocate_path(Path(cache['path'])),mmap_mode='r');frames=torch.from_numpy(np.array(arr[:4])).float()
     text=processor.apply_chat_template([dict(role='user',content=[dict(type='video',video='probe.mp4'),dict(type='text',text='probe')])],tokenize=False,add_generation_prompt=True)
     outputs=[]
     for ids in [[0,1,2,3],[0,1,8,9]]:
@@ -435,7 +436,7 @@ def main():
         except BaseException:
             error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error)
             write(OUT/'validation/abort.json',dict(state='aborted',error=error,timestamp=stamp(),preserved=True))
-            (REPORT/'REPORT.md').write_text('# Adaptive Temporal Sampling Pilot v1\n\n상태: **aborted**. 추론·평가 전체 완료가 아닙니다.\n\n```text\n'+error+'\n```\n\n완료분과 기존 원본은 보존했습니다. 상태·검증 근거: [status](../../artifacts/runs/'+RUN+'/metadata/status.json), [abort](../../artifacts/runs/'+RUN+'/validation/abort.json).\n')
+            write_result_text(REPORT/'REPORT.md', '# Adaptive Temporal Sampling Pilot v1\n\n상태: **aborted**. 추론·평가 전체 완료가 아닙니다.\n\n```text\n'+error+'\n```\n\n완료분과 기존 원본은 보존했습니다. 상태·검증 근거: [status](../../artifacts/runs/'+RUN+'/metadata/status.json), [abort](../../artifacts/runs/'+RUN+'/validation/abort.json).\n')
             from artifact_store import register
             for kind in ['predictions','manifests','inputs','analyses']:
                 path={'predictions':OUT/'responses','manifests':OUT/'metadata','inputs':OUT/'inputs','analyses':REPORT}[kind]

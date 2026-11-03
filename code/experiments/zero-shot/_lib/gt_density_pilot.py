@@ -2,6 +2,8 @@
 
 No anchors, no boundary focus, no Pred. Two planner seeds: 42 and 43.
 """
+from result_layout import write_result_text
+from result_layout import relocate_path
 import sys,os,json,time,math,copy,hashlib,random,bisect,threading,traceback
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -9,7 +11,7 @@ import boundary_oracle_inputs as inputs
 import adaptive_temporal_sampling as old
 from adaptive_temporal_sampling import read,write,immutable,sha,objhash,fileinfo,need,stamp
 RUN='gt_interval_density_pilot300_v1'
-ROOT=old.ROOT;OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+ROOT=old.ROOT;OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 inputs.RUN=RUN;inputs.OUT=OUT;inputs.REPORT=REPORT
 CONDITIONS=['uniform','gt','random_s42','random_s43']
 CONFIG=dict(run_id=RUN,cohort='existing pilot_300, 100 per benchmark',density_ratio=3.5,random_seeds=[42,43],model='Qwen3-VL-8B-Instruct',revision=old.CONFIG['revision'],do_sample=False,max_new_tokens=512,repetition_penalty=1.,generation_seed=42,dtype='BF16',backend='FlashAttention2',order='video_query',frame_budget='original 2fps actual F; original H/W and actual visual tokens',rounding='Python round, ties to even',inside_boundary='s <= PTS <= e',outside_axis='concatenate [0,s) and (e,T]; bin centers in concatenated time',source_selection='ordered nearest distinct source frame, ties lower source ID, retain enough candidates for remaining targets',min_allocation='one per nonempty side if F>=2; then clamp to source capacity and transfer remainder',whole_video='GT and Random use exactly the Uniform frame list',GT_usage='GT location only in GT planner/evaluator; Random is diagnostic and uses GT LENGTH only',uniform='F equal-duration cells over [0,T], nearest source frame to each center',bootstrap_replicates=20000,bootstrap_seed=42,full_oracle_ratio=.8,inference='single pass; identical inputs within a query may reuse an earlier deterministic response, explicitly recorded')
@@ -150,7 +152,7 @@ def evaluate(rows,cache_index):
     lines+=['',f"논리적 응답 {summary['logical_responses']}개, 신규 GPU 생성 {summary['new_gpu_responses']}개, 같은 질문·모델·설정·입력 hash가 완전히 같은 응답 재사용 {summary['identical_input_reuses']}개입니다. GPU 생성시간 합계 {summary['gpu_seconds']:.1f}초, 최대 할당 GPU 메모리 {summary['peak_allocated_GiB']:.2f}GiB입니다. 재사용은 모델 입력이 같은 경우에만 허용했고 통계를 독립 반복으로 해석하지 않았습니다.",'',
         '표본·모델·밀도비 하나의 진단입니다. GT는 실용 방법이나 최적 상한이 아닙니다. 결과를 본 뒤 밀도비·시드를 바꾸지 않았습니다.','',
         '[상태](../../artifacts/runs/'+RUN+'/metadata/status.json) · [질문별 원문 평가](../../artifacts/runs/'+RUN+'/metrics/evaluation_records.json) · [전체 수치](../../artifacts/runs/'+RUN+'/metrics/metrics.csv) · [대응 비교·시작/종료 오차 변화와 신뢰구간](../../artifacts/runs/'+RUN+'/metrics/paired_comparisons.csv) · [배정 조정·실제 간격·구간 겹침](../../artifacts/runs/'+RUN+'/metrics/sampling_diagnostics.csv) · [비용](../../artifacts/runs/'+RUN+'/metrics/compute_cost.csv)']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n');return summary
+    write_result_text(REPORT/'REPORT.md', '\n'.join(lines)+'\n');return summary
 
 def main():
     import torch,fcntl,av,subprocess
@@ -212,7 +214,7 @@ def main():
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'Complete whole-GT density pilot300; seeds42/43',str(Path(__file__).relative_to(ROOT)),'pilot_300','complete',['pilot_300.cohort'])
             progress.update(state='complete',stage='complete',report=str(REPORT/'REPORT.md'))
         except BaseException:
-            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);(REPORT/'ERROR.md').write_text('# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
+            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);write_result_text(REPORT/'ERROR.md', '# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'Aborted density pilot; see status/error',str(Path(__file__).relative_to(ROOT)),'pilot_300','aborted',['pilot_300.cohort'])
             raise
         finally:progress.stop.set();thread.join()

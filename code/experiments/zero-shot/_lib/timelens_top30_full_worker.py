@@ -13,8 +13,8 @@ import transformers
 from transformers import AutoProcessor, AutoModelForImageTextToText, LogitsProcessor, LogitsProcessorList, set_seed
 from timelens.utils import extract_time, iou
 
-OUT = relocate_path(ROOT/'results/timelens_top30_full')
-PILOT = relocate_path(ROOT/'results/timelens_span_head')
+OUT = relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404')
+PILOT = relocate_path(ROOT/'results/uncertainty/span_head/pilot/300')
 from timelens_paths import baseline_path
 from timelens_video_cache import CachedPrepared
 from collections import Counter

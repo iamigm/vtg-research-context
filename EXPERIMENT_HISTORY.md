@@ -453,3 +453,797 @@
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-04T03:02:31.147942+09:00
+
+원본 파일 직접 관찰: 23개 실행, 525개 코드·의존성 파일. 이전 commit: ead6ef5119a1400c1cd18a3aa4583621ecec9db2.
+
+추가 405 / 변경 141 / 현재 원본에서 사라짐 241. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/rollout_pilot_html_watch.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/build_index.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/check_comparison.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/check_result_viewers.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/organize_results.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/unify_artifact_hierarchy.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/update_hierarchy_consumers.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/_lib/validate_result_layout.py
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/attention/README.md
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/attention/_lib/timelens_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/benchmark_16fps.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/integrate_adjacent.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/prepare_media.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/report_16fps.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/similarity/_lib/run_pipeline.py
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/README.md
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/run.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/adaptive_temporal_sampling.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/aggregate_all_zeroshot.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/artifact_store.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_analysis.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/boundary_oracle_inputs.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/cleanup_duplicate_artifacts.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compact_selected_frames.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/compare_thinking_instruct.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/deterministic_rollout900.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_actual_density.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_dataset_diagnostics.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_combined.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_pilot.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_prefetch.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_queue.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_density_sweep.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_fraction_comparison.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_threshold_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/gt_video_fraction_axes.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_actual.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_extent.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_inputs.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_overview.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_prefetch.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_report_tables.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/pilot900_supervisor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/rollout_distribution_integrate.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/rollout_pilot_html_watch.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/rollout_token_distributions.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_pilot900.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_budget_supervisor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep900.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_parallel_supervisor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/spatial_sweep_supervisor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_blue_analysis.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_blue_analysis_finish.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_digit_correctness.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_digit_correctness_browser.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_digit_correctness_finish.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_digit_correctness_serve.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_digit_role_entropy.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_endpoint_gt_entropy.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_entropy_integrated.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_entropy_integrated_browser.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_entropy_integrated_serve.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_entropy_iou.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_first_error_distance.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_blue_impl.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_browser.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_finish.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_impl.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_media.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_prepare.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_full_digit_serve.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_mmco_diagnose.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_numeric_uncertainty.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_prefix_entropy.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_profile_preparation.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_rollout.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_rollout_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_span_head.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_span_markdown.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_span_monitor.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_span_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_browser.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_finish.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_full_worker.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_media.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_progress.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_report.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_top30_serve.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_validate_video_cache.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_cached_pipeline.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_throughput.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/wait_for_cache_cleanup.py
+- code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/zeroshot_report.py
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/artifacts/README.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/all_zeroshot_v1/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/input_order/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/input_order/consistency_v1/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/thinking_vs_instruct_v1/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_span_head/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/entropy_iou/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/integrated/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md
+- reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/REPORT.md
+- evidence/experiments/zero-shot/artifacts/runs/baseline/all_zeroshot/overview/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/baseline/all_zeroshot/overview/metrics/metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/all_zeroshot/overview/metrics/rollout_metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/all_zeroshot/overview/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/analyze.py
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/build_viewer.py
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/serve.py
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_gt_degradation.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_gt_improvement.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_normalized_shift.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/metrics/benchmark_metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/metrics/invalid_prediction_refs.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/baseline/thinking_vs_instruct/pilot/300/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/rollout_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/end_decimal_cases.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/rollout_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/end_decimal_cases.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe.py
+- code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe_after.py
+- code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/worker_before_cache.py
+- evidence/experiments/zero-shot/artifacts/runs/operations/mmco_diagnosis/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/boundary_oracle_inputs.py
+- code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/pilot900_inputs.py
+- evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/initial/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/recovery_20261103/status.json
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/gt_density_batch.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/pilot900_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/shared_selected_frames.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_before_overlap.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_pilot900.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_report.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/compute_cost.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/spatial_inputs.csv
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/gt_density_batch.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_runtime.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/pilot900_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/runtime_before_memory_fix.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep900.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_report.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metrics/axes.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metrics/metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/metrics/paired.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/protocol.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/reports/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/results/qwen25/shard0/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/results/qwen25/shard1/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/results/qwen3/shard0/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/results/qwen3/shard1/config.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/monitor.py
+- code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/report.py
+- code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/run.py
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen25/shard0/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen25/shard1/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen3/shard0/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen3/shard1/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen3/shard2/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen3/shard3/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/samples/qwen3/smoke/config.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/candidate_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/candidate_future.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/future_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/length_control.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/position_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metrics/three_axis_cross.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/group_statistics.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/role_statistics.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/conditions.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/digit_stratified.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/position_conditional_accuracy.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/role_conditions.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/web/style.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/candidate_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/candidate_future.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/future_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/length_control.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/per_blue_step.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/position_axis.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metrics/three_axis_cross.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/conditions.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/digit_stratified.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/per_endpoint.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/position_conditional_accuracy.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/role_conditions.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/web/style.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_iou/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_iou/metrics/per_query.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_iou/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/metadata/status.json
+- reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/REPORT.md
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/summary.json
+- reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/REPORT.md
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/summary.json
+- reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/REPORT.md
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/summary.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/web/style.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metrics/category_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metrics/digit_stratified_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metrics/endpoint_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metrics/excluded.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/viewer.js
+- reports/experiments/zero-shot/results/baseline/all_zeroshot/overview/REPORT.md
+- reports/experiments/zero-shot/results/baseline/input_order/overview/REPORT.md
+- reports/experiments/zero-shot/results/baseline/input_order/overview/consistency_v1/REPORT.md
+- reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/results/operations/inference_performance/full/9404/CACHE_REPORT.md
+- reports/experiments/zero-shot/results/operations/inference_performance/full/9404/PIPELINE_REVIEW.md
+- reports/experiments/zero-shot/results/operations/inference_performance/full/9404/REPORT.md
+- reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/v1/REPORT.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPATIAL_AUDIT.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_high.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_low.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_high.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_low.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/span_head/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/span_head/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/entropy_iou/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/integrated/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/numeric_uncertainty/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/prefix_entropy/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/overview/REPORT.md
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metadata/status.json
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metrics/dataset_metrics.csv
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metrics/paired_metrics.csv
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metrics/summary.json
+- code/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/code/source.py
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/config.json
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/status.json
+- evidence/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/dynamics/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/generation/distribution_analysis/metrics/sample_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/generation/distribution_analysis/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/generation/metrics/sample_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/generation/metrics/summary.json
+- code/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/fonts/LICENSE
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/metrics/entropy_matched_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/metrics/query_token_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/hidden/metrics/video_token_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/metrics/sample_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/query/metrics/sample_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/query/metrics/summary.json
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/spatial/metrics/counterfactual_metrics.csv
+- evidence/experiments/attention/artifacts/runs/token_attention/mtla/pilot/300/spatial/metrics/spatial_metrics.csv
+- reports/experiments/attention/results/input_order/timelens_instruct/full/9404/final_report.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/FINAL_REPORT.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/REPORT.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/SCHEMA.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/overview/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/dynamics/FINDINGS.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/FINDINGS.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/distribution_analysis/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/head_analysis/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/query/FINDINGS.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/overview/REPORT.md
+- evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/failure_modes/input_settings/pilot/200/metrics/baseline_paired_cases.csv
+- evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/failure_modes/input_settings/pilot/200/metrics/case_metrics.csv
+- evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/failure_modes/input_settings/pilot/200/metrics/setting_case_metrics.csv
+- evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/failure_modes/input_settings/pilot/200/metrics/stratified_analysis.csv
+- evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/failure_modes/input_settings/pilot/200/metrics/summary.json
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/failure_modes/input_settings/pilot/200/REPORT.md
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/failure_modes/input_settings/pilot/overview/REPORT.md
+- evidence/experiments/similarity/artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/config/config.json
+- evidence/experiments/similarity/artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/measurements/per_sample.csv
+- evidence/experiments/similarity/artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/measurements/summary.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/summary.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/clip/config.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/clip/status.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/qwen/config.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/qwen/status.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/summary.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/clip/config.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/clip/status.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/qwen/config.json
+- evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/qwen/status.json
+- reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/300/REPORT.md
+- reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/overview/REPORT.md
+- reports/experiments/similarity/results/frame_query/cosine_2fps/full/9404/REPORT.md
+- reports/experiments/similarity/results/frame_query/cosine_2fps/pilot/300/REPORT.md
+- reports/experiments/similarity/results/frame_query/cosine_2fps/pilot/overview/REPORT.md
+- code/experiments/_lib/cleanup_zero_shot_group_links.py
+- code/experiments/_lib/finalize_zero_shot_scopes.py
+- code/experiments/_lib/group_pilot_families.py
+- code/experiments/_lib/group_project_experiments.py
+- code/experiments/_lib/group_topic_first.py
+- code/experiments/_lib/group_zero_shot.py
+- code/experiments/_lib/pilot_catalog.py
+- code/experiments/_lib/project_pilot_catalog.py
+- code/experiments/_lib/repair_grouped_consumers.py
+- code/experiments/_lib/validate_project_grouping.py
+- code/experiments/_lib/validate_zero_shot_grouping.py
+- conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/run.py
+- code/experiments/zero-shot/_lib/adaptive_temporal_report.py
+- code/experiments/zero-shot/_lib/adaptive_temporal_sampling.py
+- code/experiments/zero-shot/_lib/aggregate_all_zeroshot.py
+- code/experiments/zero-shot/_lib/artifact_store.py
+- code/experiments/zero-shot/_lib/boundary_oracle_analysis.py
+- code/experiments/zero-shot/_lib/boundary_oracle_inputs.py
+- code/experiments/zero-shot/_lib/boundary_oracle_report.py
+- code/experiments/zero-shot/_lib/cleanup_duplicate_artifacts.py
+- code/experiments/zero-shot/_lib/compact_selected_frames.py
+- code/experiments/zero-shot/_lib/compare_thinking_instruct.py
+- code/experiments/zero-shot/_lib/conditional_rollout_budget.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- code/experiments/zero-shot/_lib/deterministic_rollout900.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/_lib/fps_spatial_control.py
+- code/experiments/zero-shot/_lib/fps_spatial_report.py
+- code/experiments/zero-shot/_lib/fps_spatial_supervisor.py
+- code/experiments/zero-shot/_lib/gt_actual_density.py
+- code/experiments/zero-shot/_lib/gt_actual_density_report.py
+- code/experiments/zero-shot/_lib/gt_dataset_diagnostics.py
+- code/experiments/zero-shot/_lib/gt_density_combined.py
+- code/experiments/zero-shot/_lib/gt_density_pilot.py
+- code/experiments/zero-shot/_lib/gt_density_prefetch.py
+- code/experiments/zero-shot/_lib/gt_density_queue.py
+- code/experiments/zero-shot/_lib/gt_density_sweep.py
+- code/experiments/zero-shot/_lib/gt_density_sweep_report.py
+- code/experiments/zero-shot/_lib/gt_fraction_comparison.py
+- code/experiments/zero-shot/_lib/gt_threshold_report.py
+- code/experiments/zero-shot/_lib/gt_video_fraction_axes.py
+- code/experiments/zero-shot/_lib/pilot900_actual.py
+- code/experiments/zero-shot/_lib/pilot900_density_report.py
+- code/experiments/zero-shot/_lib/pilot900_extent.py
+- code/experiments/zero-shot/_lib/pilot900_inputs.py
+- code/experiments/zero-shot/_lib/pilot900_overview.py
+- code/experiments/zero-shot/_lib/pilot900_prefetch.py
+- code/experiments/zero-shot/_lib/pilot900_report_tables.py
+- code/experiments/zero-shot/_lib/pilot900_supervisor.py
+- code/experiments/zero-shot/_lib/rollout_distribution_integrate.py
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer.js
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/_lib/rollout_token_distributions.py
+- code/experiments/zero-shot/_lib/shared_selected_frames.py
+- code/experiments/zero-shot/_lib/spatial_budget_pilot900.py
+- code/experiments/zero-shot/_lib/spatial_budget_report.py
+- code/experiments/zero-shot/_lib/spatial_budget_supervisor.py
+- code/experiments/zero-shot/_lib/spatial_sweep900.py
+- code/experiments/zero-shot/_lib/spatial_sweep_parallel_supervisor.py
+- code/experiments/zero-shot/_lib/spatial_sweep_report.py
+- code/experiments/zero-shot/_lib/spatial_sweep_report_s42.py
+- code/experiments/zero-shot/_lib/spatial_sweep_supervisor.py
+- code/experiments/zero-shot/_lib/temporal_pilot300_run.py
+- code/experiments/zero-shot/_lib/timelens_blue_analysis.py
+- code/experiments/zero-shot/_lib/timelens_blue_analysis_finish.py
+- code/experiments/zero-shot/_lib/timelens_digit_correctness.py
+- code/experiments/zero-shot/_lib/timelens_digit_correctness_browser.py
+- code/experiments/zero-shot/_lib/timelens_digit_correctness_finish.py
+- code/experiments/zero-shot/_lib/timelens_digit_correctness_serve.py
+- code/experiments/zero-shot/_lib/timelens_digit_role_entropy.py
+- code/experiments/zero-shot/_lib/timelens_endpoint_gt_entropy.py
+- code/experiments/zero-shot/_lib/timelens_entropy_integrated.py
+- code/experiments/zero-shot/_lib/timelens_entropy_integrated_browser.py
+- code/experiments/zero-shot/_lib/timelens_entropy_integrated_serve.py
+- code/experiments/zero-shot/_lib/timelens_entropy_iou.py
+- code/experiments/zero-shot/_lib/timelens_first_error_distance.py
+- code/experiments/zero-shot/_lib/timelens_full_blue_impl.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_browser.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_finish.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_impl.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_media.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_prepare.py
+- code/experiments/zero-shot/_lib/timelens_full_digit_serve.py
+- code/experiments/zero-shot/_lib/timelens_mmco_diagnose.py
+- code/experiments/zero-shot/_lib/timelens_numeric_uncertainty.py
+- code/experiments/zero-shot/_lib/timelens_prefix_entropy.py
+- code/experiments/zero-shot/_lib/timelens_profile_preparation.py
+- code/experiments/zero-shot/_lib/timelens_rollout.py
+- code/experiments/zero-shot/_lib/timelens_rollout_report.py
+- code/experiments/zero-shot/_lib/timelens_span_head.py
+- code/experiments/zero-shot/_lib/timelens_span_markdown.py
+- code/experiments/zero-shot/_lib/timelens_span_monitor.py
+- code/experiments/zero-shot/_lib/timelens_span_report.py
+- code/experiments/zero-shot/_lib/timelens_top30.py
+- code/experiments/zero-shot/_lib/timelens_top30_browser.py
+- code/experiments/zero-shot/_lib/timelens_top30_finish.py
+- code/experiments/zero-shot/_lib/timelens_top30_full_worker.py
+- code/experiments/zero-shot/_lib/timelens_top30_media.py
+- code/experiments/zero-shot/_lib/timelens_top30_progress.py
+- code/experiments/zero-shot/_lib/timelens_top30_report.py
+- code/experiments/zero-shot/_lib/timelens_top30_serve.py
+- code/experiments/zero-shot/_lib/timelens_validate_video_cache.py
+- code/experiments/zero-shot/_lib/timelens_verify_cached_pipeline.py
+- code/experiments/zero-shot/_lib/timelens_verify_throughput.py
+- code/experiments/zero-shot/_lib/wait_for_cache_cleanup.py
+- code/experiments/zero-shot/_lib/zeroshot_report.py
+- reports/experiments/zero-shot/artifacts/README.md
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.js
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
+- reports/experiments/attention/README.md
+- code/experiments/attention/_lib/dynamics_browser.py
+- code/experiments/attention/_lib/dynamics_plot.py
+- code/experiments/attention/_lib/spatial_viewer.py
+- code/experiments/attention/_lib/timelens_report.py
+- reports/experiments/attention/artifacts/README.md
+- reports/experiments/analysis/failure_mode_timestamp/README.md
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/README.md
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/README.md
+- reports/experiments/similarity/README.md
+- code/experiments/similarity/_lib/benchmark_16fps.py
+- code/experiments/similarity/_lib/integrate_adjacent.py
+- code/experiments/similarity/_lib/prepare.py
+- code/experiments/similarity/_lib/prepare_media.py
+- code/experiments/similarity/_lib/report.py
+- code/experiments/similarity/_lib/report_16fps.py
+- code/experiments/similarity/_lib/run_pipeline.py
+- reports/experiments/similarity/artifacts/README.md
+- code/experiments/_lib/build_index.py
+- code/experiments/_lib/check_comparison.py
+- code/experiments/_lib/check_index.py
+- code/experiments/_lib/check_result_viewers.py
+- code/experiments/_lib/organize_results.py
+- code/experiments/_lib/result_layout.py
+- code/experiments/_lib/unify_artifact_hierarchy.py
+- code/experiments/_lib/update_hierarchy_consumers.py
+- code/experiments/_lib/validate_result_layout.py
+- 원본 부재: code/experiments/zero-shot/_lib/zeroshot_metrics_png.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metrics/metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metrics/rollout_metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_supervisor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_supervisor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/recovery_20261103/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/analyze.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/build_viewer.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/code/serve.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metrics/largest_gt_degradation.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metrics/largest_gt_improvement.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metrics/largest_normalized_shift.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/metrics/benchmark_metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/metrics/invalid_prediction_refs.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/input_order/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/boundary_oracle_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/code/pilot900_inputs.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/metadata/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/gt_density_batch.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/pilot900_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/shared_selected_frames.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_before_overlap.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_pilot900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/code/spatial_budget_report.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metrics/compute_cost.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metrics/metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metrics/spatial_inputs.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/gt_density_batch.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/memory_fix_spatial_sweep_supervisor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/pilot900_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/runtime_before_memory_fix.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/code/spatial_sweep_report.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metrics/axes.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metrics/metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/thinking_vs_instruct_v1/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/metrics/paired.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/protocol.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/reports/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/results/qwen25/shard0/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/results/qwen25/shard1/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/results/qwen3/shard0/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/results/qwen3/shard1/config.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/scripts/monitor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/scripts/report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_span_head/provenance/aborted_old_cohort/scripts/run.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen25/shard0/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen25/shard1/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen3/shard0/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen3/shard1/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen3/shard2/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen3/shard3/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/samples/qwen3/smoke/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/candidate_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/candidate_future.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/future_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/length_control.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/per_blue_step.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/position_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metrics/three_axis_cross.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/conditions.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/digit_stratified.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/per_endpoint.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/position_conditional_accuracy.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/role_conditions.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/web/manifest.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/web/style.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/web/viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/entropy_iou/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/entropy_iou/metrics/per_query.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/entropy_iou/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/metadata/status.json
+- 원본 부재: reports/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/digit_role_entropy/REPORT.md
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/digit_role_entropy/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/digit_role_entropy/summary.json
+- 원본 부재: reports/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/endpoint_gt_entropy/REPORT.md
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/endpoint_gt_entropy/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/endpoint_gt_entropy/summary.json
+- 원본 부재: reports/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/prefix_entropy/REPORT.md
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/prefix_entropy/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/prefix_entropy/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/web/manifest.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/web/style.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/web/viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/mmco_diagnosis/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metrics/category_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metrics/digit_stratified_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metrics/endpoint_role_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/prefix_entropy/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/prefix_entropy/metrics/excluded.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30/prefix_entropy/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/web/manifest.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30/web/viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/candidate_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/candidate_future.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/future_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/length_control.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/position_axis.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/summary.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metrics/three_axis_cross.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/first_error_distance/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/first_error_distance/metrics/group_statistics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/first_error_distance/metrics/role_statistics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metrics/conditions.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metrics/digit_stratified.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metrics/position_conditional_accuracy.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metrics/role_conditions.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/web/style.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/web/viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/metadata/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30_full/performance/code/observe.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30_full/performance/code/observe_after.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_top30_full/performance/code/worker_before_cache.py
+- 원본 부재: reports/experiments/zero-shot/results/all_zeroshot_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md
+- 원본 부재: reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/input_order/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/input_order/consistency_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/legacy_quantitative/README.md
+- 원본 부재: reports/experiments/zero-shot/results/selected_frame_cache_migration_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_300.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_600.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_high.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_low.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_high.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_low.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/thinking_vs_instruct_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_span_head/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/digit_correctness/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/entropy_iou/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/integrated/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_top30_full/performance/REPORT.md
+- 원본 부재: evidence/experiments/attention/artifacts/runs/dynamics/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/generation/distribution_analysis/metrics/sample_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/generation/distribution_analysis/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/generation/metrics/sample_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/generation/metrics/summary.json
+- 원본 부재: code/experiments/attention/artifacts/runs/hidden/fonts/LICENSE
+- 원본 부재: evidence/experiments/attention/artifacts/runs/hidden/metrics/entropy_matched_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/hidden/metrics/query_token_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/hidden/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/hidden/metrics/video_token_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/overview/metrics/sample_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/overview/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/query/metrics/sample_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/query/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/spatial/metrics/counterfactual_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/spatial/metrics/spatial_metrics.csv
+- 원본 부재: code/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/code/source.py
+- 원본 부재: evidence/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/metadata/config.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/metadata/status.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/metrics/summary.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/timelens_order/metadata/status.json
+- 원본 부재: evidence/experiments/attention/artifacts/runs/timelens_order/metrics/dataset_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/timelens_order/metrics/paired_metrics.csv
+- 원본 부재: evidence/experiments/attention/artifacts/runs/timelens_order/metrics/summary.json
+- 원본 부재: reports/experiments/attention/results/dynamics/FINDINGS.md
+- 원본 부재: reports/experiments/attention/results/generation/FINDINGS.md
+- 원본 부재: reports/experiments/attention/results/generation/distribution_analysis/REPORT.md
+- 원본 부재: reports/experiments/attention/results/generation/head_analysis/REPORT.md
+- 원본 부재: reports/experiments/attention/results/overview/REPORT.md
+- 원본 부재: reports/experiments/attention/results/query/FINDINGS.md
+- 원본 부재: reports/experiments/attention/results/thinking_pilot_orders_v1/FINAL_REPORT.md
+- 원본 부재: reports/experiments/attention/results/thinking_pilot_orders_v1/REPORT.md
+- 원본 부재: reports/experiments/attention/results/thinking_pilot_orders_v1/SCHEMA.md
+- 원본 부재: reports/experiments/attention/results/timelens_order/final_report.md
+- 원본 부재: evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/pilot_100/metrics/baseline_paired_cases.csv
+- 원본 부재: evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/pilot_100/metrics/case_metrics.csv
+- 원본 부재: evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/pilot_100/metrics/setting_case_metrics.csv
+- 원본 부재: evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/pilot_100/metrics/stratified_analysis.csv
+- 원본 부재: evidence/experiments/analysis/failure_mode_timestamp/failure_cases/artifacts/runs/pilot_100/metrics/summary.json
+- 원본 부재: reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/pilot_100/REPORT.md
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/full_9404_v1/summary.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/full_9404_v1/clip/config.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/full_9404_v1/clip/status.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/full_9404_v1/qwen/config.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/full_9404_v1/qwen/status.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_16fps_cost_v1/config/config.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_16fps_cost_v1/measurements/per_sample.csv
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_16fps_cost_v1/measurements/summary.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_v1/summary.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_v1/clip/config.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_v1/clip/status.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_v1/qwen/config.json
+- 원본 부재: evidence/experiments/similarity/artifacts/runs/pilot_300_v1/qwen/status.json
+- 원본 부재: reports/experiments/similarity/results/full_9404_v1/REPORT.md
+- 원본 부재: reports/experiments/similarity/results/pilot_300_16fps_cost_v1/REPORT.md
+- 원본 부재: reports/experiments/similarity/results/pilot_300_v1/REPORT.md

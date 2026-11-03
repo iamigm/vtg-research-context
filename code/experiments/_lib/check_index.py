@@ -12,8 +12,8 @@ with sync_playwright() as p:
  browser=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--autoplay-policy=no-user-gesture-required'])
  page=browser.new_page(viewport={'width':1440,'height':1000})
  page.goto('http://127.0.0.1:8780/',wait_until='networkidle')
- links=page.locator('h3 a').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("href"))')
- assert len(links)==21
+ links=page.locator('article h3 a').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("href")).filter(href=>href.endsWith(".html"))')
+ assert len(links)==sum(len(list((ROOT/project/'results').rglob('*.html'))) for project in __import__('build_index').PROJECTS)
  page.locator('#search').fill('no-such-experiment-xyz');assert page.locator('#empty').is_visible()
  page.locator('#search').fill('');page.locator('#project').select_option('similarity')
  assert page.locator('article:visible').count()==3
@@ -27,7 +27,7 @@ with sync_playwright() as p:
   assert response.status==200
   home=view.locator('[data-experiment-home] a');assert home.count()==1
   assert home.evaluate('(a)=>a.href')=='http://127.0.0.1:8780/index.html'
-  if 'timelens_top30/report.html' in link:
+  if '/pilot/uncertainty/token_analysis/300/report.html' in link:
    view.wait_for_function("[...document.querySelectorAll('video')].some(v=>v.readyState>=2&&v.videoWidth>0)",timeout=30000)
    video=view.locator('video').first;video.evaluate('(v)=>{v.muted=true;v.play()}')
    view.wait_for_function("document.querySelector('video').currentTime>.15")

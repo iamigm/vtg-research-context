@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import fcntl,json,os,time
 from timelens_paths import PILOT_SAMPLES
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/timelens_top30')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];OUT=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')
 def read(path):return json.loads(path.read_text())
 def alive(pid):
     try:return relocate_path(Path(f'/proc/{pid}/stat')).read_text().split()[2]!='Z'

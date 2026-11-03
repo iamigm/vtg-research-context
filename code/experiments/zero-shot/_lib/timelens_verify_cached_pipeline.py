@@ -2,7 +2,7 @@
 from result_layout import relocate_path, write_result_text, result_glob
 from pathlib import Path
 import json,time,subprocess,statistics
-ROOT=relocate_path(Path(__file__)).resolve().parents[1]; BASE=relocate_path(ROOT/'results/timelens_top30_full'); OUT=relocate_path(BASE/'performance')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1]; BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404'); OUT=relocate_path(BASE/'performance')
 start=time.time(); gpu=[]; models=['qwen25','qwen3']
 while True:
     groups={m:[] for m in models}

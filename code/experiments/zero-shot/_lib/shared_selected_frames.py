@@ -1,3 +1,4 @@
+from result_layout import relocate_path
 """Shared source-frame cache. Metadata/PTS remain full; RGB arrays contain only requested IDs."""
 import os,fcntl,hashlib
 from pathlib import Path
@@ -19,13 +20,13 @@ def load_selected(cache,ids):
     mp=manifest_path(cache)
     if not mp.exists():
         loc={i:j for j,i in enumerate(cache['ids'])}
-        return np.array(np.load(cache['path'],mmap_mode='r')[[loc[i] for i in ids]])
+        return np.array(np.load(relocate_path(Path(cache['path'])),mmap_mode='r')[[loc[i] for i in ids]])
     mp.parent.mkdir(parents=True,exist_ok=True)
     with mp.with_suffix('.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
         m=read(mp);loc={i:j for j,i in enumerate(m['ids'])};missing=set(ids)-set(loc)
         if missing:m=extend(cache,m,missing);loc={i:j for j,i in enumerate(m['ids'])}
-        selected=np.array(np.load(m['path'],mmap_mode='r')[[loc[i] for i in ids]])
+        selected=np.array(np.load(relocate_path(Path(m['path'])),mmap_mode='r')[[loc[i] for i in ids]])
         need(all(hashlib.sha256(a.tobytes()).hexdigest()==m['rgb_hashes'][loc[i]] for a,i in zip(selected,ids)),'Selected shared RGB checksum mismatch')
         return selected
 
@@ -42,7 +43,7 @@ def extend(cache,m,missing):
         for i,a in zip(wanted,frames):
             expected=cache['resized_rgb_hashes'][locations[i]]
             need(hashlib.sha256(a.tobytes()).hexdigest()==expected,'On-demand RGB differs from original decoder cache');new[i]=a
-    old=np.load(m['path'],mmap_mode='r');loc={i:j for j,i in enumerate(m['ids'])};allids=sorted(set(m['ids'])|missing);tmp=Path(m['path']).with_suffix('.extending.npy');arr=np.lib.format.open_memmap(tmp,mode='w+',dtype=np.uint8,shape=(len(allids),*old.shape[1:]));hashes=[]
+    old=np.load(relocate_path(Path(m['path'])),mmap_mode='r');loc={i:j for j,i in enumerate(m['ids'])};allids=sorted(set(m['ids'])|missing);tmp=relocate_path(Path(m['path'])).with_suffix('.extending.npy');arr=np.lib.format.open_memmap(tmp,mode='w+',dtype=np.uint8,shape=(len(allids),*old.shape[1:]));hashes=[]
     for j,i in enumerate(allids):
         a=new[i] if i in new else old[loc[i]];arr[j]=a;hashes.append(hashlib.sha256(a.tobytes()).hexdigest())
-    arr.flush();del arr,old;os.replace(tmp,m['path']);m.update(ids=allids,rgb_hashes=hashes,sha256=sha(m['path']),updated_at=stamp());write(manifest_path(cache),m);return m
+    arr.flush();del arr,old;os.replace(tmp,relocate_path(Path(m['path'])));m.update(ids=allids,rgb_hashes=hashes,sha256=sha(m['path']),updated_at=stamp());write(manifest_path(cache),m);return m

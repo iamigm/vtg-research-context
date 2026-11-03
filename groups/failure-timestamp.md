@@ -4,9 +4,9 @@ Charades·QVHighlights 각100 query. Qwen2.5 native / TimeLens-7B식 입력 / Qw
 
 ## 실행별 보고서·관련 코드
 
-### analysis/failure_mode_timestamp/failure_cases/pilot_100
+### analysis/failure_mode_timestamp/failure_cases/failure_modes
 
-[REPORT.md](../reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/pilot_100/REPORT.md)
+[REPORT.md](../reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/failure_modes/input_settings/pilot/200/REPORT.md) · [REPORT.md](../reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/failure_modes/input_settings/pilot/overview/REPORT.md)
 
 현재 관련 코드 24개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 

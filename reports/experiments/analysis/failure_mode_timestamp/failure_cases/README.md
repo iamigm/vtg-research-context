@@ -55,25 +55,18 @@ TimeLens-7B식 Qwen2.5 입력만 이 문장 앞에 timestamp 설명 문구를 �
 
 ## 결과와 검토
 
-- [세 세팅 결과 보고서](results/pilot_100/REPORT.md)
-- [실제 영상과 GT/예측 구간 비교](artifacts/runs/pilot_100/data/cases/report.html)
-- [세 세팅 전체 query 표](results/pilot_100/report.html), [CSV](artifacts/runs/pilot_100/metrics/setting_case_metrics.csv)
-- [Qwen2.5 입력 변환의 paired 비교](artifacts/runs/pilot_100/metadata/baseline_comparison.json)
-- [입력 예산/시간 검증](artifacts/runs/pilot_100/validation/paired_input_validation.json), [공식 evaluator 대조](artifacts/runs/pilot_100/validation/validation.json)
+- [세 세팅 결과 보고서](results/failure_modes/input_settings/pilot/200/REPORT.md)
+- [실제 영상과 GT/예측 구간 비교](artifacts/runs/failure_modes/input_settings/pilot/200/data/cases/report.html)
+- [세 세팅 전체 query 표](results/failure_modes/input_settings/pilot/200/report.html), [CSV](artifacts/runs/failure_modes/input_settings/pilot/200/metrics/setting_case_metrics.csv)
+- [Qwen2.5 입력 변환의 paired 비교](artifacts/runs/failure_modes/input_settings/pilot/200/metadata/baseline_comparison.json)
+- [입력 예산/시간 검증](artifacts/runs/failure_modes/input_settings/pilot/200/validation/paired_input_validation.json), [공식 evaluator 대조](artifacts/runs/failure_modes/input_settings/pilot/200/validation/validation.json)
 
 기존 기본 입력 결과: `/home/irteam/analysis/failure_mode_baseline/failure_cases/results/pilot_100/{qwen25,qwen3}`.
-Qwen2.5 변환 결과: `artifacts/runs/pilot_100/predictions/qwen25`. Qwen3 변환 결과 디렉터리는 삭제했다.
+Qwen2.5 변환 결과: `artifacts/runs/failure_modes/input_settings/pilot/200/predictions/qwen25`. Qwen3 변환 결과 디렉터리는 삭제했다.
 
 ## 영상 갤러리 접속
 
-[Web IDE 프록시로 열기](https://kpb4r.mlxp.ncloud.com/notebook/p-aivision-project/aivision-gm/proxy/8765/artifacts/data/cases/). Web IDE에 로그인한 같은 브라우저에서 사용한다. 서버는 `127.0.0.1:8765`에서 실행한다.
-
-```bash
-cd /home/irteam/experiments/analysis/failure_mode_timestamp/failure_cases
-.venv/bin/python _lib/serve_gallery.py --port 8765
-```
-
-원본 H.264 stream을 재인코딩 없이 무음으로 remux한 `cases/media/`를 사용한다. GT·예측 막대를 누르면 구간 재생/반복이 가능하며 원래 응답과 정수 반올림 구간을 전환할 수 있다. 영상 밖 예측은 원값 그대로 보여준다. `cases/` 전체를 옮겨 오프라인으로 열 수도 있다.
+공통 [실험 목록](../../../index.html)의 실패 분석에서 연다. 통합 서버8780 하나를 사용한다. [pilot200 결과](results/failure_modes/input_settings/pilot/200/report.html)는 Charades100·QVHighlights100 질문이다. 과거 run_id pilot_100은 데이터셋별 개수이며 보존된 식별자다.
 
 ## 재현
 

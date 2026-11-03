@@ -2,7 +2,7 @@
 from result_layout import relocate_path, write_result_text
 from pathlib import Path
 import json,re,time,hashlib,os
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404')
 def write(path,data):
     path.parent.mkdir(parents=True,exist_ok=True);write_result_text(path, json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 def span_iou(gt,pred):

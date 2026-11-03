@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T01:47:13.883220+09:00",
+  "observed_at": "2026-11-04T03:02:31.147942+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -8,9 +8,14 @@
       "sha256": "e4e6f020381945391b81020998904f7b9520f09e6d95b48c25ff7dca5964114f"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/all_zeroshot_v1/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/baseline/all_zeroshot/overview/metadata/status.json",
       "source_modified_at": "2026-11-02T19:28:59.798582+09:00",
       "sha256": "cb4146ad51ec2c0104f2a21122f3d85ff72164b85dd555b866b38d45e9c56c85"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metadata/status.json",
+      "source_modified_at": "2026-10-23T21:20:18.505846+09:00",
+      "sha256": "a29ea15359ec2ef423012b4c55a377d22c66113908ed9b9be58798d7ea7413e7"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json",
@@ -24,46 +29,46 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json",
-      "source_modified_at": "2026-11-03T19:08:37.677436+09:00",
-      "sha256": "d5c396d00c2fc27ec2d5a71f0fc95afaf576ce18b735241d2c0adc7bbdf3f4ec"
+      "source_modified_at": "2026-11-04T02:01:14.311929+09:00",
+      "sha256": "cad3331673814c91bced0361b5267157d4364d1d9b00bcae5a31f73a95feade2"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json",
-      "source_modified_at": "2026-11-04T00:40:39.602500+09:00",
-      "sha256": "9500bf30ae8801248d3f81b96211b2add9eac7056352a15ed29ad48f9a1e3f6d"
+      "source_modified_at": "2026-11-04T02:34:55.500342+09:00",
+      "sha256": "429c1fa30d28ae9b8f6b5f966f6212a2b73e8de3cc8ba4c4d32a96549ddd2c77"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json",
-      "source_modified_at": "2026-11-04T01:47:06.637550+09:00",
-      "sha256": "bea071623466dd9a84a9a2991b0af3cb3ccfe176e2c10416e16cc2a52f7be308"
+      "source_modified_at": "2026-11-04T03:02:22.294876+09:00",
+      "sha256": "673b21fcdd2917c42c9b747e29b91943223269a091ebc92cbb6bfa2e7bbd542e"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json",
-      "source_modified_at": "2026-11-04T01:17:25.993220+09:00",
-      "sha256": "23795fabeede156baf8c298d07fb618cbe4e0c650667d3a9960ef0a4c0587ff8"
+      "path": "evidence/experiments/zero-shot/artifacts/runs/operations/mmco_diagnosis/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-10-20T10:33:13.760074+09:00",
+      "sha256": "3ca7aaff6a2e08b419885b663036a278e6ff0df75d0a5ceb4799c31082bf1a5c"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/recovery_20261103/status.json",
-      "source_modified_at": "2026-11-03T15:03:20.098049+09:00",
-      "sha256": "c75e0d90398e579b4cd6d709d5830e4721560986fe94709809909261bb306bc9"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/input_order/consistency_v1/metadata/status.json",
-      "source_modified_at": "2026-10-23T21:20:18.505846+09:00",
-      "sha256": "a29ea15359ec2ef423012b4c55a377d22c66113908ed9b9be58798d7ea7413e7"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/selected_frame_cache_migration_v1/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/metadata/status.json",
       "source_modified_at": "2026-11-01T11:07:58.196076+09:00",
       "sha256": "55a3ca34c48afd8f99192cac23e44296db7c003cda6dceeb4a41fb723b831381"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/spatial_budget_pilot900_v1/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-11-04T01:17:25.993220+09:00",
+      "sha256": "23795fabeede156baf8c298d07fb618cbe4e0c650667d3a9960ef0a4c0587ff8"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/recovery_20261103/status.json",
+      "source_modified_at": "2026-11-03T15:03:20.098049+09:00",
+      "sha256": "c75e0d90398e579b4cd6d709d5830e4721560986fe94709809909261bb306bc9"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-02T00:54:16.328641+09:00",
       "sha256": "7bf16c90423e6aa9f977c135b950f3ea1bd8484b4895d4b116abe9ac08250179"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-03T02:02:37.258782+09:00",
       "sha256": "50f1739c9c87fc8d1439f0620ad38cdf865d0f144b1d57178443ccf79d98b3c4"
     },
@@ -73,112 +78,107 @@
       "sha256": "27a8f1085c4cdb6807d01cca3c4c6b2d4c746d2d62bb9f1e366cc3861ba0a519"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_span_head/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/metadata/status.json",
       "source_modified_at": "2026-10-19T19:49:50.200927+09:00",
       "sha256": "3de6f76d8d9f2b9141d09b8177203f8e7f45c81a7e68023ec3adcf9ce9e72733"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/blue_analysis/metadata/status.json",
-      "source_modified_at": "2026-10-23T15:18:50.622366+09:00",
-      "sha256": "76f1dca845aa0bddb6bf989c8709850c3ad79f8f2e2a75a00777e6249ade73c7"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/digit_correctness/metadata/status.json",
-      "source_modified_at": "2026-10-23T14:12:39.766500+09:00",
-      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/entropy_iou/metadata/status.json",
-      "source_modified_at": "2026-10-22T16:35:16.867149+09:00",
-      "sha256": "2d3525183fd3d10d189ec57159a13d5d070e3d0692cdd4e55f74cdc0214ffc75"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/metadata/status.json",
-      "source_modified_at": "2026-10-22T20:10:44.145725+09:00",
-      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/digit_role_entropy/status.json",
-      "source_modified_at": "2026-10-22T17:48:43.136240+09:00",
-      "sha256": "1644af7049718894b34829a7a90484adf32faca1be727fdfbef73f6a6f160018"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/endpoint_gt_entropy/status.json",
-      "source_modified_at": "2026-10-22T17:36:50.245214+09:00",
-      "sha256": "47920ce013ce2a6592b359e07dd18c89310740143eed04d4c29034ef4351ceaa"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/integrated/sources/prefix_entropy/status.json",
-      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
-      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/metadata/status.json",
-      "source_modified_at": "2026-10-20T11:44:51.004886+09:00",
-      "sha256": "5f6b4e089ca6b35386ca26a1c9dddeb9544939be95c0a976add4e2d8789430e7"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/mmco_diagnosis/metadata/status.json",
-      "source_modified_at": "2026-10-20T10:33:13.760074+09:00",
-      "sha256": "3ca7aaff6a2e08b419885b663036a278e6ff0df75d0a5ceb4799c31082bf1a5c"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/numeric_uncertainty/metadata/status.json",
-      "source_modified_at": "2026-10-22T20:19:38.131974+09:00",
-      "sha256": "817855ac8deaea6b87a8eb9ade7acd4265499cba77d5358b13abc114b6fbaf28"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30/prefix_entropy/metadata/status.json",
-      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
-      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/blue_analysis/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metadata/status.json",
       "source_modified_at": "2026-10-23T23:59:31.302521+09:00",
       "sha256": "17e5219ac9699bacd4410439f7294cc0e43cc35051d7b22abd6b264e0e82aba5"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/first_error_distance/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metadata/status.json",
       "source_modified_at": "2026-10-25T15:11:33.042818+09:00",
       "sha256": "cc3b8e9ece07785d56dc26450338bf73fb4a2c81a78162351ab8d8d5ba3b0ee2"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/digit_correctness/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metadata/status.json",
       "source_modified_at": "2026-10-23T23:59:41.920480+09:00",
       "sha256": "37fe5d5107942454905d0d26a99f9cdbd47c9db456b5b47247871f8202ee3473"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_top30_full/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/metadata/status.json",
       "source_modified_at": "2026-10-23T23:59:41.971480+09:00",
       "sha256": "1f51a59e65de9c071657636cfa9e962802ef8a6639462b74665edc70c425d16b"
     },
     {
-      "path": "evidence/experiments/attention/artifacts/runs/thinking_pilot_orders_v1/metadata/status.json",
-      "source_modified_at": "2026-10-25T19:54:21.084663+09:00",
-      "sha256": "c36ebf5e817e5177e9eee38aede1a36f07dd6b9ec97c9761c909c4c57401f293"
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metadata/status.json",
+      "source_modified_at": "2026-10-23T15:18:50.622366+09:00",
+      "sha256": "76f1dca845aa0bddb6bf989c8709850c3ad79f8f2e2a75a00777e6249ade73c7"
     },
     {
-      "path": "evidence/experiments/attention/artifacts/runs/timelens_order/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metadata/status.json",
+      "source_modified_at": "2026-10-23T14:12:39.766500+09:00",
+      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_iou/metadata/status.json",
+      "source_modified_at": "2026-10-22T16:35:16.867149+09:00",
+      "sha256": "2d3525183fd3d10d189ec57159a13d5d070e3d0692cdd4e55f74cdc0214ffc75"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/metadata/status.json",
+      "source_modified_at": "2026-10-22T20:10:44.145725+09:00",
+      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/status.json",
+      "source_modified_at": "2026-10-22T17:48:43.136240+09:00",
+      "sha256": "1644af7049718894b34829a7a90484adf32faca1be727fdfbef73f6a6f160018"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/status.json",
+      "source_modified_at": "2026-10-22T17:36:50.245214+09:00",
+      "sha256": "47920ce013ce2a6592b359e07dd18c89310740143eed04d4c29034ef4351ceaa"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/status.json",
+      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
+      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-10-20T11:44:51.004886+09:00",
+      "sha256": "5f6b4e089ca6b35386ca26a1c9dddeb9544939be95c0a976add4e2d8789430e7"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metadata/status.json",
+      "source_modified_at": "2026-10-22T20:19:38.131974+09:00",
+      "sha256": "817855ac8deaea6b87a8eb9ade7acd4265499cba77d5358b13abc114b6fbaf28"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metadata/status.json",
+      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
+      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
+    },
+    {
+      "path": "evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metadata/status.json",
       "source_modified_at": "2026-10-16T09:25:16.844421+09:00",
       "sha256": "469418e5c1e8791e89e70d53944d323a446a32f7d439a7269c897b04c67fceda"
     },
     {
-      "path": "evidence/experiments/similarity/artifacts/runs/full_9404_v1/clip/status.json",
+      "path": "evidence/experiments/attention/artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-10-25T19:54:21.084663+09:00",
+      "sha256": "c36ebf5e817e5177e9eee38aede1a36f07dd6b9ec97c9761c909c4c57401f293"
+    },
+    {
+      "path": "evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/clip/status.json",
       "source_modified_at": "2026-10-30T10:19:04.617675+09:00",
       "sha256": "75a21a157782e9792565b5b08a7f81e4c12c79df4da3d48f383b67465888a957"
     },
     {
-      "path": "evidence/experiments/similarity/artifacts/runs/full_9404_v1/qwen/status.json",
+      "path": "evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/full/9404/qwen/status.json",
       "source_modified_at": "2026-10-30T10:20:20.177309+09:00",
       "sha256": "d8504f4bcc710637746fd24956d860f8333ed8e63903781062a598fbf6a3a54e"
     },
     {
-      "path": "evidence/experiments/similarity/artifacts/runs/pilot_300_v1/clip/status.json",
+      "path": "evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/clip/status.json",
       "source_modified_at": "2026-10-29T19:26:26.721902+09:00",
       "sha256": "a3cb32a2de42b3da855f68d929fedac4869dacb30fecc158efe05541ebbcfdeb"
     },
     {
-      "path": "evidence/experiments/similarity/artifacts/runs/pilot_300_v1/qwen/status.json",
+      "path": "evidence/experiments/similarity/artifacts/runs/frame_query/cosine_2fps/pilot/300/qwen/status.json",
       "source_modified_at": "2026-10-29T19:37:41.297150+09:00",
       "sha256": "216939bb5dfc3fcc0d33a59b0d51cf20e07e7bfcdbca0fc0e7a153e22af7d4a9"
     }

@@ -9,7 +9,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import re
 
-RESULT_VIEW = relocate_path(relocate_path(Path(__file__)).resolve().parents[1] / 'results/timelens_top30_full/digit_correctness')
+RESULT_VIEW = relocate_path(relocate_path(Path(__file__)).resolve().parents[1] / 'results/uncertainty/token_analysis/full/9404/digit_correctness')
 ROOT = Path('/home/irteam/experiments')
 LANDING = '/' + str(RESULT_VIEW).replace('/home1/irteam/','/home/irteam/').split('/experiments/',1)[1] + '/report.html'
 

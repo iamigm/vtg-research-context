@@ -2,7 +2,7 @@
 from result_layout import relocate_path, write_result_text, copy_result_file
 from pathlib import Path
 import json,csv,os,shutil,time,traceback
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'integrated');ASSETS=relocate_path(ROOT/'_lib/entropy_viewer')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'integrated');ASSETS=relocate_path(ROOT/'_lib/entropy_viewer')
 def link_asset(source,dest):
     import os
     source=relocate_path(Path(source));dest=relocate_path(Path(dest))

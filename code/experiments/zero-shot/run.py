@@ -36,7 +36,7 @@ def main():
     if args.command=='span-head' and args.action=='report':invoke('timelens_span_report');return
     if args.command=='top30' and args.action=='report':invoke('timelens_top30_report');return
     if args.command=='top30' and args.action=='serve':
-        out=relocate_path(ROOT/'results/timelens_top30');record=relocate_path(out/'server.json')
+        out=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot300');record=relocate_path(out/'server.json')
         if record.exists():
             old=json.loads(record.read_text());cmd=relocate_path(Path(f'/proc/{old["pid"]}/cmdline'))
             if cmd.exists() and b'timelens_top30_serve.py' in cmd.read_bytes():

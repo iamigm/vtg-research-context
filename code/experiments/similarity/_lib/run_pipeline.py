@@ -1,4 +1,5 @@
 """Logged, resumable cohort pipeline with automatic reports and validation."""
+from result_layout import relocate_path
 import concurrent.futures
 import argparse
 from collections import Counter
@@ -13,7 +14,7 @@ import subprocess
 import sys
 import time
 from zoneinfo import ZoneInfo
-from prepare import ROOT,VIEW,OUT,MANIFEST,video_key,write
+from prepare import ROOT,VIEW,OUT,MANIFEST,video_key,write, RUN
 
 def stamp():return datetime.now(ZoneInfo('Asia/Seoul')).isoformat()
 
@@ -28,7 +29,7 @@ def link_tree(source,target):
         elif p.is_file() and p.suffix!='.tmp' and not dest.exists():os.link(p,dest)
 
 def seed_pilot(rows):
-    pilot=ROOT/'artifacts/runs/pilot_300_v1'
+    pilot=relocate_path(ROOT/'artifacts/runs/pilot_300_v1')
     if OUT==pilot or not pilot.exists():return {}
     wanted={video_key(s['video_path']) for s in rows}
     started=time.monotonic();count=0
@@ -57,7 +58,7 @@ def main():
     parser.add_argument('--postprocess-only',action='store_true',help='Resume CPU scores/reports using completed embeddings; never load GPU weights')
     args=parser.parse_args()
     OUT.mkdir(parents=True,exist_ok=True)
-    logs=ROOT/'artifacts/runs'/VIEW.name/'logs';logs.mkdir(parents=True,exist_ok=True)
+    logs=OUT/'logs';logs.mkdir(parents=True,exist_ok=True)
     lock=(logs/'pipeline.lock').open('a')
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     rows=json.loads(MANIFEST.read_text())
@@ -66,11 +67,11 @@ def main():
     paths=list(dict.fromkeys(s['video_path'] for s in rows));keys={video_key(p) for p in paths}
     total=len(keys);datasets=dict(Counter(s['dataset'] for s in rows))
     write(OUT/'samples.json',rows)
-    status=dict(run=VIEW.name,stage='starting',samples=len(rows),videos=total,datasets=datasets,
+    status=dict(run=RUN,stage='starting',samples=len(rows),videos=total,datasets=datasets,
                 started_at=stamp(),manifest=str(MANIFEST),
                 manifest_sha256=hashlib.sha256(MANIFEST.read_bytes()).hexdigest(),pid=os.getpid())
     write(logs/'status.json',status)
-    log(f'START {VIEW.name}: {len(rows)} queries, {total} unique videos, datasets={datasets}')
+    log(f'START {RUN}: {len(rows)} queries, {total} unique videos, datasets={datasets}')
     started=time.monotonic();children={};handles=[]
     try:
         status['cache_reuse']=seed_pilot(rows)

@@ -82,7 +82,7 @@ def worker(args):
     verified=set()
     eos=model.generation_config.eos_token_id;eos=eos if isinstance(eos,list) else [eos]
     for item in loader:
-        s=item['sample'];baseline=read(baseline_path(args.model,s));prior=read(relocate_path(ROOT/'results/timelens_top30'/args.model/(s['sample_key']+'.json')))
+        s=item['sample'];baseline=read(baseline_path(args.model,s));prior=read(relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300'/args.model/(s['sample_key']+'.json')))
         assert item['input_sha256']==prior['input_ids_sha256'],s['sample_key']
         inputs=item['inputs'].to('cuda');n=inputs.input_ids.shape[1];presence.prompt_length=n
         for variant in ['top_k','top_p']:

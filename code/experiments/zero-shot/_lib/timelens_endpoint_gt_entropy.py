@@ -9,7 +9,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from timelens_prefix_entropy import metric,MODELS,DATASETS,THRESHOLDS
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'endpoint_gt_entropy')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'endpoint_gt_entropy')
 def read(p):return json.loads(p.read_text())
 def write(name,obj):write_result_text((relocate_path(OUT/name)), json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
 def csvfile(name,rows):

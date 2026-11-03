@@ -1,4 +1,5 @@
 """Read-only bridge to prior inputs; full-source-frame cache for boundary tests."""
+from result_layout import relocate_path
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -8,8 +9,8 @@ import os,time,copy,json,threading,traceback
 from shared_selected_frames import load_selected,available_metadata
 RUN='gt_extent_boundary_density_pilot900_v1'
 ROOT=old.ROOT
-OUT=ROOT/'artifacts/runs'/RUN
-REPORT=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT=relocate_path(ROOT/'results'/RUN)
 
 def records():
     rows=read(ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json');previous={r['sample']['sample_key']:r for r in read(old.OUT/'metadata/baseline_records.json')};result=[]
@@ -73,7 +74,7 @@ def prepare_video(group):
     key=objhash(dict(video_sha256=actual,N=N,grid=[H,W],decoder='decord-0.6.0',resize='torchvision bicubic antialias uint8',processor=sha(old.MODEL/'video_preprocessor_config.json'),pts=pts))
     target=OUT/'frames'/(key+'.npy');meta_path=target.with_suffix('.json');target.parent.mkdir(parents=True,exist_ok=True)
     for reusable in ['boundary_oracle_budget_pilot_v1','temporal_sampling_pilot300_v2','gt_interval_density_pilot300_v1','gt_extent_boundary_density_pilot900_v1']:
-        prepared=ROOT/'artifacts/runs'/reusable/'frames'/(key+'.json')
+        prepared=relocate_path(ROOT/'artifacts/runs'/reusable/'frames'/(key+'.json'))
         if prepared.exists():
             metadata=read(prepared);need(metadata['sha256']==sha(metadata['path']),'Prepared frame cache checksum mismatch');return [(r['sample']['sample_key'],str(prepared)) for r in group]
     if target.exists() and meta_path.exists():

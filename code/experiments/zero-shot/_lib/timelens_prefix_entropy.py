@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'prefix_entropy')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'prefix_entropy')
 MODELS=['qwen25','qwen3'];DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];THRESHOLDS=[.3,.5,.7]
 def read(p):return json.loads(p.read_text())
 def metric(gt,s,e):return max(min(gt[1],e)-max(gt[0],s),0)/(max(gt[1],e)-min(gt[0],s)) if s<e else 0.

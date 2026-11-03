@@ -12,7 +12,7 @@ os.environ['FONTCONFIG_FILE'] = str(R / 'browser_libs/fonts.conf')
 from playwright.sync_api import sync_playwright
 
 BASE = 'http://127.0.0.1:8888/proxy/8780/'
-left = 'zero-shot/results/timelens_top30/report.html'
+left = 'zero-shot/results/uncertainty/token_analysis/timelens_top30/report.html'
 right = 'zero-shot/results/timelens_rollout/report.html'
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True, args=['--no-sandbox', '--disable-dev-shm-usage', '--autoplay-policy=no-user-gesture-required'])

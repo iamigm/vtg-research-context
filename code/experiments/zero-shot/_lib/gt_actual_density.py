@@ -2,6 +2,8 @@
 
 Whole-event versus endpoint focus; no anchors or Pred. Two planner seeds: 42 and 43.
 """
+from result_layout import write_result_text
+from result_layout import relocate_path
 import sys,os,json,time,math,copy,hashlib,random,bisect,threading,traceback
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -10,7 +12,7 @@ import adaptive_temporal_sampling as old
 from adaptive_temporal_sampling import read,write,immutable,sha,objhash,fileinfo,need,stamp
 RUN='gt_actual_density_pilot300_v1'
 PARENT_RUN='gt_extent_boundary_density_pilot300_v1'
-ROOT=old.ROOT;OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+ROOT=old.ROOT;OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 inputs.RUN=RUN;inputs.OUT=OUT;inputs.REPORT=REPORT
 RATIOS=[2,4,8]
 CONDITIONS=['uniform']+[f'{who}_{mode}_r{r}'+(f'_s{seed}' if who=='random' else '') for r in RATIOS for mode in ['whole','boundary'] for who in ['gt','random'] for seed in ([42,43] if who=='random' else [None])]
@@ -118,7 +120,7 @@ def main():
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);progress=Progress();thread=threading.Thread(target=progress.heartbeat,daemon=True);thread.start()
         try:
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'GT whole/boundary density 2/4/8 pilot300; seeds42/43',str(Path(__file__).relative_to(ROOT)),'pilot_300','building',['pilot_300.cohort'])
-            need(read(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/status.json')['state']=='complete','Parent run is not complete')
+            need(read(relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/status.json'))['state']=='complete','Parent run is not complete')
             rows=inputs.records();resolutions=[]
             for record in rows:
                 s=record['sample'];gt=s['span'][0];T=s['duration'];need(0<=gt[0]<gt[1],'Invalid GT annotation')
@@ -158,8 +160,8 @@ def main():
                 if dest.exists():result=read(dest);need(result['identity']==identity,'Resume config/input/plan mismatch');reused=result.get('reused_identical_input',False)
                 elif reuse_key in input_reuse:
                     path=input_reuse[reuse_key];result=copy.deepcopy(read(path));result.update(identity=identity,input_detail_hash=objhash(detail),reused_identical_input=True,reuse_source=str(path),reuse_source_sha256=sha(path),generation_seconds=0.,prefill_seconds=0.,decode_seconds=0.,input_prepare_seconds=prep_seconds);write(dest,result);reused=True
-                elif (ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json')).exists() and read(ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json'))['identity']['input_hash']==h:
-                    source=ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json');source_config=read(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/config.json')
+                elif (relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json'))).exists() and read(relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json')))['identity']['input_hash']==h:
+                    source=relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'responses'/condition/(key+'.json'));source_config=read(relocate_path(ROOT/'artifacts/runs'/PARENT_RUN/'metadata/config.json'))
                     for field in ['model','revision','do_sample','max_new_tokens','repetition_penalty','generation_seed','dtype','backend','order']:
                         need(source_config[field]==CONFIG[field],'Parent generation setting mismatch')
                     result=copy.deepcopy(read(source));need(result['identity']['cohort_hash']==cohort_hash,'Parent cohort mismatch')
@@ -177,7 +179,7 @@ def main():
             subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
             progress.update(state='complete',stage='complete',report=str(REPORT/'REPORT.md'))
         except BaseException:
-            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);(REPORT/'ERROR.md').write_text('# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
+            error=traceback.format_exc();progress.update(state='aborted',stage='aborted',error=error);write_result_text(REPORT/'ERROR.md', '# 실행 중단\n\n완료분과 기존 원본은 보존했습니다.\n\n```text\n'+error+'\n```\n')
             for kind,path in [('predictions',OUT/'responses'),('manifests',OUT/'metadata'),('inputs',OUT/'inputs'),('analyses',REPORT)]:register(RUN+'.'+kind,kind,path,'Aborted density pilot; see status/error',str(Path(__file__).relative_to(ROOT)),'pilot_300','aborted',['pilot_300.cohort'])
             raise
         finally:progress.stop.set();thread.join()

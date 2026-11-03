@@ -8,7 +8,7 @@ import subprocess
 
 from timelens_paths import PILOT_SAMPLES
 ROOT=relocate_path(Path(__file__)).resolve().parents[1]
-OUT=relocate_path(ROOT/'results/timelens_top30')
+OUT=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300')
 FFMPEG='/home1/irteam/envs/dit/bin/ffmpeg'
 FFPROBE='/home1/irteam/envs/dit/bin/ffprobe'
 

@@ -1,10 +1,12 @@
 """Post-run migration only. Retain full timestamp/hash metadata, compact RGB to planned IDs."""
+from result_layout import write_result_text
+from result_layout import relocate_path
 import os,fcntl,hashlib,time,json
 from pathlib import Path
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write,sha,fileinfo,need,stamp
 from shared_selected_frames import COMMON,load_selected
-RUN='selected_frame_cache_migration_v1';OUT=ROOT/'artifacts/runs'/RUN
+RUN='selected_frame_cache_migration_v1';OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
 TARGETS=['boundary_oracle_budget_pilot_v1','temporal_sampling_pilot300_v2','gt_interval_density_pilot300_v1','gt_extent_boundary_density_pilot900_v1']
 WAIT_FOR=['gt_extent_boundary_density_pilot900_v1','gt_actual_density_pilot900_v1','gt_density_allocation_comparison_pilot900_v1']
 
@@ -26,19 +28,19 @@ def install_readers():
         compile(s,str(p),'exec');tmp=p.with_suffix('.migration.tmp');tmp.write_text(s);os.replace(tmp,p)
 
 def compact():
-    for r in WAIT_FOR:need(read(ROOT/'artifacts/runs'/r/'metadata/status.json')['state']=='complete','Run not complete: '+r)
+    for r in WAIT_FOR:need(read(relocate_path(ROOT/'artifacts/runs'/r/'metadata/status.json'))['state']=='complete','Run not complete: '+r)
     for cat in ['metadata','logs','code']:(OUT/cat).mkdir(parents=True,exist_ok=True)
     COMMON.mkdir(parents=True,exist_ok=True);(COMMON/'frames').mkdir(exist_ok=True)
     with (OUT/'metadata/migration.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         metas={};groups={};required={};references=[]
         for target in TARGETS:
-            for p in (ROOT/'artifacts/runs'/target/'frames').glob('*.json'):
+            for p in (relocate_path(ROOT/'artifacts/runs'/target/'frames')).glob('*.json'):
                 m=read(p)
                 if not all(k in m for k in ['cache_key','video_path','grid_hw','ids','resized_rgb_hashes']):continue
                 metas[str(p.resolve())]=m;groups.setdefault(m['cache_key'],[]).append((p,m));required.setdefault(m['cache_key'],set())
         # Every saved plan in every run that points at these caches must remain replayable.
-        for indexpath in (ROOT/'artifacts/runs').glob('*/metadata/frame_cache_index.json'):
+        for indexpath in (relocate_path(ROOT/'artifacts/runs')).glob('*/metadata/frame_cache_index.json'):
             index=read(indexpath);run=indexpath.parent.parent;keymap={}
             for sample,ref in index.items():
                 m=metas.get(str(Path(ref).resolve()))
@@ -85,7 +87,7 @@ def compact():
         write(OUT/'metadata/summary.json',dict(records=records,input_indexes=references,bytes_retired=sum(x['bytes'] for r in records for x in r['retired']),bytes_shared=sum(r['new']['bytes'] for r in records),unreferenced_groups_retained=sum(not required[k] for k in groups)))
         from artifact_store import register
         register('selected_frames_v1.inputs','inputs',COMMON,'Shared planned source frames; missing frames decoded on demand','_lib/compact_selected_frames.py','nested_pilot_v1','complete',[])
-        report=ROOT/'results'/RUN;report.mkdir(parents=True,exist_ok=True)
-        summary=read(OUT/'metadata/summary.json');(report/'REPORT.md').write_text('# 사용 프레임 공용 캐시 정리\n\n두900개 실행과 통합보고 완료 후 정리했습니다. 입력·응답·계획·원본영상·전체PTS와 픽셀hash metadata는 보존했습니다. 모든 저장 계획이 요구하는 프레임을 공용캐시에 복사하고 검증한 뒤 기존 비압축 배열을 제거했습니다. 기존 metadata의 path는 이관 기록으로 연결되며 입력코드가 cache_key로 공용파일을 찾습니다. 새 계획이 추가 프레임을 요청하면 원본에서 디코딩하고 원래 픽셀hash와 대조해 확장합니다.\n\n'+f"기존 배열 제거 {summary['bytes_retired']/2**30:.1f}GiB, 공용 배열 {summary['bytes_shared']/2**30:.1f}GiB. 참조를 확인하지 못한 캐시는 삭제하지 않았습니다.\n")
+        report=relocate_path(ROOT/'results'/RUN);report.mkdir(parents=True,exist_ok=True)
+        summary=read(OUT/'metadata/summary.json');write_result_text(report/'REPORT.md', '# 사용 프레임 공용 캐시 정리\n\n두900개 실행과 통합보고 완료 후 정리했습니다. 입력·응답·계획·원본영상·전체PTS와 픽셀hash metadata는 보존했습니다. 모든 저장 계획이 요구하는 프레임을 공용캐시에 복사하고 검증한 뒤 기존 비압축 배열을 제거했습니다. 기존 metadata의 path는 이관 기록으로 연결되며 입력코드가 cache_key로 공용파일을 찾습니다. 새 계획이 추가 프레임을 요청하면 원본에서 디코딩하고 원래 픽셀hash와 대조해 확장합니다.\n\n'+f"기존 배열 제거 {summary['bytes_retired']/2**30:.1f}GiB, 공용 배열 {summary['bytes_shared']/2**30:.1f}GiB. 참조를 확인하지 못한 캐시는 삭제하지 않았습니다.\n")
         write(OUT/'metadata/status.json',dict(state='complete',stage='complete',timestamp=stamp(),report=str(report/'REPORT.md')))
 if __name__=='__main__':compact()

@@ -1,11 +1,12 @@
 """Existing-response comparison by duration, GT fraction, and their cross."""
+from result_layout import relocate_path
 import csv
 import numpy as np
 from adaptive_temporal_sampling import ROOT,read,write,fileinfo
 from adaptive_temporal_report import csvwrite
 from boundary_oracle_analysis import bootstrap_weights
 RUN='gt_density_allocation_comparison_v1';SOURCE='gt_extent_boundary_density_pilot300_v1'
-OUT=ROOT/'artifacts/runs'/RUN;REPORT=ROOT/'results'/RUN
+OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN)
 DS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];NAMES=['Charades','ActivityNet','QVHighlights']
 TB=[(0,30,'30초 미만'),(30,60,'30–60초 미만'),(60,120,'60–120초 미만'),(120,180,'120–180초 미만'),(180,np.inf,'180초 이상')]
 QB=[(0,.05,'5% 미만'),(.05,.1,'5–10% 미만'),(.1,.2,'10–20% 미만'),(.2,.4,'20–40% 미만'),(.4,1.000001,'40% 이상')]
@@ -14,7 +15,7 @@ def ci(rep,enabled):
     return [float(v*100) for v in np.quantile(finite,[.025,.975])] if enabled and len(finite) else None
 
 def main():
-    source=ROOT/'artifacts/runs'/SOURCE/'metrics/evaluation_records.json';raw=read(source);lookup={(r['sample_key'],r['condition']):r for r in raw};qpath=OUT/'metrics/dataset_query_statistics.csv';query=list(csv.DictReader(qpath.open()));composition=[];metrics=[];effects=[];membership=[];reps={};comparisons=[]
+    source=relocate_path(ROOT/'artifacts/runs'/SOURCE/'metrics/evaluation_records.json');raw=read(source);lookup={(r['sample_key'],r['condition']):r for r in raw};qpath=OUT/'metrics/dataset_query_statistics.csv';query=list(csv.DictReader(qpath.open()));composition=[];metrics=[];effects=[];membership=[];reps={};comparisons=[]
     definitions=[('GT_fraction',None,j) for j in range(5)]+[('duration',i,None) for i in range(5)]+[('joint',i,j) for i in range(5) for j in range(5)]
     for di,ds in enumerate(DS):
         rr=sorted([r for r in query if r['dataset']==ds],key=lambda r:r['sample_key']);keys=[r['sample_key'] for r in rr];T=np.array([float(r['T']) for r in rr]);Q=np.array([float(r['GT_fraction']) for r in rr]);videos=[r['video_id'] for r in rr];w=bootstrap_weights(videos,42+di)

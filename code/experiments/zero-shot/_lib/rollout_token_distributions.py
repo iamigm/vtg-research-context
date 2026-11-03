@@ -1,4 +1,5 @@
 """Replay saved pilot900 prefixes to capture raw full-vocabulary distributions."""
+from result_layout import relocate_path
 import os
 for k in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS']:os.environ[k]='1'
 os.environ['TOKENIZERS_PARALLELISM']='false'
@@ -8,7 +9,7 @@ from pathlib import Path
 from deterministic_rollout300 import ROOT,MODEL,read,write,stamp,sha
 from conditional_rollout_budget import Evaluator
 
-OUT=ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2'
+OUT=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2')
 TRACES=OUT/'token_traces'
 STATUS=OUT/'metadata/distribution_status.json'
 CONFIG=dict(schema=1,queries=900,model=str(MODEL),mode='teacher-forced replay of saved generated prefixes; no new answers',

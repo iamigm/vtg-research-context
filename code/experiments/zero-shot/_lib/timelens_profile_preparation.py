@@ -2,7 +2,7 @@ from result_layout import relocate_path, write_result_text, result_glob
 from pathlib import Path
 import json,time,cProfile,pstats,io
 from timelens_span_head import Prepared
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full');OUT=relocate_path(BASE/'performance')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');OUT=relocate_path(BASE/'performance')
 results=[]
 for model in ['qwen25','qwen3']:
  files=sorted(result_glob((relocate_path(BASE/model)), '*.json'),key=lambda p:p.stat().st_mtime)[-3:];records=[json.loads(p.read_text()) for p in files];loader=Prepared([r['sample'] for r in records],model)

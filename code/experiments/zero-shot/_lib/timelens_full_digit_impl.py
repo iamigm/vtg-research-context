@@ -12,7 +12,7 @@ from matplotlib import font_manager
 _FONT=relocate_path(relocate_path(Path(__file__)).resolve().parent/'entropy_viewer/NotoSansKR.ttf')
 font_manager.fontManager.addfont(str(_FONT))
 plt.rcParams['font.family']=font_manager.FontProperties(fname=str(_FONT)).get_name()
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30_full');OUT=relocate_path(BASE/'digit_correctness');ASSETS=relocate_path(ROOT/'_lib/digit_correctness_viewer')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404');OUT=relocate_path(BASE/'digit_correctness');ASSETS=relocate_path(ROOT/'_lib/digit_correctness_viewer')
 MODELS=['qwen25','qwen3'];DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens']
 CONDITIONS=['first_digit_correct','first_digit_wrong','previous_correct_now_correct','previous_correct_now_wrong','after_error']
 NAMES={'first_digit_correct':'첫 숫자 정답','first_digit_wrong':'첫 숫자 오답','previous_correct_now_correct':'이전까지 정답 → 정답','previous_correct_now_wrong':'이전까지 정답 → 최초 오답','after_error':'이전 오류 이후 숫자','format_correct':'서식 유지','format_first_error':'이전까지 정답 가능 → 최초 오류 (서식)','format_after_error':'이전 오류 이후 서식'}

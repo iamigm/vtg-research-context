@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/timelens_top30');OUT=relocate_path(BASE/'numeric_uncertainty')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'numeric_uncertainty')
 MODELS=['qwen25','qwen3'];DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens'];ROLES=['hundreds','tens','ones','tenths'];CATS=['hundreds','tens','ones','tenths','decimal_point','separator','whitespace','text','eos','numeric_other','other']
 LABELS={'hundreds':'백의 자리','tens':'십의 자리','ones':'일의 자리','tenths':'소수 첫째 자리','decimal_point':'소수점','separator':'구분자','whitespace':'공백','text':'일반 문구','eos':'EOS','numeric_other':'기타 숫자(MM:SS 등)','other':'기타'}
 rng=np.random.default_rng(42)
