@@ -8,6 +8,12 @@ SELECTORS=['max_probability','medoid','probability_weighted_medoid']
 def average(xs):return statistics.mean(xs) if xs else None
 def number(x,digits=3):return '—' if x is None else f'{x:.{digits}f}'
 def fraction(n,d):return f'{n}/{d} ({100*n/d:.2f}%)' if d else f'{n}/0 (—)'
+def role_name(role):
+ parts=role.split('.');endpoint={'start':'시작 시각','end':'종료 시각'}.get(parts[0],parts[0])
+ if parts[-1]=='clock_separator':return endpoint+' · 시:분:초 구분 콜론'
+ unit={'seconds':'초 필드','minutes':'분 필드','hours':'시 필드'}.get(parts[1],parts[1])
+ position={'decimal_separator':'소수점 자체','10^2':'백의 자리','10^1':'십의 자리','10^0':'일의 자리','10^-1':'소수 첫째 자리'}.get(parts[-1],parts[-1])
+ return f'{endpoint} · {unit} · {position}'
 def save_csv(path,rows):
  if not rows:return
  with path.open('w') as f:
@@ -101,6 +107,7 @@ def diagnostic_sections(records,rows,out):
  branches=[];role_groups=collections.defaultdict(list);endpoint_groups=collections.defaultdict(list)
  for record in records:
   gt=record['sample']['span'][0];cs=record['result']['candidates'];key=record['sample']['sample_key']
+  greedy=interval(cs[0]);greedy_iou=overlap(greedy,gt) if greedy else 0.
   for c in cs[1:]:
    b=c['branch'];assert 1<=b['parent']<c['index']
    parent=cs[b['parent']-1];a,z=interval(parent),interval(c)
@@ -109,6 +116,7 @@ def diagnostic_sections(records,rows,out):
    d=dict(sample_key=key,candidate=c['index'],parent=b['parent'],
     source_roles=';'.join(roles),target_roles=';'.join(b.get('target_roles',[])),
     endpoint=';'.join(endpoints),parent_iou=aiou,child_iou=ziou,delta_iou=ziou-aiou,
+    greedy_iou=greedy_iou,delta_vs_greedy=ziou-greedy_iou,
     start_shift=z[0]-a[0] if a and z else None,end_shift=z[1]-a[1] if a and z else None,
     raw_alternative_probability=b['raw_probability'])
    branches.append(d)
@@ -119,26 +127,51 @@ def diagnostic_sections(records,rows,out):
   return dict(branches=len(group),questions=len({x['sample_key'] for x in group}),
     improved=sum(x['delta_iou']>1e-9 for x in group),worsened=sum(x['delta_iou']<-1e-9 for x in group),
     unchanged=sum(abs(x['delta_iou'])<=1e-9 for x in group),mean_delta_iou=average([x['delta_iou'] for x in group]),
+    mean_delta_vs_greedy=average([x['delta_vs_greedy'] for x in group]),
+    improved_vs_greedy=sum(x['delta_vs_greedy']>1e-9 for x in group),
+    worsened_vs_greedy=sum(x['delta_vs_greedy']<-1e-9 for x in group),
+    parent_is_greedy=sum(x['parent']==1 for x in group),
     valid_pairs=len(valid),mean_abs_start_shift=average([abs(x['start_shift']) for x in valid]),
     mean_abs_end_shift=average([abs(x['end_shift']) for x in valid]),
     end_changed=sum(abs(x['end_shift'])>1e-6 for x in valid),
     end_changed_over1s=sum(abs(x['end_shift'])>1 for x in valid))
  lines += ['', '## 분기 위치별 개선과 시작→종료 변화','',
-  '각 분기 후보를 그 분기를 만든 바로 이전 부모 후보와 비교한다. 전체 greedy와의 비교가 아니다. 개선/악화는 ΔIoU가 ±1e−9를 넘는 경우이며, 실패 응답의 IoU는0이다. 자릿수는 부모 응답의 역할(source_roles) 기준이고 변경 후 역할(target_roles)도 원자료에 보존한다. 후보를 선택하지 않은 oracle 진단이므로 실제 선택 성능과 구분한다.', '',
+  '여기서 분기는 생성 도중 한 토큰을 다른 토큰으로 바꾸고 나머지를 끝까지 생성하는 것이다. 부모 후보는 바꾸기 전 완성 답, 자식 후보는 바꾼 뒤 완성 답이다. 부모는 최초 greedy일 수도 있고 탐색 중 생성한 다른 후보일 수도 있다.', '',
+  '표의 내부 코드는 분기 전 부모 답에서 그 토큰이 차지한 위치를 적은 이름이다. `start`는 시작 시각, `end`는 종료 시각이다. `seconds`는 초 필드, `minutes`는 분 필드, `hours`는 시 필드다. `10^2`, `10^1`, `10^0`, `10^-1`은 각각 백·십·일·소수 첫째 자리다. 예를 들어 `135.7`에서 `3`은 십의 자리이고 `7`은 소수 첫째 자리다.', '',
+  '`decimal_separator`는 소수점 아래 숫자가 아니라 소수점 기호 `.` 자체다. 따라서 `end.seconds.decimal_separator`는 종료 시각의 초 필드에서 소수점 자체를 바꾼 분기를 뜻한다. `clock_separator`는 예외적인 시:분:초 표기의 구분 콜론 `:`이다. 예를 들어 `2:11`은 분 필드2와 초 필드11로 나눈다.', '',
+  '원자료의 `source_roles`는 분기 전 위치 이름, `target_roles`는 변경 후 완성 답에서 같은 토큰의 위치 이름이다. 소수점 대신 숫자를 넣으면 정수 부분이 길어질 수 있으므로 분기 전후 자릿수 역할이 같다는 뜻은 아니다. 표는 한국어 이름과 내부 코드를 함께 표시한다.', '',
+  '개선/악화 비율과 부모 대비 평균 ΔIoU는 자식 IoU−부모 IoU 기준이다. 최초 greedy 대비 평균 ΔIoU는 자식 IoU−최초 greedy IoU로 별도 표시한다. 개선/악화는 차이가 ±1e−9를 넘는 경우이고 실패 응답의 IoU는0이다. 여러 후보를 최종 선택하기 전의 후보별 진단이므로 실제 선택 성능과 구분한다.', '',
   '한 질문에서 여러 분기가 나오며 각 분기는 서로 독립 표본이 아니다. 여러 자릿수를 담는 토큰은 각 역할 행에 중복 집계될 수 있다. 아래 비율은 이 탐색 정책이 생성한 분기들에 조건부인 빈도이며, 자릿수의 일반적인 인과 효과나 모델 전체 분포의 확률로 해석하지 않는다.', '',
-  '| 부모의 분기 위치 | 분기 수 | 고유 질문 수 | 개선/분기 | 악화/분기 | 변화 없음/분기 | 평균 ΔIoU |',
-  '|---|---:|---:|---:|---:|---:|---:|']
+  '| 부모의 분기 위치: 한국어 이름 (내부 코드) | 분기 수 | 고유 질문 수 | 부모 대비 개선/분기 | 부모 대비 악화/분기 | 변화 없음/분기 | 부모 대비 평균 ΔIoU | 최초 greedy 대비 평균 ΔIoU |',
+  '|---|---:|---:|---:|---:|---:|---:|---:|']
  role_stats=[]
  for role,group in sorted(role_groups.items()):
   d=dict(role=role,**summarize(group));role_stats.append(d)
-  lines.append(f'| {role} | {d["branches"]} | {d["questions"]} | {fraction(d["improved"],d["branches"])} | {fraction(d["worsened"],d["branches"])} | {fraction(d["unchanged"],d["branches"])} | {d["mean_delta_iou"]:+.4f} |')
- lines += ['', '분기 표기의 `seconds.10^2/10^1/10^0/10^-1`은 초 단위 백/십/일/소수 첫째 자리다. `minutes`와 `hours`는 예외 표기의 각 필드다. 시작을 바꿨을 때 종료도 바뀌는 비율은 다음과 같다. 변화량은 유효한 부모·자식 쌍만 비교하며 시간 수치 차이1e−6초 초과를 변경으로 센다.', '',
+  lines.append(f'| {role_name(role)} (`{role}`) | {d["branches"]} | {d["questions"]} | {fraction(d["improved"],d["branches"])} | {fraction(d["worsened"],d["branches"])} | {fraction(d["unchanged"],d["branches"])} | {d["mean_delta_iou"]:+.4f} | {d["mean_delta_vs_greedy"]:+.4f} |')
+ dot_group=role_groups.get('end.seconds.decimal_separator',[])
+ if dot_group:
+  d=summarize(dot_group)
+  numeric=sum(bool(x['target_roles']) and all(r.split('.')[-1].startswith('10^') for r in x['target_roles'].split(';')) for x in dot_group)
+  lines += ['', '### 종료 시각 소수점 분기의 해석', '',
+   f'종료 시각의 소수점 위치를 바꾼 분기는 {d["questions"]}질문에서 {d["branches"]}개였다. 그중 {numeric}개는 변경 후 해당 토큰이 숫자 자릿수가 됐다. 소수점을 숫자로 바꾸면 예를 들어 `1.3`이 `107.3`처럼 길어질 수 있다. 이는 소수 첫째 자리를 미세 조정하는 것과 다르며, 정수 부분을 너무 일찍 끝낸 후보를 고치는 분기일 수 있다.', '',
+   f'부모보다 좋아진 분기는 {d["improved"]}/{d["branches"]}, 부모 대비 평균 ΔIoU는 {d["mean_delta_iou"]:+.4f}다. 다만 부모가 최초 greedy인 것은 {d["parent_is_greedy"]}개이고 나머지는 다른 탐색 후보다. 최초 greedy와 비교하면 좋아진 분기는 {d["improved_vs_greedy"]}개, 악화된 분기는 {d["worsened_vs_greedy"]}개이며 평균 ΔIoU는 {d["mean_delta_vs_greedy"]:+.4f}다. 따라서 부모 대비 평균이 양수라는 사실을 곧바로 최초 greedy보다 유리한 전략이라고 해석하면 안 된다.', '',
+   '다른 자릿수의 부모 대비 평균이 음수라는 것은 그 자릿수에 개선 사례가 없다는 뜻이 아니다. 좋아진 분기보다 나빠진 분기의 횟수나 악화 크기가 더 크게 반영된 평균이다. 각 행의 개선/악화 개수와 최초 greedy 대비 값도 함께 봐야 한다.', '',
+   '| 질문 ID | GT 구간(초) | 부모 후보 응답 | 분기 후 응답 | 부모 대비 ΔIoU |',
+   '|---|---|---|---|---:|']
+  examples=sorted(dot_group,key=lambda x:-x['delta_iou'])[:2]+sorted(dot_group,key=lambda x:x['delta_iou'])[:1]
+  for x in examples:
+   rec=bykey[x['sample_key']];cs=rec['result']['candidates']
+   parent=cs[x['parent']-1]['answer'].replace('|','\\|').replace('\n',' ')
+   child=cs[x['candidate']-1]['answer'].replace('|','\\|').replace('\n',' ')
+   lines.append(f'| {x["sample_key"]} | {rec["sample"]["span"][0]} | {parent} | {child} | {x["delta_iou"]:+.4f} |')
+ lines += ['', '시작을 바꿨을 때 종료도 바뀌는 비율은 다음과 같다. 변화량은 유효한 부모·자식 쌍만 비교하며 시간 수치 차이1e−6초 초과를 변경으로 센다.', '',
   '| 분기 대상 | 전체 분기 | 유효 비교 쌍 | 평균 시작 변화 절댓값(초) | 평균 종료 변화 절댓값(초) | 종료 변경/유효 쌍 | 종료 1초 초과 변경/유효 쌍 |',
   '|---|---:|---:|---:|---:|---:|---:|']
  coupling=[]
  for endpoint,group in sorted(endpoint_groups.items()):
   d=dict(endpoint=endpoint,**summarize(group));coupling.append(d)
-  lines.append(f'| {endpoint} | {d["branches"]} | {d["valid_pairs"]} | {number(d["mean_abs_start_shift"])} | {number(d["mean_abs_end_shift"])} | {fraction(d["end_changed"],d["valid_pairs"])} | {fraction(d["end_changed_over1s"],d["valid_pairs"])} |')
+  name={'start':'시작 시각','end':'종료 시각'}.get(endpoint,endpoint)
+  lines.append(f'| {name} | {d["branches"]} | {d["valid_pairs"]} | {number(d["mean_abs_start_shift"])} | {number(d["mean_abs_end_shift"])} | {fraction(d["end_changed"],d["valid_pairs"])} | {fraction(d["end_changed_over1s"],d["valid_pairs"])} |')
  save_csv(out/'metrics/branch_parent_comparisons.csv',branches)
  save_csv(out/'metrics/branch_role_summary.csv',role_stats)
  save_csv(out/'metrics/start_end_coupling.csv',coupling)

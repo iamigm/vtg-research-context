@@ -109,3 +109,13 @@ The original300 is preserved as the exact prefix of600 and900. The expansion bal
 `runs/deterministic_rollout_additional600_v2/`는 고정pilot900[300:900]의 새 입력·응답을 보존한다. `media/`는 동일 FPS 코드로 필요한2 FPS만 저장한 영상별 픽셀hash/PTS/RGB, `rollouts/`는 새600개 응답이며 나머지 category는 기존300개 실행과 같다. `metadata/original300.json`의 기존 응답 hash를 검증하고 재추론하지 않는다. `runs/deterministic_rollout_pilot600_v2/`와 `runs/deterministic_rollout_pilot900_v2/`에는 통합 지표·검증·원자료 참조 manifest만 두며 응답을 복제하지 않는다. 실행/재개는 `_lib/deterministic_rollout900.py`, 보고서 재생성은 같은 명령의 `--report`다.
 
 결정적 rollout 보고서의 추가 진단은 각 실행 `metrics/recovery_and_selection.csv`, `boundary_errors.csv`, `branch_parent_comparisons.csv`, `branch_role_summary.csv`, `start_end_coupling.csv`, `marginal_efficiency.csv`, `additional_diagnostics.json`에 보존한다. 재생성은 기존 `--report` 진입점을 사용하며 `_lib/deterministic_rollout_diagnostics.py`가 정의·분모·보고서 표를 함께 생성한다. 현재 보고 코드 snapshot은 `code/reporting/`, hash는 `metadata/reporting_code.json`에 별도 저장해 원래 추론 snapshot을 보존한다.
+
+## 결정적 rollout 샘플별 HTML 뷰어
+
+`runs/deterministic_rollout_pilot900_v2/web/`는900개 샘플의 축약 표시 자료,26,560개 분기 목록,JS/CSS다. 원래 응답은 source_records.json의 참조로 검증하며 복제하지 않는다. 영상은 기존 full.media 캐시, 한국어 폰트는 `_lib/entropy_viewer/NotoSansKR.ttf`를 재사용한다. 종료 소수점84질문/243분기와 최초greedy1초대·백초대GT2질문의 목록은 `metrics/end_decimal_cases.json/csv`에 보존한다. 생성은 `_lib/deterministic_rollout_viewer.py`, 브라우저 검증은 `_lib/deterministic_rollout_viewer_check.py`다. 통합 서버8780을 사용하며 보고서를 재생성해도 HTML과 사례 링크를 갱신한다. 검증은 `validation/viewer_data.json`, `viewer_browser.json`이고 preview는 results의 desktop/mobile 최신본만 유지한다.
+
+## Rollout 토큰 분포와 누적 경로 확률
+
+`runs/deterministic_rollout_pilot900_v2/token_traces/<sample>/index.json`은 저장된 각 후보의 generation step을 정확한 prefix 분포에 연결한다. 같은 prefix는 샘플 내에서 한 번만 저장한다. `<prefix-hash>.f32.gz`는 전체 어휘 순서의 little-endian FP32 확률이며, `vocab.json`이 토큰 ID를 설명한다. index의 top30/observed는 표시용 부분집합으로 재정규화하지 않는다. `prefix_log_probability`는 해당 prefix까지 generation step 확률의 로그 합이고 전체 응답은 EOS를 포함한다. 재측정은 `_lib/rollout_token_distributions.py`, 현재2분할 운영은 `_lib/rollout_distribution_parallel.py`다. 입력 hash·greedy suffix·강제 토큰 확률·전체 응답 확률 곱을 원자료와 대조한다. 원래 응답/점수는 수정하지 않는다. 상태는 `metadata/distribution_status.json`, 로그는 `logs/distribution_capture.log`와 worker별 로그다. HTML은 완료된 샘플부터 자동 표시하며 `_lib/rollout_distribution_viewer_check.py`로 분포와 누적곱·전체 어휘 검색을 검증한다.
+
+분포 측정 완료 후 `_lib/rollout_distribution_integrate.py`가 원래900개 REPORT.md와 viewer.html에 검증 결과를 통합한다. 실행 중인 측정에는 `--wait` 후처리를 연결했다. 별도 분포 실험 run이나 페이지를 생성하지 않으며 DISTRIBUTIONS.md가 임시로 생기면 기존 REPORT.md로 통합 후 제거한다. 원자료는 기존 run의 token_traces category에 유지한다. 통합 상태는 기존 metadata/status.json의 token_distributions와 metadata/distribution_integration.json, 로그는 logs/distribution_integration.log다.

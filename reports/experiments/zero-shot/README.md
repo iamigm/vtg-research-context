@@ -4,6 +4,7 @@
 
 | 분석 | 보고서 |
 |---|---|
+| 결정적 rollout 900개 샘플별 분기 탐색 | [개선 분기 HTML](results/deterministic_rollout_pilot900_v2/viewer.html) · [종료 소수점 사례](results/deterministic_rollout_pilot900_v2/END_DECIMAL_CASES.md) · [900개 정량 보고서](results/deterministic_rollout_pilot900_v2/REPORT.md) |
 | 결정적 rollout 나머지600개 → 중첩600/900 통합 | [사양](results/deterministic_rollout_additional600_v2/SPEC.md) · [상태](artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json) |
 | 고정 pilot300 결정적 rollout 성능·계산량 | [사양](results/deterministic_rollout_pilot300_v2/SPEC.md) · [상태](artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json) |
 | 시작 prefix 조건부 종료 탐색 예산 (30개 완료) | [결과 해석](results/conditional_rollout_budget_pilot30_v1/ANALYSIS.md) · [원보고서](results/conditional_rollout_budget_pilot30_v1/REPORT.md) · [후속 설계](results/conditional_rollout_budget_pilot30_v1/NEXT_EXPERIMENT.md) |

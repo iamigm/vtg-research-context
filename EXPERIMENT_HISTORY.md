@@ -399,3 +399,57 @@
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-04T01:47:13.883220+09:00
+
+원본 파일 직접 관찰: 27개 실행, 402개 코드·의존성 파일. 이전 commit: 665859e7bd6d0703580279f4216221d1333483c5.
+
+추가 23 / 변경 24 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/_lib/rollout_distribution_integrate.py
+- code/experiments/zero-shot/_lib/rollout_distribution_parallel.py
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer.js
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/_lib/rollout_token_distributions.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/rollout_token_distributions.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_parallel.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_viewer_check.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/end_decimal_cases.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.js
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_diagnostics.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/start_end_coupling.csv
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
