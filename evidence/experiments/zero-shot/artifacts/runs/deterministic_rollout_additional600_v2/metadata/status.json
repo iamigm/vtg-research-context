@@ -1,0 +1,21 @@
+{
+  "state": "running",
+  "stage": "rollout",
+  "completed": 300,
+  "total": 600,
+  "counts": {
+    "activitynet-timelens": 100,
+    "charades-timelens": 100,
+    "qvhighlights-timelens": 100
+  },
+  "eta_seconds": 3983.0983467251062,
+  "eta_scope": "remaining inference; unknown before first query; excludes reporting",
+  "model": "qwen3-instruct",
+  "timestamp": "2026-11-03T20:59:59.551758+09:00",
+  "elapsed_seconds": 4002.137849777937,
+  "percentage": 50.0,
+  "sample_key": "activitynet-timelens_04030",
+  "candidates": 8,
+  "decoder_tokens": 109,
+  "latest_answer": "The event happens in 105.0 - 140.0 seconds."
+}

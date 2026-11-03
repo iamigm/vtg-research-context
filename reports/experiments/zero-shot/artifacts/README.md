@@ -99,3 +99,11 @@ The original300 is preserved as the exact prefix of600 and900. The expansion bal
 ## 조건부 rollout 예산 진단
 
 `runs/conditional_rollout_budget_pilot30_v1/`의 `metadata/`는 동결 설정·코호트·상태, `inputs/`는 기존 FPS 입력 hash와 PTS, `trees/`는 시작 prefix와 조건부 종료 경로, `metrics/`는 예산 곡선·분포 차이, `validation/`는 질량 보존·cache 검증, `logs/`는 detached 실행 로그, `code/`는 코드 snapshot이다. 원래 raw softmax 질량을 재정규화하지 않는다. 재실행은 `_lib/conditional_rollout_budget.py`이며 완료 질문은 재사용한다. 기존 프레임은 FPS 실행의 경로를 참조하고 복제하지 않는다.
+
+## Pilot300 결정적 완성 rollout
+
+`runs/deterministic_rollout_pilot300_v2/`에 고정300개 전체의 새 실행을 보존한다. `rollouts/`는 강제 prefix·자릿수·완성 답·raw 경로확률·실제 계산량, `inputs/`는 고정 FPS 입력hash/PTS, `metadata/`는 동결 설정·코호트·상태, `metrics/`는 선택기별 성능/비용·bootstrap·자리별 변화, `validation/`는 캐시·합성 분기·보고서 검증, `logs/`는 실행/heartbeat, `code/`는 코드 snapshot이다. 프레임은 FPS 실행의 기존 캐시를 참조하고 복제하지 않는다. 재실행은 `_lib/deterministic_rollout300.py`, 보고서만 재생성은 동일 명령의 `--report`다. 완료 질문은 재사용하며 기존 v1 결과를 덮어쓰지 않는다.
+
+## 결정적 rollout 추가600개와 통합
+
+`runs/deterministic_rollout_additional600_v2/`는 고정pilot900[300:900]의 새 입력·응답을 보존한다. `media/`는 동일 FPS 코드로 필요한2 FPS만 저장한 영상별 픽셀hash/PTS/RGB, `rollouts/`는 새600개 응답이며 나머지 category는 기존300개 실행과 같다. `metadata/original300.json`의 기존 응답 hash를 검증하고 재추론하지 않는다. `runs/deterministic_rollout_pilot600_v2/`와 `runs/deterministic_rollout_pilot900_v2/`에는 통합 지표·검증·원자료 참조 manifest만 두며 응답을 복제하지 않는다. 실행/재개는 `_lib/deterministic_rollout900.py`, 보고서 재생성은 같은 명령의 `--report`다.

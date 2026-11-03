@@ -299,3 +299,32 @@
 - reports/experiments/zero-shot/README.md
 - code/experiments/zero-shot/_lib/conditional_rollout_budget.py
 - evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json
+
+## 2026-11-03T21:00:00.003212+09:00
+
+원본 파일 직접 관찰: 25개 실행, 366개 코드·의존성 파일. 이전 commit: cdadd5da870c0522a3e19690578938dd592df53f.
+
+추가 20 / 변경 2 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/deterministic_rollout300.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- code/experiments/zero-shot/_lib/deterministic_rollout900.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout900.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/fps_spatial_control.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/fps_spatial_control.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json
+- reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/SPEC.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/SPEC.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/STRATA.md
+- reports/experiments/zero-shot/README.md
+- reports/experiments/zero-shot/artifacts/README.md
