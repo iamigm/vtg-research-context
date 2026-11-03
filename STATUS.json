@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-03T17:05:38.610079+09:00",
+  "observed_at": "2026-11-03T18:00:00.000434+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -14,8 +14,8 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json",
-      "source_modified_at": "2026-11-03T17:05:39.104030+09:00",
-      "sha256": "46794c3a9d671aa4721d867c60889db52301055b6c48c62c7f2671461e488069"
+      "source_modified_at": "2026-11-03T17:34:32.395612+09:00",
+      "sha256": "e420f140edb72dfe10530c7aa8ff8a14234caf37ad6529f21b3c7961b2e69ae1"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json",

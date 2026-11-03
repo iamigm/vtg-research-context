@@ -312,6 +312,7 @@ def report():
     import csv
     records=[read(p) for p in sorted((OUT/'trees').glob('*.json'))]
     lines=['# 시작 조건부 종료 탐색 예산 진단','',
+        '완료 후 해석은 [ANALYSIS.md](ANALYSIS.md), 후속 설계는 [NEXT_EXPERIMENT.md](NEXT_EXPERIMENT.md)에 있다. 이 문서는 v1 원래 평가 기준을 유지한다.', '',
         '확률은 greedy preamble에 조건부인 원래 full-vocabulary softmax이다. 숫자 문법 밖 질량을 재정규화하지 않는다. 시작·종료를 독립으로 가정하지 않는다.', '',
         '진단 표본은 고정 pilot300의 데이터셋별 첫 10개(총30개)이며 전체 벤치마크 평균으로 해석하지 않는다. 입력은 기존 FPS 실험의 고정 공간 2 FPS 입력을 재사용한다.', '',
         'S는 발견한 서로 겹치지 않는 시작-prefix 질량 합, J는 완성된 구간 질량 합이다. 1−J=(1−S)+(S−J): 첫 항은 아직 시작-prefix로 확보하지 못한 질량(형식 밖 포함), 두 번째는 확보한 시작 아래 아직 완성하지 못한 종료 질량이다. 대표 greedy 결과에 subtree 전체 질량을 부여하지 않는다.', '',

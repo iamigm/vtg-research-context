@@ -282,3 +282,20 @@
 - reports/experiments/zero-shot/artifacts/README.md
 - evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-03T18:00:00.000434+09:00
+
+원본 파일 직접 관찰: 23개 실행, 354개 코드·의존성 파일. 이전 commit: a72e6b6c7b500f41843f4b64a7953f98c380ef88.
+
+추가 7 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/conditional_rollout_analysis.py
+- code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_analysis.py
+- evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metrics/budget.csv
+- reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/ANALYSIS.md
+- reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/NEXT_EXPERIMENT.md
+- reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/REPORT.md
+- reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/STRATA.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/conditional_rollout_budget.py
+- evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json

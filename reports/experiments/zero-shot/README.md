@@ -4,7 +4,7 @@
 
 | 분석 | 보고서 |
 |---|---|
-| 시작 prefix 조건부 종료 탐색 예산 (30개 진단, 기존 FPS 실행 후) | [사양](results/conditional_rollout_budget_pilot30_v1/SPEC.md) · [상태](artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json) |
+| 시작 prefix 조건부 종료 탐색 예산 (30개 완료) | [결과 해석](results/conditional_rollout_budget_pilot30_v1/ANALYSIS.md) · [원보고서](results/conditional_rollout_budget_pilot30_v1/REPORT.md) · [후속 설계](results/conditional_rollout_budget_pilot30_v1/NEXT_EXPERIMENT.md) |
 | 기존 zero-shot 전체 집계: 실행 버전·전체/pilot·fps·입력 순서 | [통합 보고서](results/all_zeroshot_v1/REPORT.md) · [지표 CSV](artifacts/runs/all_zeroshot_v1/metrics/metrics.csv) |
 | 공간 해상도 통제 FPS2/3/4/6/8 zero-shot (선행 실험 완료 후 자동 실행) | [사양](results/fps_spatial_control_pilot300_v1/SPEC.md) · [기존 공간 변화 감사](results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [상태](artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json) |
 | Thinking vs Instruct 동일 pilot 비교 | [성능·생성량·조건 차이](results/thinking_vs_instruct_v1/REPORT.md) |
