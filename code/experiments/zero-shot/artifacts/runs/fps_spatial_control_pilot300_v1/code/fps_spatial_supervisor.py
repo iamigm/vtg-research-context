@@ -4,6 +4,12 @@ from pathlib import Path
 from fps_spatial_control import ROOT, OUT, REPORT, RUN, read, write, stamp
 DEPENDENCY=ROOT/'artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json'
 
+def memory_pressure(stats,current,limit):
+    # Both active and inactive clean file pages are reclaimable by the kernel.
+    clean_file=max(0,int(stats.get('file',0))-sum(int(stats.get(k,0)) for k in ['shmem','file_dirty','file_writeback']))
+    unreclaimable=max(0,current-clean_file-int(stats.get('slab_reclaimable',0)))
+    return int(stats['anon'])>110*2**30 or unreclaimable>.92*limit,unreclaimable,clean_file
+
 def state(**kw):
     write(OUT/'metadata/status.json',dict(timestamp=stamp(),**kw))
     with (OUT/'logs/supervisor.log').open('a') as f:f.write(json.dumps(dict(timestamp=stamp(),**kw),ensure_ascii=False)+'\n')
@@ -32,6 +38,7 @@ def main():
                   elapsed_seconds=time.monotonic()-start,eta_seconds=None,eta_scope='waiting on dependency; no inference ETA yet',counts={})
             time.sleep(20)
         start=time.monotonic();children=[];logs=[]
+        initial_completed=len(list((OUT/'responses').rglob('*.json')))
         try:
             for rank in range(2):
                 log=(OUT/'logs'/f'worker{rank}.log').open('ab',buffering=0);logs.append(log)
@@ -42,18 +49,20 @@ def main():
             pressure_since=None
             while True:
                 states=[read(OUT/'metadata'/f'status_worker{r}.json') for r in range(2) if (OUT/'metadata'/f'status_worker{r}.json').exists()]
-                done=sum(s.get('completed',0) for s in states);counts={}
+                done=max(initial_completed,sum(s.get('completed',0) for s in states));counts={}
                 for s in states:
                     for k,v in s.get('counts',{}).items():counts[k]=counts.get(k,0)+v
                 elapsed=time.monotonic()-start
                 state(state='running',stage='parallel_generation',completed=done,total=6000,percentage=done/60,counts=counts,
-                      elapsed_seconds=elapsed,eta_seconds=elapsed*(6000-done)/done if done else None,
-                      eta_scope='remaining inference; startup included, reporting excluded',workers=[p.pid for p in children])
+                      elapsed_seconds=elapsed,eta_seconds=elapsed*(6000-done)/(done-initial_completed) if done>initial_completed else None,
+                      eta_scope='remaining inference based on fresh responses after resume; startup included, reporting excluded',workers=[p.pid for p in children])
                 stats=dict(line.split() for line in Path('/sys/fs/cgroup/memory.stat').read_text().splitlines())
                 current=int(Path('/sys/fs/cgroup/memory.current').read_text());limit=int(Path('/sys/fs/cgroup/memory.max').read_text())
-                anon=int(stats['anon']);resource=dict(timestamp=stamp(),anon_GiB=anon/2**30,file_GiB=int(stats['file'])/2**30,total_GiB=current/2**30)
+                anon=int(stats['anon']);pressure,unreclaimable,clean_file=memory_pressure(stats,current,limit)
+                resource=dict(timestamp=stamp(),anon_GiB=anon/2**30,file_GiB=int(stats['file'])/2**30,total_GiB=current/2**30,
+                              unreclaimable_GiB=unreclaimable/2**30,clean_file_GiB=clean_file/2**30,pressure=pressure)
                 write(OUT/'environment/resource_latest.json',resource)
-                pressure=anon>110*2**30 or current>.92*limit
+                with (OUT/'logs/resources.jsonl').open('a') as f:f.write(json.dumps(resource)+'\n')
                 pressure_since=(pressure_since or time.monotonic()) if pressure else None
                 if pressure_since and time.monotonic()-pressure_since>=15:raise MemoryError('Memory guard: stop this FPS run only; spatial settings will not be reduced')
                 codes=[p.poll() for p in children]

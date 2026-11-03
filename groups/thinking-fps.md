@@ -20,7 +20,7 @@
 
 - [Qwn3-VL-Thinking으로 pilot 샘플들에 대해서 inference를 돌려보려고 해. 이때, reasoning trace를 함께 저장할 거야. 그런데 attention을 추출해보려면 어떤 토큰의 atten](../conversations/01a1715b-f50f-7c52-83e4-6d235e825199.md) — deleted
 - [Qwen3-vl-Instruct/Thinking 각각 8fps로 pilot 샘플에 대해 zero-shot 측정해봐](../conversations/01a1806c-2311-77a0-888a-04546017331f.md) — active
-- [FPS만 변경한 실험 찾기](../conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md) — active
+- [지금까지 단순히 fps만 바꿔가며 수행한 실험이 있었나?](../conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md) — active
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.

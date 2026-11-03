@@ -39,7 +39,13 @@ def grid(h,w):
 def temporal_plan(public, fps):
     # This API cannot receive query annotations, prior predictions or scores.
     need(set(public)=={'pts','ids','duration'},'Planner schema includes unapproved fields')
-    pts=public['pts'];ids=public['ids'];chosen=[]
+    original_pts=public['pts'];original_ids=public['ids']
+    need(len(original_pts)==len(original_ids) and len(original_pts)>0,'Missing source timing')
+    need(all(math.isfinite(t) for t in original_pts) and all(a<=b for a,b in zip(original_pts,original_pts[1:])),'Nonfinite or reversed source PTS')
+    # Equal measured PTS are legitimate; the documented earlier-frame tie rule
+    # selects their first source ID. Never invent or perturb a timestamp.
+    keep=[i for i,t in enumerate(original_pts) if i==0 or t!=original_pts[i-1]]
+    pts=[original_pts[i] for i in keep];ids=[original_ids[i] for i in keep];chosen=[]
     for k in range(math.ceil(public['duration']*fps)):
         t=k/fps
         j=bisect_left(pts,t)
@@ -67,13 +73,13 @@ def prepare_video(g):
     torch.set_num_threads(1)
     dst=OUT/'media'/g['key'];meta_path=dst/'metadata.json'
     if meta_path.exists():
-        m=read(meta_path);need(sha(m['array'])==m['array_sha256'],'Frame cache changed');return m
+        m=read(meta_path);need(sha(m['array'])==m['array_sha256'],'Frame cache changed');drop_cache(m['array']);return m
     parent=read(g['parent_metadata']);need(sha(g['video'])==parent['source_video_hash'],'Source video changed')
     vr=decord.VideoReader(g['video'],num_threads=1);need(len(vr)==parent['N'],'Source frame count changed')
     # Read the first frame as part of the same sequential chunk path as all other frames.
     first=vr.get_batch(list(range(min(32,len(vr))))).asnumpy();h,w=first.shape[1:3];hw=grid(h,w)
     pts=parent['pts'];need(len(pts)==len(vr) and parent['ids']==list(range(len(vr))),'Incomplete source PTS')
-    need(all(a<b for a,b in zip(pts,pts[1:])),'PTS must be strictly increasing')
+    need(all(math.isfinite(t) for t in pts) and all(a<=b for a,b in zip(pts,pts[1:])),'Nonfinite or reversed source PTS')
     public=dict(pts=pts,ids=parent['ids'],duration=len(vr)/parent['fps'])
     plans={str(f):temporal_plan(public,f) for f in FPS};ids=sorted({i for p in plans.values() for i in p['frame_ids']});loc={i:j for j,i in enumerate(ids)}
     dst.mkdir(parents=True,exist_ok=True);target=dst/'selected_rgb.npy';tmp=dst/'selected_rgb.building.npy'
@@ -90,7 +96,8 @@ def prepare_video(g):
     m=dict(video=g['video'],key=g['key'],source_sha256=parent['source_video_hash'],parent_metadata=g['parent_metadata'],parent_sha256=sha(g['parent_metadata']),
            source_hw=[h,w],hw=hw,actual_pixels=math.prod(hw),area_error=math.prod(hw)/CONFIG['target_pixels']-1,
            aspect_error=(hw[1]/hw[0])/(w/h)-1,ids=ids,rgb_hashes=hashes,array=str(target),array_sha256=sha(target),
-           N=len(vr),source_fps=parent['fps'],duration=public['duration'],plans=plans,raw_rgb_verified=True)
+           N=len(vr),source_fps=parent['fps'],duration=public['duration'],plans=plans,raw_rgb_verified=True,
+           duplicate_source_pts=sum(a==b for a,b in zip(pts,pts[1:])),duplicate_pts_policy='earlier source ID at identical measured PTS')
     write(meta_path,m);drop_cache(target);drop_cache(g['video']);return m
 
 def prepare_input(public, cache, fps, order, processor):
@@ -173,8 +180,17 @@ def run():
         prepared={};ready=threading.Condition();prep_error=[]
         def prepare_all():
             try:
+                pending=[]
+                # Cache validation uses no decoder or Torch operations: avoid a
+                # fresh spawned interpreter for each already prepared video.
+                for g in groups:
+                    meta=OUT/'media'/g['key']/'metadata.json'
+                    if not meta.exists():pending.append(g);continue
+                    m=read(meta);need(sha(m['array'])==m['array_sha256'],'Frame cache changed');drop_cache(m['array'])
+                    with ready:prepared[m['video']]=m;ready.notify_all()
+                    progress.update(prepared_videos=len(prepared),total_videos=len(groups))
                 with multiprocessing.get_context('spawn').Pool(1,maxtasksperchild=1) as pool:
-                    for m in pool.imap(prepare_video,groups,chunksize=1):
+                    for m in pool.imap(prepare_video,pending,chunksize=1):
                         with ready:prepared[m['video']]=m;ready.notify_all()
                         progress.update(prepared_videos=len(prepared),total_videos=len(groups))
             except BaseException:

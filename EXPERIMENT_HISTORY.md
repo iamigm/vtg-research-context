@@ -235,3 +235,33 @@
 - evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
 - evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
 - reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md
+
+## 2026-11-03T15:34:46.211247+09:00
+
+원본 파일 직접 관찰: 22개 실행, 349개 코드·의존성 파일. 이전 commit: b3fa11451c879463b0a1ca4b5b98cd7301f5c78f.
+
+추가 13 / 변경 10 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/initial/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/0f15c7b68db7490f8359aaeddd30c0c6593a2107e365cae57519d7430e98e659/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/recovery_20261103/status.json
+- code/experiments/zero-shot/_lib/fps_spatial_control.py
+- code/experiments/zero-shot/_lib/fps_spatial_report.py
+- code/experiments/zero-shot/_lib/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md
+- conversations/01a18c45-0978-7563-9999-067f29e4426e.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md

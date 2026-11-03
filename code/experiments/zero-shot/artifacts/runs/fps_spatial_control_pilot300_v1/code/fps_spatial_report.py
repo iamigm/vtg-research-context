@@ -27,6 +27,8 @@ def build():
     from timelens.utils import extract_time,iou
     samples=read(COHORT);bykey={s['sample_key']:s for s in samples};rows=[];control={};pixel_hashes={};input_hashes={};checks=0
     expected=len(samples)*len(FPS)*len(MODELS)*len(ORDERS)
+    allowed_sources={objhash(read(p)) for p in [OUT/'metadata/source_manifest.json',OUT/'metadata/source_manifest_initial.json'] if p.exists()}
+    allowed_sources.update(objhash(read(p)) for p in (OUT/'metadata/source_manifests').glob('*.json'))
     need(objhash(read(OUT/'metadata/config.json'))==objhash(CONFIG),'Frozen config changed')
     for model in MODELS:
         for fps in FPS:
@@ -34,6 +36,7 @@ def build():
                 for s in samples:
                     relative=Path(model)/str(fps)/order/(s['sample_key']+'.json');p=OUT/'responses'/relative;ip=OUT/'inputs'/relative
                     r=read(p);d=read(ip);key=s['sample_key'];need(r['config_hash']==objhash(CONFIG),'Response config differs')
+                    need(r['source_manifest_hash'] in allowed_sources,'Response source manifest is not preserved')
                     need(r['input_detail_sha256']==sha(ip) and r['input_hash']==objhash(d['hashes']),'Response/input hash mismatch')
                     need(r['sample_key']==d['sample_key']==key and r['fps']==d['fps']==fps and r['order']==d['order']==order,'Identity mismatch')
                     need(d['uses_gt'] is False and d['plan']['uses_gt'] is False,'Non-zero-shot input')

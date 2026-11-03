@@ -13,3 +13,11 @@
 완료후 입력·픽셀·PTS·H/W·예측출처를 검증하고 mIoU/R@.3/.5/.7 실제점수와2fps대비pp, 벤치마크별/영상길이별/GT비율별/두축교차표 및 실패율을 MD로 자동생성한다. 개수는질문 기준이며 코호트는기존 진단표본이다. 600/900확장은이번범위에 포함하지 않는다. 스모크의최대2생성토큰 응답은실험결과에포함하지 않는다.
 
 [기존 해상도 변화 감사](SPATIAL_AUDIT.md) · [상태](../../artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json) · [로그](../../artifacts/runs/fps_spatial_control_pilot300_v1/logs/supervisor.log) · [전체 실험 목록](../../../index.html)
+
+## 2026-11-03 재개 수정
+
+RAM 감시는 회수 가능한 clean file cache와 slab cache를 실제 상주 메모리 압박에서 분리한다. 익명 메모리110GiB 초과 또는 회수 불가능 메모리의 한도92% 초과가15초 지속될 때 해당 실행만 중지한다. 전체RAM 사용량도 함께 기록한다.
+
+292개 영상의 PTS를 모두 검사했다. ActivityNet10개 영상에서 같은PTS가 한쌍씩 있으나 시각 역전은 없다. 동일PTS에서는 원본index가 앞선 프레임을 선택하며 타임스탬프를 변경하거나 프레임을 임의의 다른 시각에 배치하지 않는다. 모든FPS에 같은 규칙을 쓴다. 이미 준비된97개 영상의 샘플링 계획과 저장된580개 응답·입력은 변경하지 않는다. 원래 코드와 수정 코드의 출처를 각각 보존한다.
+
+[전체 계획·기존 응답 검증](../../artifacts/runs/fps_spatial_control_pilot300_v1/validation/recovery_20261103.json)
