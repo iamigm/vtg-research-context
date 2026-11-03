@@ -350,3 +350,52 @@
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/STRATA.md
 - evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json
+
+## 2026-11-04T00:33:36.262216+09:00
+
+원본 파일 직접 관찰: 27개 실행, 381개 코드·의존성 파일. 이전 commit: 1acdefd3b0181bbb209a3891f5d8bcf16941d45d.
+
+추가 29 / 변경 13 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/deterministic_rollout_diagnostics.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_diagnostics.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300_report.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300_report.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/STRATA.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md

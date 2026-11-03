@@ -107,3 +107,5 @@ The original300 is preserved as the exact prefix of600 and900. The expansion bal
 ## 결정적 rollout 추가600개와 통합
 
 `runs/deterministic_rollout_additional600_v2/`는 고정pilot900[300:900]의 새 입력·응답을 보존한다. `media/`는 동일 FPS 코드로 필요한2 FPS만 저장한 영상별 픽셀hash/PTS/RGB, `rollouts/`는 새600개 응답이며 나머지 category는 기존300개 실행과 같다. `metadata/original300.json`의 기존 응답 hash를 검증하고 재추론하지 않는다. `runs/deterministic_rollout_pilot600_v2/`와 `runs/deterministic_rollout_pilot900_v2/`에는 통합 지표·검증·원자료 참조 manifest만 두며 응답을 복제하지 않는다. 실행/재개는 `_lib/deterministic_rollout900.py`, 보고서 재생성은 같은 명령의 `--report`다.
+
+결정적 rollout 보고서의 추가 진단은 각 실행 `metrics/recovery_and_selection.csv`, `boundary_errors.csv`, `branch_parent_comparisons.csv`, `branch_role_summary.csv`, `start_end_coupling.csv`, `marginal_efficiency.csv`, `additional_diagnostics.json`에 보존한다. 재생성은 기존 `--report` 진입점을 사용하며 `_lib/deterministic_rollout_diagnostics.py`가 정의·분모·보고서 표를 함께 생성한다. 현재 보고 코드 snapshot은 `code/reporting/`, hash는 `metadata/reporting_code.json`에 별도 저장해 원래 추론 snapshot을 보존한다.

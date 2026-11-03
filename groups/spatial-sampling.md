@@ -8,31 +8,31 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 [REPORT.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/STRATA.md)
 
-현재 관련 코드 90개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 92개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/fps_spatial_control_pilot300_v1
 
 [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
 
-현재 관련 코드 90개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 92개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/selected_frame_cache_migration_v1
 
 [REPORT.md](../reports/experiments/zero-shot/results/selected_frame_cache_migration_v1/REPORT.md)
 
-현재 관련 코드 90개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 92개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/spatial_budget_pilot900_v1
 
 [PILOT_300.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_300.md) · [PILOT_600.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/PILOT_600.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_budget_pilot900_v1/SPEC.md)
 
-현재 관련 코드 90개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 92개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/spatial_sampling_pilot900_v2
 
 [A_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md)
 
-현재 관련 코드 90개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 92개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -101,6 +101,8 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300.py)
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300_report.py)
 - [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout900.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout900.py)
+- [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_diagnostics.py)
 - [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_control.py)
 - [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_report.py)
 - [zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/code/fps_spatial_smoke.py)

@@ -107,6 +107,8 @@ def report(records=None,cohort_label=None):
  text+=['', '자릿수별 분기 위치와 시작·종료 변화는 [digit_roles.json](../../artifacts/runs/'+OUT.name+'/metrics/digit_roles.json)에 있다. 자릿수 변화만으로 다른 사건이라고 판정하지 않으며 실제 사건 구분은 영상 검토가 필요하다.', '',
  '[영상 단위 paired bootstrap 95% CI](../../artifacts/runs/'+OUT.name+'/metrics/paired_video_bootstrap.json) · [길이/GT비율/교차표](STRATA.md) · [질문별 원자료 CSV](../../artifacts/runs/'+OUT.name+'/metrics/per_query.csv)', '',
  '고정 중첩 코호트의 층화 진단 표본이다. 원래 벤치마크의 무작위 평균 또는 독립 test라고 부르지 않는다. 원래300개는 앞선 개발30개를 포함하며 추가600개는 별도 범위로 보고한다. 정책·후보 상한은 기존300개 실행과 동일하다.']
+ from deterministic_rollout_diagnostics import diagnostic_sections
+ text+=diagnostic_sections(records,rows,OUT)
  (REPORT/'REPORT.md').write_text('\n'.join(text)+'\n')
  strata(rows)
  # Validate aggregate denominators, original identities and GT-free selector invariance.

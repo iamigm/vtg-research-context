@@ -1,22 +1,20 @@
 {
-  "timestamp": "2026-11-03T16:36:08.176239+09:00",
-  "state": "paused",
-  "stage": "paused_by_user",
-  "completed": 2295,
+  "timestamp": "2026-11-04T00:33:32.117709+09:00",
+  "state": "running",
+  "stage": "parallel_generation",
+  "completed": 2736,
   "total": 6000,
-  "percentage": 38.25,
+  "percentage": 45.6,
   "counts": {
     "instruct|charades-timelens": 1000,
     "instruct|activitynet-timelens": 1000,
-    "instruct|qvhighlights-timelens": 295
+    "instruct|qvhighlights-timelens": 736
   },
-  "elapsed_seconds": 5325.603413708508,
-  "eta_seconds": null,
-  "eta_scope": "paused by user; no automatic resume",
+  "elapsed_seconds": 1762.1066608726978,
+  "eta_seconds": 13041.986714486362,
+  "eta_scope": "remaining inference based on fresh responses after resume; startup included, reporting excluded",
   "workers": [
-    222667,
-    222668
-  ],
-  "supervisor_stopped": true,
-  "workers_stopped": true
+    314618,
+    314619
+  ]
 }

@@ -1,0 +1,3 @@
+endpoint,branches,questions,improved,worsened,unchanged,mean_delta_iou,valid_pairs,mean_abs_start_shift,mean_abs_end_shift,end_changed,end_changed_over1s
+end,9939,592,3811,4924,1204,-0.015407519831175985,9938,0.0,4.972278124371101,9938,2404
+start,7761,506,2310,3795,1656,-0.02087090581237603,7749,6.008452703574655,5.017369983223642,4255,1173
