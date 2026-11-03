@@ -1,0 +1,8 @@
+{
+  "state": "complete",
+  "stage": "complete",
+  "completed": 900,
+  "total": 900,
+  "timestamp": "2026-11-03T22:08:46.891579+09:00",
+  "inference": "original300 reused; only additional600 inferred"
+}

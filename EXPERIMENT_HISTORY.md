@@ -328,3 +328,25 @@
 - reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/STRATA.md
 - reports/experiments/zero-shot/README.md
 - reports/experiments/zero-shot/artifacts/README.md
+
+## 2026-11-04T00:00:00.000955+09:00
+
+원본 파일 직접 관찰: 27개 실행, 372개 코드·의존성 파일. 이전 commit: 11675f61a6b3600b799fd7c66cd121cc7f5c7e52.
+
+추가 14 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout900.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout900.py
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json
+- reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/STRATA.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/STRATA.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
+- reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/STRATA.md
+- evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json
