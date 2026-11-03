@@ -1,4 +1,4 @@
-# 폐기한 2fps→8fps 실험의 실제 공간 해상도 감사 · pilot300 (300질문)
+# 폐기한 2fps→8fps 실험의 실제 spatial resolution 감사 · pilot300 (300질문)
 
 동일한 고정 pilot300의 Instruct 영상→질문 입력과 기존2fps metadata를 짝지었다. 8fps 두 모델·두 순서의 grid1,200개가 같음도 확인했다. 프레임 면적=video_grid_thw[1]×video_grid_thw[2]×16²픽셀. 평균은 질문별 동일 가중치이며 같은 영상의 다른 질문도 각각 센다. 면적 감소율=100×(1−8fps 평균면적/2fps 평균면적), 샘플별 면적비 중앙값은 median(각8fps면적/각2fps면적)이다. 감소는 프레임당 공간 정보가 줄어드는 방향이다.
 

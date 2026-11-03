@@ -1,4 +1,5 @@
 """Zero-shot FPS sweep with a fixed per-video spatial grid and measured PTS."""
+from result_layout import relocate_path
 import os, sys, math, json, time, hashlib, threading, traceback, fcntl, subprocess
 from pathlib import Path
 from bisect import bisect_left
@@ -12,8 +13,8 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF','expandable_segments:True')
 from adaptive_temporal_sampling import read, write, sha, objhash, stamp, need, immutable, tensorhash
 RUN = 'fps_spatial_control_pilot300_v1'
-OUT = ROOT/'artifacts/runs'/RUN
-REPORT = ROOT/'results'/RUN
+OUT = relocate_path(ROOT/'artifacts/runs'/RUN)
+REPORT = relocate_path(ROOT/'results'/RUN)
 RANK = int(os.environ['FPS_WORKER_RANK']) if 'FPS_WORKER_RANK' in os.environ else None
 COHORT = ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json'
 FPS = [2,3,4,6,8]
@@ -61,7 +62,7 @@ def temporal_plan(public, fps):
 
 def drop_cache(path):
     try:
-        fd=os.open(path,os.O_RDONLY)
+        fd=os.open(relocate_path(Path(path)),os.O_RDONLY)
         try:os.posix_fadvise(fd,0,0,os.POSIX_FADV_DONTNEED)
         finally:os.close(fd)
     except OSError:pass
@@ -105,7 +106,7 @@ def prepare_input(public, cache, fps, order, processor):
     from evaluation.utils import GROUNDER_PROMPT
     need(set(public)=={'sample_key','dataset','video_path','query','duration'},'Annotations entered inference')
     plan=cache['plans'][str(fps)];ids=plan['frame_ids'];loc={i:j for j,i in enumerate(cache['ids'])}
-    arr=np.load(cache['array'],mmap_mode='r');selected=arr[[loc[i] for i in ids]]
+    arr=np.load(relocate_path(Path(cache['array'])),mmap_mode='r');selected=arr[[loc[i] for i in ids]]
     need(all(hashlib.sha256(a.tobytes()).hexdigest()==cache['rgb_hashes'][loc[i]] for a,i in zip(selected,ids)),'Selected pixel hash changed')
     pts=dict(zip(ids,plan['source_pts']))
     def timestamps(self,indices,video_fps,merge_size=2):

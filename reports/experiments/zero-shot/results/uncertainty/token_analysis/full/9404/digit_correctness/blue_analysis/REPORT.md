@@ -1,6 +1,6 @@
 # 정답 가능성을 유지한 숫자 단계: 세 축 분석 · 전체 full9404 (모델별 9,404질문)
 
-전체 벤치마크 9,404개 × 두 모델의 지원 표기 응답 중 파란 숫자 **42033개**를 분석했다. 첫 숫자를 포함하며 기존 raw 전체 어휘 엔트로피를 그대로 사용한다. 기존 pilot 추론은 재사용하고 나머지는 같은 조건으로 새로 추론했다.
+전체 벤치마크 9,404개 × 두 모델의 지원 표기 응답 중 파란 숫자 **42033개**를 분석했다. 첫 숫자를 포함하며 기존 raw 전체 어휘 entropy를 그대로 사용한다. 기존 pilot 추론은 재사용하고 나머지는 같은 조건으로 새로 추론했다.
 
 [영상과 후보별 확률 보기](report.html)
 
@@ -14,19 +14,19 @@ A는 top-30에서 정답 가능이라고 판정한 후보들의 원확률 합이
 
 표의 평균 A와 평균 B는 각 샘플 내부에서 해당 단계들의 값을 평균한 뒤 샘플 간 평균했다. 확률 그룹은 A≥2/3이면 정답 가능 후보 우세, B≥2/3이면 불가능 후보 우세, A≥1/3이고 B>1/3이면 양쪽 후보가 경쟁하는 것으로 분류한다. 나머지는 미확인 확률 때문에 그룹을 확정하지 않는다. 1/3과 2/3은 탐색적으로 정한 기준이다.
 
-높은 엔트로피는 모델 × 데이터셋 × 시작 또는 종료 × 실제 출력 자릿수 내부 75백분위 이상이다. 동률 때문에 정확히 25%가 아닐 수 있다. 숫자 단계 10개 미만인 비교 집단은 별도 표시하며, 첫 숫자와 후속 숫자와 GT 자릿수와 생성 자릿수도 교차 표로 제공한다.
+높은 entropy는 모델 × 데이터셋 × 시작 또는 종료 × 실제 출력 자릿수 내부 75백분위 이상이다. 동률 때문에 정확히 25%가 아닐 수 있다. 숫자 단계 10개 미만인 비교 집단은 별도 표시하며, 첫 숫자와 후속 숫자와 GT 자릿수와 생성 자릿수도 교차 표로 제공한다.
 
 후속 결과는 동일한 시작 또는 종료 시각의 끝까지 유지 / 다음 숫자 최초 실패 / 더 나중 숫자 최초 실패 / 소수점·종료 최초 실패로 구분한다. 다른 시각의 실패와 혼합하지 않는다.
 
 ## 세 축의 정량 결과
 
-표의 확률은 top-30에서 판정한 후보들의 확률 합을 샘플별로 평균한 값이다. 엔트로피 단위는 nat이다. 정답 우세·오답 우세·경쟁·미확정의 기준은 위 정의와 같다.
+표의 확률은 top-30에서 판정한 후보들의 확률 합을 샘플별로 평균한 값이다. entropy 단위는 nat이다. 정답 우세·오답 우세·경쟁·미확정의 기준은 위 정의와 같다.
 
-아래 표는 불확실성이 높은 단계(비교 집단 내 상위 25%)만 보여 준다. 전체와 나머지 단계는 CSV에 있다. 서로 다른 샘플 수는 해당 행에 기여한 영상·질의 쌍의 수이며 서로 다른 영상 수가 아니다. 평균 계산에 사용한 숫자 토큰 개수는 보조 정보로 상세 CSV에만 남겼다. 같은 샘플이 여러 행에 포함될 수 있으므로 행별 샘플 수를 더하면 전체 샘플 수와 다를 수 있다. 평균은 샘플 안의 해당 단계들을 먼저 평균한 뒤 샘플 간 평균했다. 샘플 수 10개 미만은 탐색적으로 해석한다. 평균 엔트로피의 95% 신뢰구간은 샘플 단위 재추출 500회로 계산해 CSV에 저장했다. 이후 실패율 역시 샘플별 해당 단계 중 나중에 가능성을 잃는 비율을 구한 뒤 샘플 간 평균했다.
+아래 표는 불확실성이 높은 단계(비교 집단 내 상위 25%)만 보여 준다. 전체와 나머지 단계는 CSV에 있다. 서로 다른 샘플 수는 해당 행에 기여한 영상·질의 쌍의 수이며 서로 다른 영상 수가 아니다. 평균 계산에 사용한 숫자 토큰 개수는 보조 정보로 상세 CSV에만 남겼다. 같은 샘플이 여러 행에 포함될 수 있으므로 행별 샘플 수를 더하면 전체 샘플 수와 다를 수 있다. 평균은 샘플 안의 해당 단계들을 먼저 평균한 뒤 샘플 간 평균했다. 샘플 수 10개 미만은 탐색적으로 해석한다. 평균 entropy의 95% 신뢰구간은 샘플 단위 재추출 500회로 계산해 CSV에 저장했다. 이후 실패율 역시 샘플별 해당 단계 중 나중에 가능성을 잃는 비율을 구한 뒤 샘플 간 평균했다.
 
 ### 후보 확률이 어디에 모이는가
 
-<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">후보 분류</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">엔트로피</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
+<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">후보 분류</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">entropy</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">경쟁</td><td style="white-space:nowrap">916</td><td style="white-space:nowrap">1.571</td><td style="white-space:nowrap">0.500</td><td style="white-space:nowrap">0.500</td><td style="white-space:nowrap">65.7%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">정답 우세</td><td style="white-space:nowrap">509</td><td style="white-space:nowrap">0.650</td><td style="white-space:nowrap">0.861</td><td style="white-space:nowrap">0.139</td><td style="white-space:nowrap">82.9%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">오답 우세</td><td style="white-space:nowrap">318</td><td style="white-space:nowrap">1.911</td><td style="white-space:nowrap">0.264</td><td style="white-space:nowrap">0.736</td><td style="white-space:nowrap">77.7%</td></tr>
@@ -45,7 +45,7 @@ A는 top-30에서 정답 가능이라고 판정한 후보들의 원확률 합이
 
 ### 이후 언제 정답 가능성을 잃는가
 
-<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">이후 결과</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">엔트로피</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
+<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">이후 결과</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">entropy</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">끝까지 유지</td><td style="white-space:nowrap">383</td><td style="white-space:nowrap">1.774</td><td style="white-space:nowrap">0.540</td><td style="white-space:nowrap">0.460</td><td style="white-space:nowrap">0.0%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">소수점·종료에서 실패</td><td style="white-space:nowrap">46</td><td style="white-space:nowrap">1.820</td><td style="white-space:nowrap">0.340</td><td style="white-space:nowrap">0.660</td><td style="white-space:nowrap">100.0%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">더 나중 숫자에서 실패</td><td style="white-space:nowrap">290</td><td style="white-space:nowrap">0.894</td><td style="white-space:nowrap">0.676</td><td style="white-space:nowrap">0.324</td><td style="white-space:nowrap">100.0%</td></tr>
@@ -67,7 +67,7 @@ A는 top-30에서 정답 가능이라고 판정한 후보들의 원확률 합이
 
 ### 어느 위치의 숫자를 생성하는가
 
-<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">벤치마크</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">숫자 순서</th><th style="white-space:nowrap">자릿수</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">엔트로피</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
+<div style="overflow-x:auto"><table style="white-space:nowrap;width:max-content"><thead><tr><th style="white-space:nowrap">모델</th><th style="white-space:nowrap">벤치마크</th><th style="white-space:nowrap">예측 대상</th><th style="white-space:nowrap">숫자 순서</th><th style="white-space:nowrap">자릿수</th><th style="white-space:nowrap">샘플 수</th><th style="white-space:nowrap">entropy</th><th style="white-space:nowrap">정답 가능 확률</th><th style="white-space:nowrap">정답 불가 확률</th><th style="white-space:nowrap">후속 실패율</th></tr></thead><tbody>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">activitynet-timelens</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">첫 숫자</td><td style="white-space:nowrap">백의 자리</td><td style="white-space:nowrap">240</td><td style="white-space:nowrap">0.618</td><td style="white-space:nowrap">0.783</td><td style="white-space:nowrap">0.217</td><td style="white-space:nowrap">88.8%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">activitynet-timelens</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">첫 숫자</td><td style="white-space:nowrap">일의 자리</td><td style="white-space:nowrap">51</td><td style="white-space:nowrap">1.896</td><td style="white-space:nowrap">0.404</td><td style="white-space:nowrap">0.596</td><td style="white-space:nowrap">70.6%</td></tr>
 <tr><td style="white-space:nowrap">qwen25</td><td style="white-space:nowrap">activitynet-timelens</td><td style="white-space:nowrap">종료 시각</td><td style="white-space:nowrap">첫 숫자</td><td style="white-space:nowrap">십의 자리</td><td style="white-space:nowrap">360</td><td style="white-space:nowrap">1.236</td><td style="white-space:nowrap">0.523</td><td style="white-space:nowrap">0.477</td><td style="white-space:nowrap">85.3%</td></tr>
@@ -137,20 +137,20 @@ A는 top-30에서 정답 가능이라고 판정한 후보들의 원확률 합이
 
 ## 관측 결과와 해석
 
-- qwen25: 높은 엔트로피의 파란 단계 4743개. 정답 가능 우세 668개, 오류 후보 우세 1038개, 정답 가능 확률이 중간인 단계 3037개, 그룹 확정 불가 0개.
+- qwen25: 높은 entropy의 파란 단계 4743개. 정답 가능 우세 668개, 오류 후보 우세 1038개, 정답 가능 확률이 중간인 단계 3037개, 그룹 확정 불가 0개.
   - 시작 시각, 나머지: 서로 다른 샘플 5220개, 샘플 평균 후속 실패율 55.9%.
-  - 시작 시각, 상위 엔트로피: 서로 다른 샘플 2105개, 샘플 평균 후속 실패율 61.0%.
+  - 시작 시각, 상위 entropy: 서로 다른 샘플 2105개, 샘플 평균 후속 실패율 61.0%.
   - 종료 시각, 나머지: 서로 다른 샘플 4055개, 샘플 평균 후속 실패율 81.7%.
-  - 종료 시각, 상위 엔트로피: 서로 다른 샘플 1565개, 샘플 평균 후속 실패율 75.5%.
-- qwen3: 높은 엔트로피의 파란 단계 5782개. 정답 가능 우세 1999개, 오류 후보 우세 207개, 정답 가능 확률이 중간인 단계 3574개, 그룹 확정 불가 2개.
+  - 종료 시각, 상위 entropy: 서로 다른 샘플 1565개, 샘플 평균 후속 실패율 75.5%.
+- qwen3: 높은 entropy의 파란 단계 5782개. 정답 가능 우세 1999개, 오류 후보 우세 207개, 정답 가능 확률이 중간인 단계 3574개, 그룹 확정 불가 2개.
   - 시작 시각, 나머지: 서로 다른 샘플 5646개, 샘플 평균 후속 실패율 43.0%.
-  - 시작 시각, 상위 엔트로피: 서로 다른 샘플 2381개, 샘플 평균 후속 실패율 47.1%.
+  - 시작 시각, 상위 entropy: 서로 다른 샘플 2381개, 샘플 평균 후속 실패율 47.1%.
   - 종료 시각, 나머지: 서로 다른 샘플 4866개, 샘플 평균 후속 실패율 72.6%.
-  - 종료 시각, 상위 엔트로피: 서로 다른 샘플 2021개, 샘플 평균 후속 실패율 61.3%.
+  - 종료 시각, 상위 entropy: 서로 다른 샘플 2021개, 샘플 평균 후속 실패율 61.3%.
 
-정답 가능 질량이 높은 고엔트로피는 허용되는 후보 사이의 분산을, 낮은 경우는 오류 후보와의 경쟁을 구분하는 데 유용하다. 미확인 확률이 남아 있으면 A와 B만으로 우세를 단정하지 않는다. 단계별 비교는 첫 숫자와 후속 자리, 데이터셋, 자릿수 구성에 영향을 받으므로 통합 실패율을 예측 성능이나 인과 효과로 해석하지 않는다. 특히 소수 마지막 자리에는 이후 숫자가 없어 이후 실패 기회 자체가 적다. 같은 위치의 교차 표와 함께 보아야 한다.
+정답 가능 질량이 높은 고entropy는 허용되는 후보 사이의 분산을, 낮은 경우는 오류 후보와의 경쟁을 구분하는 데 유용하다. 미확인 확률이 남아 있으면 A와 B만으로 우세를 단정하지 않는다. 단계별 비교는 첫 숫자와 후속 자리, 데이터셋, 자릿수 구성에 영향을 받으므로 통합 실패율을 예측 성능이나 인과 효과로 해석하지 않는다. 특히 소수 마지막 자리에는 이후 숫자가 없어 이후 실패 기회 자체가 적다. 같은 위치의 교차 표와 함께 보아야 한다.
 
-observed_safe_entropy는 top-30 내 확인된 정답 가능 후보만 조건부 정규화한 엔트로피이며 전체 정답 후보 엔트로피가 아니다. 원래 전체 어휘 H와 혼동하지 않는다. 원분포의 정답 가능 후보와 불가능 후보 엔트로피 기여량도 CSV에 저장했다.
+observed_safe_entropy는 top-30 내 확인된 정답 가능 후보만 조건부 정규화한 entropy이며 전체 정답 후보 entropy가 아니다. 원래 전체 어휘 H와 혼동하지 않는다. 원분포의 정답 가능 후보와 불가능 후보 entropy 기여량도 CSV에 저장했다.
 
 ![정답 가능 질량과 불확실성](../../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/figures/safe_mass_vs_entropy.png)
 

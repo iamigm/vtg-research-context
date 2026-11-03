@@ -32,12 +32,14 @@ def relocate_path(path):
   else:return Path(s) if s!=initial else path
  raise ValueError('Cyclic result migration: '+initial)
 def original_path(path):
- s=canonical(os.path.abspath(path));seen=set()
+ s=canonical(os.path.abspath(path));seen=set();applied=set()
  reverse=sorted(rules(),key=lambda x:len(x[1]),reverse=True)
  while s not in seen:
   seen.add(s)
   for old,new in reverse:
+   if (old,new) in applied:continue
    if s==new or s.startswith(new+'/'):
+    applied.add((old,new))
     s=old+s[len(new):];break
   else:return Path(s)
  raise ValueError('Cyclic reverse migration: '+str(path))
@@ -74,8 +76,11 @@ def rewrite_document(text,old_file,new_file):
  return re.sub(r'[A-Za-z0-9_~./%{}:@+\-]+(?:\?[A-Za-z0-9_=&.%+\-]+)?(?:#[A-Za-z0-9_\-]+)?',rep,text)
 def write_result_text(path,text,*args,**kwargs):
  path=relocate_path(path)
+ from result_terms import normalize_report,normalize_markup
+ if path.suffix=='.md':text=normalize_report(text)
+ if path.suffix=='.html':text=normalize_markup(text)
  if path.suffix in {'.md','.html','.js','.css'}:text=rewrite_document(text,original_path(path),path)
- if path.suffix == '.md' and '/results/' in canonical(path) and 'rollout' not in str(path):
+ if path.suffix == '.md' and '/results/' in canonical(path):
   from build_index import scope_label
   scope=scope_label(path)
   if scope and text.startswith('# '):

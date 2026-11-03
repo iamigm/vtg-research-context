@@ -119,15 +119,15 @@ def main():
  priority+=[max(manifest['branches'],key=lambda b:b['greedy_delta'])['sample']]
  priority += [s['key'] for s in manifest['samples'] if s['dot_count']]
  priority_rank={key:i for i,key in enumerate(dict.fromkeys(priority))}
- references.sort(key=lambda r:priority_rank.get(Path(r['path']).stem,10000))
+ references.sort(key=lambda r:priority_rank.get(relocate_path(Path(r['path'])).stem,10000))
  if world>1:
-  references=[r for r in references if int(hashlib.sha256(Path(r['path']).stem.encode()).hexdigest()[:8],16)%world==rank]
+  references=[r for r in references if int(hashlib.sha256(relocate_path(Path(r['path'])).stem.encode()).hexdigest()[:8],16)%world==rank]
  lockname='distribution_capture.lock' if world==1 else f'distribution_worker{rank}.lock'
  with (OUT/'metadata'/lockname).open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);p=Progress(total=len(references),rank=rank)
   try:
    for name in ['rollout_token_distributions.py','conditional_rollout_budget.py','fps_spatial_control.py']:
-    source=Path(__file__).with_name(name);target=OUT/'code/distribution_capture'/name
+    source=relocate_path(Path(__file__)).with_name(name);target=OUT/'code/distribution_capture'/name
     target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(source.read_bytes())
    while free_mib()<60*1024:p.update(state='waiting',stage='waiting_for_gpu',free_mib=free_mib());time.sleep(20)
    import fps_spatial_control as source
@@ -140,7 +140,7 @@ def main():
    WRITERS=concurrent.futures.ThreadPoolExecutor(max_workers=2)
    counts=collections.Counter();done=fresh=0;start=time.monotonic();total_nodes=total_bytes=0
    for reference in references:
-    key=Path(reference['path']).stem;rec=read(reference['path']);row=rec['sample']
+    key=relocate_path(Path(reference['path'])).stem;rec=read(reference['path']);row=rec['sample']
     assert sha(reference['path'])==reference['sha256']
     existing=TRACES/key/'index.json'
     if existing.exists():
@@ -148,7 +148,7 @@ def main():
      done+=1;counts[row['dataset']]+=1;total_nodes+=len(saved['nodes']);total_bytes+=sum(x['bytes'] for x in saved['nodes'].values());continue
     while free_mib()<24*1024:p.update(state='waiting',stage='waiting_for_gpu',free_mib=free_mib());time.sleep(20)
     p.update(state='running',stage='preparing_input',sample_key=key,candidate=0)
-    original_run=Path(reference['path']).parents[1];saved_input=read(original_run/'inputs'/(key+'.json'))
+    original_run=relocate_path(Path(reference['path'])).parents[1];saved_input=read(original_run/'inputs'/(key+'.json'))
     cache=read(saved_input['cache_metadata'])
     public={k:row[k] for k in ['sample_key','dataset','video_path','query','duration']}
     cpu,detail=source.prepare_input(public,cache,2,'video_query',processor)
@@ -160,7 +160,7 @@ def main():
     p.update(stage='generation',completed=done,counts=dict(counts),total_prefixes=total_nodes,
       total_compressed_bytes=total_bytes,eta_seconds=(time.monotonic()-start)/fresh*(len(references)-done))
    p.update(stage='validating')
-   assert all((TRACES/Path(r['path']).stem/'index.json').exists() for r in references)
+   assert all((TRACES/relocate_path(Path(r['path'])).stem/'index.json').exists() for r in references)
    if world>1:
     write(OUT/'validation'/f'distribution_worker{rank}.json',dict(passed=True,queries=len(references),prefixes=total_nodes,compressed_bytes=total_bytes))
     p.update(state='complete',stage='complete',completed=len(references),eta_seconds=0)

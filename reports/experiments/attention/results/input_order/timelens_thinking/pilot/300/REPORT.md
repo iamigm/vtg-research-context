@@ -6,7 +6,7 @@
 
 상세: L0/7/14/21/28/35, 모든 key, FP32. Head 압축 방식은 ../../../../../artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/config.json 참조. 전체 36 layers × 32 heads에는 7개 범주의 attention mass를 저장한다. 각 생성 토큰을 예측하는 직전 위치의 attention이며 종료 태그와 EOS 예측 행도 포함한다.
 
-전환 전 기록은 replay, 전환 후 신규 생성은 live 추출이다. 저장된 generation만 있는 미완료 항목은 replay로 복구한다. 각 신규 결과의 measurement_method와 migration_to_live 목록으로 구분한다. Attention은 post-RoPE Q/K의 FP32 softmax다. 실제 생성 실행의 attention과 비트 단위 동일함을 주장하지 않는다. 미래 key는 0이며 key_lengths로 유효 구간을 구분한다. 구간/head 평균은 key 축을 재정규화하지 않는다. 입력 순서에 따라 reasoning과 답변도 달라질 수 있어 attention 변화의 인과를 단정하지 않는다.
+전환 전 기록은 replay, 전환 후 신규 생성은 live 추출이다. 저장된 generation만 있는 미완료 항목은 replay로 복구한다. 각 신규 결과의 measurement_method와 migration_to_live 목록으로 구분한다. Attention은 post-RoPE Q/K의 FP32 softmax다. 실제 생성 실행의 attention과 비트 단위 동일함을 주장하지 않는다. 미래 key는 0이며 key_lengths로 유효 구간을 구분한다. 구간/head 평균은 key 축을 재정규화하지 않는다. input order에 따라 reasoning과 답변도 달라질 수 있어 attention 변화의 인과를 단정하지 않는다.
 
 | Dataset/order | n | reasoning mean | median | p95 | max | mIoU | truncated | GiB |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|

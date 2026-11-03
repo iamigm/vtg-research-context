@@ -1,0 +1,14 @@
+{
+  "state": "complete",
+  "stage": "complete",
+  "completed": 900,
+  "total": 900,
+  "timestamp": "2026-11-04T00:40:46.964101+09:00",
+  "token_distributions": {
+    "state": "complete",
+    "stage": "complete",
+    "timestamp": "2026-11-04T03:08:02.162658+09:00",
+    "completed": 900,
+    "total": 900
+  }
+}

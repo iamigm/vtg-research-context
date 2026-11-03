@@ -18,7 +18,7 @@ Charades-STA test, QVHighlights val, ActivityNet-Captions val_1에서 이전과 
 
 ## Query와 답변의 attention
 
-주 비교는 query 이벤트 문장 전체, 답변 전체(EOS 제외), 파싱된 timestamp의 숫자 토큰이다. 레이어 8–21과 모든 head를 평균했다. ‘영상 attention 총량’은 원래 softmax attention 중 영상에 간 확률 질량이다. ‘GT 비중 변화’는 영상 안에서 합계 1로 정규화한 분포의 GT 질량을 같은 샘플의 query와 비교한 값이며, 두 개념을 구분해야 한다.
+주 비교는 query 이벤트 문장 전체, 답변 전체(EOS 제외), 파싱된 timestamp의 숫자 토큰이다. 레이어 8–21과 모든 head를 평균했다. ‘영상 attention 총량’은 원래 softmax attention 중 영상에 간 probability mass이다. ‘GT 비중 변화’는 영상 안에서 합계 1로 정규화한 분포의 GT 질량을 같은 샘플의 query와 비교한 값이며, 두 개념을 구분해야 한다.
 
 | 데이터셋 | 토큰 그룹 | 영상 attention 총량 평균 | 최고 peak가 GT 안 | Query 대비 GT 비중 변화 중앙값 | GT 비중이 Query보다 커진 샘플 |
 |---|---|---:|---:|---:|---:|

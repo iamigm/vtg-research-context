@@ -16,7 +16,7 @@ def record(state,**kw):
 def publish(n,cohort):
  from deterministic_rollout_viewer import build
  out=relocate_path(ROOT/'artifacts/runs'/f'deterministic_rollout_pilot{n}_v2')
- report=relocate_path(ROOT/'results'/out.name)
+ report=relocate_path(ROOT/'results'/f'deterministic_rollout_pilot{n}_v2')
  assert read(out/'metadata/cohort.json')==cohort
  prefixes=size=0
  for sample in cohort:

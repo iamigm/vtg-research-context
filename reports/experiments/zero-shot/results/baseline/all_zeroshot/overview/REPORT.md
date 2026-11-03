@@ -19,7 +19,7 @@
 
 모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
 
-| Run | 모델 | FPS | 입력 순서 | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
+| Run | 모델 | FPS | input order | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
 |---|---|---:|---|---|---:|---:|---:|---:|---:|
 | full_benchmark_v1 | Qwen2.5-VL-7B-Instruct | 2 | video_query | activitynet-timelens | 4500/4500 | 32.07 | 44.93 | 29.80 | 16.22 |
 | full_benchmark_v1 | Qwen2.5-VL-7B-Instruct | 2 | video_query | all | 9404/9404 | 34.88 | 50.40 | 30.90 | 16.37 |
@@ -42,7 +42,7 @@
 
 모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
 
-| Run | 모델 | FPS | 입력 순서 | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
+| Run | 모델 | FPS | input order | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
 |---|---|---:|---|---|---:|---:|---:|---:|---:|
 | full_benchmark_v1 | Qwen2.5-VL-7B-Instruct | 2 | video_query | activitynet-timelens | 100/100 | 29.74 | 41.00 | 26.00 | 14.00 |
 | full_benchmark_v1 | Qwen2.5-VL-7B-Instruct | 2 | video_query | all | 300/300 | 33.60 | 49.67 | 29.00 | 13.33 |
@@ -79,7 +79,7 @@
 
 모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
 
-| Run | 모델 | FPS | 입력 순서 | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
+| Run | 모델 | FPS | input order | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
 |---|---|---:|---|---|---:|---:|---:|---:|---:|
 | restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | activitynet-timelens | 100/100 | 34.94 | 47.00 | 35.00 | 20.00 |
 | restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | all | 300/300 | 39.81 | 56.33 | 39.00 | 22.33 |
@@ -118,4 +118,4 @@
 
 원본 예측과 파생 측정은 변경하지 않았다. smoke 검사·중단된 old cohort·성능과 무관한 entropy/attention 파생값은 별도 성능 실행으로 세지 않았다. top30 pilot은 full_benchmark_v1에서 재사용한 동일 응답이므로 중복 합산하지 않았다.
 
-[지표 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/metrics.csv) · [샘플별 재채점 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/sample_metrics.csv) · [전체 JSON](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/summary.json) · [출처 SHA-256](../../../../artifacts/runs/baseline/all_zeroshot/overview/metadata/sources.json) · [검증](../../../../artifacts/runs/baseline/all_zeroshot/overview/validation/validation.json) · [rollout 원 보고서](../../../timelens_rollout/REPORT.md)
+[지표 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/metrics.csv) · [샘플별 재채점 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/sample_metrics.csv) · [전체 JSON](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/summary.json) · [출처 SHA-256](../../../../artifacts/runs/baseline/all_zeroshot/overview/metadata/sources.json) · [검증](../../../../artifacts/runs/baseline/all_zeroshot/overview/validation/validation.json) · [rollout 원 보고서](../../../rollout/stochastic/pilot/300/REPORT.md)

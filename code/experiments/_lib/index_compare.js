@@ -18,8 +18,8 @@
       choice.disabled = selected.length === 2 && !choice.checked;
     });
     $('selection-status').textContent = selected.length === 2
-      ? '2개 선택됨 · 두 실험을 함께 열 수 있습니다'
-      : `비교할 실험 2개를 선택하세요 (${selected.length}/2)`;
+      ? '2개 선택됨 · 두 계열을 함께 열 수 있습니다'
+      : `비교할 실험 계열 2개를 선택하세요 (${selected.length}/2)`;
     $('open-comparison').disabled = selected.length !== 2;
     $('clear-selection').disabled = !selected.length;
   }
@@ -32,7 +32,7 @@
     $('catalog').hidden = comparing;
     $('comparison').hidden = !comparing;
     document.body.classList.toggle('comparing', comparing);
-    document.title = comparing ? '두 실험 비교 · 실험 목록' : '실험 목록';
+    document.title = comparing ? '두 계열 비교 · 실험 목록' : '실험 목록';
     if (comparing) {
       selected = [...new Set([left, right])];
       for (const [side, href] of [['left', left], ['right', right]]) {

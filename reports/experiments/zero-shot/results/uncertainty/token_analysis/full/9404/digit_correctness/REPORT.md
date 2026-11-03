@@ -29,9 +29,9 @@
 | qwen3 | qvhighlights-timelens | start | 1490 | 665 | 820/5 |
 | qwen3 | qvhighlights-timelens | end | 1490 | 332 | 1146/12 |
 
-## 경우별 엔트로피
+## 경우별 entropy
 
-각 query 내부에서 해당 상태의 step 엔트로피를 평균한 뒤 query 간 평균한다. 95% CI는 query bootstrap 1,000회. 최초 오류 행은 소수점 또는 종료 토큰도 포함한다. 최종 정답/오답 endpoint 행은 모든 숫자 step으로 별도 집계하며 다른 행과 중복된다.
+각 query 내부에서 해당 상태의 step entropy를 평균한 뒤 query 간 평균한다. 95% CI는 query bootstrap 1,000회. 최초 오류 행은 소수점 또는 종료 토큰도 포함한다. 최종 정답/오답 endpoint 행은 모든 숫자 step으로 별도 집계하며 다른 행과 중복된다.
 
 | 모델 | 대상 | 경우 | N query / N step | 평균 H [95% CI] |
 |---|---|---|---|---|
@@ -76,7 +76,7 @@
 
 ## 해석
 
-오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. 엔트로피는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.
+오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. entropy는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.
 
 [전체 step](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/per_step.csv) · [endpoint](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/per_endpoint.csv) · [경우별](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/conditions.csv) · [자리별](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/role_conditions.csv) · [조건부 상태 비율](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/position_conditional_accuracy.csv) · [자릿수 통제](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/digit_stratified.csv)
 

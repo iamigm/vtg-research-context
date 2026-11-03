@@ -52,7 +52,7 @@ def integrate():
   status('running','integrating',completed=900,total=900)
   records=[]
   for reference in read(OUT/'metadata/source_records.json'):
-   path=Path(reference['path']);assert hashlib.sha256(path.read_bytes()).hexdigest()==reference['sha256']
+   path=relocate_path(Path(reference['path']));assert hashlib.sha256(path.read_bytes()).hexdigest()==reference['sha256']
    records.append(read(path))
   import deterministic_rollout300_report as report_module
   report_module.OUT=OUT;report_module.REPORT=REPORT
@@ -65,7 +65,7 @@ def integrate():
   write(prior,dict(passed=True,queries=900,original_per_query_sha256=before,
    original_record_hashes_unchanged=True,existing_html_updated=True,existing_report_updated=True,
    separate_distribution_report_removed=True,separate_run_created=False))
-  source=Path(__file__);(OUT/'code/reporting'/source.name).write_bytes(source.read_bytes())
+  source=relocate_path(Path(__file__));(OUT/'code/reporting'/source.name).write_bytes(source.read_bytes())
   status('complete','complete',completed=900,total=900)
 
 def wait_and_integrate():

@@ -8,79 +8,55 @@
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/all_zeroshot_v1/REPORT.md)
 
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 192개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_span_head
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_span_head/REPORT.md)
 
-현재 관련 코드 184개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 195개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_top30
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/entropy_iou/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/integrated/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md)
 
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 192개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_top30_full
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md) · [CACHE_REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md) · [PIPELINE_REVIEW.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/REPORT.md)
 
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 192개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/baseline
 
-[REPORT.md](../reports/experiments/zero-shot/results/baseline/all_zeroshot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/consistency_v1/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/overview/REPORT.md)
+[REPORT.md](../reports/experiments/zero-shot/results/baseline/all_zeroshot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/consistency/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/overview/REPORT.md)
 
-현재 관련 코드 184개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/conditional_rollout_budget_pilot30_v1
-
-[ANALYSIS.md](../reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/ANALYSIS.md) · [NEXT_EXPERIMENT.md](../reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/NEXT_EXPERIMENT.md) · [REPORT.md](../reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/STRATA.md)
-
-현재 관련 코드 182개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/deterministic_rollout_additional600_v2
-
-[REPORT.md](../reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/STRATA.md)
-
-현재 관련 코드 182개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/deterministic_rollout_pilot300_v2
-
-[END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/STRATA.md)
-
-현재 관련 코드 182개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
-
-### zero-shot/deterministic_rollout_pilot600_v2
-
-[END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/STRATA.md)
-
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 195개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/operations
 
-[CACHE_REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/CACHE_REPORT.md) · [PIPELINE_REVIEW.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/PIPELINE_REVIEW.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/v1/REPORT.md)
+[CACHE_REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/CACHE_REPORT.md) · [PIPELINE_REVIEW.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/PIPELINE_REVIEW.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/REPORT.md)
 
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 192개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
-### zero-shot/timelens_rollout
+### zero-shot/rollout
 
-[REPORT.md](../reports/experiments/zero-shot/results/timelens_rollout/REPORT.md)
+[ANALYSIS.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/ANALYSIS.md) · [NEXT_EXPERIMENT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/NEXT_EXPERIMENT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/overview/REPORT.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/STRATA.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/STRATA.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/stochastic/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/stochastic/pilot/overview/REPORT.md)
 
-현재 관련 코드 181개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 192개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/uncertainty
 
 [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/span_head/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/span_head/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/entropy_iou/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/integrated/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/numeric_uncertainty/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/prefix_entropy/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/overview/REPORT.md)
 
-현재 관련 코드 184개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 195개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
 - [같은 pilot 100개 샘플에 대해 lm head에서 숫자와 온점, 반점 등 span prediction에 필요한 것만 분류하게 해봐. GPU 최대로 써서 빠르게 결과 뽑아](../conversations/01a153a1-eddc-75b1-a442-3b3ed0ebf708.md) — active
 - [Save benchmark result PNGs](../conversations/01a1715e-ffa1-7fe1-9ef4-2f1dc8e65b58.md) — deleted
-- [zero-shot 실험 묶고 legacy 정리](../conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md) — active
+- [zero-shot 아래의 싫럼들 정리 좀 하자. 어떻게 묶어볼 수 있겠어? 같은 맥락에서 진행된 거는 함께 정리해놓고 싶은데. 그리고 legacy_quantitive는 그냥 없애버려](../conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md) — active
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
@@ -216,43 +192,54 @@
 - [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_validate_video_cache.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_validate_video_cache.py)
 - [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_cached_pipeline.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_cached_pipeline.py)
 - [zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_throughput.py](../code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/timelens_verify_throughput.py)
-- [zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_analysis.py](../code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_analysis.py)
-- [zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_budget.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/conditional_rollout_budget.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout900.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout900.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout_diagnostics.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/conditional_rollout_budget.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_diagnostics.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.css](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.css)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/rollout_distribution_viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/rollout_distribution_viewer.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/distributions.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.css)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout900.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout900.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout300_report.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_diagnostics.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.css](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.css)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.py](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.py)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/rollout_distribution_viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/rollout_distribution_viewer.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/distributions.js)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.css)
-- [zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.js)
 - [zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe.py](../code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe.py)
 - [zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe_after.py](../code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/observe_after.py)
 - [zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/worker_before_cache.py](../code/experiments/zero-shot/artifacts/runs/operations/inference_performance/full/9404/code/worker_before_cache.py)
-- [zero-shot/artifacts/runs/timelens_rollout/web/manifest.js](../code/experiments/zero-shot/artifacts/runs/timelens_rollout/web/manifest.js)
-- [zero-shot/artifacts/runs/timelens_rollout/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/timelens_rollout/web/viewer.js)
+- [zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_analysis.py](../code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_analysis.py)
+- [zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_budget.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/conditional_rollout_budget.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_diagnostics.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/rollout_distribution_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/rollout_distribution_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/distributions.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout900.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout900.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_diagnostics.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/rollout_distribution_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/rollout_distribution_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/distributions.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout900.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout900.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/conditional_rollout_budget.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/conditional_rollout_budget.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/rollout_token_distributions.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/rollout_token_distributions.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout300_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout300_report.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_diagnostics.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_diagnostics.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_integrate.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_integrate.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_parallel.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_parallel.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer_check.py](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer_check.py)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/distributions.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/distributions.js)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.css](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.css)
+- [zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js)
+- [zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/manifest.js](../code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/manifest.js)
+- [zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/viewer.js)
 - [zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/monitor.py](../code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/monitor.py)
 - [zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/report.py](../code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/report.py)
 - [zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/run.py](../code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/run.py)

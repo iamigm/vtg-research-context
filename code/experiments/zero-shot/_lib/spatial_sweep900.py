@@ -9,7 +9,7 @@ RUN='spatial_sampling_pilot900_v2';PARENT='spatial_sampling_sources_v2'
 OUT=relocate_path(ROOT/'artifacts/runs'/RUN);REPORT=relocate_path(ROOT/'results'/RUN);PR=relocate_path(ROOT/'artifacts/runs'/PARENT)
 TEMPORAL=['uniform']+[f'{who}_{mode}_r{r}'+(f'_s{seed}' if who=='random' else '') for r in [2,4,8] for mode in ['whole','boundary'] for who in ['gt','random'] for seed in ([42,43] if who=='random' else [None])]
 CONDITIONS=[d+'__'+c for d in ['A','B'] for c in TEMPORAL]
-REUSE=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900')
+REUSE=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900')
 AREAS={'low':50176,'high':100352}
 CONFIG=dict(run_id=RUN,parent=PARENT,areas=AREAS,conditions=CONDITIONS,cohort='nested_pilot_v1/pilot_900',model=str(old.MODEL),revision=old.CONFIG['revision'],seed=42,do_sample=False,max_new_tokens=512,repetition_penalty=1.,dtype='bfloat16',attention='flash_attention_2',resize='torchvision bicubic antialias uint8; directly from original RGB',grid_policy='H,W multiples32; area within10%; minimize abs(log((W/H)/(sourceW/sourceH))), then relative area error, then H,W',temporal_policy='exact parent frame IDs, source PTS, original frame count; no total video token cap',batch_policy='singleton; fixed-resolution prior batch4 probe failed exact generated IDs',gpu_free_required_GiB=60,cpu_workers=8)
 GEN=dict(do_sample=False,temperature=None,top_p=None,top_k=None,max_new_tokens=512,repetition_penalty=1.,use_cache=True)

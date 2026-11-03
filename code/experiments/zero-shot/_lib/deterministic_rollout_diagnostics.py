@@ -1,4 +1,5 @@
 """Additional rollout diagnostics from saved completions only; no model calls."""
+from result_layout import relocate_path
 import collections,csv,hashlib,json,statistics
 from pathlib import Path
 
@@ -211,7 +212,7 @@ def diagnostic_sections(records,rows,out):
    transition_identities_verified=True,oracle_contains_greedy=True,actual_selection_within_oracle=True,
    matched_parent_indices_verified=True,inference_rerun=False))
  # Preserve the original inference snapshots and version current reporting separately.
- source_dir=Path(__file__).parent;provenance=[]
+ source_dir=relocate_path(Path(__file__)).parent;provenance=[]
  for name in ['deterministic_rollout_diagnostics.py','deterministic_rollout300_report.py']:
   source=source_dir/name;destination=out/'code/reporting'/name
   destination.parent.mkdir(parents=True,exist_ok=True);destination.write_bytes(source.read_bytes())

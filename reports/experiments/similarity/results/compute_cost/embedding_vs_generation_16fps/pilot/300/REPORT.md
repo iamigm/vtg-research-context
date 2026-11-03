@@ -12,7 +12,7 @@
 - 유사도: 독립 frame/query embedding을 FP32 L2 정규화하고 cosine을 계산한다. CLIP batch256, Qwen batch128; 공통 JPEG 최대 변512, Qwen max_pixels262144.
 - Instruct: video→query 입력, TimeLens grounding prompt, greedy, KV cache, 최대512 output tokens, 마지막 위치의 vocabulary logits만 계산. 같은16fps frame을 video temporal patch2로 묶고 마지막 홀수 frame만 복제한다.
 - Instruct의 기존 min_tokens64·total_tokens14336 전처리 정책을 유지한다. total_tokens는 soft spatial budget이다. min_pixels가 우선하므로 긴 영상의 실제 visual token 수는14336을 넘을 수 있다. 실제 해상도·frame index·visual/input token 수를 샘플별 prediction에 보관했다.
-- 네이티브 전처리와 시간 결합 구조가 다르므로 같은 frame 수가 같은 model token 수나 공간 해상도를 뜻하지 않는다. 이 실험은 각 파이프라인의 비용 비교다.
+- 네이티브 전처리와 시간 결합 구조가 다르므로 같은 frame 수가 같은 model token 수나 spatial resolution를 뜻하지 않는다. 이 실험은 각 파이프라인의 비용 비교다.
 
 ## 샘플당 시간과 연산량
 

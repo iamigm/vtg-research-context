@@ -34,7 +34,7 @@ def build_project_pilot_catalogs():
     entries.append(dict(queries=n,result=str(cohort),artifacts=str(data),report=str(report),manifest=str(fixed) if fixed else None,manifest_sha256=hashlib.sha256(fixed.read_bytes()).hexdigest() if fixed else None))
    if not entries:continue
    view=pilot/'overview';out=p/'artifacts/runs'/pilot.relative_to(results)/'overview'
-   lines=[f'# Pilot 누적 통합 · {pilot.parent.relative_to(results)}','', '같은 실험 계열의 실제 등록된 pilot 단계만 표시한다. 질문 수와 모델·조건별 응답 수를 구분한다.','', '| 표본 범위 | 보고서 | 고정 manifest |','|---|---|---|']
+   lines=[f'# Pilot overview · {pilot.parent.relative_to(results)}','', '같은 실험 계열의 실제 등록된 pilot 단계만 표시한다. 질문 수와 모델·조건별 응답 수를 구분한다.','', '| 표본 범위 | 보고서 | 고정 manifest |','|---|---|---|']
    for e in entries:
     m=f'[원본 manifest]({os.path.relpath(e["manifest"],view)})' if e['manifest'] else '각 원보고서의 표본 선정 기록 참조'
     lines.append(f'| pilot{e["queries"]} · {e["queries"]}질문 | [보고서]({os.path.relpath(e["report"],view)}) | {m} |')

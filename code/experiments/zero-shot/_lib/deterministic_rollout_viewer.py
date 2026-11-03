@@ -17,7 +17,7 @@ def build(refresh_index=True,pilot_size=900):
  assert pilot_size in [300,600,900]
  previous=(OUT,REPORT,WEB)
  OUT=relocate_path(ROOT/'artifacts/runs'/f'deterministic_rollout_pilot{pilot_size}_v2')
- REPORT=relocate_path(ROOT/'results'/OUT.name);WEB=OUT/'web'
+ REPORT=relocate_path(ROOT/'results'/f'deterministic_rollout_pilot{pilot_size}_v2');WEB=OUT/'web'
  try:_build_current(refresh_index)
  finally:OUT,REPORT,WEB=previous
 
@@ -27,7 +27,7 @@ def _build_current(refresh_index=True):
  cohort=read(OUT/'metadata/cohort.json');pilot_size=len(cohort)
  all_refs=read(relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2/metadata/source_records.json'))
  refs=all_refs[:pilot_size]
- assert [Path(r['path']).stem for r in refs]==[s['sample_key'] for s in cohort]
+ assert [relocate_path(Path(r['path'])).stem for r in refs]==[s['sample_key'] for s in cohort]
  media_source=relocate_path(ROOT/'artifacts/runs/uncertainty/token_analysis/full/9404/metadata/media_manifest.json')
  media=read(media_source);media_report=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404')
  WEB.mkdir(parents=True,exist_ok=True)
@@ -35,7 +35,7 @@ def _build_current(refresh_index=True):
  if pilot_size==900:(WEB/'samples').mkdir(exist_ok=True)
  manifest=[];catalog=[];case_rows=[];roles=set();checks=[]
  for item in refs:
-  original=Path(item['path']);assert hashlib.sha256(original.read_bytes()).hexdigest()==item['sha256']
+  original=relocate_path(Path(item['path']));assert hashlib.sha256(original.read_bytes()).hexdigest()==item['sha256']
   rec=read(original);s=rec['sample'];cs=rec['result']['candidates'];gt=s['span'][0]
   scores={c['index']:overlap(interval(c),gt) if interval(c) else 0. for c in cs}
   base=interval(cs[0]);greedy_short=bool(base and 1<=base[1]<2 and 100<=gt[1]<200)
@@ -56,7 +56,7 @@ def _build_current(refresh_index=True):
       probability=b['raw_probability'],parent_delta=scores[c['index']]-scores[parent['index']],
       greedy_delta=scores[c['index']]-scores[1],dot=isdot,short_parent=short)
     catalog.append(dict(sample=s['sample_key'],candidate=c['index'],parent=b['parent'],
-      roles=b['roles'],parent_delta=branch['parent_delta'],greedy_delta=branch['greedy_delta'],
+      roles=b['roles'],position=b['position'],probability=branch['probability'],parent_delta=branch['parent_delta'],greedy_delta=branch['greedy_delta'],
       iou=scores[c['index']],parent_iou=scores[parent['index']],pair=interval(c),parent_pair=pp,
       before=branch['original_token'],after=branch['forced_token'],
       dot=isdot,short_parent=short))
@@ -100,20 +100,20 @@ def _build_current(refresh_index=True):
  write(OUT/'metrics/end_decimal_cases.json',dict(summary=summary,cases=case_rows))
  with (OUT/'metrics/end_decimal_cases.csv').open('w') as f:
   writer=csv.DictWriter(f,fieldnames=list(case_rows[0]));writer.writeheader();writer.writerows(case_rows)
- prefix=Path(__file__).with_suffix('')
+ prefix=relocate_path(Path(__file__)).with_suffix('')
  font=ROOT/'_lib/entropy_viewer/NotoSansKR.ttf';assert font.is_file()
- css=Path(str(prefix)+'.css').read_text().replace('__FONT_URL__',os.path.relpath(font,WEB))
+ css=relocate_path(Path(str(prefix)+'.css')).read_text().replace('__FONT_URL__',os.path.relpath(font,WEB))
  (WEB/'viewer.css').write_text(css)
  shutil.copyfile(str(prefix)+'.js',WEB/'viewer.js')
- distribution_js=Path(__file__).with_name('rollout_distribution_viewer.js')
+ distribution_js=relocate_path(Path(__file__)).with_name('rollout_distribution_viewer.js')
  shutil.copyfile(distribution_js,WEB/'distributions.js')
- vocab_size=read(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct/config.json')).get('text_config',{}).get('vocab_size',len(tok))
+ vocab_size=read(relocate_path(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct/config.json'))).get('text_config',{}).get('vocab_size',len(tok))
  traces_root=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2/token_traces')
  vocab_path=traces_root/'vocab.json'
  if not vocab_path.exists():
   tokenizer_size=len(tok)
   write(vocab_path,[tok.decode([i],clean_up_tokenization_spaces=False) if i<tokenizer_size else f'<unused:{i}>' for i in range(vocab_size)])
- html=Path(str(prefix)+'.html').read_text().replace('__ASSET_BASE__',os.path.relpath(WEB,REPORT))
+ html=relocate_path(Path(str(prefix)+'.html')).read_text().replace('__ASSET_BASE__',os.path.relpath(WEB,REPORT))
  html=html.replace('__PILOT_SIZE__',str(pilot_size)).replace('__DISTRIBUTION_BASE__',os.path.relpath(traces_root,REPORT))
  html=html.replace('__SAMPLE_BASE__',os.path.relpath(shared_samples,REPORT))
  sys.path.insert(0,str(ROOT.parent/'_lib'))
@@ -121,14 +121,26 @@ def _build_current(refresh_index=True):
  (REPORT/'viewer.html').write_text(add_navigation(REPORT/'viewer.html',html))
  case_report(case_rows,summary)
  report=REPORT/'REPORT.md';text=report.read_text()
- block=f'\n<!-- rollout-viewer:start -->\n## 샘플별 분기 확인\n\n[개선된 분기 탐색 HTML](viewer.html) · [종료 소수점 {summary["dot_samples"]}개 샘플](viewer.html#preset=dot) · [최초 greedy가 1초대로 예측한 백초대 정답 {summary["greedy_short"]}개](viewer.html#preset=greedy_short) · [전체 사례 목록과 해석](END_DECIMAL_CASES.md)\n\nHTML은 샘플당 카드 하나를 표시한다. 카드 첫 줄은 샘플 ID이며 질문과 구간 비교가 이어진다. 카드에 데이터셋 이름을 별도로 반복하거나 ‘N개 변경 중 현재 확인 중’ 문구를 붙이지 않는다. 정답 → 분기 전 예측 → 분기 후 예측과 실제 바꾼 토큰을 함께 비교한다. ‘처음 놓친 정답을 찾은 경우’는 최초 응답 IoU<0.5, 분기 후 IoU≥0.5인 샘플이다. ‘정답에 더 가까워진 변경’과 ‘정답에서 멀어진 변경’은 최초 응답 대비 IoU가 각각0.01 이상 증가·감소한 분기다. 샘플별로 조건에 맞는 분기 중 IoU 증가가 가장 큰 분기를 대표로 보여준다(악화순 정렬은 감소가 가장 큰 분기). 기본 화면은 모든 샘플을 ID순으로 표시하며 검색·데이터셋·샘플 정렬은 변화 유형을 바꿔도 유지한다. 한 샘플이 여러 조건에 속할 수 있다. IoU=두 구간의 교집합 시간/합집합 시간, 높을수록 정확하다. 분기 전은 해당 후보의 직접 부모이며 최초 응답과 다르면 별도로 표시한다. 후보 수·최종 선택기 비교는 접힌 보조 도구이며 설정 변경이 현재 확인 중인 분기를 바꾸지 않는다. 디코딩 토큰 버튼은 분포 위에 항상 표시한다. 기본 선택은 실제 분기 위치이며, 버튼을 누르면 해당 자리의 토큰 분포와 후속 경로를 함께 갱신한다. 이전·다음 토큰 버튼과 토큰 위치 드롭다운은 사용하지 않는다.\n\nHTML의 토큰 분포 영역은 부모 prefix의 분포에서 실제 선택한 토큰을 서로 다른 색으로 표시하고 각 토큰을 붙인 다음 step의 조건부 분포를 같은 색으로 펼친다. 조건부 토큰 확률과 generation step 확률의 누적곱을 구분한다. 전체 응답 확률은 EOS까지의 곱이다. 원래 입력·prefix의 전체 어휘 분포를 재측정하여 완료된 샘플부터 표시한다. 원자료는 전체900개 실행의 token_traces를 공유하며 pilot마다 복제하지 않는다. [분포 측정 상태](../../artifacts/runs/deterministic_rollout_pilot900_v2/metadata/distribution_status.json)\n<!-- rollout-viewer:end -->\n'
+ block=f'''
+<!-- rollout-viewer:start -->
+## 샘플별 분기 확인
+
+[Rollout 분석 HTML](viewer.html) · [종료 소수점 {summary["dot_samples"]}개 샘플](viewer.html#preset=dot) · [전체 사례 목록](END_DECIMAL_CASES.md)
+
+샘플 탐색은 모든 샘플·ID순이 기본이며, 사례 유형 선택과 IoU·ΔIoU·분기 토큰 순번·대체 토큰 확률의 수치 범위를 함께 적용한다. 응답 쌍 선택은 비교할 완성 후보와 직접 부모를 바꾸며, 디코딩 토큰 선택은 그 응답 쌍을 유지하고 확률 분포를 볼 위치만 바꾼다. greedy 응답과 직접 부모가 다르면 따로 표시한다.
+
+디코딩 경로는 공통 prefix와 분기 이후 응답을 분리하고, 토큰별 조건부 확률과 누적곱을 각각 한 줄씩 가로로 표시한다. 두 경로의 누적곱은 EOS까지 이어진다. 분포는 top-k 또는 top-p로 선택하며, 기본 k는 현재 prefix에서 색으로 표시하고 후속 경로를 추적한 토큰 수+1다. 직접 입력한 k는 해당 위치에서 유지하며 다른 토큰 위치를 고르면 다시 기본값을 계산한다. 상위30개로 기준을 만족하지 못하면 전체 어휘 FP32 원자료에서 정확히 계산한다. 기준 밖 경로 토큰은 별도로 표시하고 재정규화하지 않는다. 검색은 전체 어휘에서 수행한다. 긴 집합은 분포별로80개씩 추가 표시한다.
+
+영상 재생·응답 원문·토큰 비교는 하나의 검토 영역이다. 원래 응답·성능 수치는 유지한다. 원자료는900개 실행의 token_traces와 web/samples를 공유하며 pilot마다 복제하지 않는다.
+<!-- rollout-viewer:end -->
+'''
  text=re.sub(r'\n<!-- rollout-viewer:start -->.*?<!-- rollout-viewer:end -->\n?','',text,flags=re.S)
  report.write_text(text.rstrip()+'\n'+block)
  from rollout_distribution_integrate import append_distribution_summary
  append_distribution_summary(REPORT,OUT)
  sources=[]
  for suffix in ['.py','.html','.css','.js']:
-  p=Path(str(prefix)+suffix);dest=OUT/'code/reporting'/p.name;dest.parent.mkdir(parents=True,exist_ok=True)
+  p=relocate_path(Path(str(prefix)+suffix));dest=OUT/'code/reporting'/p.name;dest.parent.mkdir(parents=True,exist_ok=True)
   shutil.copyfile(p,dest);sources.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
  shutil.copyfile(distribution_js,OUT/'code/reporting'/distribution_js.name)
  sources.append(dict(path=str(distribution_js),sha256=hashlib.sha256(distribution_js.read_bytes()).hexdigest()))
@@ -145,14 +157,14 @@ def case_report(rows,summary):
   '[모든 샘플 HTML](viewer.html) · [종료 소수점 전체](viewer.html#preset=dot) · [최초 greedy부터 1초대였던 경우](viewer.html#preset=greedy_short) · [탐색 부모까지 포함한 경우](viewer.html#preset=parent_short)', '',
   '## GT 종료는100초대인데 부모가1초대로 답한 사례','',
   '아래 각 질문에서는 이 조건에 해당하는 분기 중 부모 대비 IoU 개선이 가장 큰 분기를 표시했다. GT와의 IoU가 낮다고 다른 사건이라고 단정하지 않는다. 모델의 내부 의도는 알 수 없지만, `1.`에서 정수 부분을 끝내어 실제 출력이1초대가 된 것은 확인할 수 있다.', '',
-  '| 샘플 | 최초 응답도 해당? | GT(초) | 최초 greedy | 분기 직전 부모 | 분기 후 후보 | 부모 대비 ΔIoU |',
+  '| 샘플 | greedy 응답도 해당? | GT(초) | 최초 greedy | 분기 직전 부모 | 분기 후 후보 | 부모 대비 ΔIoU |',
   '|---|---|---|---|---|---|---:|']
  for x in rows:
   if not x['any_parent_1x_gt100_199']:continue
   url=f'viewer.html#sample={x["sample_key"]}&candidate={x["focus_candidate"]}&preset=parent_short'
   lines.append(f'| [{x["sample_key"]}]({url}) | '+('예' if x['greedy_1x_gt100_199'] else '아니오, 탐색 부모만')+f' | [{x["gt_start"]}, {x["gt_end"]}] | {x["greedy_answer"]} | {x["parent_answer"]} | {x["candidate_answer"]} | {x["parent_delta"]:+.4f} |')
  lines += ['', f'## 종료 소수점 분기가 있었던 전체{summary["dot_samples"]}개 질문','',
-  '각 질문을 클릭하면 해당 후보로 이동한다. 위 조건에 해당하면 해당 조건 분기를, 그 외에는 부모 대비 개선이 가장 큰 소수점 분기를 표시한다. 평균이 아닌 개별 사례 목록이다. Δ부모=후보 IoU−분기 직전 부모 IoU, Δgreedy=후보 IoU−최초 응답 IoU. 두 값은 다를 수 있다.', '',
+  '각 질문을 클릭하면 해당 후보로 이동한다. 위 조건에 해당하면 해당 조건 분기를, 그 외에는 부모 대비 개선이 가장 큰 소수점 분기를 표시한다. 평균이 아닌 개별 사례 목록이다. Δ부모=후보 IoU−분기 직전 부모 IoU, Δgreedy=후보 IoU−greedy 응답 IoU. 두 값은 다를 수 있다.', '',
   '| 샘플 | GT(초) | 분기 수 | 비교할 부모 → 후보 | Δ부모 | Δgreedy |',
   '|---|---|---:|---|---:|---:|']
  for x in rows:

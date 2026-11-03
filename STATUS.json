@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T03:02:31.147942+09:00",
+  "observed_at": "2026-11-04T04:19:55.812632+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -13,34 +13,9 @@
       "sha256": "cb4146ad51ec2c0104f2a21122f3d85ff72164b85dd555b866b38d45e9c56c85"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metadata/status.json",
       "source_modified_at": "2026-10-23T21:20:18.505846+09:00",
       "sha256": "a29ea15359ec2ef423012b4c55a377d22c66113908ed9b9be58798d7ea7413e7"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json",
-      "source_modified_at": "2026-11-03T17:34:32.395612+09:00",
-      "sha256": "e420f140edb72dfe10530c7aa8ff8a14234caf37ad6529f21b3c7961b2e69ae1"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json",
-      "source_modified_at": "2026-11-03T22:08:46.970393+09:00",
-      "sha256": "57fd9fe3d784c6421428c4e7cc7986234f7f9054efe2875da1f17083ced7cfbb"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json",
-      "source_modified_at": "2026-11-04T02:01:14.311929+09:00",
-      "sha256": "cad3331673814c91bced0361b5267157d4364d1d9b00bcae5a31f73a95feade2"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json",
-      "source_modified_at": "2026-11-04T02:34:55.500342+09:00",
-      "sha256": "429c1fa30d28ae9b8f6b5f966f6212a2b73e8de3cc8ba4c4d32a96549ddd2c77"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json",
-      "source_modified_at": "2026-11-04T03:02:22.294876+09:00",
-      "sha256": "673b21fcdd2917c42c9b747e29b91943223269a091ebc92cbb6bfa2e7bbd542e"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/operations/mmco_diagnosis/pilot/300/metadata/status.json",
@@ -48,14 +23,39 @@
       "sha256": "3ca7aaff6a2e08b419885b663036a278e6ff0df75d0a5ceb4799c31082bf1a5c"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/metadata/status.json",
       "source_modified_at": "2026-11-01T11:07:58.196076+09:00",
       "sha256": "55a3ca34c48afd8f99192cac23e44296db7c003cda6dceeb4a41fb723b831381"
     },
     {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metadata/status.json",
+      "source_modified_at": "2026-11-03T17:34:32.395612+09:00",
+      "sha256": "e420f140edb72dfe10530c7aa8ff8a14234caf37ad6529f21b3c7961b2e69ae1"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-11-04T02:01:14.311929+09:00",
+      "sha256": "cad3331673814c91bced0361b5267157d4364d1d9b00bcae5a31f73a95feade2"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metadata/status.json",
+      "source_modified_at": "2026-11-04T04:04:03.423531+09:00",
+      "sha256": "e4640bc4d3fc653ce9eae5ae1e0b439608ec4ea3fd4b93fac4ba0d9e95f23b9b"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metadata/status.json",
+      "source_modified_at": "2026-11-04T04:04:03.424531+09:00",
+      "sha256": "92e696134dcc60c43ed4c56fc2117a365e3dd7b3e2ddd2939def772408435d90"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-10-21T10:29:40.703112+09:00",
+      "sha256": "27a8f1085c4cdb6807d01cca3c4c6b2d4c746d2d62bb9f1e366cc3861ba0a519"
+    },
+    {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
-      "source_modified_at": "2026-11-04T01:17:25.993220+09:00",
-      "sha256": "23795fabeede156baf8c298d07fb618cbe4e0c650667d3a9960ef0a4c0587ff8"
+      "source_modified_at": "2026-11-04T04:19:49.729422+09:00",
+      "sha256": "b63ff203be90a219f946dd3bd294defb65f37cac5e81d65d40a8aa9510ab2e02"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/recovery_20261103/status.json",
@@ -63,19 +63,14 @@
       "sha256": "c75e0d90398e579b4cd6d709d5830e4721560986fe94709809909261bb306bc9"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/status.json",
-      "source_modified_at": "2026-11-02T00:54:16.328641+09:00",
-      "sha256": "7bf16c90423e6aa9f977c135b950f3ea1bd8484b4895d4b116abe9ac08250179"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/status.json",
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-03T02:02:37.258782+09:00",
       "sha256": "50f1739c9c87fc8d1439f0620ad38cdf865d0f144b1d57178443ccf79d98b3c4"
     },
     {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/timelens_rollout/metadata/status.json",
-      "source_modified_at": "2026-10-21T10:29:40.703112+09:00",
-      "sha256": "27a8f1085c4cdb6807d01cca3c4c6b2d4c746d2d62bb9f1e366cc3861ba0a519"
+      "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metadata/status.json",
+      "source_modified_at": "2026-11-02T00:54:16.328641+09:00",
+      "sha256": "7bf16c90423e6aa9f977c135b950f3ea1bd8484b4895d4b116abe9ac08250179"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/metadata/status.json",

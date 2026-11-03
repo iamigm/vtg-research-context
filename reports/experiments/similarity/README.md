@@ -3,7 +3,7 @@
 고정 pilot 300쌍(Charades·ActivityNet·QVHighlights 각 100개)에 대한 CLIP ViT-L/14 및 Qwen3-VL-Embedding-8B의 독립 frame/query cosine 비교.
 
 - [정량 보고서](results/frame_query/cosine_2fps/pilot/300/REPORT.md)
-- [샘플별 HTML](results/frame_query/cosine_2fps/pilot/300/report.html)
+- [샘플별 HTML](results/frame_query/cosine_2fps/viewer.html?view=pilot%2F300%2Freport.html)
 - [모델 다운로드 및 weight SHA256](../../backbones/manifests/similarity_download.json)
 
 ## 전체 9,404쌍 실험

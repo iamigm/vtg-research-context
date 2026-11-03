@@ -1,4 +1,5 @@
 """Two disjoint prefix replay workers, global progress and final validation."""
+from result_layout import relocate_path
 import os,sys,subprocess,time,hashlib,collections,fcntl,traceback
 from pathlib import Path
 from rollout_token_distributions import OUT,TRACES,Progress,read,write,stamp
@@ -7,7 +8,7 @@ def main():
  with (OUT/'metadata/distribution_parallel.lock').open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
   refs=read(OUT/'metadata/source_records.json')
-  datasets={Path(r['path']).stem:read(r['path'])['sample']['dataset'] for r in refs}
+  datasets={relocate_path(Path(r['path'])).stem:read(r['path'])['sample']['dataset'] for r in refs}
   def completed():return {p.parent.name for p in TRACES.glob('*/index.json')}
   initial=len(completed());p=Progress();processes=[];started=time.monotonic()
   try:
@@ -18,7 +19,7 @@ def main():
    for rank in range(2):
     env=dict(os.environ,ROLLOUT_DIST_RANK=str(rank),ROLLOUT_DIST_WORLD='2')
     with (OUT/'logs'/f'distribution_worker{rank}.log').open('a') as stream:
-     process=subprocess.Popen([sys.executable,'-u',str(Path(__file__).with_name('rollout_token_distributions.py'))],
+     process=subprocess.Popen([sys.executable,'-u',str(relocate_path(Path(__file__)).with_name('rollout_token_distributions.py'))],
        env=env,stdin=subprocess.DEVNULL,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True)
     processes.append(process)
    write(OUT/'metadata/distribution_workers.json',dict(pids=[x.pid for x in processes]))
@@ -40,9 +41,9 @@ def main():
    assert len(completed())==900
    total_nodes=total_bytes=0
    for reference in refs:
-    key=Path(reference['path']).stem;index=read(TRACES/key/'index.json')
+    key=relocate_path(Path(reference['path'])).stem;index=read(TRACES/key/'index.json')
     assert index['validation']['passed'] and index['raw_record_sha256']==reference['sha256']
-    assert hashlib.sha256(Path(reference['path']).read_bytes()).hexdigest()==reference['sha256']
+    assert hashlib.sha256(relocate_path(Path(reference['path'])).read_bytes()).hexdigest()==reference['sha256']
     for node in index['nodes'].values():
      assert (TRACES/key/node['file']).stat().st_size==node['bytes']
      total_nodes+=1;total_bytes+=node['bytes']

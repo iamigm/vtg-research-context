@@ -1,10 +1,10 @@
 # Qwen3-VL-8B Thinking vs Instruct — 동일 pilot 비교 · pilot300 (300질문)
 
-기존 결과를 사용한 300개 샘플 × 2개 입력 순서의 대응 비교다. GPU 추론은 추가로 실행하지 않았다.
+기존 결과를 사용한 300개 샘플 × 2개 input order의 대응 비교다. GPU 추론은 추가로 실행하지 않았다.
 
 600개 모두 프롬프트·영상 grid·샘플링 timestamp·decoder metadata가 같음을 확인했다. 확장 입력은 Thinking 전용 assistant 접미부 `<think>\n` 외에는 정확히 일치한다.
 
-현재 설정에서 영상→질문의 전체 mIoU는 거의 같지만, 질문→영상에서는 Thinking이 크게 높다. Instruct의 입력 순서 변경에 따른 전체 mIoU 하락은 약 12.34pp이고 Thinking은 약 0.71pp다. 이는 Thinking 실행이 입력 순서 변경에 덜 민감한 패턴이지만, 모델과 decoding 설정이 동시에 달라 원인을 분리할 수 없다.
+현재 설정에서 영상→질문의 전체 mIoU는 거의 같지만, 질문→영상에서는 Thinking이 크게 높다. Instruct의 input order 변경에 따른 전체 mIoU 하락은 약 12.34pp이고 Thinking은 약 0.71pp다. 이는 Thinking 실행이 input order 변경에 덜 민감한 패턴이지만, 모델과 decoding 설정이 동시에 달라 원인을 분리할 수 없다.
 
 ## 비교 조건
 

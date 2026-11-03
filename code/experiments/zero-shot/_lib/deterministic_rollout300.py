@@ -8,11 +8,11 @@ import argparse,collections,datetime,fcntl,hashlib,heapq,json,math,re,subprocess
 from pathlib import Path
 from conditional_rollout_budget import Evaluator,validate_cache
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=relocate_path(Path(__file__)).resolve().parents[1]
 RUN='deterministic_rollout_pilot300_v2'
 OUT=relocate_path(ROOT/'artifacts/runs'/RUN)
 REPORT=relocate_path(ROOT/'results'/RUN)
-MODEL=Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
+MODEL=relocate_path(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct'))
 COHORT=ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json'
 BUDGETS=[1,4,8,16,32]
 TOTAL=300
@@ -31,10 +31,10 @@ CONFIG=dict(run=RUN,cohort=str(COHORT),queries=300,model=str(MODEL),fps=2,
 NUMBER=re.compile(r'\d+(?::\d{1,2}){0,2}(?:\.\d+)?')
 
 def stamp():return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
-def read(p):return json.loads(Path(p).read_text())
-def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def read(p):return json.loads(relocate_path(Path(p)).read_text())
+def sha(p):return hashlib.sha256(relocate_path(Path(p)).read_bytes()).hexdigest()
 def write(p,value):
- p=Path(p);p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix(p.suffix+'.tmp')
+ p=relocate_path(Path(p));p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix(p.suffix+'.tmp')
  tmp.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\n');tmp.replace(p)
 
 def time_matches(text):
@@ -108,10 +108,10 @@ def setup():
   else:write(p,value)
  manifest=[]
  for name in ['deterministic_rollout300.py','deterministic_rollout300_report.py','conditional_rollout_budget.py','fps_spatial_control.py']:
-  p=Path(__file__).with_name(name);(OUT/'code'/name).write_bytes(p.read_bytes());manifest.append(dict(path=str(p),sha256=sha(p)))
+  p=relocate_path(Path(__file__)).with_name(name);(OUT/'code'/name).write_bytes(p.read_bytes());manifest.append(dict(path=str(p),sha256=sha(p)))
  write(OUT/'metadata/provenance.json',dict(files=manifest,cohort_sha256=sha(COHORT),
   model_manifest_sha256=sha('/home/irteam/backbones/manifests/registry.json'),
-  cpu_max=Path('/sys/fs/cgroup/cpu.max').read_text().strip(),memory_max=Path('/sys/fs/cgroup/memory.max').read_text().strip()))
+  cpu_max=relocate_path(Path('/sys/fs/cgroup/cpu.max')).read_text().strip(),memory_max=relocate_path(Path('/sys/fs/cgroup/memory.max')).read_text().strip()))
  return rows
 
 def complete(ev,tokenizer,eos,prefix,prefix_logp):

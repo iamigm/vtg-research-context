@@ -2,10 +2,10 @@
 
 Attention 분석 코드와 측정 결과를 모은 독립 실험 폴더다. 기존 MTLA 기반 300개 분석과 TimeLens 9,404쌍의 answer → video 분석을 보관한다.
 
-- [Thinking pilot 300 × 입력 순서 2종 최종 요약](results/input_order/timelens_thinking/pilot/300/FINAL_REPORT.md): 전체 생성 토큰의 attention, 선택한 6개 layer의 head 평균 및 전체 36개 layer의 head별 범주 합계. [실행 상태](artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/status.json).
+- [Thinking pilot 300 × input order 2종 최종 요약](results/input_order/timelens_thinking/pilot/300/FINAL_REPORT.md): 전체 생성 토큰의 attention, 선택한 6개 layer의 head 평균 및 전체 36개 layer의 head별 범주 합계. [실행 상태](artifacts/runs/input_order/timelens_thinking/pilot/300/metadata/status.json).
 - [기존 300개 분석](results/token_attention/mtla/pilot/300/REPORT.md): query / generation / dynamics / hidden / spatial.
-- [TimeLens answer → video 분석](results/input_order/timelens_instruct/full/9404/final_report.md): 입력 순서별 attention 총량, GT 집중도, 시간 분포.
-- [별도 zero-shot 실험](../zero-shot/README.md): 입력 순서별 성능, span-head, top-30.
+- [TimeLens answer → video 분석](results/input_order/timelens_instruct/full/9404/final_report.md): input order별 attention 총량, GT 집중도, 시간 분포.
+- [별도 zero-shot 실험](../zero-shot/README.md): input order별 성능, span-head, top-30.
 - [공용 순수 zero-shot 예측](../zero-shot/artifacts/common/predictions/legacy/README.md): 측정 필드를 제외한 재사용 가능한 원본 예측.
 
 TimeLens `artifacts/runs/input_order/timelens_instruct/full/9404/`의 샘플별 `measurement.json`은 공용 예측 파일의 경로와 SHA-256을 참조한다. `attention.npz`, attention 통계·검증·그림은 이 실험에만 둔다. 응답·생성 토큰·예측 구간 원본과 입력 metadata·확장 프롬프트는 공용 저장소에서 읽는다.

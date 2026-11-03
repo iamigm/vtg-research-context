@@ -1,4 +1,4 @@
-# 공간 해상도 통제 zero-shot FPS sweep · pilot300 (300질문)
+# spatial resolution 통제 zero-shot FPS sweep · pilot300 (300질문)
 
 기존 고정 pilot300(Charades/ActivityNet/QVHighlights 각100) × Qwen3-VL-8B Instruct/Thinking × 영상→질문/질문→영상 × FPS2/3/4/6/8 =6,000개 응답이다. 2fps도 새 입력으로 다시 생성한다.
 

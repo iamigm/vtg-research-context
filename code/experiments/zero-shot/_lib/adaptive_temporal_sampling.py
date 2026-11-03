@@ -2,7 +2,7 @@
 
 Run with the existing zero-shot .venv. Input integrity gates precede model load.
 """
-from result_layout import write_result_text
+from result_layout import relocate_path, write_result_text
 from pathlib import Path
 import os, sys, json, hashlib, time, copy, math, random, threading, traceback, inspect
 from datetime import datetime

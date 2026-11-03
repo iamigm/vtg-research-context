@@ -1,3 +1,4 @@
+from result_layout import write_result_text, relocate_path
 """Performance/cost reporting without any model calls or GT-dependent generation."""
 import collections,csv,math,statistics,subprocess,sys
 import numpy as np
@@ -28,7 +29,10 @@ def values(rows):
 def label(v):return f'{v:.4f}'
 
 def report(records=None,cohort_label=None):
- if records is None:records=[read(p) for p in sorted((OUT/'rollouts').glob('*.json'))]
+ if records is None:
+  cohort=read(OUT/'metadata/cohort.json')
+  store=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2/rollouts')
+  records=[read(store/(row['sample_key']+'.json')) for row in sorted(cohort,key=lambda row:row['sample_key'])]
  frozen=read(OUT/'metadata/cohort.json')
  count=len(frozen)
  assert len(records)==count,'Do not publish complete results for an incomplete cohort'
@@ -109,7 +113,7 @@ def report(records=None,cohort_label=None):
  '고정 중첩 코호트의 층화 진단 표본이다. 원래 벤치마크의 무작위 평균 또는 독립 test라고 부르지 않는다. 원래300개는 앞선 개발30개를 포함하며 추가600개는 별도 범위로 보고한다. 정책·후보 상한은 기존300개 실행과 동일하다.']
  from deterministic_rollout_diagnostics import diagnostic_sections
  text+=diagnostic_sections(records,rows,OUT)
- (REPORT/'REPORT.md').write_text('\n'.join(text)+'\n')
+ write_result_text(REPORT/'REPORT.md', '\n'.join(text)+'\n')
  strata(rows)
  # Validate aggregate denominators, original identities and GT-free selector invariance.
  assert len(rows)==count*len(BUDGETS)*len(METHODS)
@@ -147,6 +151,6 @@ def strata(rows):
       cell=[x for x in group if bindex(x['duration'],duration)==a and bindex(x['ratio'],ratio)==b]
       cells.append(f'{len(cell)}/'+(label(values(cell)[metric])+(' small' if len(cell)<5 else '') if cell else '—'))
      text.append(f'| [{duration[a]},{duration[a+1]}) | '+' | '.join(cells)+' |')
- (REPORT/'STRATA.md').write_text('\n'.join(text)+'\n')
+ write_result_text(REPORT/'STRATA.md', '\n'.join(text)+'\n')
 
 if __name__=='__main__':report()

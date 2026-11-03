@@ -62,7 +62,7 @@ cgroup I/O pressure 평균은 0이었다. 시스템 전체 메모리 여유 대�
 |---|---|---|---|
 | 1 | 준비 완료 순서로 공급하는 `in_order=False` 소규모 비교 | 느린 샘플 때문에 뒤의 준비된 샘플까지 기다리는 현상 완화 | 같은 샘플 집합에서 입력 ID·프레임 시각·영상 tensor·생성 ID 비교. 결과 저장은 sample_key 기준 유지 |
 | 2 | 제한된 크기의 공유 영상 전처리 캐시 | 같은 영상을 질의마다 다시 디코딩·resize하는 비용 감소 | 파일 식별자, 프레임 인덱스, reader 버전, resize 설정을 cache key에 포함하고 출력 tensor 비교 |
-| 3 | 계측 tensor를 GPU에 모았다가 샘플 생성 후 CPU로 한 번에 이동 | 토큰마다 발생하는 동기화와 Python 작업 감소 | 선택 토큰, raw·processed top-30 및 전체 어휘 엔트로피 일치 |
+| 3 | 계측 tensor를 GPU에 모았다가 샘플 생성 후 CPU로 한 번에 이동 | 토큰마다 발생하는 동기화와 Python 작업 감소 | 선택 토큰, raw·processed top-30 및 전체 어휘 entropy 일치 |
 | 4 | 측정 결과에 따라 prefetch와 GPU 전송 중첩 조정 | 짧은 공급 공백과 전송 대기 완화 | host 메모리·준비 대기열·전송 시간을 함께 확인 |
 
 worker를 무조건 더 늘리는 것은 우선순위가 낮다. 지금은 12코어 할당 안에서 순서 보장·작업 편차를 먼저 해결할 여지가 있다. prefetch만 크게 늘리면 준비된 큰 tensor를 더 오래 보관할 수 있고, 순서 보장 대기 자체는 남는다.
@@ -75,6 +75,6 @@ GPU 디코딩이나 다른 decoder로 변경하는 방안은 프레임·픽셀 �
 
 1. 각 샘플에 CPU 준비 시간, worker 완료 시각, main에서 입력을 기다린 시간, GPU 전송 시간, 생성 시간, 결과 저장 시간을 분리해 기록한다. 완료된 다른 입력이 있는지도 계측한다.
 2. 새로운 검증용 출력 경로에서 동일 샘플·동일 모델·동일 생성 조건으로 순서 보장 여부만 바꿔 비교한다. 서로 다른 영상 구간의 처리량 비교로 대체하지 않는다.
-3. sample_key 기준 누락·중복, 입력 tensor, 입력 ID, 생성 ID와 엔트로피가 일치할 때만 본 실행 적용을 검토한다.
+3. sample_key 기준 누락·중복, 입력 tensor, 입력 ID, 생성 ID와 entropy가 일치할 때만 본 실행 적용을 검토한다.
 
 [관측 원자료](../../../../../artifacts/runs/operations/inference_performance/full/9404/metadata/observation_after.json) · [관측 요약](../../../../../artifacts/runs/operations/inference_performance/full/9404/metrics/bottleneck_after_summary.json) · [입력 준비 프로파일](../../../../../artifacts/runs/operations/inference_performance/full/9404/metadata/preparation.json) · [앞선 worker 변경 결과](REPORT.md)

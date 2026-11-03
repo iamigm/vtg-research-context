@@ -6,7 +6,7 @@
 
 예: GT 24에 대한 23.9는 모두 정답. 23.4는 23.까지 정답 가능, 숫자 4가 최초 오류다. 35.0은 첫 숫자 3, 25.0은 숫자 5에서 정답 가능성이 사라진다. 빨간 표시 first_error와 실제 가능성 상실 actual_feasibility_loss는 항상 일치한다. GT 문자 일치 여부는 참고 필드로만 남긴다.
 
-기존 동일 pilot 300개 × 두 모델의 저장된 분포를 재사용했다. 초 단위 표기 594개 응답 / 1,188개 endpoint를 분석하고 MM:SS 6개는 제외했다. 새 추론 없이 raw 전체 어휘 엔트로피를 유지했다.
+기존 동일 pilot 300개 × 두 모델의 저장된 분포를 재사용했다. 초 단위 표기 594개 응답 / 1,188개 endpoint를 분석하고 MM:SS 6개는 제외했다. 새 추론 없이 raw 전체 어휘 entropy를 유지했다.
 
 ## endpoint 결과
 
@@ -29,9 +29,9 @@
 | qwen3 | qvhighlights-timelens | start | 98 | 39 | 59/0 |
 | qwen3 | qvhighlights-timelens | end | 98 | 23 | 74/1 |
 
-## 경우별 엔트로피
+## 경우별 entropy
 
-각 query 내부에서 해당 상태의 step 엔트로피를 평균한 뒤 query 간 평균한다. 95% CI는 query bootstrap 1,000회. 최초 오류 행은 소수점 또는 종료 토큰도 포함한다. 최종 정답/오답 endpoint 행은 모든 숫자 step으로 별도 집계하며 다른 행과 중복된다.
+각 query 내부에서 해당 상태의 step entropy를 평균한 뒤 query 간 평균한다. 95% CI는 query bootstrap 1,000회. 최초 오류 행은 소수점 또는 종료 토큰도 포함한다. 최종 정답/오답 endpoint 행은 모든 숫자 step으로 별도 집계하며 다른 행과 중복된다.
 
 | 모델 | 대상 | 경우 | N query / N step | 평균 H [95% CI] |
 |---|---|---|---|---|
@@ -73,6 +73,6 @@
 
 ## 해석
 
-오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. 엔트로피는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.
+오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. entropy는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.
 
 [전체 step](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/per_step.csv) · [endpoint](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/per_endpoint.csv) · [경우별](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/conditions.csv) · [자리별](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/role_conditions.csv) · [조건부 상태 비율](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/position_conditional_accuracy.csv) · [자릿수 통제](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metrics/digit_stratified.csv)

@@ -1247,3 +1247,405 @@
 - 원본 부재: reports/experiments/similarity/results/full_9404_v1/REPORT.md
 - 원본 부재: reports/experiments/similarity/results/pilot_300_16fps_cost_v1/REPORT.md
 - 원본 부재: reports/experiments/similarity/results/pilot_300_v1/REPORT.md
+
+## 2026-11-04T04:19:55.812632+09:00
+
+원본 파일 직접 관찰: 18개 실행, 533개 코드·의존성 파일. 이전 commit: 70891e4c33b94ae1a35998377eae162eb9853544.
+
+추가 159 / 변경 78 / 현재 원본에서 사라짐 158. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/code/analyze.py
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/code/build_viewer.py
+- code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/code/serve.py
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metrics/largest_gt_degradation.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metrics/largest_gt_improvement.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metrics/largest_normalized_shift.csv
+- evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/code/boundary_oracle_inputs.py
+- code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/code/pilot900_inputs.py
+- evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_analysis.py
+- code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/fps_spatial_control.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metrics/budget.csv
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_diagnostics.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/rollout_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/end_decimal_cases.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/deterministic_rollout900.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_diagnostics.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/rollout_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/end_decimal_cases.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/deterministic_rollout900.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/conditional_rollout_budget.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/distribution_capture/rollout_token_distributions.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout300_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_diagnostics.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_integrate.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_parallel.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer_check.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/boundary_errors.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/branch_role_summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/end_decimal_cases.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/marginal_efficiency.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/recovery_and_selection.csv
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metrics/start_end_coupling.csv
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metrics/summary.json
+- reports/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/sources/Qwen2.5-VL-7B-Instruct_README.md
+- reports/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/sources/Qwen3-VL-8B-Instruct_README.md
+- code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/support/adaptive_temporal_sampling.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/gt_density_batch.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/memory_fix_spatial_sweep_runtime.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/memory_fix_spatial_sweep_supervisor.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/pilot900_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/runtime_before_memory_fix.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/spatial_sweep900.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/spatial_sweep_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/code/spatial_sweep_report.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metrics/axes.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metrics/metrics.csv
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/gt_density_batch.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/pilot900_inputs.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/shared_selected_frames.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/spatial_budget_before_overlap.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/spatial_budget_pilot900.py
+- code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/code/spatial_budget_report.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metrics/compute_cost.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metrics/metrics.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_comparison/pilot/900/metrics/spatial_inputs.csv
+- reports/experiments/zero-shot/results/baseline/input_order/overview/consistency/REPORT.md
+- reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/REPORT.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/ANALYSIS.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/NEXT_EXPERIMENT.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/REPORT.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/SPEC.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/STRATA.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/END_DECIMAL_CASES.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/rollout/stochastic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/stochastic/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_high.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_low.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_high.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_low.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/overview/REPORT.md
+- code/experiments/_lib/check_family_views.py
+- code/experiments/_lib/family_catalog.py
+- code/experiments/_lib/family_view.css
+- code/experiments/_lib/family_view.js
+- code/experiments/_lib/finalize_result_aliases.py
+- code/experiments/_lib/merge_rollout_expansion.py
+- code/experiments/_lib/organize_completed_rollouts.py
+- code/experiments/_lib/remove_result_version_labels.py
+- code/experiments/_lib/result_terms.py
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/adaptive_temporal_sampling.py
+- code/experiments/zero-shot/_lib/conditional_rollout_budget.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- code/experiments/zero-shot/_lib/deterministic_rollout900.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_diagnostics.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/_lib/fps_spatial_supervisor.py
+- code/experiments/zero-shot/_lib/rollout_distribution_integrate.py
+- code/experiments/zero-shot/_lib/rollout_distribution_parallel.py
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer.js
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/_lib/rollout_pilot_html_watch.py
+- code/experiments/zero-shot/_lib/rollout_token_distributions.py
+- code/experiments/zero-shot/_lib/spatial_budget_supervisor.py
+- code/experiments/zero-shot/_lib/spatial_sweep900.py
+- code/experiments/zero-shot/_lib/spatial_sweep_parallel_supervisor.py
+- code/experiments/zero-shot/_lib/spatial_sweep_supervisor.py
+- code/experiments/zero-shot/_lib/timelens_rollout_serve.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/web/viewer.js
+- reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/REPORT.md
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/web/viewer.js
+- reports/experiments/zero-shot/results/baseline/all_zeroshot/overview/REPORT.md
+- reports/experiments/zero-shot/results/baseline/input_order/overview/REPORT.md
+- reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/operations/inference_performance/full/9404/PIPELINE_REVIEW.md
+- reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPATIAL_AUDIT.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/span_head/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/entropy_iou/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/integrated/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/numeric_uncertainty/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/prefix_entropy/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/overview/REPORT.md
+- reports/experiments/attention/README.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/FINAL_REPORT.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/300/REPORT.md
+- reports/experiments/attention/results/input_order/timelens_thinking/pilot/overview/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/dynamics/FINDINGS.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/FINDINGS.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/300/generation/distribution_analysis/REPORT.md
+- reports/experiments/attention/results/token_attention/mtla/pilot/overview/REPORT.md
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/README.md
+- reports/experiments/analysis/failure_mode_timestamp/failure_cases/results/failure_modes/input_settings/pilot/overview/REPORT.md
+- reports/experiments/similarity/README.md
+- reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/300/REPORT.md
+- reports/experiments/similarity/results/compute_cost/embedding_vs_generation_16fps/pilot/overview/REPORT.md
+- reports/experiments/similarity/results/frame_query/cosine_2fps/pilot/overview/REPORT.md
+- code/experiments/_lib/build_index.py
+- code/experiments/_lib/check_comparison.py
+- code/experiments/_lib/check_index.py
+- code/experiments/_lib/check_result_viewers.py
+- code/experiments/_lib/index_compare.js
+- code/experiments/_lib/pilot_catalog.py
+- code/experiments/_lib/project_pilot_catalog.py
+- code/experiments/_lib/result_layout.py
+- code/experiments/_lib/serve_index.py
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+- conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/analyze.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/build_viewer.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/code/serve.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_gt_degradation.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_gt_improvement.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/largest_normalized_shift.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/baseline/input_order/overview/consistency_v1/metrics/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_analysis.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/code/fps_spatial_control.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/conditional_rollout_budget_pilot30_v1/metrics/budget.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/deterministic_rollout900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/boundary_errors.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/branch_role_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/marginal_efficiency.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/recovery_and_selection.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_additional600_v2/metrics/start_end_coupling.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_diagnostics.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/deterministic_rollout_viewer.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/code/reporting/rollout_distribution_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/boundary_errors.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/branch_role_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/end_decimal_cases.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/marginal_efficiency.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/recovery_and_selection.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/metrics/start_end_coupling.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/distributions.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot300_v2/web/viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/deterministic_rollout900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_diagnostics.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/deterministic_rollout_viewer.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/code/reporting/rollout_distribution_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/boundary_errors.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/branch_role_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/end_decimal_cases.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/marginal_efficiency.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/recovery_and_selection.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/metrics/start_end_coupling.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/distributions.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot600_v2/web/viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/deterministic_rollout900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/fps_spatial_control.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/distribution_capture/rollout_token_distributions.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout300_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_diagnostics.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/deterministic_rollout_viewer.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_parallel.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/code/reporting/rollout_distribution_viewer_check.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/boundary_errors.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/branch_role_summary.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/end_decimal_cases.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/marginal_efficiency.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/recovery_and_selection.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/metrics/start_end_coupling.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/distributions.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/deterministic_rollout_pilot900_v2/web/viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/boundary_oracle_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/code/pilot900_inputs.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/operations/selected_frame_cache_migration/shared/v1/metadata/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/gt_density_batch.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/pilot900_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/shared_selected_frames.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_before_overlap.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_pilot900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/code/spatial_budget_report.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/compute_cost.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/budget_v1/pilot/900/metrics/spatial_inputs.csv
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/gt_density_batch.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/memory_fix_spatial_sweep_supervisor.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/pilot900_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/runtime_before_memory_fix.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep900.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/code/spatial_sweep_report.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metrics/axes.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metrics/metrics.csv
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_rollout/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_rollout/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/timelens_rollout/metrics/summary.json
+- 원본 부재: reports/experiments/zero-shot/artifacts/runs/timelens_rollout/sources/Qwen2.5-VL-7B-Instruct_README.md
+- 원본 부재: reports/experiments/zero-shot/artifacts/runs/timelens_rollout/sources/Qwen3-VL-8B-Instruct_README.md
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_rollout/web/manifest.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/timelens_rollout/web/viewer.js
+- 원본 부재: reports/experiments/zero-shot/results/baseline/input_order/overview/consistency_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/ANALYSIS.md
+- 원본 부재: reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/NEXT_EXPERIMENT.md
+- 원본 부재: reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/conditional_rollout_budget_pilot30_v1/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_additional600_v2/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/END_DECIMAL_CASES.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot300_v2/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/END_DECIMAL_CASES.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot600_v2/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/END_DECIMAL_CASES.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/deterministic_rollout_pilot900_v2/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/v1/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/300/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/600/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/900/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_v1/pilot/overview/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_high.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/A_low.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_high.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/B_low.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/overview/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/timelens_rollout/REPORT.md

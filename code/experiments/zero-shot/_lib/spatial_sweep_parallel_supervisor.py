@@ -3,7 +3,7 @@ from result_layout import relocate_path
 import os,sys,time,subprocess,signal,fcntl,json
 from pathlib import Path
 from adaptive_temporal_sampling import ROOT,read,write,stamp
-OUT=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900')
+OUT=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900')
 
 def main():
  with (OUT/'metadata/supervisor.lock').open('a') as lock:

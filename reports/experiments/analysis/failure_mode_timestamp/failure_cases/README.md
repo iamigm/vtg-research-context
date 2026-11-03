@@ -57,7 +57,7 @@ TimeLens-7B식 Qwen2.5 입력만 이 문장 앞에 timestamp 설명 문구를 �
 
 - [세 세팅 결과 보고서](results/failure_modes/input_settings/pilot/200/REPORT.md)
 - [실제 영상과 GT/예측 구간 비교](artifacts/runs/failure_modes/input_settings/pilot/200/data/cases/report.html)
-- [세 세팅 전체 query 표](results/failure_modes/input_settings/pilot/200/report.html), [CSV](artifacts/runs/failure_modes/input_settings/pilot/200/metrics/setting_case_metrics.csv)
+- [세 세팅 전체 query 표](results/failure_modes/input_settings/viewer.html?view=pilot%2F200%2Freport.html), [CSV](artifacts/runs/failure_modes/input_settings/pilot/200/metrics/setting_case_metrics.csv)
 - [Qwen2.5 입력 변환의 paired 비교](artifacts/runs/failure_modes/input_settings/pilot/200/metadata/baseline_comparison.json)
 - [입력 예산/시간 검증](artifacts/runs/failure_modes/input_settings/pilot/200/validation/paired_input_validation.json), [공식 evaluator 대조](artifacts/runs/failure_modes/input_settings/pilot/200/validation/validation.json)
 
@@ -66,7 +66,7 @@ Qwen2.5 변환 결과: `artifacts/runs/failure_modes/input_settings/pilot/200/pr
 
 ## 영상 갤러리 접속
 
-공통 [실험 목록](../../../index.html)의 실패 분석에서 연다. 통합 서버8780 하나를 사용한다. [pilot200 결과](results/failure_modes/input_settings/pilot/200/report.html)는 Charades100·QVHighlights100 질문이다. 과거 run_id pilot_100은 데이터셋별 개수이며 보존된 식별자다.
+공통 [실험 목록](../../../index.html)의 실패 분석에서 연다. 통합 서버8780 하나를 사용한다. [pilot200 결과](results/failure_modes/input_settings/viewer.html?view=pilot%2F200%2Freport.html)는 Charades100·QVHighlights100 질문이다. 과거 run_id pilot_100은 데이터셋별 개수이며 보존된 식별자다.
 
 ## 재현
 

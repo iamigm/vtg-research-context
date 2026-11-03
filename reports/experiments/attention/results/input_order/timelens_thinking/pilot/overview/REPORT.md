@@ -1,4 +1,4 @@
-# Pilot 누적 통합 · input_order/timelens_thinking
+# Pilot overview · input_order/timelens_thinking
 
 같은 실험 계열의 실제 등록된 pilot 단계만 표시한다. 질문 수와 모델·조건별 응답 수를 구분한다.
 

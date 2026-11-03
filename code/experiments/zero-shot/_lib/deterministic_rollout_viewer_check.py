@@ -9,7 +9,7 @@ os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(SHARED/'browser_cache')
 os.environ['LD_LIBRARY_PATH']=str(SHARED/'browser_libs/usr/lib/x86_64-linux-gnu')+':'+os.environ.get('LD_LIBRARY_PATH','')
 os.environ['FONTCONFIG_FILE']=str(SHARED/'browser_libs/fonts.conf')
 from playwright.sync_api import sync_playwright
-BASE='http://127.0.0.1:8780/zero-shot/results/deterministic_rollout_pilot900_v2/viewer.html'
+BASE='http://127.0.0.1:8780/zero-shot/results/rollout/deterministic/pilot/900/viewer.html'
 KEY='activitynet-timelens_01723'
 def ready(page):page.wait_for_function('window.ROLLOUT_VIEWER?.state.current && !document.querySelector("#loadStatus").textContent',timeout=60000)
 def run():
@@ -57,10 +57,28 @@ def run():
    assert page.locator('#resultOverview .result-card').count()==3
    assert page.locator('#branchSelect').input_value()==str(candidate)
   checks.append('scenario_semantics_unique_sample_cards_and_card_matches_inspected_branch')
+  assert page.locator('#sampleSelect,.secondary-presets,.filter-details [data-preset],.score-explain').count()==0
+  assert page.locator('.filter-details select').count()==0
+  assert page.locator('.filter-details input[type="number"]').count()==14
+  assert page.locator('[data-preset="parent_improved"]').is_visible()
+  page.locator('.filter-details>summary').click()
+  page.fill('#initialMax','0.5');page.fill('#candidateMin','0.5');page.fill('#greedyDeltaMin','0.1');page.fill('#stepMin','8');page.fill('#stepMax','18');page.fill('#tokenPMax','0.4')
+  assert page.evaluate('ROLLOUT_VIEWER.state.filtered.length>0 && ROLLOUT_VIEWER.state.filtered.every(b=>ROLLOUT_VIEWER.state.map.get(b.sample).greedy_iou<=.5&&b.iou>=.5&&b.greedy_delta>=.1&&b.position+1>=8&&b.position+1<=18&&b.probability<=.4)')
+  filtered_url=page.url;page.reload();ready(page)
+  assert page.locator('#candidateMin').input_value()=='0.5' and page.locator('#stepMax').input_value()=='18'
+  page.locator('.filter-details>summary').click();page.fill('#candidateMax','0.2')
+  assert page.evaluate('ROLLOUT_VIEWER.state.grouped.length===0') and page.locator('#numericStatus').inner_text()
+  page.click('#resetNumeric');assert page.evaluate('ROLLOUT_VIEWER.state.grouped.length===900')
+  page.locator('.filter-details>summary').click()
+  assert '겹침 점수' not in page.locator('body').inner_text()
+  checks.append('numeric_range_filters_validation_reset_and_shared_URL_without_categorical_controls')
+
   page.click('#nextPage');assert page.locator('#pageInfo').inner_text().startswith('2 /')
   page.goto(BASE+f'#preset=dot&sample={KEY}&candidate=3');page.wait_for_function('ROLLOUT_VIEWER.state.current.sample.key==="'+KEY+'" && ROLLOUT_VIEWER.state.candidate===3');ready(page)
-  overview=page.locator('#resultOverview').inner_text();assert all(t in overview for t in ['0 – 106초','0 – 1.3초','0 – 107.3초','98.79%'])
+  overview=page.locator('#resultOverview').inner_text();assert all(t in overview for t in ['0 – 106초','0 – 1.3초','0 – 107.3초','IoU 0.988'])
   assert page.locator('#answerComparison mark').count()==2
+  assert page.locator('#answerComparison').evaluate('(el)=>el.closest("details").id')=='videoDetails'
+  assert page.locator('details#rawAnswers').count()==0
   assert page.locator('#distAdvanced,#distPrevious,#distNext,#distStep,#distBranchPoint').count()==0
   assert page.locator('#distTokenStrip').is_visible() and page.locator('#distSearch').is_visible()
   assert page.locator('#selectionAnalysis').get_attribute('open') is None
@@ -76,7 +94,7 @@ def run():
   parent_branch=next(b for b in manifest['branches'] if b['parent']!=1)
   page.evaluate('([key,c])=>ROLLOUT_VIEWER.selectCase(key,c)',[parent_branch['sample'],parent_branch['candidate']])
   page.wait_for_function('(key)=>ROLLOUT_VIEWER.state.current.sample.key===key',arg=parent_branch['sample'])
-  assert '최초 응답이 아닙니다' in page.locator('#originContext').inner_text()
+  assert 'greedy 응답과 다릅니다' in page.locator('#originContext').inner_text()
   checks.append('intermediate_parent_explicitly_distinguished_from_initial_response')
   page.click('[data-preset="all"]');ready(page)
   for dataset in ['charades-timelens','activitynet-timelens','qvhighlights-timelens']:

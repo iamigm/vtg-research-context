@@ -13,11 +13,11 @@ import argparse, collections, datetime, fcntl, hashlib, heapq, json, math
 import re, subprocess, sys, threading, time, traceback
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = relocate_path(Path(__file__)).resolve().parents[1]
 RUN = 'conditional_rollout_budget_pilot30_v1'
 OUT = relocate_path(ROOT/'artifacts/runs'/RUN)
 REPORT = relocate_path(ROOT/'results'/RUN)
-MODEL = Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
+MODEL = relocate_path(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct'))
 CHECKPOINTS = [8, 16, 32, 64, 128, 256, 512]
 CONFIG = dict(run=RUN, model=str(MODEL), diagnostic_queries=30,
     selection='first 10 per dataset in frozen pilot300 order; no outcome selection',
@@ -36,16 +36,16 @@ def stamp():
     return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
 
 def read(p):
-    return json.loads(Path(p).read_text())
+    return json.loads(relocate_path(Path(p)).read_text())
 
 def write(p, value):
-    p=Path(p);p.parent.mkdir(parents=True,exist_ok=True)
+    p=relocate_path(Path(p));p.parent.mkdir(parents=True,exist_ok=True)
     tmp=p.with_suffix(p.suffix+'.tmp')
     tmp.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
     tmp.replace(p)
 
 def sha(p):
-    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+    return hashlib.sha256(relocate_path(Path(p)).read_bytes()).hexdigest()
 
 class Progress:
     def __init__(self):
@@ -77,14 +77,14 @@ def setup():
         p=OUT/'metadata'/name
         if p.exists():assert read(p)==value, f'Frozen configuration changed: {p}'
         else:write(p,value)
-    source=Path(__file__)
+    source=relocate_path(Path(__file__))
     (OUT/'code'/source.name).write_bytes(source.read_bytes())
     dep=source.with_name('fps_spatial_control.py')
     (OUT/'code'/dep.name).write_bytes(dep.read_bytes())
     write(OUT/'metadata/provenance.json',dict(cohort=str(cohort),cohort_sha256=sha(cohort),
           code_sha256=sha(source),input_code_sha256=sha(dep),created_at=stamp(),
-          cpu_max=Path('/sys/fs/cgroup/cpu.max').read_text().strip(),
-          memory_max=Path('/sys/fs/cgroup/memory.max').read_text().strip(),
+          cpu_max=relocate_path(Path('/sys/fs/cgroup/cpu.max')).read_text().strip(),
+          memory_max=relocate_path(Path('/sys/fs/cgroup/memory.max')).read_text().strip(),
           backbone_manifest_sha256=sha('/home/irteam/backbones/manifests/registry.json')))
     return rows
 

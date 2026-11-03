@@ -17,7 +17,7 @@
 
 확률은 BF16 모델의 logits를 FP32로 변환하여 **전체 LM-head 어휘**에 softmax를 적용한 값이다. Top-30 안에서 재정규화하지 않았다. HTML 기본 표시는 generation processor 이전 raw 분포이며, 보정 후 분포도 선택할 수 있다. Qwen2.5의 repetition penalty는 1.05, Qwen3는 1.0이다. Greedy decoding이므로 이 분포는 실제 무작위 샘플링을 의미하지 않는다.
 
-| 모델 | 벤치마크 | 모든 step 평균 선택 확률 (%) | 숫자 step 평균 선택 확률 (%) | 평균 top-30 질량 (%) | 평균 엔트로피 (nat) | raw 최대 확률보다 낮은 토큰 선택 |
+| 모델 | 벤치마크 | 모든 step 평균 선택 확률 (%) | 숫자 step 평균 선택 확률 (%) | 평균 top-30 질량 (%) | 평균 entropy (nat) | raw 최대 확률보다 낮은 토큰 선택 |
 |---|---|---:|---:|---:|---:|---:|
 | qwen25 | charades-timelens | 82.98 | 44.49 | 100.00 | 0.455 | 79 |
 | qwen25 | activitynet-timelens | 81.33 | 45.09 | 100.00 | 0.495 | 76 |

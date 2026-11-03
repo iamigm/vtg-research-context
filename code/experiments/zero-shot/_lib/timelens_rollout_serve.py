@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 
 RESULT_VIEW = relocate_path(relocate_path(Path(__file__)).resolve().parents[1] / 'results/timelens_rollout')
-ROOT = Path('/home/irteam/experiments')
+ROOT = relocate_path(Path('/home/irteam/experiments'))
 LANDING = '/' + str(RESULT_VIEW).replace('/home1/irteam/','/home/irteam/').split('/experiments/',1)[1] + '/report.html'
 
 class GalleryHandler(SimpleHTTPRequestHandler):
