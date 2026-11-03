@@ -24,7 +24,7 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 ### zero-shot/spatial_sampling_pilot900_v2
 
-[REPORT.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md)
+[A_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/SPEC.md)
 
 현재 관련 코드 72개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 

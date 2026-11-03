@@ -219,3 +219,19 @@
 - evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
 - evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
 - conversations/01a18c45-0978-7563-9999-067f29e4426e.md
+
+## 2026-11-03T09:00:00.001468+09:00
+
+원본 파일 직접 관찰: 22개 실행, 337개 코드·의존성 파일. 이전 commit: 190adc6190f94d59c1d9e1570ac2882962d36c97.
+
+추가 6 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metrics/axes.csv
+- evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metrics/metrics.csv
+- reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_high.md
+- reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/A_low.md
+- reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_high.md
+- reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/B_low.md
+- evidence/experiments/zero-shot/artifacts/runs/fps_spatial_control_pilot300_v1/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/spatial_sampling_pilot900_v2/metadata/status.json
+- reports/experiments/zero-shot/results/spatial_sampling_pilot900_v2/REPORT.md
