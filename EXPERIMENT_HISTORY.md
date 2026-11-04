@@ -1746,3 +1746,14 @@
 - conversations/01a1a468-0ed4-7750-978e-18011c5d8260.md
 - evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json
 - reports/experiments/zero-shot/results/rollout/reconsideration/pilot/overview/REPORT.md
+
+## 2026-11-04T15:00:00.002351+09:00
+
+원본 파일 직접 관찰: 18개 실행, 550개 코드·의존성 파일. 이전 commit: d8a407618466cc2767bcb4cd2fcad55f6a9b0af6.
+
+추가 1 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/reporting/rollout_reconsideration_report.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/STRATA.md

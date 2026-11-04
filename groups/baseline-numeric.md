@@ -8,49 +8,49 @@
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/all_zeroshot_v1/REPORT.md)
 
-현재 관련 코드 204개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 205개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_span_head
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_span_head/REPORT.md)
 
-현재 관련 코드 207개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 208개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_top30
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/entropy_iou/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/integrated/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/mmco_diagnosis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/numeric_uncertainty/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30/prefix_entropy/REPORT.md)
 
-현재 관련 코드 204개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 205개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/timelens_top30_full
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/digit_correctness/first_error_distance/REPORT.md) · [CACHE_REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/CACHE_REPORT.md) · [PIPELINE_REVIEW.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/PIPELINE_REVIEW.md) · [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/timelens_top30_full/performance/REPORT.md)
 
-현재 관련 코드 204개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 205개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/baseline
 
 [REPORT.md](../reports/experiments/zero-shot/results/baseline/all_zeroshot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/input_order/overview/consistency/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/baseline/thinking_vs_instruct/pilot/overview/REPORT.md)
 
-현재 관련 코드 207개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 208개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/operations
 
 [CACHE_REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/CACHE_REPORT.md) · [PIPELINE_REVIEW.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/PIPELINE_REVIEW.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/inference_performance/full/9404/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/mmco_diagnosis/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/operations/selected_frame_cache_migration/shared/REPORT.md)
 
-현재 관련 코드 204개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 205개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/rollout
 
 [ANALYSIS.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/ANALYSIS.md) · [NEXT_EXPERIMENT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/NEXT_EXPERIMENT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/overview/REPORT.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/STRATA.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/STRATA.md) · [END_DECIMAL_CASES.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/END_DECIMAL_CASES.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/deterministic/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/300/REPORT.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/300/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/SPEC.md) · [STRATA.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/STRATA.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/reconsideration/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/stochastic/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/rollout/stochastic/pilot/overview/REPORT.md)
 
-현재 관련 코드 204개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 205개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/uncertainty
 
 [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/span_head/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/span_head/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/entropy_iou/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/integrated/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/numeric_uncertainty/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/prefix_entropy/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/overview/REPORT.md)
 
-현재 관련 코드 207개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 208개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -251,6 +251,7 @@
 - [zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration.py](../code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration.py)
 - [zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_check.py](../code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_check.py)
 - [zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_report.py)
+- [zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/reporting/rollout_reconsideration_report.py](../code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/reporting/rollout_reconsideration_report.py)
 - [zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/manifest.js](../code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/manifest.js)
 - [zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/viewer.js](../code/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/web/viewer.js)
 - [zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/monitor.py](../code/experiments/zero-shot/artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort/scripts/monitor.py)

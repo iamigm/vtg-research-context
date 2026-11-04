@@ -1,64 +1,15 @@
 {
-  "state": "running",
-  "stage": "inference",
-  "completed": 366,
+  "state": "complete",
+  "stage": "complete",
+  "completed": 600,
   "total": 600,
-  "percentage": 61.0,
+  "percentage": 100,
   "counts": {
-    "charades-timelens": 100,
-    "activitynet-timelens": 166,
-    "qvhighlights-timelens": 100
+    "charades-timelens": 200,
+    "activitynet-timelens": 200,
+    "qvhighlights-timelens": 200
   },
-  "elapsed_seconds": 6248.349397175014,
-  "eta_seconds": 4741.262300992302,
-  "eta_scope": "remaining worker inference; excludes final reporting",
-  "timestamp": "2026-11-04T13:35:17.611127+09:00",
-  "workers": [
-    {
-      "state": "running",
-      "stage": "reviewing",
-      "completed": 180,
-      "total": 317,
-      "counts": {
-        "charades-timelens": 49,
-        "activitynet-timelens": 79,
-        "qvhighlights-timelens": 52
-      },
-      "timestamp": "2026-11-04T13:35:17.397943+09:00",
-      "elapsed_seconds": 6248.092326007783,
-      "percentage": 56.782334384858046,
-      "sample_key": "activitynet-timelens_01723",
-      "variant": "agent_pool32",
-      "input_tokens": 11156,
-      "prefill_seconds": 0.9179569445550442,
-      "variants_completed": 6,
-      "decision_calls": 1,
-      "decision_seconds": 0.7722868286073208,
-      "eta_seconds": 4741.262300992302,
-      "eta_scope": "remaining assigned inference including review and probability diagnostics; excludes initial preprocessing/model load and final reporting"
-    },
-    {
-      "state": "running",
-      "stage": "probing_distribution",
-      "completed": 186,
-      "total": 283,
-      "counts": {
-        "charades-timelens": 51,
-        "activitynet-timelens": 87,
-        "qvhighlights-timelens": 48
-      },
-      "timestamp": "2026-11-04T13:35:17.260584+09:00",
-      "elapsed_seconds": 6247.954426385462,
-      "percentage": 65.7243816254417,
-      "sample_key": "activitynet-timelens_00933",
-      "variant": "verifier_pool32",
-      "input_tokens": 6951,
-      "prefill_seconds": 0.6280030459165573,
-      "variants_completed": 7,
-      "decision_calls": 15,
-      "decision_seconds": 1.3348841108381748,
-      "eta_seconds": 3245.431143169181,
-      "eta_scope": "remaining assigned inference including review and probability diagnostics; excludes initial preprocessing/model load and final reporting"
-    }
-  ]
+  "timestamp": "2026-11-04T14:44:15.899953+09:00",
+  "elapsed_seconds": 10386.638265758753,
+  "eta_seconds": 0
 }
