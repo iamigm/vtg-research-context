@@ -43,4 +43,18 @@ def build_pilot_catalog():
   lines += ['', '300·600·900개를 포함하는 계열의 공통 코호트는300 ⊂ 600 ⊂ 900이며 작은 코호트는 큰 코호트의 정확한 prefix다. 겹치는 질문을 독립 표본처럼 더하지 않는다. 확장 실행의 추가분은 별도 결과로 노출하지 않는다. 이 코호트는 층화 진단 표본으로 전체 벤치마크 평균이 아니다.','', '새600/900개 결과는 같은 계열의 해당 숫자 폴더와 artifacts/runs의 대응 경로에 등록한다. 전체 실험 목록을 재생성하면 이 통합 목록도 갱신된다. 조건·입력·생성 정책이 바뀌면 별도 버전 계열로 둔다.','',f'[전체 실험 목록]({os.path.relpath(ROOT/"index.html",view)})']
   dump(out/'metadata/catalog.json',dict(schema_version=1,family=str(rel),entries=entries,nested=True,aggregation='references only; no independent-sample pooling'))
   write(view/'REPORT.md','\n'.join(lines)+'\n')
+
+ for analysis in ('reconsideration',):
+  family=base/'rollout/deterministic/pilot';view=family/'overview'/analysis
+  scopes=[n for n in (300,600,900) if (family/str(n)/analysis/'REPORT.md').is_file()]
+  if not scopes:continue
+  entries=[];lines=['# Reconsideration · pilot overview','','Deterministic rollout의 저장된 trajectory에 대한 하위 분석이다. 실제 reconsideration 결과가 있는 고정 cohort만 표시한다.','','| 범위 | 보고서 | deterministic trajectory |','|---|---|---|']
+  for n in scopes:
+   report=family/str(n)/analysis/'REPORT.md';trajectory=family/str(n)/'viewer.html';data=P/'artifacts/runs/rollout/deterministic/pilot'/str(n)/analysis
+   entries.append(dict(queries=n,result=str(report.parent),artifacts=str(data),report=str(report),cohort=cohorts[n]['path'],cohort_sha256=cohorts[n]['sha256']))
+   lines.append(f'| pilot{n} · {n} queries | [Reconsideration]({os.path.relpath(report,view)}) | [Deterministic rollout]({os.path.relpath(trajectory,view)}) |')
+  lines+=['','pilot300은 pilot600의 고정 prefix이며 응답·review-conditioned token distribution는600의 원자료를 참조한다. 중첩된 query를 독립 표본으로 합산하지 않는다. pilot900에는 reconsideration 결과가 없다.','',f'[Deterministic rollout 통합 뷰]({os.path.relpath(family.parent/"viewer.html",view)})']
+  write(view/'REPORT.md','\n'.join(lines)+'\n')
+  dump(P/'artifacts/runs/rollout/deterministic/pilot/overview'/analysis/'metadata/catalog.json',dict(schema_version=1,family='rollout/deterministic',analysis=analysis,entries=entries,aggregation='fixed cohort references only; no pooling'))
+
 if __name__=='__main__':build_pilot_catalog()

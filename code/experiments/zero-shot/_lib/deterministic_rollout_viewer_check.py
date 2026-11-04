@@ -54,8 +54,10 @@ def run():
    if scenario=='all':assert page.evaluate('ROLLOUT_VIEWER.state.grouped.length===900')
    card=page.locator('.case-card').first;key=card.get_attribute('data-sample');candidate=int(card.get_attribute('data-candidate'));card.click()
    page.wait_for_function('([key,c])=>ROLLOUT_VIEWER.state.current.sample.key===key&&ROLLOUT_VIEWER.state.candidate===c',arg=[key,candidate])
-   assert page.locator('#resultOverview .result-card').count()==3
-   assert page.locator('#branchSelect').input_value()==str(candidate)
+   assert page.locator('#branchPreview .fork-response').count()==(2 if candidate!=1 else 1)
+   assert page.locator('#branchPreview .comparison-truth').count()==1
+   assert page.locator('#resultOverview,.result-card').count()==0
+   assert page.locator('#branchMap .selected').get_attribute('data-branch-candidate')==str(candidate)
   checks.append('scenario_semantics_unique_sample_cards_and_card_matches_inspected_branch')
   assert page.locator('#sampleSelect,.secondary-presets,.filter-details [data-preset],.score-explain').count()==0
   assert page.locator('.filter-details select').count()==0
@@ -75,12 +77,24 @@ def run():
 
   page.click('#nextPage');assert page.locator('#pageInfo').inner_text().startswith('2 /')
   page.goto(BASE+f'#preset=dot&sample={KEY}&candidate=3');page.wait_for_function('ROLLOUT_VIEWER.state.current.sample.key==="'+KEY+'" && ROLLOUT_VIEWER.state.candidate===3');ready(page)
-  overview=page.locator('#resultOverview').inner_text();assert all(t in overview for t in ['0 – 106초','0 – 1.3초','0 – 107.3초','IoU 0.988'])
+  overview=page.locator('#branchPreview').inner_text();assert all(t in overview for t in ['0 – 106초','0 – 1.3초','0 – 107.3초'])
+  assert page.locator('.fork-response.after .comparison-iou').inner_text()=='0.988'
+  assert page.locator('.fork-response.before .comparison-iou').inner_text()=='0.012'
+  for kind in ('before','after'):
+   card=page.locator(f'.fork-response.{kind}')
+   assert card.locator('.fork-sentence,.comparison-metrics,[data-overview-play]').count()==3
+  checks.append('single_response_comparison_contains_sentence_span_iou_token_and_replay_with_shared_GT')
   assert page.locator('#answerComparison mark').count()==2
   assert page.locator('#answerComparison').evaluate('(el)=>el.closest("details").id')=='videoDetails'
   assert page.locator('details#rawAnswers').count()==0
   assert page.locator('#distAdvanced,#distPrevious,#distNext,#distStep,#distBranchPoint').count()==0
-  assert page.locator('#distTokenStrip').is_visible() and page.locator('#distSearch').is_visible()
+  assert page.locator('.route-sentence').first.is_visible() and page.locator('#distSearch').is_visible()
+  assert page.locator('#branchDetail,#distTokenStrip,.position-trail').count()==0
+  assert page.locator('.fork-response.before .sentence-pivot').inner_text()=='.'
+  assert page.locator('.fork-response.after .sentence-pivot').inner_text()=='0'
+  assert page.locator('.comparison-token-choice').count()==0
+  assert page.locator('.comparison-span .comparison-play').count()==2
+  assert 'ΔIoU' in page.locator('.comparison-delta').inner_text()
   assert page.locator('#selectionAnalysis').get_attribute('open') is None
   assert page.locator('#originContext').inner_text()==''
   page.locator('#selectionAnalysis>summary').click();page.select_option('#budget','4');page.select_option('#method','oracle')
@@ -96,6 +110,12 @@ def run():
   page.wait_for_function('(key)=>ROLLOUT_VIEWER.state.current.sample.key===key',arg=parent_branch['sample'])
   assert 'greedy 응답과 다릅니다' in page.locator('#originContext').inner_text()
   checks.append('intermediate_parent_explicitly_distinguished_from_initial_response')
+  page.evaluate('ROLLOUT_VIEWER.showCandidate(1)')
+  assert page.locator('.fork-response').count()==1
+  assert page.locator('.fork-response .fork-sentence').inner_text()==page.evaluate('ROLLOUT_VIEWER.state.current.candidates[0].answer')
+  assert page.locator('.comparison-truth').count()==1
+  assert page.locator('#answerComparison .answer').count()==1
+  checks.append('greedy_only_selection_has_one_response_card_and_one_GT_reference')
   page.click('[data-preset="all"]');ready(page)
   for dataset in ['charades-timelens','activitynet-timelens','qvhighlights-timelens']:
    page.select_option('#dataset',dataset)

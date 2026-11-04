@@ -11,8 +11,13 @@
     });
   }
   document.addEventListener('click', event => {
-    const button = event.target.closest('[data-history-back], [data-history-forward]');
+    const button = event.target.closest('[data-history-back], [data-history-forward], [data-refresh-current]');
     if (!button || button.disabled) return;
+    if (button.hasAttribute('data-refresh-current')) {
+      const refresh = new CustomEvent('experiment-refresh', {cancelable: true});
+      if (window.dispatchEvent(refresh)) location.reload();
+      return;
+    }
     if (button.hasAttribute('data-history-back')) history.back(); else history.forward();
   });
   for (const method of ['pushState', 'replaceState']) {

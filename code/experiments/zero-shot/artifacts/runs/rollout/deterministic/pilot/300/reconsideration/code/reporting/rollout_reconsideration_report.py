@@ -1,8 +1,8 @@
 """Automatic quantitative reports and interactive inspection for reconsideration."""
-import collections,csv,hashlib,json,math,os,statistics,subprocess,sys
+import collections,csv,hashlib,json,math,os,re,shutil,statistics,subprocess,sys
 from html import escape
 from pathlib import Path
-from rollout_reconsideration import ROOT,OUT,REPORT,SOURCE,COHORT,CONFIG,VARIANTS,read,write,sha,stamp,interval,iou,clusters
+from rollout_reconsideration import ROOT,OUT,REPORT,SOURCE,COHORT,CONFIG,VARIANTS,FAMILY,ANALYSIS,read,write,sha,stamp,interval,iou,clusters
 LITERATURE=[
  ('Snell et al., Scaling LLM Test-Time Compute Optimally','https://arxiv.org/abs/2408.03314','proposal revision과 verifier-guided search를 구분하고, 평가·수정 연산을 포함한 예산을 비교한다. 이 pilot은 학습된 PRM을 재현하지 않으며 frozen VLM judge로 두 축을 시험한다.'),
  ('Qin et al., Pairwise Ranking Prompting','https://arxiv.org/abs/2306.17563','pairwise selection을 이용하고 두 후보의 presentation order를 뒤집어 평가한다. 문서 ranking에서 video interval selection으로 적용한 실험 설계이며 원 논문 성능의 재현이 아니다.'),
@@ -65,7 +65,7 @@ qvhighlights-timelens_00507은 고정 pilot600에 없다. 기존 trace를 이용
  reference=SOURCE/'rollouts/qvhighlights-timelens_00507.json'
  if reference.exists():
   rec=read(reference);assert all(s['sample_key']!=rec['sample']['sample_key'] for s in cohort)
-  dest=ROOT/'artifacts/runs/rollout/reconsideration/shared/case_study';write(dest/'reference_case.json',dict(sample_key=rec['sample']['sample_key'],in_pilot600=False,source_record=str(reference),source_trace=str(SOURCE/'token_traces'/rec['sample']['sample_key']/'index.json'),note='Existing data audit only; no additional inference counted in600'))
+  dest=ROOT/'artifacts/runs/rollout/deterministic/shared/reconsideration/case_study';write(dest/'reference_case.json',dict(sample_key=rec['sample']['sample_key'],in_pilot600=False,source_record=str(reference),source_trace=str(SOURCE/'token_traces'/rec['sample']['sample_key']/'index.json'),note='Existing data audit only; no additional inference counted in600'))
  (REPORT/'REPORT.md').write_text('# Rollout reconsideration · pilot600\n\n상태: running. 완료된 성능 결과가 아니다.\n\n600 query의 재검토와 token distribution 측정이 진행 중이다. 완료 후 이 보고서에 결과와 검증을 자동으로 통합한다.\n\n[실험 설계](SPEC.md)\n')
  build_view(600,[]);return cohort
 
@@ -106,7 +106,7 @@ def bootstrap(rows,n_boot=400,reference="greedy"):
  return result
 
 def report(n=600,refresh=True):
- cohort=read(COHORT)[:n];out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n);dest=ROOT/'results'/FAMILY/'pilot'/str(n);dest.mkdir(parents=True,exist_ok=True);rows=[];details=[];validated=[]
+ cohort=read(COHORT)[:n];out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n)/ANALYSIS;dest=ROOT/'results'/FAMILY/'pilot'/str(n)/ANALYSIS;dest.mkdir(parents=True,exist_ok=True);rows=[];details=[];validated=[]
  for sample in cohort:
   key=sample['sample_key'];rec=read(SOURCE/'rollouts'/f'{key}.json');data=read(OUT/'responses'/f'{key}.json');assert set(data['variants'])=={v[0] for v in VARIANTS};assert data['input_hashes']==rec['input_hashes'];assert sha(data['baseline_reference'])==data['baseline_sha256']
   cs=rec['result']['candidates'];gt=sample['span'][0];greedy=interval(cs[0]);base_iou=iou(greedy,gt);groups,assignment=clusters(cs);old_cluster=assigned_cluster(greedy,groups);sensitivity={t:clusters(cs,t)[0] for t in (.3,.7)};sample_detail=dict(sample=sample,greedy=greedy,variants={},response=str(OUT/'responses'/f'{key}.json'))
@@ -145,7 +145,7 @@ def report(n=600,refresh=True):
   compared=bootstrap(rows,reference=reference)
   for target in targets:pairs[target+' minus '+reference]=compared[target]
  write(out/'metrics/paired_video_bootstrap.json',dict(against_greedy=ci,pairwise=pairs))
- text=[f'# Rollout reconsideration · pilot{n}','',f'완료: {n} query, dataset별{n//3}. 3개 접근과 direct regeneration control을 같은 고정 cohort에서 평가했다. 생성 input hash는 기존 deterministic rollout과 일치하며 GT는 보고 단계에서만 사용했다.','', '[실험 설계](SPEC.md)' if n==600 else '[실험 설계](../600/SPEC.md)', '',
+ text=[f'# Rollout reconsideration · pilot{n}','',f'완료: {n} query, dataset별{n//3}. 3개 접근과 direct regeneration control을 같은 고정 cohort에서 평가했다. 생성 input hash는 기존 deterministic rollout과 일치하며 GT는 보고 단계에서만 사용했다.','', '[실험 설계](SPEC.md)' if n==600 else '[실험 설계](../../600/reconsideration/SPEC.md)', '',
  '## 지표와 비교 기준','',f'mIoU는 {n} query의 temporal IoU 평균, R@τ는 IoU≥τ query 비율이다. IoU=intersection duration/union duration이며 높을수록 좋다. Δ는 같은 query의 greedy 대비 차이, Δpp는 성공률 차이×100이다. failure는 파싱 실패·invalid interval·EOS 미도달 비율이고0점으로 포함한다. model seconds는 CUDA 동기화로 측정한 의사결정 model wall time이며 공통 video prefill과 사후 probability diagnostic을 제외한다. decoder tokens는 기존 proposal generation 비용과 새 review의 prompt·generated token·KV replay를 합산한다. probability diagnostics 비용은 별도 원자료에 보존한다. 기존 baseline은 추가 review time이0이다. 평가 호출 수를 맞춘 비교가 FLOPs 일치를 뜻하지 않는다.','',
  '## 전체 성능','']+table(rows,methods)
  text+=['','## Paired comparison · 95% bootstrap CI','','video 단위 paired bootstrap의 방법 간 차이다. CI가0을 포함하면 순위 차이를 확정하지 않는다.','','| comparison | ΔmIoU [95% CI] | ΔR@.5 [95% CI] |','|---|---|---|']
@@ -198,20 +198,40 @@ def report(n=600,refresh=True):
  print(json.dumps(dict(stage='report_complete',queries=n,report=str(dest/'REPORT.md')),ensure_ascii=False),flush=True)
 
 
-def build_view(n,details):
- out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n);dest=ROOT/'results'/FAMILY/'pilot'/str(n);web=out/'web';web.mkdir(parents=True,exist_ok=True);cohort=read(COHORT)[:n]
- write(web/'samples.json',[dict(key=s['sample_key'],dataset=s['dataset'],query=s['query']) for s in cohort]);write(web/'details.json',details)
- base=os.path.relpath(web,dest);store=os.path.relpath(OUT,dest);source=os.path.relpath(SOURCE,dest);font=os.path.relpath(ROOT/'_lib/entropy_viewer/NotoSansKR.ttf',dest)
- template=Path(__file__).with_name('rollout_reconsideration_viewer.html').read_text()
- for a,b in [('__N__',str(n)),('__WEB__',base),('__STORE__',store),('__SOURCE__',source),('__FONT__',font),('__BASELINE_REPORT__',os.path.relpath(ROOT/'results/rollout/deterministic/pilot/900/viewer.html',dest)),('__SPEC__','SPEC.md' if n==600 else '../600/SPEC.md')]:template=template.replace(a,b)
+def build_view(n,details=None):
+ assert n in (300,600)
+ out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n)/ANALYSIS
+ dest=ROOT/'results'/FAMILY/'pilot'/str(n)/ANALYSIS;web=out/'web'
+ web.mkdir(parents=True,exist_ok=True);dest.mkdir(parents=True,exist_ok=True)
+ # UI reads deterministic manifests and original responses; do not duplicate their payloads.
+ for old in ('details.json','samples.json'):
+  (web/old).unlink(missing_ok=True)
+ # Reuse case definitions and stored trajectories, while giving reconsideration its own process UI.
+ baseline=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n)/'web';samples=SOURCE/'web/samples'
+ shared=Path(__file__).with_name('deterministic_rollout_viewer.html').read_text()
+ finder=shared[shared.index('<aside class="panel case-finder"'):shared.index('</aside>')+8]
+ template=Path(__file__).with_name('rollout_reconsideration_viewer.html').read_text().replace('__CASE_FINDER__',finder)
+ css=Path(__file__).with_name('rollout_reconsideration_viewer.css');js=css.with_suffix('.js')
+ config=dict(store=os.path.relpath(OUT,dest),queries=n,sourceViewer=os.path.relpath(ROOT/'results'/FAMILY/'viewer.html',dest)+'?view=pilot/'+str(n)+'/viewer.html')
+ boot='<script>window.ROLLOUT_EXPLORER_OPTIONS={caseOnly:true};window.ROLLOUT_VIDEO_BASE='+json.dumps(os.path.relpath(ROOT/'results'/FAMILY/'pilot/900/viewer.html',dest))+';window.RECONSIDERATION_CONFIG='+json.dumps(config)+';</script>'
+ for a,b in [('__PILOT_SIZE__',str(n)),('__ASSET_BASE__',os.path.relpath(baseline,dest)),('__SAMPLE_BASE__',os.path.relpath(samples,dest)),('__REVIEW_ASSETS__',os.path.relpath(web,dest)),('__SPEC__','SPEC.md' if n==600 else '../../600/reconsideration/SPEC.md'),('__BOOT__',boot)]:template=template.replace(a,b)
  sys.path.insert(0,str(ROOT.parent/'_lib'));from build_index import add_navigation
  (dest/'viewer.html').write_text(add_navigation(dest/'viewer.html',template))
- (out/'code/reporting').mkdir(parents=True,exist_ok=True);source=Path(__file__).with_name('rollout_reconsideration_viewer.html');(out/'code/reporting'/source.name).write_bytes(source.read_bytes())
+ shutil.copyfile(css,web/'reconsideration.css');shutil.copyfile(js,web/'reconsideration.js')
+ sources=[]
+ for name in ('rollout_reconsideration_report.py','rollout_reconsideration_viewer.html','rollout_reconsideration_viewer.js','rollout_reconsideration_viewer.css','rollout_reconsideration_viewer_check.py'):
+  source=Path(__file__).with_name(name);target=out/'code/reporting'/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
+  sources.append(dict(path=str(source),sha256=sha(source)))
+ write(out/'validation/viewer_sources.json',dict(passed=True,queries=n,analysis='reconsideration',deterministic_manifest=str(baseline/'manifest.json'),response_source=str(OUT/'responses'),sources=sources))
+ report=dest/'REPORT.md'
+ if report.exists():
+  text=re.sub(r'\n<!-- reconsideration-viewer:start -->.*?<!-- reconsideration-viewer:end -->\n?','',report.read_text(),flags=re.S)
+  block='\n<!-- reconsideration-viewer:start -->\n## Reconsideration 프로세스 탐색\n\n[접근별 프로세스](viewer.html)는 deterministic rollout의 하위 분석이다. 기존 사례 유형·수치 필터와 같은 질문을 사용하며 원래 trajectory 문장·분기 지도·baseline 분포는 원본 뷰 링크에서 확인한다. 이 페이지는 그 화면을 복제하지 않는다.\n\nagent는 실제 controller action과 inspector observation을 시간순으로 표시한다. 명시적 selected candidate가 없으므로 마지막 inspection을 최종 선택으로 간주하지 않는다. verifier는 후보별 event/경계 Yes 확률과 그 곱, 실제 선택 및 final regeneration을 연결한다. test-time scaling은 양쪽 presentation order의 pairwise 점수, round별 승자와 bye를 대진 구조로 표시한다. direct regeneration은 추가 평가 없이 같은 ledger로 생성한 두 pool 조건의 대조다. 각 접근 안에서 예산 조건을 비교한다.\n\npool은 기존 deterministic 후보의 앞8/32개다. 유효하고 중복되지 않은 구간에서 GT 없이 farthest-first로 다양성을 확보하며, ledger의 후보 목록은 최대8개다. verifier는 별도로 최대3/7개를 평가하고 TTS는 최대4/8개를 대진에 넣는다. 실제 목록·평가 수·원문은 저장된 기록을 사용한다. final answer는 선택 후보와 다를 수 있다. 사후 token distribution 진단은 기본 검토 과정과 분리한다. 원본 응답·영상·baseline token distribution는 복제하지 않는다.\n<!-- reconsideration-viewer:end -->\n'
+  report.write_text(text.rstrip()+'\n'+block)
 
-# Family key is imported by report and build_view; keep it canonical.
-FAMILY='rollout/reconsideration'
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser();p.add_argument('--init',action='store_true');p.add_argument('--queries',type=int,default=600);a=p.parse_args()
- if a.init:init()
+ p=argparse.ArgumentParser();p.add_argument('--init',action='store_true');p.add_argument('--queries',type=int,default=600);p.add_argument('--view-only',action='store_true');a=p.parse_args()
+ if a.view_only:build_view(a.queries)
+ elif a.init:init()
  else:report(a.queries)

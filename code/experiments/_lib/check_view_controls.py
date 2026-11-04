@@ -6,14 +6,43 @@ os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(shared/'browser_cache')
 os.environ['LD_LIBRARY_PATH']=str(shared/'browser_libs/usr/lib/x86_64-linux-gnu')+':'+os.environ.get('LD_LIBRARY_PATH','')
 os.environ['FONTCONFIG_FILE']=str(shared/'browser_libs/fonts.conf')
 from playwright.sync_api import sync_playwright
+from family_catalog import build_navigation,analysis_parts,scope_info
+from family_view_test_utils import select_view
 BASE='http://127.0.0.1:8780/'
+# A third-level subexperiment is discovered without any experiment-specific UI branch.
+fixture=[]
+for scope,path,kind,name in [('pilot/300',[], 'html','viewer.html'),('pilot/300',['search','calibration','temperature'], 'html','viewer.html'),('pilot/300',['search','calibration','temperature'], 'md','REPORT.md'),('pilot/600',['report_only'], 'md','REPORT.md')]:
+ id=scope+('/'+'/'.join(path) if path else '')+'/'+name
+ fixture.append(dict(id=id,kind=kind,scope_key=scope,scope=scope,queries=int(scope.split('/')[1]),analysis_path=path,report=id if kind=='md' else id.replace('viewer.html','REPORT.md') if path else None))
+assert analysis_parts(Path('pilot/300/region/full/REPORT.md'))==['region','full']
+assert scope_info(Path('pilot/300/region/full/REPORT.md'))==('pilot/300','pilot · 300 queries',300)
+assert scope_info(Path('overview/REPORT.md'))==('overview','family overview',0)
+nav=build_navigation('Example',fixture)
+assert len(nav['children'][0]['children'])==2
+node=nav['children'][0]['children'][0]['children'][0]
+for part in ('search','calibration','temperature'):
+ node=next(child for child in node['children'] if child['path'][-1]==part)
+assert node['result'].endswith('temperature/viewer.html') and node['report'].endswith('temperature/REPORT.md')
+report_only=nav['children'][0]['children'][1]['children'][0]['children'][0]
+assert report_only['result'] is None and report_only['report'].endswith('report_only/REPORT.md')
 with sync_playwright() as pw:
  b=pw.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage']);p=b.new_page(viewport={'width':1440,'height':1000})
  errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  p.goto(BASE);p.goto(BASE+'zero-shot/results/rollout/stochastic/viewer.html');p.locator('#family-app[data-ready=true]').wait_for()
  assert p.locator('#family-sidebar').is_hidden()
- assert p.locator('#toggle-sidebar').inner_text()=='목록'
- assert p.locator('.home-link').count()==0
+ assert p.locator('#toggle-sidebar').inner_text()=='실험'
+ assert p.locator('.home-control').count()==1
+ assert p.locator('#analysis,#analysis-control,.toolbar').count()==0
+ assert p.locator('#analysis-tabs .analysis-tab-group').count()==1
+ assert p.locator('.family-heading').bounding_box()['y']<p.locator('.viewer-controls').bounding_box()['y']
+ assert p.locator('#scope').count()==0
+ assert p.locator('#view-browser').evaluate('(el)=>!!el.closest(".viewer-controls")')
+ assert p.locator('#analysis-tabs').evaluate('(el)=>!!el.closest(".viewer-controls")')
+ assert p.locator('#view-browser').is_visible()
+ p.locator('#view-browser>summary').click()
+ assert p.locator('#view-tree').is_visible()
+ p.locator('#view-browser>summary').press('Escape')
+ assert p.locator('#view-browser').get_attribute('open') is None
  assert p.locator('#tab-result').get_attribute('aria-selected')=='true'
  assert not p.locator('#tab-report').is_disabled()
  p.locator('#tab-report').click();p.wait_for_function("document.querySelector('#report h1') !== null")
@@ -29,10 +58,8 @@ with sync_playwright() as pw:
  p.wait_for_function("document.querySelector('#tab-result')?.getAttribute('aria-selected')==='true'")
  p.locator('#toggle-sidebar').click();assert p.locator('#family-sidebar').is_visible()
  p.locator('#toggle-sidebar').click();assert p.locator('#family-sidebar').is_hidden()
- p.evaluate('document.fonts.ready');p.screenshot(path='/tmp/view-controls-desktop.png')
  p.set_viewport_size({'width':390,'height':844})
  assert p.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
- p.screenshot(path='/tmp/view-controls-mobile.png')
  # Actual cross-document back and forward, including the index's forward arrow.
  p.goto(BASE);p.goto(BASE+'zero-shot/results/baseline/all_zeroshot/viewer.html');p.locator('#family-app[data-ready=true]').wait_for()
  assert p.locator('#tab-result').is_disabled() and p.locator('#tab-report').get_attribute('aria-selected')=='true'
@@ -42,8 +69,10 @@ with sync_playwright() as pw:
  # Opening a new experiment tab keeps real browser history boundaries.
  single=b.new_page();single.goto(BASE+'zero-shot/results/baseline/all_zeroshot/viewer.html');single.locator('#family-app[data-ready=true]').wait_for()
  assert single.locator('[data-history-back]').is_disabled() and single.locator('[data-history-forward]').is_disabled()
+ single.locator('.home-control').click();single.wait_for_url('**/index.html')
+ assert single.locator('#catalog').is_visible()
  assert not errors,errors
  b.close()
-result=dict(passed=True,result_report_tabs=True,keyboard=True,history_navigation=True,new_tab_history_boundaries=True,sidebar_collapsed=True,mobile=True)
+result=dict(passed=True,title_above_controls=True,hierarchical_navigation=True,recursive_subexperiments=True,no_body_toolbar=True,result_report_tabs=True,keyboard=True,history_navigation=True,new_tab_history_boundaries=True,sidebar_collapsed=True,home_button=True,mobile=True)
 (root/'artifacts/maintenance/view_controls_validation.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result))

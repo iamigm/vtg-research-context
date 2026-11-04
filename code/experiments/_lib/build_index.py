@@ -72,8 +72,8 @@ def scope_label(path):
     return ''
 
 
-def history_controls():
-    return '<nav class="history-controls" aria-label="페이지 이동"><button type="button" data-history-back aria-label="뒤로 가기" title="뒤로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button><button type="button" data-history-forward aria-label="앞으로 가기" title="앞으로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button></nav>'
+def history_controls(home="index.html", refresh_label="목록 새로고침"):
+    return f'<nav class="history-controls" aria-label="페이지 이동"><button type="button" data-history-back aria-label="뒤로 가기" title="뒤로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button><button type="button" data-history-forward aria-label="앞으로 가기" title="앞으로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button><button type="button" data-refresh-current aria-label="{escape(refresh_label, quote=True)}" title="{escape(refresh_label, quote=True)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6.1 6.1A8 8 0 0 1 19.6 9M4.4 15A8 8 0 0 0 17.9 17.9"/></svg></button><a class="home-control" href="{escape(home, quote=True)}" aria-label="홈" title="홈 · 전체 실험"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a></nav>'
 
 
 def add_navigation(path, text):
@@ -95,7 +95,7 @@ def add_navigation(path, text):
     history_js = os.path.relpath(ROOT / '_lib/history_controls.js', path.parent)
     text = re.sub(r'<script\b[^>]*data-experiment-history[^>]*>.*?</script>', '', text, flags=re.I | re.S)
     text = text.replace(link, link + f'<script data-experiment-history defer src="{history_js}"></script>', 1)
-    nav = '<div data-experiment-home>' + history_controls() + '</div>'
+    nav = '<div data-experiment-home>' + history_controls(os.path.relpath(ROOT / 'index.html', path.parent), '페이지 새로고침') + '</div>'
     if 'data-experiment-home' in text:
         return re.sub(r'<(nav|div)\b[^>]*data-experiment-home[^>]*>.*?</\1>', lambda m: nav, text, count=1, flags=re.S)
     body = re.search(r'<body\b[^>]*>', text, re.I)
@@ -126,7 +126,7 @@ def build():
                 search = (label + ' ' + topic + ' ' + f['title'] + ' ' + f['search']).lower()
                 scopes = ' · '.join(f['scopes'])
                 rows.append(f'<article data-search="{escape(search, quote=True)}"><div class="family-name"><h3><a href="{f["href"]}" target="_blank" rel="noopener">{escape(f["title"])}</a></h3><p>{escape(scopes)}</p><p class="run">{escape(f["topic"] + "/" + f["family"])}</p></div><a class="open" href="{f["href"]}" target="_blank" rel="noopener">새 탭에서 보기 ↗</a><label class="compare-choice"><input type="checkbox" name="compare" value="{f["href"]}"> 비교</label></article>')
-            groups.append(f'<section data-topic><h2>{escape(topic)}</h2>{"".join(rows)}</section>')
+            groups.append(f'<section data-topic><header class="topic-heading"><h2>{escape(topic)}</h2><span class="topic-count">{len(members)}개 실험 계열</span></header>{"".join(rows)}</section>')
         sections.append(f'''<details class="project" data-project="{project}" data-label="{escape(label, quote=True)}"><summary><button type="button" class="drag-handle" aria-label="{escape(label)} 프로젝트 끌어서 이동" title="끌어서 순서 변경">⠿</button><span class="project-title">{escape(label)}<small>{len(values)}개 실험 계열</small></span><span class="project-actions"><button type="button" class="move-up" aria-label="{escape(label)} 위로 이동" title="위로 이동">↑</button><button type="button" class="move-down" aria-label="{escape(label)} 아래로 이동" title="아래로 이동">↓</button><button type="button" class="pin-project" aria-label="{escape(label)} 상단 고정" aria-pressed="false" title="상단 고정">☆</button></span></summary><div class="project-body">{"".join(groups)}</div></details>''')
     options = ''.join(f'<option value="{p}">{label}</option>' for p, label in PROJECTS.items())
     document = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>실험 목록</title><link rel="stylesheet" href="_lib/experiment_theme.css"><link rel="stylesheet" href="_lib/index_catalog.css"><link rel="stylesheet" href="_lib/index_compare.css"><script defer src="_lib/history_controls.js"></script></head><body><main id="catalog"><header>__HISTORY_CONTROLS__<div class="eyebrow">EXPERIMENTS / RESEARCH FAMILIES</div><h1>실험 목록</h1><p>프로젝트에서 주제와 실험 계열을 탐색하세요.<br>실험과 비교 화면은 새 탭에서 열립니다.</p></header>

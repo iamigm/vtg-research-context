@@ -8,14 +8,15 @@ from pathlib import Path
 from result_layout import relocate_path
 from deterministic_rollout300 import parse,sites
 ROOT=Path('/home/irteam/experiments/zero-shot')
-FAMILY='rollout/reconsideration'
-OUT=ROOT/'artifacts/runs'/FAMILY/'pilot/600'
-REPORT=ROOT/'results'/FAMILY/'pilot/600'
+FAMILY='rollout/deterministic'
+ANALYSIS='reconsideration'
+OUT=ROOT/'artifacts/runs'/FAMILY/'pilot/600'/ANALYSIS
+REPORT=ROOT/'results'/FAMILY/'pilot/600'/ANALYSIS
 SOURCE=ROOT/'artifacts/runs/rollout/deterministic/pilot/900'
 COHORT=ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json'
 MODEL=Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
 VARIANTS=[('direct_pool8','direct',8,1),('agent_pool8','agent',8,3),('verifier_pool8','verifier',8,3),('tts_pool8_select4','tts',8,4),('tts_pool8_select8','tts',8,8),('direct_pool32','direct',32,1),('agent_pool32','agent',32,7),('verifier_pool32','verifier',32,7),('tts_pool32_select4','tts',32,4),('tts_pool32_select8','tts',32,8)]
-CONFIG=dict(family=FAMILY,queries=600,cohort=str(COHORT),model=str(MODEL),fps=2,target_pixels=100352,input_order='video_query',
+CONFIG=dict(family=FAMILY,analysis=ANALYSIS,queries=600,cohort=str(COHORT),model=str(MODEL),fps=2,target_pixels=100352,input_order='video_query',
  proposal_pools=[8,32],variants=VARIANTS,decoding='greedy; no random sampling, no training, no new model',
  agent='adaptive controller chooses event/boundary inspection; same-VLM visual inspector returns observations; 3/7 action-observation rounds then regeneration',
  verifier='3/7 fixed diverse candidates; independent event and boundary Yes/No likelihoods then regeneration',
@@ -246,7 +247,12 @@ def setup():
  full=read(ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json');assert full[:600]==cohort
  for name,obj in [('config.json',CONFIG),('cohort.json',cohort)]:
   path=OUT/'metadata'/name
-  if path.exists():assert read(path)==json.loads(json.dumps(obj)),f'Frozen config mismatch {path}'
+  if path.exists():
+   frozen=read(path)
+   # Classification moved; the frozen scientific settings remain unchanged.
+   if name=='config.json' and frozen.get('family')=='rollout/reconsideration':
+    frozen=dict(frozen,family=FAMILY,analysis=ANALYSIS)
+   assert frozen==json.loads(json.dumps(obj)),f'Frozen config mismatch {path}'
   else:write(path,obj)
  manifest=OUT/'metadata/provenance.json'
  if not manifest.exists():write(manifest,dict(created_at=stamp(),cohort_sha256=sha(COHORT),parent_store=str(SOURCE),model_manifest_sha256=sha('/home/irteam/backbones/manifests/registry.json'),cpu_max=Path('/sys/fs/cgroup/cpu.max').read_text().strip(),memory_max=Path('/sys/fs/cgroup/memory.max').read_text().strip(),cpuset=Path('/sys/fs/cgroup/cpuset.cpus.effective').read_text().strip(),workers=2,torch_threads_per_worker=2,ground_truth_excluded_from_generation=True))

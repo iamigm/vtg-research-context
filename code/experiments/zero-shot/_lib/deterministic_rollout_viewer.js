@@ -86,7 +86,7 @@ async function selectCase(key,candidate=null,scroll=false){
   if(serial!==state.serial)return;const changed=state.current?.sample.key!==key;state.current=data;
   $('sampleId').textContent=data.sample.key;$('query').textContent=data.sample.query;
   $('sampleMeta').textContent=`${dsName(data.sample)} · 영상 ${seconds(data.sample.duration)}초 · 저장된 예측 ${data.candidates.length}개`;
-  if(changed){state.segment=null;$('video').pause();$('video').src=data.video;$('videoStatus').textContent='';$('videoDetails').open=false;}
+  if(changed){state.segment=null;$('video').pause();$('video').src=window.ROLLOUT_VIDEO_BASE?new URL(data.video,new URL(window.ROLLOUT_VIDEO_BASE,location.href)).href:data.video;$('videoStatus').textContent='';$('videoDetails').open=false;}
   const listIndex=state.grouped.findIndex(entry=>entry.sample===key);if(listIndex>=0)state.page=Math.floor(listIndex/PAGE_SIZE);
   showCandidate(candidate||defaultCandidate(key));$('loadStatus').textContent='';
   if(scroll&&window.innerWidth<1000)$('samplePanel').scrollIntoView({behavior:'smooth',block:'start'});
@@ -96,8 +96,9 @@ function answerBlock(title,candidate,position){
  const tokens=candidate.tokens.map((token,index)=>token.startsWith('<|')?`<span class="faded">${escapeHTML(token)}</span>`:index===position?`<mark class="changed">${escapeHTML(token)}</mark>`:escapeHTML(token)).join('');
  return `<div class="answer"><b>${escapeHTML(title)} · ${pairText(candidate.pair)} · IoU ${score(candidate.iou)}</b><pre>${tokens}</pre></div>`;
 }
-function resultCard(label,pair,kind,candidate=null){
- return `<article class="result-card ${kind}"><span class="result-label">${label}</span><strong>${escapeHTML(pairText(pair))}</strong><span class="result-score">${kind==='truth'?'GT':`IoU <b>${score(candidate.iou)}</b>`}</span>${candidate?`<span class="decoding-method">${candidate.index===1?'greedy decoding':'forced token → greedy decoding'}</span>`:''}<button data-overview-play="${kind}">이 구간 재생 ↗</button></article>`;
+function responseCard(candidate,kind,branch){
+ const label=candidate.index===1?'greedy 응답':kind==='before'?'부모 후보':'분기 후보';
+ return `<article class="fork-response ${kind}" data-response-candidate="${candidate.index}"><div class="fork-response-heading"><b>${label} #${candidate.index}</b><span class="decoding-method">${candidate.index===1?'greedy decoding':'forced token → greedy decoding'}</span></div><code class="fork-sentence">${branchSentence(candidate,branch?.position,kind)}</code><div class="comparison-metrics"><div><span>예측 구간</span><span class="comparison-span"><strong class="fork-outcome">${escapeHTML(pairText(candidate.pair))}</strong><button class="comparison-play" data-overview-play="${kind}" aria-label="${label} #${candidate.index} 구간 재생">▶ 재생</button></span></div><div><span>IoU</span><strong class="comparison-iou">${score(candidate.iou)}</strong></div></div></article>`;
 }
 function branchSentence(candidate,position,kind='after'){
  const prefix=candidate.tokens.slice(0,position).filter(t=>!t.startsWith('<|')).join('');
@@ -119,24 +120,26 @@ function renderBranchMap(current){
  }).join('');}
  const map=$('branchMap'),top=map.scrollTop;map.innerHTML=tree(0,0);map.scrollTop=top;
  const selected=map.querySelector('.selected');if(selected&&(selected.offsetTop<map.scrollTop||selected.offsetTop+selected.offsetHeight>map.scrollTop+map.clientHeight))map.scrollTop=selected.offsetTop-map.clientHeight/2;
- const b=current.branch,parent=b?data.candidates[b.parent-1]:current;
- $('branchPreview').innerHTML=b?`<div class="fork-heading"><b>같은 문장에서 갈라진 두 응답</b><span>강조한 토큰부터 각각 greedy decoding</span></div><div class="fork-prefix"><span>공통 prefix</span><code>${escapeHTML(current.tokens.slice(0,b.position).join(''))}</code><span class="fork-point">여기서 분기 ↙ ↘</span></div><div class="fork-responses">${[[parent,'before',`부모 응답 #${parent.index}`],[current,'after',`분기 응답 #${current.index}`]].map(([row,kind,label])=>`<article class="fork-response ${kind}"><div class="fork-response-heading"><b>${label}</b><span>IoU ${score(row.iou)}</span></div><code class="fork-sentence">${branchSentence(row,b.position,kind)}</code><div class="fork-outcome">${escapeHTML(pairText(row.pair))}</div></article>`).join('')}</div><p class="fork-legend">옅은 부분은 공통 prefix · 테두리 토큰은 분기 선택 · 이어지는 부분은 각 선택 이후의 완성 문장</p>`:`<div class="fork-heading"><b>greedy 응답 #1</b></div><code class="fork-sentence">${escapeHTML(current.answer)}</code><p class="fork-legend">위에서 분기 경로를 선택하면 갈라진 두 문장을 함께 보여줍니다.</p>`;
  document.querySelectorAll('[data-branch-candidate]').forEach(button=>button.onclick=()=>showCandidate(Number(button.dataset.branchCandidate)));
+}
+function renderResponseComparison(current){
+ const data=state.current,b=current.branch,parent=b?data.candidates[b.parent-1]:current;
+ const truth=`<div class="comparison-truth"><span>정답 구간 <small>GT</small></span><strong>${escapeHTML(pairText(data.sample.gt))}</strong><button data-overview-play="truth">이 구간 재생 ↗</button></div>`;
+ const prefix=b?`<div class="fork-prefix"><span>공통 prefix</span><code>${escapeHTML(current.tokens.slice(0,b.position).join(''))}</code><span class="fork-point">여기서 분기 ↙ ↘</span></div>`:'';
+ $('branchPreview').innerHTML=`<div class="fork-heading"><b>${b?'같은 문장에서 갈라진 두 응답':'greedy 응답과 정답 비교'}</b>${b?`<span class="comparison-delta">부모 대비 ΔIoU ${delta(current.iou-parent.iou)}</span>`:''}</div>${truth}${prefix}<div class="fork-responses ${b?'':'single'}">${responseCard(parent,'before',b)}${b?responseCard(current,'after',b):''}</div>${b?'<p class="fork-legend">옅은 부분은 공통 prefix · 테두리 토큰은 분기 선택 · 이어지는 부분은 각 선택 이후의 완성 문장</p>':'<p class="fork-legend">위에서 분기 경로를 선택하면 부모 응답과 분기 응답을 비교합니다.</p>'}`;
+ const pairs={truth:data.sample.gt,before:parent.pair,after:current.pair};
+ $('branchPreview').querySelectorAll('[data-overview-play]').forEach(button=>button.onclick=()=>playSpan(pairs[button.dataset.overviewPlay]));
 }
 function showCandidate(index){
  const data=state.current;if(!data)return;const c=data.candidates.find(x=>x.index===index)||data.candidates[0];state.candidate=c.index;
+ if(window.ROLLOUT_EXPLORER_OPTIONS?.caseOnly){renderCatalog();updateHash();window.dispatchEvent(new CustomEvent('rollout:candidate',{detail:{data,candidate:c}}));return;}
  const b=c.branch,parent=b?data.candidates[b.parent-1]:c,greedy=data.candidates[0];
- $('resultOverview').innerHTML=resultCard('정답',data.sample.gt,'truth')+resultCard(parent.index===1?'greedy 응답':`부모 후보 #${parent.index}`,parent.pair,'before',parent)+resultCard(c.index===1?'greedy 응답':`분기 후보 #${c.index}`,c.pair,'after',c);
- const pairs={truth:data.sample.gt,before:parent.pair,after:c.pair};$('resultOverview').querySelectorAll('[data-overview-play]').forEach(button=>button.onclick=()=>playSpan(pairs[button.dataset.overviewPlay]));
- if(b){
-  const verb=b.original_token==='.'&&/^\d+$/.test(b.forced_token)?'소수점을 찍는 대신 숫자를 이어 썼습니다.':`${escapeHTML(roleText(b.roles))}에서 다른 토큰을 골랐습니다.`;
-  $('branchDetail').innerHTML=`<div class="branch-story-top"><span class="story-label">분기 토큰</span><div class="token-swap"><code class="before-token">${escapeHTML(b.original_token)}</code><span>→</span><code class="after-token">${escapeHTML(b.forced_token)}</code><span>${escapeHTML(roleText(b.roles))}</span></div></div><p>${verb} 나머지 토큰은 greedy decoding으로 생성했습니다.</p><p class="story-effect">IoU <b>${score(parent.iou)} → ${score(c.iou)}</b> ${delta(c.iou-parent.iou)}</p>`;
- }else $('branchDetail').innerHTML='<b>greedy 응답입니다.</b><p>다른 토큰을 강제하지 않았습니다. 다른 변경을 선택하면 분기 전후를 비교할 수 있습니다.</p>';
  $('originContext').innerHTML=parent.index!==1?`<div class="origin-context"><b>부모 후보 #${parent.index}는 greedy 응답과 다릅니다.</b> greedy는 ${escapeHTML(pairText(greedy.pair))}를 예측했고, 탐색 중 얻은 ${escapeHTML(pairText(parent.pair))}에서 다시 분기했습니다. greedy 응답과 비교한 ΔIoU는 ${delta(c.iou-greedy.iou)}입니다. <button id="showOriginal">greedy 응답 보기</button> <button id="parentJump">분기 전 후보 보기</button></div>`:'';
  if($('showOriginal'))$('showOriginal').onclick=()=>showCandidate(1);if($('parentJump'))$('parentJump').onclick=()=>showCandidate(parent.index);
- $('answerComparison').innerHTML=answerBlock('분기 부모 후보',parent,b?.position)+answerBlock('분기 후 응답',c,b?.position)+(parent.index!==1?answerBlock('greedy 응답',greedy,null):'');
- renderBranchMap(c);renderSelectionAnalysis();renderTimeline(c,parent);renderCatalog();updateHash();
+ $('answerComparison').innerHTML=b?answerBlock('분기 부모 후보',parent,b.position)+answerBlock('분기 후 응답',c,b.position)+(parent.index!==1?answerBlock('greedy 응답',greedy,null):''):answerBlock('greedy 응답',c,null);
+ renderBranchMap(c);renderResponseComparison(c);renderSelectionAnalysis();renderTimeline(c,parent);renderCatalog();updateHash();
  if(window.ROLLOUT_DISTRIBUTIONS)window.ROLLOUT_DISTRIBUTIONS.render(data,c);
+ window.dispatchEvent(new CustomEvent('rollout:candidate',{detail:{data,candidate:c}}));
 }
 function renderSelectionAnalysis(){
  const data=state.current;if(!data)return;const k=$('budget').value,choice=data.candidates[data.choices[k][$('method').value]-1],oracle=data.candidates[data.choices[k].oracle-1],current=data.candidates[state.candidate-1];
@@ -157,17 +160,18 @@ function playSpan(pair){
  $('videoDetails').scrollIntoView({behavior:'smooth',block:'nearest'});video.play().catch(e=>$('videoStatus').textContent=e.message);
 }
 function updateHash(){
- if(!state.current)return;const params=new URLSearchParams({preset:state.preset,sample:state.current.sample.key,candidate:state.candidate,budget:$('budget').value,method:$('method').value,flag:state.flag});
- const old=new URLSearchParams(location.hash.slice(1));if(old.get('panel'))params.set('panel',old.get('panel'));
+ if(!state.current)return;const params=new URLSearchParams({preset:state.preset,sample:state.current.sample.key,candidate:state.candidate,flag:state.flag});
+ for(const id of ['budget','method'])if($(id))params.set(id,$(id).value);
+ const old=new URLSearchParams(location.hash.slice(1));for(const key of ['panel','review','axis','approach'])if(old.get(key))params.set(key,old.get(key));
  for(const id of ['search','dataset','sort',...numericIds])if($(id).value)params.set(id,$(id).value);
- history.replaceState(null,'',`${location.pathname}${location.search}#${params}`);
+ history.replaceState(null,'',`${location.pathname}${location.search}#${params}`);window.dispatchEvent(new CustomEvent('rollout:context'));
 }
 async function restoreHash(){
- const hash=new URLSearchParams(location.hash.slice(1));$('search').value='';$('dataset').value='';$('budget').value='32';$('method').value='probability_weighted_medoid';$('sort').value='sample';for(const id of numericIds)$(id).value='';applyPreset(hash.get('preset')||'all',false);
- for(const id of ['search','dataset','sort','budget','method',...numericIds])if(hash.has(id))$(id).value=hash.get(id);
+ const hash=new URLSearchParams(location.hash.slice(1));$('search').value='';$('dataset').value='';if($('budget'))$('budget').value='32';if($('method'))$('method').value='probability_weighted_medoid';$('sort').value='sample';for(const id of numericIds)$(id).value='';applyPreset(hash.get('preset')||'all',false);
+ for(const id of ['search','dataset','sort','budget','method',...numericIds])if(hash.has(id)&&$(id))$(id).value=hash.get(id);
  filterBranches();
- const first=hash.get('sample')||state.grouped[0]?.sample||state.manifest.samples[0].key;
- await selectCase(state.map.has(first)?first:state.manifest.samples[0].key,Number(hash.get('candidate'))||null);
+ const requested=hash.get('sample'),key=state.map.has(requested)?requested:state.grouped[0]?.sample||state.manifest.samples[0].key;
+ await selectCase(key,requested&&requested!==key?null:Number(hash.get('candidate'))||null);
 }
 async function init(){
  const response=await fetch(`${ASSETS}/manifest.json`);if(!response.ok)throw Error('사례 목록을 불러오지 못했습니다.');state.manifest=await response.json();state.map=new Map(state.manifest.samples.map(s=>[s.key,s]));
@@ -176,7 +180,7 @@ async function init(){
  for(const id of ['search','dataset','sort',...numericIds])$(id).addEventListener(id==='search'||numericIds.includes(id)?'input':'change',()=>{filterBranches();updateHash();});
  $('previousPage').onclick=()=>{state.page--;renderCatalog();};$('nextPage').onclick=()=>{state.page++;renderCatalog();};
  $('resetNumeric').onclick=()=>{for(const id of numericIds)$(id).value='';filterBranches();updateHash();};
- for(const id of ['budget','method'])$(id).onchange=()=>{renderSelectionAnalysis();updateHash();};
+ for(const id of ['budget','method'])if($(id))$(id).onchange=()=>{renderSelectionAnalysis();updateHash();};
  function adjacent(direction){const i=state.grouped.findIndex(x=>x.sample===state.current?.sample.key),entry=state.grouped[i+direction];if(entry)selectCase(entry.sample,entry.candidate);}
  $('previousSample').onclick=()=>adjacent(-1);$('nextSample').onclick=()=>adjacent(1);
  $('video').ontimeupdate=()=>{if(state.segment&&$('video').currentTime>=state.segment[1]){$('video').pause();state.segment=null;}};
@@ -184,5 +188,5 @@ async function init(){
  window.addEventListener('hashchange',restoreHash);
  await restoreHash();
 }
-window.ROLLOUT_VIEWER={state,selectCase,showCandidate,applyPreset};
+window.ROLLOUT_VIEWER={state,selectCase,showCandidate,applyPreset,playSpan};
 init().catch(error=>{$('summary').textContent=error.message;$('loadStatus').textContent=error.message;});

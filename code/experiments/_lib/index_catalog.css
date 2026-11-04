@@ -29,7 +29,12 @@ header p { margin: 0; color: var(--ui-muted); }
 .project > summary .drag-handle { cursor: grab; font-size: 24px; touch-action: none; user-select: none; }
 .project > summary .pin-project[aria-pressed=true] { color: var(--ui-accent); background: var(--ui-soft); }
 .project-body { padding: 0 22px 16px; }
-[data-topic] h2 { font-size: 13px; color: var(--ui-muted); margin: 18px 0 7px; }
+[data-topic] { margin: 18px 0; border: 1px solid var(--ui-line); border-radius: 9px; overflow: hidden; }
+.topic-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--ui-soft); border-left: 3px solid var(--ui-accent); }
+[data-topic] h2 { font-size: 15px; font-weight: 700; letter-spacing: -.015em; color: var(--ui-accent); margin: 0; }
+.topic-count { color: var(--ui-muted); font-size: 11px; white-space: nowrap; }
+[data-topic] > article { margin-left: 17px; padding: 14px 16px 14px 14px; border-left: 1px solid var(--ui-line); }
+[data-topic] > article:first-of-type { border-top: 0; }
 article { display: flex; align-items: center; gap: 18px; padding: 13px 0; border-top: 1px solid #edf0ec; min-width: 0; }
 .family-name { flex: 1; min-width: 0; }
 h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
@@ -56,6 +61,10 @@ body.project-dragging { user-select: none; cursor: grabbing; }
   .project > summary { padding: 12px 8px; font-size: 15px; gap: 6px; }
   .project > summary button { width: 28px; height: 34px; }
   .project-body { padding: 0 15px 12px; }
+  .topic-heading { padding: 10px; gap: 8px; }
+  [data-topic] h2 { font-size: 14px; }
+  .topic-count { font-size: 10px; }
+  [data-topic] > article { margin-left: 12px; padding: 12px 10px; }
   article { flex-wrap: wrap; gap: 8px; }
   .family-name { flex-basis: 100%; }
   .open { margin-right: auto; }

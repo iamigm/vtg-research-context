@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 ROOT=Path('/home/irteam/experiments');S=ROOT/'artifacts/maintenance/rollout_views_20261104'
 sys.path.insert(0,str(ROOT/'_lib'))
 from result_layout import relocate_path
+from family_view_test_utils import select_view
 
 def preservation():
  data=json.loads((S/'unified_sources.json').read_text());store=Path(data['single_source_store']);assert len(list(store.glob('*.json')))==900
@@ -55,7 +56,10 @@ def browser_checks():
     assert page.locator('#toggle-sidebar').get_attribute('aria-expanded')=='false'
     page.locator('#toggle-sidebar').click();assert page.locator('#family-sidebar').is_visible()
     page.wait_for_timeout(700)
-    assert page.locator('#view-nav button[aria-current="true"]').count()==1
+    page.locator('#experiment-nav a[aria-current=page]').wait_for()
+    assert page.locator('#experiment-nav a[aria-current=page]').count()==1
+    assert page.locator('#analysis-tabs [aria-selected=true]').count()==1
+    assert page.locator('.toolbar,#analysis').count()==0
     m=json.loads((ROOT/family['manifest']).read_text());active=next(e for e in m['entries'] if e['id']==m['default'])
     if active['kind']=='html':
      frame=page.frame_locator('#detail-frame');frame.locator('body').wait_for(timeout=30000)
@@ -69,7 +73,7 @@ def browser_checks():
     if family['family']=='deterministic':
      frame=page.frame_locator('#detail-frame');frame.locator('#branches .case-card').first.wait_for(timeout=60000)
      for n in [300,600,900]:
-      page.locator('#scope').select_option('pilot/'+str(n));page.wait_for_function('(n)=>document.querySelector("#detail-frame").contentWindow.ROLLOUT_VIEWER?.state.grouped.length===n',arg=n,timeout=60000)
+      select_view(page,'pilot/'+str(n)+'/viewer.html');page.wait_for_function('(n)=>document.querySelector("#detail-frame").contentWindow.ROLLOUT_VIEWER?.state.grouped.length===n',arg=n,timeout=60000)
      row['cohort_switch_300_600_900']=True
      # Full token distributions load from the same canonical900 store.
      url=page.url.split('#')[0]+'#preset=all&sample=activitynet-timelens_01723&candidate=3&panel=distributions'

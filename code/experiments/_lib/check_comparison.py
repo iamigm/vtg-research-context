@@ -25,8 +25,15 @@ with sync_playwright() as pw:
  assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
  p.frame_locator('#right-frame').locator('#scope').select_option('full/9404')
  assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
+ for side in ['left','right']:
+  p.frame_locator('#'+side+'-frame').locator('body').evaluate("()=>{window.refreshCount=0;window.addEventListener('experiment-refresh',()=>window.refreshCount++)}")
+ p.locator('#comparison [data-refresh-current]').click()
+ for side in ['left','right']:
+  assert p.frame_locator('#'+side+'-frame').locator('body').evaluate('()=>window.refreshCount')==1
+ assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
+ assert p.frame_locator('#right-frame').locator('#scope').input_value()=='full/9404'
  url=p.url;p.reload();p.frame_locator('#left-frame').locator('#family-app[data-ready="true"]').wait_for(timeout=45000);assert p.url==url
  p.close();p=catalog;p.set_viewport_size({'width':390,'height':844});assert p.evaluate('document.documentElement.scrollWidth<=innerWidth')
  b.close()
-result=dict(passed=True,two_family_videos_play=True,scope_selection_independent=True,url_restore=True,mobile=True)
+result=dict(passed=True,two_family_videos_play=True,scope_selection_independent=True,scoped_comparison_refresh=True,url_restore=True,mobile=True)
 (ROOT/'artifacts/maintenance/rollout_views_20261104/comparison.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

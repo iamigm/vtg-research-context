@@ -161,7 +161,11 @@
         row.hidden = !!((project.value && project.value !== group.dataset.project) || !row.dataset.search.includes(query));
         if (!row.hidden) visible++;
       });
-      group.querySelectorAll('[data-topic]').forEach(topic => { topic.hidden = ![...topic.querySelectorAll('article')].some(row => !row.hidden); });
+      group.querySelectorAll('[data-topic]').forEach(topic => {
+        const count = [...topic.querySelectorAll('article')].filter(row => !row.hidden).length;
+        topic.hidden = !count;
+        topic.querySelector('.topic-count').textContent = count + '개 실험 계열';
+      });
       group.hidden = !visible;
       group.open = !!visible && !!(query || project.value);
       if (visible) p++;

@@ -31,10 +31,12 @@ button:disabled { cursor: default; opacity: .45; }
 }
 [hidden] { display: none !important; }
 .history-controls { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
-.history-controls button {
+.history-controls button, .history-controls .home-control {
   display: grid; place-items: center; width: 32px; height: 32px;
   padding: 6px; border: 0; border-radius: 50%; background: transparent; color: var(--ui-muted);
 }
+.history-controls .home-control { text-decoration: none; }
+.history-controls .home-control:hover { background: var(--ui-soft); color: var(--ui-accent); }
 .history-controls button:hover:enabled { background: var(--ui-soft); color: var(--ui-accent); }
 .history-controls button:disabled { opacity: .3; }
 .history-controls svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

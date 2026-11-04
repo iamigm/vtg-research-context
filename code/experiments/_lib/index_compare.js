@@ -32,6 +32,9 @@
     $('catalog').hidden = comparing;
     $('comparison').hidden = !comparing;
     document.body.classList.toggle('comparing', comparing);
+    document.querySelectorAll('#comparison [data-refresh-current]').forEach(button=>{
+      button.title='비교 새로고침';button.setAttribute('aria-label','비교 새로고침');
+    });
     document.title = comparing ? '두 계열 비교 · 실험 목록' : '실험 목록';
     if (comparing) {
       selected = [...new Set([left, right])];
@@ -79,5 +82,14 @@
     render(params.get('left'), params.get('right'));
   }
   window.addEventListener('popstate', restore);
+  window.addEventListener('experiment-refresh', event => {
+    if (!document.body.classList.contains('comparing')) return;
+    event.preventDefault();
+    for (const side of ['left', 'right']) {
+      const frame = $(side + '-frame');
+      const refresh = new frame.contentWindow.CustomEvent('experiment-refresh', {cancelable: true});
+      if (frame.contentWindow.dispatchEvent(refresh)) frame.contentWindow.location.reload();
+    }
+  });
   restore();
 })();

@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T15:30:43.191821+09:00",
+  "observed_at": "2026-11-04T17:49:36.419495+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -43,14 +43,14 @@
       "sha256": "e4640bc4d3fc653ce9eae5ae1e0b439608ec4ea3fd4b93fac4ba0d9e95f23b9b"
     },
     {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/reconsideration/metadata/status.json",
+      "source_modified_at": "2026-11-04T14:44:15.900032+09:00",
+      "sha256": "23fdcd207ae81f965b71dd6b0c120d6c702d9aff21d3416552f03a573f468ebe"
+    },
+    {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-04T04:04:03.424531+09:00",
       "sha256": "92e696134dcc60c43ed4c56fc2117a365e3dd7b3e2ddd2939def772408435d90"
-    },
-    {
-      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json",
-      "source_modified_at": "2026-11-04T14:44:15.900032+09:00",
-      "sha256": "23fdcd207ae81f965b71dd6b0c120d6c702d9aff21d3416552f03a573f468ebe"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/status.json",
@@ -59,8 +59,8 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
-      "source_modified_at": "2026-11-04T15:30:29.766136+09:00",
-      "sha256": "1857066e817766c787a348969b5b0d356e2be17a5fa5afdcc16cc66253e94cc0"
+      "source_modified_at": "2026-11-04T17:49:18.365025+09:00",
+      "sha256": "7cb9d83c3625e4ee1a2a2c4eddf5b3032759476b610b53d288fa0d52ef58f714"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/recovery_20261103/status.json",
