@@ -24,7 +24,7 @@ def run():
     if len(seed)>1 and len(seed)&(len(seed)-1):special.setdefault('bye',(key,name))
    if v['method']=='agent' and any(r['fallback'] for r in v['reviews']):special.setdefault('fallback',(key,name))
    if v['selected_candidate'] and interval(v['answer'])!=interval(raw[v['selected_candidate']-1]):special.setdefault('regeneration',(key,name))
- record=read(OUT/'responses'/f'{KEY}.json');checks=[];errors=[]
+ record=read(OUT/'responses'/f'{KEY}.json');gt=read(SOURCE/'web/samples'/f'{KEY}.json')['sample']['gt'];checks=[];errors=[]
  with sync_playwright() as pw:
   browser=pw.chromium.launch(headless=True,args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])
   p=browser.new_page(viewport={'width':1600,'height':1100});p.on('pageerror',lambda e:errors.append(str(e)))
@@ -38,8 +38,9 @@ def run():
    p.click(f'[data-approach="{v["method"]}"]');p.click(f'[data-variant="{name}"]');ready(p,KEY)
    final=p.locator(f'[data-outcome="{name}"]')
    assert final.locator('.final-answer').inner_text()==v['answer']['text']
-   score=iou(interval(v['answer']),record['sample']['span'][0]);assert final.locator('[data-final-iou]').inner_text()==f'{score:.3f}'
-   assert p.locator('#ledgerSource').inner_text()==v['ledger']
+   score=iou(interval(v['answer']),gt);assert final.locator('[data-final-iou]').inner_text()==f'{score:.3f}'
+   assert p.evaluate('RECONSIDERATION.state.variant')==name
+   assert p.locator('#ledgerSource').text_content()==v['ledger'],name
    if v['method']=='agent':
     assert p.locator('.agent-round').count()==len(v['reviews'])
     assert p.locator('.agent-menu [data-trajectory]').evaluate_all('(els)=>els.map(e=>Number(e.dataset.trajectory))')==[int(x) for x in re.findall(r'^#(\d+)\s+\[',v['ledger'],re.M)]
@@ -75,7 +76,7 @@ def run():
    if kind=='regeneration':assert p.locator('.selection-to-final [data-trajectory]').get_attribute('data-trajectory')==str(v['selected_candidate'])
   checks.append('recorded_fallbacks_byes_and_selection_to_regeneration_changes_remain_explicit')
   p.goto(URL+f'pilot/600/reconsideration/viewer.html#sample={KEY}&review=verifier_pool8');ready(p,KEY)
-  p.locator('.process-outcome .process-play').click();p.wait_for_function('!document.querySelector("video").paused&&document.querySelector("video").videoWidth>0',timeout=60000)
+  p.locator('.process-outcome .final-metrics .process-play').click();p.wait_for_function('!document.querySelector("video").paused&&document.querySelector("video").videoWidth>0',timeout=60000)
   response=p.request.get(p.locator('#video').get_attribute('src'),headers={'Range':'bytes=0-1023'});assert response.status==206 and len(response.body())==1024
   p.evaluate('document.querySelector("video").pause()')
   for preset in ('all','recovered','improved','worsened','parent_improved','dot','greedy_short','parent_short'):

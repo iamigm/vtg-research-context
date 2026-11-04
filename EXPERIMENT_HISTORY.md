@@ -1890,3 +1890,26 @@
 - 원본 부재: reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/STRATA.md
 - 원본 부재: reports/experiments/zero-shot/results/rollout/reconsideration/pilot/overview/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/results/rollout/reconsideration/shared/NEXT_EXPERIMENT.md
+
+## 2026-11-04T18:00:00.003322+09:00
+
+원본 파일 직접 관찰: 18개 실행, 573개 코드·의존성 파일. 이전 commit: 8deb279fbd3caff8650d19b90e14e058b13205b0.
+
+추가 0 / 변경 16 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/_lib/rollout_reconsideration_viewer.js
+- code/experiments/zero-shot/_lib/rollout_reconsideration_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/reconsideration/code/reporting/rollout_reconsideration_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/reconsideration/code/reporting/rollout_reconsideration_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/reconsideration/web/reconsideration.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/reconsideration/code/reporting/rollout_reconsideration_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/reconsideration/code/reporting/rollout_reconsideration_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/reconsideration/web/reconsideration.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json

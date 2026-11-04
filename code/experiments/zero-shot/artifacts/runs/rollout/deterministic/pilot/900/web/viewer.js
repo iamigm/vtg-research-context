@@ -132,6 +132,7 @@ function renderResponseComparison(current){
 }
 function showCandidate(index){
  const data=state.current;if(!data)return;const c=data.candidates.find(x=>x.index===index)||data.candidates[0];state.candidate=c.index;
+ // Analysis-specific pages may reuse the case browser without rendering trajectory detail.
  if(window.ROLLOUT_EXPLORER_OPTIONS?.caseOnly){renderCatalog();updateHash();window.dispatchEvent(new CustomEvent('rollout:candidate',{detail:{data,candidate:c}}));return;}
  const b=c.branch,parent=b?data.candidates[b.parent-1]:c,greedy=data.candidates[0];
  $('originContext').innerHTML=parent.index!==1?`<div class="origin-context"><b>부모 후보 #${parent.index}는 greedy 응답과 다릅니다.</b> greedy는 ${escapeHTML(pairText(greedy.pair))}를 예측했고, 탐색 중 얻은 ${escapeHTML(pairText(parent.pair))}에서 다시 분기했습니다. greedy 응답과 비교한 ΔIoU는 ${delta(c.iou-greedy.iou)}입니다. <button id="showOriginal">greedy 응답 보기</button> <button id="parentJump">분기 전 후보 보기</button></div>`:'';

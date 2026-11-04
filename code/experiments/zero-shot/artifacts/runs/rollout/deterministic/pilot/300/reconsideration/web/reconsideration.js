@@ -35,7 +35,7 @@ const ledgerIDs=v=>[...v.ledger.matchAll(/^#(\d+)\s+\[/gm)].map(m=>Number(m[1]))
 function sourceURL(id){const p=new URLSearchParams(location.hash.slice(1));if(id)p.set('candidate',id);return config.sourceViewer+'#'+p;}
 function play(p){return `<button class="process-play" data-play-pair="${esc(JSON.stringify(p))}" ${p?'':'disabled'} aria-label="${esc(span(p))} 재생">▶</button>`;}
 function candidate(id){const c=state.data.candidates[id-1];return `<span class="trajectory-chip" data-trajectory="${id}"><a href="${esc(sourceURL(id))}" target="_parent">#${id}</a><span>${esc(span(c?.pair))}</span>${play(c?.pair)}</span>`;}
-function inputNote(v,selection){const p=pool(v),n=unique(p).length;return `<p class="process-input">기존 trajectory ${p.length}개 중 유효한 고유 구간 ${n}개 · GT 없이 farthest-first로 ${esc(selection)} · <a href="${esc(sourceURL())}" target="_parent">trajectory 원본 ↗</a></p>`;}
+function inputNote(v,selection){const p=pool(v),n=unique(p).length;return `<p class="process-input">기존 trajectory ${p.length}개 → 유효한 고유 구간 ${n}개 → ${esc(selection)}. 유효한 greedy(없으면 원래 log P 최대)에서 시작해, 이미 고른 후보들과 최대 IoU가 가장 작은 후보를 추가합니다 (farthest-first · GT 미사용). · <a href="${esc(sourceURL())}" target="_parent">trajectory 원본 ↗</a></p>`;}
 function calls(v){return v.model_calls.reduce((m,c)=>(m[c.kind]=(m[c.kind]||0)+1,m),{});}
 function costs(v){return `<div class="process-cost"><span>의사결정 <b>${v.cost_decision.model_evaluations}</b> model evaluations</span><span>model seconds <b>${v.cost_decision.model_seconds.toFixed(3)}s</b></span><span>기존 pool 생성 <b>${v.proposal_cost.original_generation_seconds.toFixed(3)}s</b></span></div>`;}
 function outcome(v,heading='최종 결론'){
