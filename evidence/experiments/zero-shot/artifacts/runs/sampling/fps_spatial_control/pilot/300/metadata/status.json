@@ -1,18 +1,19 @@
 {
-  "timestamp": "2026-11-04T04:19:49.730263+09:00",
+  "timestamp": "2026-11-04T08:59:48.118070+09:00",
   "state": "running",
   "stage": "parallel_generation",
-  "completed": 3295,
+  "completed": 4031,
   "total": 6000,
-  "percentage": 54.916666666666664,
+  "percentage": 67.18333333333334,
   "counts": {
     "instruct|charades-timelens": 1000,
     "instruct|activitynet-timelens": 1000,
     "instruct|qvhighlights-timelens": 1000,
-    "thinking|charades-timelens": 295
+    "thinking|charades-timelens": 986,
+    "thinking|activitynet-timelens": 45
   },
-  "elapsed_seconds": 4164.809807620943,
-  "eta_seconds": 47137.28255068891,
+  "elapsed_seconds": 20963.1976220347,
+  "eta_seconds": 42334.9088387552,
   "eta_scope": "remaining inference based on fresh responses after resume; startup included, reporting excluded",
   "workers": [
     347050,

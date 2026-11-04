@@ -1649,3 +1649,11 @@
 - 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/900/SPEC.md
 - 원본 부재: reports/experiments/zero-shot/results/sampling/spatial_allocation/sweep_v2/pilot/overview/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/results/timelens_rollout/REPORT.md
+
+## 2026-11-04T09:00:00.000308+09:00
+
+원본 파일 직접 관찰: 18개 실행, 533개 코드·의존성 파일. 이전 commit: fcd17923d1266581bfdd85a36875aa9a8efa71eb.
+
+추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
