@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T12:00:00.001012+09:00",
+  "observed_at": "2026-11-04T13:35:23.935355+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -424,6 +424,23 @@
       "source_modified_at": "2026-11-04T04:04:09.556505+09:00",
       "messages": 20,
       "last_user_message": "2026-11-03T18:49:55.811Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1a468-0ed4-7750-978e-18011c5d8260",
+      "title": "/home/irteam/experiments/zero-shot/results/rollout/deterministic\n\n이 경로의 실험에서 제공하는 viewr를 수정해보자.\n\n내가 불편한 건 응답 쌍 선택 토글이 직관적으로 어느시점의 분기인지가 드러나지 않는다는 것. 분기 경로를 눈으로 확인하고 싶어.\n\n디코딩 경로에서 top-k는 default가 5로 설정되었으면 좋겠어.\n\n분기 후 선택 셀은 \"이 조건에서 다음으로 고른 토큰은 `.` **83.49258%**\\\n이어서 생성한 최종 구간이 위의 2 – 10초입니다.\" 이 문장에서 다음 토큰 확률을 문장으로 쓰는 건 불필요해. 선택 후 원문 다음 위치 분석이 토글 형태일 필요가 없을 것 같고 이 토글과 통합하여 선택 후 원문이 어디까지인지 그 경로를 따로 생성된 최종 구간은 어디까지인지를 한 문장 안에서 구분이 되게 보여줬으면 좋겠어. 그리고 이 경로에서 한 토큰 더 따라가는 버튼을 더 직관적으로 표현했으면 좋겠어. 일단 저게 토글에서 빠져야 하는 건 생각보다 자주 쓰기도 하고 저 버튼을 누르면 갑자기 화면이 다 바뀌어서 내가 지금 전체 경로에서 어디까지인지가 헷갈려",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1a468-0ed4-7750-978e-18011c5d8260.md",
+      "sha256": "5fad00e9997bcb46995d309dcb21a02fb89f64553c9d9fbb56c8b85dc50d600a",
+      "bytes": 3334,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/04/rollout-2026-11-04T11-34-05-01a1a468-0ed4-7750-978e-18011c5d8260.jsonl",
+      "source_modified_at": "2026-11-04T13:35:19.824369+09:00",
+      "messages": 2,
+      "last_user_message": "2026-11-04T02:34:06.952Z",
       "turn_running": false,
       "retained_snapshot": false
     }

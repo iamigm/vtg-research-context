@@ -1,57 +1,63 @@
 {
   "state": "running",
   "stage": "inference",
-  "completed": 36,
+  "completed": 366,
   "total": 600,
-  "percentage": 6.0,
+  "percentage": 61.0,
   "counts": {
-    "charades-timelens": 36
+    "charades-timelens": 100,
+    "activitynet-timelens": 166,
+    "qvhighlights-timelens": 100
   },
-  "elapsed_seconds": 520.5162381231785,
-  "eta_seconds": 8839.138498989974,
+  "elapsed_seconds": 6248.349397175014,
+  "eta_seconds": 4741.262300992302,
   "eta_scope": "remaining worker inference; excludes final reporting",
-  "timestamp": "2026-11-04T11:59:49.777964+09:00",
+  "timestamp": "2026-11-04T13:35:17.611127+09:00",
   "workers": [
     {
       "state": "running",
       "stage": "reviewing",
-      "completed": 17,
+      "completed": 180,
       "total": 317,
       "counts": {
-        "charades-timelens": 17
+        "charades-timelens": 49,
+        "activitynet-timelens": 79,
+        "qvhighlights-timelens": 52
       },
-      "timestamp": "2026-11-04T11:59:49.347797+09:00",
-      "elapsed_seconds": 520.0421909838915,
-      "percentage": 5.3627760252365935,
-      "sample_key": "charades-timelens_01127",
+      "timestamp": "2026-11-04T13:35:17.397943+09:00",
+      "elapsed_seconds": 6248.092326007783,
+      "percentage": 56.782334384858046,
+      "sample_key": "activitynet-timelens_01723",
       "variant": "agent_pool32",
-      "input_tokens": 3145,
-      "prefill_seconds": 0.2610092759132385,
+      "input_tokens": 11156,
+      "prefill_seconds": 0.9179569445550442,
       "variants_completed": 6,
       "decision_calls": 1,
-      "decision_seconds": 0.6912086792290211,
-      "eta_seconds": 8839.138498989974,
+      "decision_seconds": 0.7722868286073208,
+      "eta_seconds": 4741.262300992302,
       "eta_scope": "remaining assigned inference including review and probability diagnostics; excludes initial preprocessing/model load and final reporting"
     },
     {
       "state": "running",
-      "stage": "reviewing",
-      "completed": 19,
+      "stage": "probing_distribution",
+      "completed": 186,
       "total": 283,
       "counts": {
-        "charades-timelens": 19
+        "charades-timelens": 51,
+        "activitynet-timelens": 87,
+        "qvhighlights-timelens": 48
       },
-      "timestamp": "2026-11-04T11:59:49.546709+09:00",
-      "elapsed_seconds": 520.2405475638807,
-      "percentage": 6.713780918727915,
-      "sample_key": "charades-timelens_01004",
-      "variant": "tts_pool8_select4",
-      "input_tokens": 3301,
-      "prefill_seconds": 0.30643947422504425,
-      "variants_completed": 3,
-      "decision_calls": 7,
-      "decision_seconds": 0.973183985799551,
-      "eta_seconds": 7103.493297264765,
+      "timestamp": "2026-11-04T13:35:17.260584+09:00",
+      "elapsed_seconds": 6247.954426385462,
+      "percentage": 65.7243816254417,
+      "sample_key": "activitynet-timelens_00933",
+      "variant": "verifier_pool32",
+      "input_tokens": 6951,
+      "prefill_seconds": 0.6280030459165573,
+      "variants_completed": 7,
+      "decision_calls": 15,
+      "decision_seconds": 1.3348841108381748,
+      "eta_seconds": 3245.431143169181,
       "eta_scope": "remaining assigned inference including review and probability diagnostics; excludes initial preprocessing/model load and final reporting"
     }
   ]

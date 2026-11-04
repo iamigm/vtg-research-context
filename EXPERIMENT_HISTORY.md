@@ -1733,3 +1733,16 @@
 - code/experiments/_lib/family_catalog.py
 - code/experiments/_lib/family_view.css
 - code/experiments/_lib/index_compare.js
+
+## 2026-11-04T13:35:23.935355+09:00
+
+원본 파일 직접 관찰: 18개 실행, 549개 코드·의존성 파일. 이전 commit: f408d42cd6bf9d10b63dda880a3b31e2376c7b1c.
+
+추가 4 / 변경 2 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/300/code/reporting/rollout_reconsideration_report.py
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/300/STRATA.md
+- conversations/01a1a468-0ed4-7750-978e-18011c5d8260.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/overview/REPORT.md

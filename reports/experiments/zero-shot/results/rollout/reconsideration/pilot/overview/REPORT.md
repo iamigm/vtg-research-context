@@ -4,6 +4,7 @@
 
 | 표본 범위 | 보고서·사양 | 고정 코호트 |
 |---|---|---|
+| pilot300 · 300질문 | [REPORT.md](../300/REPORT.md) | [고정300개](../../../../../artifacts/common/cohorts/nested_pilot_v1/pilot_300/samples.json) |
 | pilot600 · 600질문 | [REPORT.md](../600/REPORT.md) | [고정600개](../../../../../artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json) |
 
 300·600·900개를 포함하는 계열의 공통 코호트는300 ⊂ 600 ⊂ 900이며 작은 코호트는 큰 코호트의 정확한 prefix다. 겹치는 질문을 독립 표본처럼 더하지 않는다. 확장 실행의 추가분은 별도 결과로 노출하지 않는다. 이 코호트는 층화 진단 표본으로 전체 벤치마크 평균이 아니다.
