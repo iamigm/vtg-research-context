@@ -1925,3 +1925,11 @@
 - code/experiments/_lib/check_view_controls.py
 - code/experiments/_lib/family_view.js
 - code/experiments/_lib/serve_index.py
+
+## 2026-11-04T21:00:00.004471+09:00
+
+원본 파일 직접 관찰: 18개 실행, 573개 코드·의존성 파일. 이전 commit: 0d324b533f8fe89edd7484a43c8d530bc3e38ad6.
+
+추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
