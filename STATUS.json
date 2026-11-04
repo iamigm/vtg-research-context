@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T21:00:00.004471+09:00",
+  "observed_at": "2026-11-05T00:00:00.001308+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -59,8 +59,8 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
-      "source_modified_at": "2026-11-04T20:59:51.117240+09:00",
-      "sha256": "5fd8dad6d3b6f7109a3253829e4e0aef367ced51de7de1b01d4695ea2d528a85"
+      "source_modified_at": "2026-11-04T23:59:42.805837+09:00",
+      "sha256": "5cb2e9877c905e4120d64cbb0af0019e139790ba2515f3a8f9c8af320543ed26"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/recovery_20261103/status.json",
