@@ -44,11 +44,28 @@ with sync_playwright() as pw:
  p.locator('#view-browser>summary').press('Escape')
  assert p.locator('#view-browser').get_attribute('open') is None
  assert p.locator('#tab-result').get_attribute('aria-selected')=='true'
+ assert p.locator('#source-md').is_hidden()
+ assert p.locator('#source-md').get_attribute('href') is None
  assert not p.locator('#tab-report').is_disabled()
  p.locator('#tab-report').click();p.wait_for_function("document.querySelector('#report h1') !== null")
  report_url=p.url
  assert p.locator('#tab-report').get_attribute('aria-selected')=='true'
  assert p.locator('#report').is_visible()
+ assert p.locator('#source-md').is_visible()
+ raw_url=p.locator('#source-md').get_attribute('href')
+ with p.expect_popup() as popup:
+  p.locator('#original').click()
+ rendered=popup.value;rendered.locator('#report h1').wait_for()
+ assert rendered.url==report_url
+ assert rendered.locator('#tab-report').get_attribute('aria-selected')=='true'
+ rendered.close()
+ with p.expect_popup() as popup:
+  p.locator('#source-md').click()
+ raw=popup.value;raw.wait_for_load_state()
+ assert raw.url==raw_url
+ assert raw.evaluate('document.characterSet')=='UTF-8'
+ assert raw.locator('body').inner_text()==p.request.get(raw_url).body().decode('utf-8')
+ raw.close()
  assert not p.locator('[data-history-back]').is_disabled()
  p.locator('[data-history-back]').click();p.wait_for_function("document.querySelector('#tab-result')?.getAttribute('aria-selected')==='true'")
  assert not p.locator('[data-history-forward]').is_disabled()
@@ -56,6 +73,7 @@ with sync_playwright() as pw:
  assert p.url==report_url
  p.locator('#tab-report').focus();p.locator('#tab-report').press('ArrowLeft')
  p.wait_for_function("document.querySelector('#tab-result')?.getAttribute('aria-selected')==='true'")
+ assert p.locator('#source-md').is_hidden()
  p.locator('#toggle-sidebar').click();assert p.locator('#family-sidebar').is_visible()
  p.locator('#toggle-sidebar').click();assert p.locator('#family-sidebar').is_hidden()
  p.set_viewport_size({'width':390,'height':844})
@@ -71,8 +89,28 @@ with sync_playwright() as pw:
  assert single.locator('[data-history-back]').is_disabled() and single.locator('[data-history-forward]').is_disabled()
  single.locator('.home-control').click();single.wait_for_url('**/index.html')
  assert single.locator('#catalog').is_visible()
+ # Check every registered Markdown endpoint, including nested subexperiments.
+ catalog=json.loads((root/'artifacts/maintenance/family_catalog.json').read_text())
+ document_count=0
+ for family in catalog['families']:
+  manifest=json.loads((root/family['manifest']).read_text())
+  for entry in manifest['entries']:
+   if entry['kind']!='md':continue
+   response=p.request.get(BASE+str(Path(family['href']).parent/entry['href']))
+   assert response.status==200,(family['href'],entry['id'],response.status)
+   assert response.headers['content-type']=='text/plain; charset=utf-8'
+   response.body().decode('utf-8');document_count+=1
+ for entry in ('pilot/600/viewer.html','pilot/600/reconsideration/viewer.html'):
+  p.goto(BASE+'zero-shot/results/rollout/deterministic/viewer.html?view='+entry)
+  p.locator('#family-app[data-ready=true]').wait_for()
+  assert p.locator('#source-md').is_hidden()
+  p.locator('#tab-report').click();p.locator('#report h1').wait_for()
+  raw=b.new_page();raw.goto(p.locator('#source-md').get_attribute('href'))
+  assert raw.evaluate('document.characterSet')=='UTF-8'
+  assert '완료' in raw.locator('body').inner_text() or '질문' in raw.locator('body').inner_text()
+  raw.close()
  assert not errors,errors
  b.close()
-result=dict(passed=True,title_above_controls=True,hierarchical_navigation=True,recursive_subexperiments=True,no_body_toolbar=True,result_report_tabs=True,keyboard=True,history_navigation=True,new_tab_history_boundaries=True,sidebar_collapsed=True,home_button=True,mobile=True)
+result=dict(passed=True,title_above_controls=True,hierarchical_navigation=True,recursive_subexperiments=True,no_body_toolbar=True,result_report_tabs=True,markdown_only_in_report=True,markdown_utf8_documents=document_count,rendered_report_new_tab=True,keyboard=True,history_navigation=True,new_tab_history_boundaries=True,sidebar_collapsed=True,home_button=True,mobile=True)
 (root/'artifacts/maintenance/view_controls_validation.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result))

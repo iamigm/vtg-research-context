@@ -11,6 +11,13 @@ from result_layout import relocate_path
 
 
 class IndexHandler(server.GalleryHandler):
+    def guess_type(self, path):
+        # Browsers otherwise assume windows-1252 for directly opened Markdown.
+        # The formatted version is provided by the family viewer's report tab.
+        if Path(path).suffix.lower() == '.md':
+            return 'text/plain; charset=utf-8'
+        return super().guess_type(path)
+
     def send_head(self):
         if self.path.split('?', 1)[0] == '/':
             self.path = '/index.html'

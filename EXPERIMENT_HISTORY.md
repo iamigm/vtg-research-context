@@ -1913,3 +1913,15 @@
 - code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js
 - code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js
 - evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+
+## 2026-11-04T20:25:10.080244+09:00
+
+원본 파일 직접 관찰: 18개 실행, 573개 코드·의존성 파일. 이전 commit: bfd9f016e05840b58f697b850452c8be245a2215.
+
+추가 1 / 변경 4 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- conversations/01a1a53c-e6a1-7181-b338-d38607a7b02b.md
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- code/experiments/_lib/check_view_controls.py
+- code/experiments/_lib/family_view.js
+- code/experiments/_lib/serve_index.py

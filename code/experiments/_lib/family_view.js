@@ -146,8 +146,12 @@
  async function show(id,replace=false,detailHash,refresh=false){
   const e=config.entries.find(v=>v.id===id)||config.entries.find(v=>v.id===config.default)||config.entries[0];if(!e)return;
   if(detailHash===undefined&&active&&e.kind==='html'){try{detailHash=replace?location.hash:$('detail-frame').contentWindow.location.hash||location.hash}catch{detailHash=location.hash}}
-  active=e;const call=++serial;renderContext(e);$('view-title').textContent=e.scope+' · '+e.title;$('view-title').title=$('view-title').textContent;$('original').href=urlFor(e);const reportPath=e.kind==='md'?e.href:e.report;$('source-md').hidden=!reportPath;if(reportPath)$('source-md').href=new URL(reportPath,location.href).href;
+  active=e;const call=++serial;renderContext(e);$('view-title').textContent=e.scope+' · '+e.title;$('view-title').title=$('view-title').textContent;
+  $('source-md').hidden=e.kind!=='md';
+  if(e.kind==='md')$('source-md').href=urlFor(e);else $('source-md').removeAttribute('href');
   const url=new URL(location.href);url.searchParams.set('view',e.id);url.hash=detailHash!==undefined?detailHash:(replace?location.hash:'');history[replace?'replaceState':'pushState'](null,'',url);
+  $('original').href=e.kind==='md'?url.href:urlFor(e)+location.hash;
+  $('original').title=$('original').ariaLabel=e.kind==='md'?'현재 보고서 새 탭에서 열기':'현재 결과 새 탭에서 열기';
   const frame=$('detail-frame'),report=$('report');frame.hidden=e.kind!=='html';report.hidden=e.kind==='html';$('message').hidden=true;
   if(e.kind==='html'){
    report.replaceChildren();frame.onload=()=>{try{const doc=frame.contentDocument;doc.querySelectorAll('[data-experiment-home]').forEach(n=>n.hidden=true);const top=doc.querySelector('body');if(top)top.dataset.familyEmbedded='true';const syncDetailHash=()=>{if(active?.id!==e.id||active.kind!=='html')return;const outer=new URL(location.href);outer.hash=frame.contentWindow.location.hash;history.replaceState(null,'',outer)};frame.contentWindow.addEventListener('hashchange',syncDetailHash);frame.contentWindow.addEventListener('rollout:context',syncDetailHash);syncDetailHash()}catch{}};

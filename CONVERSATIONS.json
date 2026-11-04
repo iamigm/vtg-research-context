@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-04T18:00:00.003322+09:00",
+  "observed_at": "2026-11-04T20:25:10.080244+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -404,7 +404,7 @@
       "sha256": "f51c935c4c7dfef119e398a4e7da1e6958e0547fe991a594d78d80498949470a",
       "bytes": 8646,
       "source_path": "/home1/irteam/.codex/sessions/2026/11/02/rollout-2026-11-02T19-02-50-01a19bb6-3014-7f63-b648-622dd1487d58.jsonl",
-      "source_modified_at": "2026-11-04T17:20:48.237961+09:00",
+      "source_modified_at": "2026-11-04T19:51:54.064533+09:00",
       "messages": 24,
       "last_user_message": "2026-11-04T08:19:36.417Z",
       "turn_running": false,
@@ -441,6 +441,23 @@
       "source_modified_at": "2026-11-04T13:35:19.824369+09:00",
       "messages": 2,
       "last_user_message": "2026-11-04T02:34:06.952Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1a53c-e6a1-7181-b338-d38607a7b02b",
+      "title": "/home/irteam/experiments/zero-shot/results/rollout/deterministic/viewer.html\n\n이거 수정해보자. 분기 경로 선택에서 dropdown의 필요성을 모르겠어. 필요한 거면 그 필요성이 느껴지게 제대로 만들어. 특히 각 선택셀에 적힌 문장이 너무 보기 불편해.\n\n그 밑에 계층적으로 만들어놓은 건 상대적으로 괜찮은데 11번째 토큰 이런 게 아무 소용이 없거든? 내가 하나하나 몇 번짼지 세야하면 직관적인 게 아니잖아. 각각이 문장에서 어느위치인지를 시각적으로 문장 안에서 보일 수 있게 해. 그리고 그 밑에 문장을 실제로 보이는 것도 분기로 갈라지는 두 문장이 한 눈에 들어오게 바꿔",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1a53c-e6a1-7181-b338-d38607a7b02b.md",
+      "sha256": "b87ae2576d2ce3b298349f459a715f4e5e8e3e9a1f7a24680bbdb2657a362dda",
+      "bytes": 11026,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/04/rollout-2026-11-04T15-26-34-01a1a53c-e6a1-7181-b338-d38607a7b02b.jsonl",
+      "source_modified_at": "2026-11-04T19:57:14.712260+09:00",
+      "messages": 23,
+      "last_user_message": "2026-11-04T10:55:10.080Z",
       "turn_running": false,
       "retained_snapshot": false
     }
