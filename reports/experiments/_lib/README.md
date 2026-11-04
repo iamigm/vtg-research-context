@@ -14,3 +14,7 @@
 
 - `index_compare.js` · `index_compare.css`: 통합 목록의 두 실험 선택·동시 열람 UI (기존 통합 서버 사용)
 - `check_comparison.py`: 프록시 경로의 선택·독립 영상 재생·교체·URL 복원·모바일 배치 검증
+
+- `index_catalog.js` · `index_catalog.css`: 프로젝트 핸들 드래그·상단 고정·위/아래 이동·검색. 순서와 고정은 localStorage에 저장하고 같은 주소의 다른 탭에도 동기화한다. 실험 링크와 비교 시작은 새 탭을 연다.
+- `experiment_theme.css`: index·비교·계열 대표 뷰·상세 HTML의 공통 글꼴, 색상, 입력 요소, 표, 헤더. `build_index.py`가 상세 HTML에 스타일 참조를 넣어 재생성 후에도 적용한다. 그래프와 정답/오답 등 데이터 색상은 각 분석 정의를 유지한다.
+- `check_index_preferences.py`: 실제 포인터 드래그, 저장·복원, 상단 고정, 검색, 새 탭, 모바일, 저장 불가 시 동작, 전체 상세 페이지 테마 검증. 공용 브라우저 의존성에 맞춰 `/usr/bin/python3`로 실행한다.

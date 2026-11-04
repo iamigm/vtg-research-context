@@ -17,7 +17,7 @@ def build(refresh_index=True,pilot_size=900):
  assert pilot_size in [300,600,900]
  previous=(OUT,REPORT,WEB)
  OUT=relocate_path(ROOT/'artifacts/runs'/f'deterministic_rollout_pilot{pilot_size}_v2')
- REPORT=relocate_path(ROOT/'results'/OUT.name);WEB=OUT/'web'
+ REPORT=relocate_path(ROOT/'results'/f'deterministic_rollout_pilot{pilot_size}_v2');WEB=OUT/'web'
  try:_build_current(refresh_index)
  finally:OUT,REPORT,WEB=previous
 
@@ -27,7 +27,7 @@ def _build_current(refresh_index=True):
  cohort=read(OUT/'metadata/cohort.json');pilot_size=len(cohort)
  all_refs=read(relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2/metadata/source_records.json'))
  refs=all_refs[:pilot_size]
- assert [Path(r['path']).stem for r in refs]==[s['sample_key'] for s in cohort]
+ assert [relocate_path(Path(r['path'])).stem for r in refs]==[s['sample_key'] for s in cohort]
  media_source=relocate_path(ROOT/'artifacts/runs/uncertainty/token_analysis/full/9404/metadata/media_manifest.json')
  media=read(media_source);media_report=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404')
  WEB.mkdir(parents=True,exist_ok=True)
@@ -35,7 +35,7 @@ def _build_current(refresh_index=True):
  if pilot_size==900:(WEB/'samples').mkdir(exist_ok=True)
  manifest=[];catalog=[];case_rows=[];roles=set();checks=[]
  for item in refs:
-  original=Path(item['path']);assert hashlib.sha256(original.read_bytes()).hexdigest()==item['sha256']
+  original=relocate_path(Path(item['path']));assert hashlib.sha256(original.read_bytes()).hexdigest()==item['sha256']
   rec=read(original);s=rec['sample'];cs=rec['result']['candidates'];gt=s['span'][0]
   scores={c['index']:overlap(interval(c),gt) if interval(c) else 0. for c in cs}
   base=interval(cs[0]);greedy_short=bool(base and 1<=base[1]<2 and 100<=gt[1]<200)
@@ -74,8 +74,8 @@ def _build_current(refresh_index=True):
     max_parent_delta=max((c['branch']['parent_delta'] for c in candidates if c['branch']),default=0),
     max_greedy_delta=max((c['iou']-scores[1] for c in candidates),default=0))
   manifest.append(entry)
-  payload=dict(sample=entry,video=os.path.relpath(video,REPORT),candidates=candidates,choices=choices,
-    raw_record=os.path.relpath(original,REPORT))
+  payload=dict(sample=entry,video=os.path.relpath(video.resolve(),REPORT.resolve()),candidates=candidates,choices=choices,
+    raw_record=os.path.relpath(original.resolve(),REPORT.resolve()))
   if pilot_size==900:write(WEB/'samples'/(s['sample_key']+'.json'),payload)
   else:assert (shared_samples/(s['sample_key']+'.json')).exists()
   if dot_children:
@@ -100,20 +100,20 @@ def _build_current(refresh_index=True):
  write(OUT/'metrics/end_decimal_cases.json',dict(summary=summary,cases=case_rows))
  with (OUT/'metrics/end_decimal_cases.csv').open('w') as f:
   writer=csv.DictWriter(f,fieldnames=list(case_rows[0]));writer.writeheader();writer.writerows(case_rows)
- prefix=Path(__file__).with_suffix('')
+ prefix=relocate_path(Path(__file__)).with_suffix('')
  font=ROOT/'_lib/entropy_viewer/NotoSansKR.ttf';assert font.is_file()
- css=Path(str(prefix)+'.css').read_text().replace('__FONT_URL__',os.path.relpath(font,WEB))
+ css=relocate_path(Path(str(prefix)+'.css')).read_text().replace('__FONT_URL__',os.path.relpath(font.resolve(),WEB.resolve()))
  (WEB/'viewer.css').write_text(css)
  shutil.copyfile(str(prefix)+'.js',WEB/'viewer.js')
- distribution_js=Path(__file__).with_name('rollout_distribution_viewer.js')
+ distribution_js=relocate_path(Path(__file__)).with_name('rollout_distribution_viewer.js')
  shutil.copyfile(distribution_js,WEB/'distributions.js')
- vocab_size=read(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct/config.json')).get('text_config',{}).get('vocab_size',len(tok))
+ vocab_size=read(relocate_path(Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct/config.json'))).get('text_config',{}).get('vocab_size',len(tok))
  traces_root=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2/token_traces')
  vocab_path=traces_root/'vocab.json'
  if not vocab_path.exists():
   tokenizer_size=len(tok)
   write(vocab_path,[tok.decode([i],clean_up_tokenization_spaces=False) if i<tokenizer_size else f'<unused:{i}>' for i in range(vocab_size)])
- html=Path(str(prefix)+'.html').read_text().replace('__ASSET_BASE__',os.path.relpath(WEB,REPORT))
+ html=relocate_path(Path(str(prefix)+'.html')).read_text().replace('__ASSET_BASE__',os.path.relpath(WEB,REPORT))
  html=html.replace('__PILOT_SIZE__',str(pilot_size)).replace('__DISTRIBUTION_BASE__',os.path.relpath(traces_root,REPORT))
  html=html.replace('__SAMPLE_BASE__',os.path.relpath(shared_samples,REPORT))
  sys.path.insert(0,str(ROOT.parent/'_lib'))
@@ -127,9 +127,11 @@ def _build_current(refresh_index=True):
 
 [Rollout 분석 HTML](viewer.html) · [종료 소수점 {summary["dot_samples"]}개 샘플](viewer.html#preset=dot) · [전체 사례 목록](END_DECIMAL_CASES.md)
 
-샘플 탐색은 모든 샘플·ID순이 기본이며, 사례 유형 선택과 IoU·ΔIoU·분기 토큰 순번·대체 토큰 확률의 수치 범위를 함께 적용한다. 응답 쌍 선택은 비교할 완성 후보와 직접 부모를 바꾸며, 디코딩 토큰 선택은 그 응답 쌍을 유지하고 확률 분포를 볼 위치만 바꾼다. greedy 응답과 직접 부모가 다르면 따로 표시한다.
+샘플 탐색은 모든 샘플·ID순이 기본이며, 사례 유형 선택과 IoU·ΔIoU·분기 토큰 순번·대체 토큰 확률의 수치 범위를 함께 적용한다. 분기 경로 지도는 들여쓰기로 부모 관계를, 토큰 순번과 원래 토큰→대체 토큰으로 분기 시점을 표시한다. 선택한 후보의 이력과 공통 prefix에서 갈라진 두 응답을 함께 보여준다. 후보 선택은 비교할 완성 후보와 직접 부모를 바꾸며, 디코딩 토큰 선택은 그 응답 쌍을 유지하고 확률 분포를 볼 위치만 바꾼다. greedy 응답과 직접 부모가 다르면 따로 표시한다.
 
-디코딩 경로는 공통 prefix와 분기 이후 응답을 분리하고, 토큰별 조건부 확률과 누적곱을 각각 한 줄씩 가로로 표시한다. 두 경로의 누적곱은 EOS까지 이어진다. 분포는 top-k 또는 top-p로 선택하며, 기본 k는 현재 prefix에서 색으로 표시하고 후속 경로를 추적한 토큰 수+1다. 직접 입력한 k는 해당 위치에서 유지하며 다른 토큰 위치를 고르면 다시 기본값을 계산한다. 상위30개로 기준을 만족하지 못하면 전체 어휘 FP32 원자료에서 정확히 계산한다. 기준 밖 경로 토큰은 별도로 표시하고 재정규화하지 않는다. 검색은 전체 어휘에서 수행한다. 긴 집합은 분포별로80개씩 추가 표시한다.
+디코딩 경로는 공통 prefix와 분기 이후 응답을 분리하고, 토큰별 조건부 확률과 누적곱을 각각 한 줄씩 가로로 표시한다. 두 경로의 누적곱은 EOS까지 이어진다. 분포는 top-k 또는 top-p로 선택하며, 기본 k는5다. 직접 입력한 k는 토큰 위치와 후보를 바꿔도 유지한다. 상위30개로 기준을 만족하지 못하면 전체 어휘 FP32 원자료에서 정확히 계산한다. 기준 밖 경로 토큰은 별도로 표시하고 재정규화하지 않는다. 검색은 전체 어휘에서 수행한다. 긴 집합은 분포별로80개씩 추가 표시한다.
+
+각 선택 셀은 확인한 prefix·고른 토큰·이어서 생성한 부분을 구분한 한 문장으로 전체 응답과 최종 구간을 보여준다. 다음 위치 분석 버튼은 항상 표시하며, 현재 후보·토큰 순번·분기 위치와의 거리·토큰 이력 및 이전/분기 위치 복귀를 함께 제공한다. 다음 위치로 이동해도 비교 중인 응답 쌍을 유지한다.
 
 영상 재생·응답 원문·토큰 비교는 하나의 검토 영역이다. 원래 응답·성능 수치는 유지한다. 원자료는900개 실행의 token_traces와 web/samples를 공유하며 pilot마다 복제하지 않는다.
 <!-- rollout-viewer:end -->
@@ -140,7 +142,7 @@ def _build_current(refresh_index=True):
  append_distribution_summary(REPORT,OUT)
  sources=[]
  for suffix in ['.py','.html','.css','.js']:
-  p=Path(str(prefix)+suffix);dest=OUT/'code/reporting'/p.name;dest.parent.mkdir(parents=True,exist_ok=True)
+  p=relocate_path(Path(str(prefix)+suffix));dest=OUT/'code/reporting'/p.name;dest.parent.mkdir(parents=True,exist_ok=True)
   shutil.copyfile(p,dest);sources.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
  shutil.copyfile(distribution_js,OUT/'code/reporting'/distribution_js.name)
  sources.append(dict(path=str(distribution_js),sha256=hashlib.sha256(distribution_js.read_bytes()).hexdigest()))

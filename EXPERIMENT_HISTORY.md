@@ -1666,3 +1666,70 @@
 
 - evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-04T12:00:00.001012+09:00
+
+원본 파일 직접 관찰: 18개 실행, 548개 코드·의존성 파일. 이전 commit: affcd32e6223eb649b22e083645fcf83d516d1b3.
+
+추가 21 / 변경 39 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/rollout_reconsideration.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration_check.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration.py
+- code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/code/rollout_reconsideration_report.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/SPEC.md
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/STRATA.md
+- reports/experiments/zero-shot/results/rollout/reconsideration/pilot/overview/REPORT.md
+- code/experiments/_lib/check_index_preferences.py
+- code/experiments/_lib/experiment_theme.css
+- code/experiments/_lib/index_catalog.css
+- code/experiments/_lib/index_catalog.js
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer.js
+- code/experiments/zero-shot/_lib/rollout_distribution_viewer_check.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/code/reporting/rollout_distribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/code/reporting/rollout_distribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/web/viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/deterministic_rollout_viewer.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/code/reporting/rollout_distribution_viewer_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/distributions.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md
+- reports/experiments/_lib/README.md
+- code/experiments/_lib/build_index.py
+- code/experiments/_lib/check_comparison.py
+- code/experiments/_lib/check_family_views.py
+- code/experiments/_lib/family_catalog.py
+- code/experiments/_lib/family_view.css
+- code/experiments/_lib/index_compare.js

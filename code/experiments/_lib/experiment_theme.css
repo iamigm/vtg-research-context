@@ -1,0 +1,87 @@
+/* Shared research UI. Chart palettes and data-specific status colors stay local. */
+@font-face {
+  font-family: ResearchSans;
+  src: url('../artifacts/common/ui/fonts/NotoSansKR.ttf') format('truetype');
+  font-style: normal; font-weight: 100 900; font-display: swap;
+}
+:root {
+  color-scheme: light;
+  --ui-bg: #f5f7f4;
+  --ui-surface: #ffffff;
+  --ui-soft: #edf4ef;
+  --ui-ink: #203730;
+  --ui-muted: #62736b;
+  --ui-line: #d8e2da;
+  --ui-accent: #256650;
+  --ui-focus: #85b9a6;
+  --ui-radius: 12px;
+  --ui-font: ResearchSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font: 15px/1.65 var(--ui-font);
+  background: var(--ui-bg);
+  color: var(--ui-ink);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--ui-font); }
+a { color: var(--ui-accent); text-underline-offset: 3px; }
+button, input, select, textarea { font: inherit; accent-color: var(--ui-accent); }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: .45; }
+:is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--ui-focus); outline-offset: 3px;
+}
+[hidden] { display: none !important; }
+
+/* A scoped layer also styles older, independently generated detail viewers. */
+html[data-experiment-detail] body {
+  background: var(--ui-bg); color: var(--ui-ink);
+  font: 15px/1.65 var(--ui-font); max-width: none; margin: 0;
+  padding: 0;
+}
+html[data-experiment-detail] body:not(:has(main)) {
+  padding: 24px clamp(16px, 3vw, 40px);
+}
+html[data-experiment-detail] body > main { max-width: 1800px; margin-inline: auto; }
+html[data-experiment-detail] :is(h1, h2, h3) { color: var(--ui-ink); line-height: 1.4; overflow-wrap: anywhere; }
+html[data-experiment-detail] h1 { font-size: clamp(23px, 2.4vw, 30px); letter-spacing: -.035em; }
+html[data-experiment-detail] h2 { font-size: 21px; }
+html[data-experiment-detail] a { color: var(--ui-accent); }
+html[data-experiment-detail] :is(body > header, main > header, .page-header) {
+  background: var(--ui-surface); color: var(--ui-ink);
+  padding: 24px; border-bottom: 1px solid var(--ui-line);
+}
+html[data-experiment-detail] :is(header p, header .sub, #coverage, .muted, .section-description) { color: var(--ui-muted); }
+html[data-experiment-detail] :is(header small, #status) { color: var(--ui-muted); }
+html[data-experiment-detail] :is(.panel, .card, section, article, .note) {
+  border-color: var(--ui-line); border-radius: var(--ui-radius);
+}
+html[data-experiment-detail] :is(.panel, .card, main > section, main > article, article > section) { background: var(--ui-surface); }
+html[data-experiment-detail] :is(input:not([type=range]):not([type=checkbox]):not([type=radio]), select, textarea, button) {
+  border: 1px solid var(--ui-line); border-radius: 7px;
+  background: var(--ui-surface); color: var(--ui-ink); max-width: 100%;
+}
+html[data-experiment-detail] :is(button:hover:enabled, button.active, button.selected, button[aria-pressed=true], #cases .active) {
+  background: var(--ui-soft); border-color: var(--ui-accent); color: var(--ui-accent);
+}
+html[data-experiment-detail] :is(th, td) { border-color: var(--ui-line); }
+html[data-experiment-detail] th { background: var(--ui-soft); color: var(--ui-muted); }
+html[data-experiment-detail] tr.selected { background: var(--ui-soft); color: var(--ui-ink); }
+html[data-experiment-detail] :is(img, video) { max-width: 100%; }
+html[data-experiment-detail] :is(main, section, article, aside) { min-width: 0; }
+html[data-experiment-detail] :is(pre, code) { overflow-wrap: anywhere; }
+html[data-experiment-detail] body > table { display: block; max-width: 100%; overflow: auto; }
+html[data-experiment-detail] [data-experiment-home] {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
+  position: relative; z-index: 10; padding: 12px 24px;
+  background: var(--ui-surface); color: var(--ui-muted);
+  border-bottom: 1px solid var(--ui-line); font: 13px/1.6 var(--ui-font) !important;
+}
+html[data-experiment-detail] [data-experiment-home] a { background: none; padding: 0; margin: 0; }
+html[data-experiment-detail] body[data-family-embedded] [data-experiment-home] { display: none; }
+@media (max-width: 760px) {
+  html[data-experiment-detail] body > main { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  html[data-experiment-detail] main > aside { position: static; height: auto; max-height: 40vh; overflow: auto; }
+  html[data-experiment-detail] :is(.grid, #grid, .images, .video-row) { grid-template-columns: minmax(0, 1fr); }
+  html[data-experiment-detail] :is(body > header, main > header, .page-header) { padding: 18px; }
+  html[data-experiment-detail] :is(select, input:not([type=range])) { min-width: 0; }
+  html[data-experiment-detail] [data-experiment-home] { padding: 12px 16px; }
+}

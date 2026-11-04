@@ -66,7 +66,12 @@
     history.pushState(null, '', url);
     render(left, right);
   }
-  $('open-comparison').addEventListener('click', () => open(...selected));
+  $('open-comparison').addEventListener('click', () => {
+    const url = new URL(location.href);
+    url.searchParams.set('left', selected[0]);
+    url.searchParams.set('right', selected[1]);
+    window.open(url.href, '_blank', 'noopener');
+  });
   $('clear-selection').addEventListener('click', () => { selected = []; updateSelection(); });
   $('close-comparison').addEventListener('click', () => {
     const url = new URL(location.href);

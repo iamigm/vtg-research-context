@@ -74,8 +74,8 @@ def _build_current(refresh_index=True):
     max_parent_delta=max((c['branch']['parent_delta'] for c in candidates if c['branch']),default=0),
     max_greedy_delta=max((c['iou']-scores[1] for c in candidates),default=0))
   manifest.append(entry)
-  payload=dict(sample=entry,video=os.path.relpath(video,REPORT),candidates=candidates,choices=choices,
-    raw_record=os.path.relpath(original,REPORT))
+  payload=dict(sample=entry,video=os.path.relpath(video.resolve(),REPORT.resolve()),candidates=candidates,choices=choices,
+    raw_record=os.path.relpath(original.resolve(),REPORT.resolve()))
   if pilot_size==900:write(WEB/'samples'/(s['sample_key']+'.json'),payload)
   else:assert (shared_samples/(s['sample_key']+'.json')).exists()
   if dot_children:
@@ -102,7 +102,7 @@ def _build_current(refresh_index=True):
   writer=csv.DictWriter(f,fieldnames=list(case_rows[0]));writer.writeheader();writer.writerows(case_rows)
  prefix=relocate_path(Path(__file__)).with_suffix('')
  font=ROOT/'_lib/entropy_viewer/NotoSansKR.ttf';assert font.is_file()
- css=relocate_path(Path(str(prefix)+'.css')).read_text().replace('__FONT_URL__',os.path.relpath(font,WEB))
+ css=relocate_path(Path(str(prefix)+'.css')).read_text().replace('__FONT_URL__',os.path.relpath(font.resolve(),WEB.resolve()))
  (WEB/'viewer.css').write_text(css)
  shutil.copyfile(str(prefix)+'.js',WEB/'viewer.js')
  distribution_js=relocate_path(Path(__file__)).with_name('rollout_distribution_viewer.js')
@@ -127,9 +127,11 @@ def _build_current(refresh_index=True):
 
 [Rollout 분석 HTML](viewer.html) · [종료 소수점 {summary["dot_samples"]}개 샘플](viewer.html#preset=dot) · [전체 사례 목록](END_DECIMAL_CASES.md)
 
-샘플 탐색은 모든 샘플·ID순이 기본이며, 사례 유형 선택과 IoU·ΔIoU·분기 토큰 순번·대체 토큰 확률의 수치 범위를 함께 적용한다. 응답 쌍 선택은 비교할 완성 후보와 직접 부모를 바꾸며, 디코딩 토큰 선택은 그 응답 쌍을 유지하고 확률 분포를 볼 위치만 바꾼다. greedy 응답과 직접 부모가 다르면 따로 표시한다.
+샘플 탐색은 모든 샘플·ID순이 기본이며, 사례 유형 선택과 IoU·ΔIoU·분기 토큰 순번·대체 토큰 확률의 수치 범위를 함께 적용한다. 분기 경로 지도는 들여쓰기로 부모 관계를, 토큰 순번과 원래 토큰→대체 토큰으로 분기 시점을 표시한다. 선택한 후보의 이력과 공통 prefix에서 갈라진 두 응답을 함께 보여준다. 후보 선택은 비교할 완성 후보와 직접 부모를 바꾸며, 디코딩 토큰 선택은 그 응답 쌍을 유지하고 확률 분포를 볼 위치만 바꾼다. greedy 응답과 직접 부모가 다르면 따로 표시한다.
 
-디코딩 경로는 공통 prefix와 분기 이후 응답을 분리하고, 토큰별 조건부 확률과 누적곱을 각각 한 줄씩 가로로 표시한다. 두 경로의 누적곱은 EOS까지 이어진다. 분포는 top-k 또는 top-p로 선택하며, 기본 k는 현재 prefix에서 색으로 표시하고 후속 경로를 추적한 토큰 수+1다. 직접 입력한 k는 해당 위치에서 유지하며 다른 토큰 위치를 고르면 다시 기본값을 계산한다. 상위30개로 기준을 만족하지 못하면 전체 어휘 FP32 원자료에서 정확히 계산한다. 기준 밖 경로 토큰은 별도로 표시하고 재정규화하지 않는다. 검색은 전체 어휘에서 수행한다. 긴 집합은 분포별로80개씩 추가 표시한다.
+디코딩 경로는 공통 prefix와 분기 이후 응답을 분리하고, 토큰별 조건부 확률과 누적곱을 각각 한 줄씩 가로로 표시한다. 두 경로의 누적곱은 EOS까지 이어진다. 분포는 top-k 또는 top-p로 선택하며, 기본 k는5다. 직접 입력한 k는 토큰 위치와 후보를 바꿔도 유지한다. 상위30개로 기준을 만족하지 못하면 전체 어휘 FP32 원자료에서 정확히 계산한다. 기준 밖 경로 토큰은 별도로 표시하고 재정규화하지 않는다. 검색은 전체 어휘에서 수행한다. 긴 집합은 분포별로80개씩 추가 표시한다.
+
+각 선택 셀은 확인한 prefix·고른 토큰·이어서 생성한 부분을 구분한 한 문장으로 전체 응답과 최종 구간을 보여준다. 다음 위치 분석 버튼은 항상 표시하며, 현재 후보·토큰 순번·분기 위치와의 거리·토큰 이력 및 이전/분기 위치 복귀를 함께 제공한다. 다음 위치로 이동해도 비교 중인 응답 쌍을 유지한다.
 
 영상 재생·응답 원문·토큰 비교는 하나의 검토 영역이다. 원래 응답·성능 수치는 유지한다. 원자료는900개 실행의 token_traces와 web/samples를 공유하며 pilot마다 복제하지 않는다.
 <!-- rollout-viewer:end -->

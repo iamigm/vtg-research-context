@@ -11,7 +11,7 @@ const pathProbability=log=>{if(log===0)return '1';if(!Number.isFinite(log))retur
 const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
 const tokenProbability=(node,id)=>node?.observed.find(t=>t.id===id)?.probability??node?.top.find(t=>t.id===id)?.probability??0;
 const nodeFor=(c,step)=>c&&ds.trace?.nodes[ds.trace.candidates[String(c.index)]?.nodes[step]];
-function setFocus(c,j){ds.autoK=true;ds.focus=c;ds.step=j;ds.disabled.clear();ds.visibilityInitialized=false;renderStrip();}
+function setFocus(c,j){ds.focus=c;ds.step=j;ds.disabled.clear();ds.visibilityInitialized=false;renderStrip();renderNavigator();}
 async function render(data,candidate){
  const serial=++ds.serial;clearTimeout(ds.timer);ds.data=data;ds.candidate=candidate;ds.trace=null;ds.limits.clear();
  setFocus(candidate,candidate.branch?.position??0);$('distributionTree').innerHTML='';$('distributionStatus').textContent='저장된 분포를 불러오는 중…';
@@ -41,6 +41,7 @@ function traceMatrix(c,start,end,common=false){
  return `<div class="trace-scroll"><div class="trace-matrix" style="--steps:${indices.length};min-width:${66+54*indices.length}px"><div class="trace-token-row"><span class="trace-row-label">Step / 토큰</span>${buttons}</div><div class="trace-p-row"><span class="trace-row-label">확률 pᵢ</span>${probabilities}</div><div class="trace-product-row"><span class="trace-row-label">누적곱 ∏pᵢ</span>${products}</div></div></div>`;
 }
 function renderStrip(){
+ const scrolls=[...$('distTokenStrip').querySelectorAll('.trace-scroll')].map(el=>el.scrollLeft);
  const main=ds.candidate,parent=main.branch?ds.data.candidates[main.branch.parent-1]:main;
  const paths=[{c:parent,title:parent.index===1?'greedy 응답':`부모 후보 #${parent.index}`,color:COLORS[0]}];
  if(main.index!==parent.index)paths.push({c:main,title:`분기 후보 #${main.index}`,color:COLORS[1]});
@@ -54,7 +55,17 @@ function renderStrip(){
  for(const path of paths){const v=stepValues(path.c,path.c.token_ids.length-1);html+=`<div class="trace-path" style="--trace-color:${path.color}" data-probability-path="${path.c.index}" data-full-log-probability="${v.log??''}"><div class="trace-path-heading"><b>${path.title} · ${esc(interval(path.c))}</b><span title="EOS까지 확률의 곱">P = ${shortProduct(v.log)}</span></div>${traceMatrix(path.c,fork,path.c.token_ids.length)}</div>`;}
  html+='</div>';}
  $('distTokenStrip').innerHTML=html;
+ $('distTokenStrip').querySelectorAll('.trace-scroll').forEach((el,i)=>{el.scrollLeft=scrolls[i]||0;});
  $('distTokenStrip').querySelectorAll('[data-dist-step]').forEach(b=>b.onclick=()=>{setFocus(ds.data.candidates[Number(b.dataset.traceCandidate)-1],Number(b.dataset.distStep));if(ds.trace)draw(ds.serial);});
+}
+function renderNavigator(){
+ const c=ds.focus;if(!c)return;const j=ds.step,branch=ds.candidate.branch,offset=branch?j-branch.position:null;
+ const relative=offset===null?'greedy 경로':offset===0?'분기 위치':offset>0?`분기 위치에서 +${offset} token`:`분기 위치보다 ${-offset} token 앞`;
+ $('distributionNavigator').innerHTML=`<div class="position-heading"><b>후보 #${c.index} · ${j+1} / ${c.tokens.length}번째 토큰 분석</b><span>${relative} · prefix ${j}개 토큰 확인</span></div><div class="position-actions"><button data-position="previous" ${j===0?'disabled':''}>← 이전 위치</button><button data-position="branch" ${branch?'':'disabled'}>분기 위치로 돌아가기</button></div><div class="position-trail"><span>시작 → </span>${c.tokens.slice(0,j+1).map((t,i)=>`<button data-position-step="${i}" aria-current="${i===j?'step':'false'}" title="${i+1}번째 토큰 분석"><small>${i+1}</small><code>${esc(t==='<|im_end|>'?'EOS':visible(t))}</code></button>`).join('<span class="trail-arrow">→</span>')}<span class="position-now">← 현재 분석</span></div>`;
+ $('distributionNavigator').querySelector('[data-position="previous"]').onclick=()=>chooseStep(j-1);
+ $('distributionNavigator').querySelector('[data-position="branch"]').onclick=()=>{setFocus(ds.candidate,branch.position);if(ds.trace)draw(ds.serial);};
+ $('distributionNavigator').querySelectorAll('[data-position-step]').forEach(button=>button.onclick=()=>chooseStep(Number(button.dataset.positionStep)));
+ const trail=$('distributionNavigator').querySelector('.position-trail');trail.scrollLeft=trail.scrollWidth;
 }
 function chooseStep(j){if(!ds.focus)return;setFocus(ds.focus,Math.max(0,Math.min(ds.focus.tokens.length-1,j)));if(ds.trace)draw(ds.serial);}
 async function raw(node){
@@ -71,7 +82,7 @@ async function ranked(node){
 }
 async function vocabulary(){if(!ds.vocab){const r=await fetch(BASE+'/vocab.json');if(!r.ok)throw Error('어휘 목록을 불러오지 못했습니다.');ds.vocab=await r.json();}return ds.vocab;}
 async function rowsFor(node){
- const query=$('distSearch').value,mode=$('distMode').value,k=Math.max(1,Math.min(node.vocabulary_size,Math.floor(Number($('distK').value)||8))),p=Math.max(.000001,Math.min(1,Number($('distP').value)||.95));
+ const query=$('distSearch').value,mode=$('distMode').value,k=Math.max(1,Math.min(node.vocabulary_size,Math.floor(Number($('distK').value)||5))),p=Math.max(.000001,Math.min(1,Number($('distP').value)||.95));
  const limit=ds.limits.get(node.file)||80;let selected=[],mass=0,source=null;
  if(query){source=await ranked(node);const vocab=await vocabulary();selected=source.ids.filter(id=>(vocab[id]??'').includes(query)||String(id)===query);for(const id of selected)mass+=source.values[id];}
  else if(mode==='top_k'&&k<=node.top.length){selected=node.top.slice(0,k).map(t=>t.id);mass=node.top.slice(0,k).reduce((a,t)=>a+t.probability,0);}
@@ -103,10 +114,9 @@ async function draw(serial){
  if(!ds.visibilityInitialized){for(const id of tokens)if(!mainTokens.includes(id))ds.disabled.add(id);ds.visibilityInitialized=true;}
  const primaryColor=ds.focus.index===main.index&&parent.index!==main.index?COLORS[1]:ds.focus.index===parent.index?COLORS[0]:COLORS[2];
  const colors=new Map(tokens.map((id,i)=>[id,atBranch?COLORS[i%COLORS.length]:i===0?primaryColor:COLORS[(i+2)%COLORS.length]]));
- const trackedCount=colors.size,defaultK=trackedCount+1;
- if(ds.autoK)$('distK').value=String(defaultK);
+ if(ds.autoK)$('distK').value='5';
  $('distK').max=String(node.vocabulary_size);
- $('distKDefault').textContent=`기본 k = 경로를 추적한 색상 토큰 ${trackedCount}개 + 1 = ${defaultK}${ds.autoK?'':' · 직접 입력한 k 적용 중'}`;
+ $('distKDefault').textContent=`기본 k = 5${ds.autoK?'':' · 직접 입력한 k 적용 중 (위치를 바꿔도 유지)'}`;
  const rootRows=await rowsFor(node);if(!alive())return;
  $('distributionContext').innerHTML=atBranch?'공통으로 생성한 부분 다음에서 파란색과 주황색 토큰으로 갈렸습니다. 각 토큰을 고르면 다음 토큰의 확률도 다르게 조건화됩니다.':'선택한 자리까지 생성한 응답을 조건으로 token distribution와 후속 경로를 보여줍니다. 위의 정답·분기 전후 예측은 유지됩니다. ‘분기’ 표시가 있는 토큰을 누르면 기본 비교로 돌아갑니다.';
  let html=`<div class="distribution-root"><h4>${atBranch?'분기 위치의 분포':'선택한 위치의 분포'}</h4><p class="prefix-caption">${atBranch?'분기 직전 prefix':`${j}개 토큰을 생성한 prefix`}</p><pre class="dist-prefix">${esc(node.prefix_text||'(응답을 시작하기 전)')}<b>▏</b></pre>${tableHeader()}${distributionRows(rootRows,node,colors,true)}<p class="small">${massNote(rootRows)}</p><div class="root-legend">${atBranch?`<span style="color:${COLORS[0]}">● 파랑: 분기 전 선택 <code>${esc(parent.tokens[j])}</code></span><span style="color:${COLORS[1]}">● 주황: 바꿔 고른 토큰 <code>${esc(main.tokens[j])}</code></span>`:'색이 있는 토큰은 저장된 응답에서 선택한 적 있는 토큰입니다.'}</div><details ${rootExpanded?'open':''}><summary>비교할 경로 추가·숨기기</summary><p class="small">저장된 다른 응답에서 선택한 토큰도 펼칠 수 있습니다. 분포만 있고 후속 응답이 없는 토큰은 펼치지 않습니다.</p><div class="distribution-chips">`;
@@ -117,18 +127,18 @@ async function draw(serial){
   const token=node.observed.find(x=>x.id===id),color=colors.get(id);
   const matches=x=>x.token_ids.length>j&&same(x.token_ids.slice(0,j),c.token_ids.slice(0,j))&&x.token_ids[j]===id;
   const representative=atBranch&&matches(parent)?parent:atBranch&&matches(main)?main:matches(c)?c:ds.data.candidates.find(matches);
-  const next=nodeFor(representative,j+1),cumulative=node.prefix_log_probability+Math.log(token.probability);
+  const next=nodeFor(representative,j+1);
   const before=atBranch&&id===parent.token_ids[j],after=atBranch&&id===main.token_ids[j];
-  html+=`<article class="distribution-child" style="--child-color:${color}" data-path-candidate="${representative.index}"><h4><span class="token-color" style="background:${color}"></span>${before?'분기 전':after?'분기 후':'다른 경로'}: <code>${esc(visible(token.token))}</code> 선택</h4><span class="child-result">→ ${esc(interval(representative))}</span>`;
+  html+=`<article class="distribution-child" style="--child-color:${color}" data-path-candidate="${representative.index}"><h4><span class="token-color" style="background:${color}"></span>${before?'분기 전':after?'분기 후':'현재 prefix의 경로'}: <code>${esc(visible(token.token))}</code> 선택 · #${representative.index}</h4><div class="path-legend"><span class="path-prefix">확인한 prefix</span><span class="path-picked">고른 토큰</span><span class="path-suffix">이어서 생성</span></div><p class="path-sentence">응답 <code class="path-answer"><span class="path-prefix">${esc(representative.tokens.slice(0,j).join(''))}</span><mark class="path-picked">${esc(token.token)}</mark><span class="path-suffix">${esc(representative.tokens.slice(j+1).filter(t=>!t.startsWith('<|')).join(''))}</span></code> → 최종 구간 <strong>${esc(interval(representative))}</strong>.</p>`;
   if(!next){html+='<p class="small">응답 종료 토큰(EOS)을 골라 응답이 끝났습니다.</p></article>';continue;}
   const nextRows=await rowsFor(next);if(!alive())return;
-  const nextId=representative.token_ids[j+1],nextP=tokenProbability(next,nextId);
-  html+=`<div class="next-choice">이 조건에서 다음으로 고른 토큰은 <code>${esc(visible(representative.tokens[j+1]))}</code> <b>${probability(nextP)}</b><br>이어서 생성한 최종 구간이 위의 ${esc(interval(representative))}입니다.</div><p class="prefix-caption">선택 후 다음 token distribution</p>${tableHeader()}${distributionRows(nextRows,next,new Map([[nextId,color]]))}<p class="small">${massNote(nextRows)}</p><details class="child-more"><summary>선택 후 원문·다음 위치 분석</summary><pre class="dist-prefix">${esc(next.prefix_text)}</pre><button data-next-node="${representative.index}">이 경로에서 한 토큰 더 따라가기</button><a class="raw-prob" href="${BASE}/${ds.data.sample.key}/${next.file}" download>전체 어휘 FP32 확률 다운로드</a></details></article>`;
+  const nextId=representative.token_ids[j+1];
+  html+=`<button class="follow-path" data-next-node="${representative.index}">다음 위치: ${j+2}번째 토큰 <code>${esc(visible(representative.tokens[j+1]))}</code> 분석 →</button><p class="prefix-caption">고른 토큰까지의 prefix 다음 token distribution</p>${tableHeader()}${distributionRows(nextRows,next,new Map([[nextId,color]]))}<p class="small">${massNote(nextRows)}</p><a class="raw-prob" href="${BASE}/${ds.data.sample.key}/${next.file}" download>전체 어휘 FP32 확률 다운로드</a></article>`;
  }
  html+='</div>';if(!alive())return;$('distributionTree').innerHTML=html;
  $('distributionTree').querySelectorAll('[data-child-token]').forEach(input=>input.onchange=()=>{const id=Number(input.dataset.childToken);if(input.checked)ds.disabled.delete(id);else ds.disabled.add(id);draw(ds.serial);});
  $('distributionTree').querySelectorAll('[data-root-token]').forEach(row=>row.onclick=()=>{const id=Number(row.dataset.rootToken);if(!tokens.includes(id))return;if(ds.disabled.has(id))ds.disabled.delete(id);else ds.disabled.add(id);draw(ds.serial);});
- $('distributionTree').querySelectorAll('[data-next-node]').forEach(button=>button.onclick=()=>{setFocus(ds.data.candidates[Number(button.dataset.nextNode)-1],j+1);draw(ds.serial);});
+ $('distributionTree').querySelectorAll('[data-next-node]').forEach(button=>button.onclick=async()=>{const y=$('distributionNavigator').getBoundingClientRect().top;setFocus(ds.data.candidates[Number(button.dataset.nextNode)-1],j+1);await draw(ds.serial);window.scrollBy(0,$('distributionNavigator').getBoundingClientRect().top-y);});
  $('distributionTree').querySelectorAll('[data-more-prob]').forEach(button=>button.onclick=()=>{const file=button.dataset.moreProb;ds.limits.set(file,(ds.limits.get(file)||80)+80);draw(ds.serial);});
  if(!ds.autoJump&&new URLSearchParams(location.hash.slice(1)).get('panel')==='distributions'){ds.autoJump=true;$('distributionPanel').scrollIntoView({block:'start'});}
  }catch(e){if(serial===ds.serial)$('distributionStatus').textContent=e.message;}

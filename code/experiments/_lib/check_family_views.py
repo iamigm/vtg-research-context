@@ -81,12 +81,14 @@ def browser_checks():
    except Exception as e:row.update(passed=False,error=str(e))
    row.update(errors=errors,failed_requests=failed);rows.append(row);print(json.dumps(row,ensure_ascii=False),flush=True);page.close()
   # Independent scope selection is retained in each comparison pane.
-  home.locator('article:visible input[name="compare"]').nth(0).check();home.locator('article:visible input[name="compare"]').nth(1).check();home.locator('#open-comparison').click()
+  home.locator('article:visible input[name="compare"]').nth(0).check();home.locator('article:visible input[name="compare"]').nth(1).check()
+  with home.context.expect_page() as opened:home.locator('#open-comparison').click()
+  comparison=opened.value;comparison.wait_for_load_state()
   for side in ['left','right']:
-   outer=home.frame_locator('#'+side+'-frame');outer.locator('#family-app[data-ready="true"]').wait_for(timeout=45000)
-  home.reload();home.frame_locator('#left-frame').locator('#family-app[data-ready="true"]').wait_for(timeout=45000)
+   outer=comparison.frame_locator('#'+side+'-frame');outer.locator('#family-app[data-ready="true"]').wait_for(timeout=45000)
+  comparison.reload();comparison.frame_locator('#left-frame').locator('#family-app[data-ready="true"]').wait_for(timeout=45000)
   summary['comparison_and_url_restore']=True
-  home.locator('#close-comparison').click();home.set_viewport_size({'width':390,'height':844});assert home.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+  comparison.close();home.set_viewport_size({'width':390,'height':844});assert home.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
   browser.close()
  result=dict(passed=all(r['passed'] for r in rows),summary=summary,families=rows)
  (S/'family_browser.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');assert result['passed']

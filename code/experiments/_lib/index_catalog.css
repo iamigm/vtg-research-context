@@ -1,0 +1,61 @@
+main#catalog { max-width: 1180px; margin: auto; padding: 46px 26px 100px; }
+#catalog > header { padding-bottom: 24px; border-bottom: 1px solid var(--ui-line); }
+h1 { font-size: 38px; letter-spacing: -.045em; margin: 4px 0 12px; line-height: 1.35; }
+header p { margin: 0; color: var(--ui-muted); }
+.eyebrow { font-size: 11px; font-weight: 650; letter-spacing: .15em; color: var(--ui-accent); }
+.controls { display: flex; gap: 12px; margin: 24px 0 12px; }
+#search, #project { padding: 12px; border: 1px solid var(--ui-line); border-radius: 9px; background: white; color: var(--ui-ink); }
+#search { flex: 1; min-width: 0; }
+#count { color: var(--ui-muted); font-size: 13px; }
+.order-help { display: flex; align-items: center; gap: 18px; margin: 24px 0; }
+.order-help p { flex: 1; font-size: 13px; margin: 0; color: var(--ui-muted); }
+#reset-project-order { padding: 6px 10px; font-size: 12px; white-space: nowrap; }
+.zone-heading { display: flex; gap: 10px; align-items: center; font-size: 14px; margin: 18px 0 6px; }
+.zone-heading span { font-size: 9px; letter-spacing: .08em; font-weight: 500; color: var(--ui-accent); }
+.project-list { min-height: 54px; border-radius: var(--ui-radius); padding: 1px 0; }
+.pin-empty { margin: 6px 0 12px; border: 1px dashed #b9cfc2; border-radius: var(--ui-radius); padding: 18px; font-size: 13px; color: var(--ui-muted); text-align: center; pointer-events: none; }
+.project { border: 1px solid var(--ui-line); border-radius: var(--ui-radius); background: white; margin: 10px 0; }
+#pinned-projects > .project { border-color: #b9cfc2; }
+.project > summary { list-style: none; cursor: pointer; display: flex; align-items: center; padding: 16px; gap: 12px; font-size: 18px; font-weight: 600; }
+.project > summary::-webkit-details-marker { display: none; }
+.project > summary::after { content: '⌄'; font-size: 17px; color: var(--ui-muted); width: 16px; text-align: center; }
+.project[open] > summary::after { transform: rotate(180deg); }
+.project-title { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.project-title small { display: block; font-size: 12px; font-weight: 400; color: var(--ui-muted); margin-top: 2px; }
+.project-actions { display: flex; gap: 4px; }
+.project > summary button { padding: 3px; width: 32px; height: 32px; border: 0; border-radius: 7px; display: grid; place-items: center; background: transparent; color: var(--ui-muted); font-size: 18px; line-height: 1; }
+.project > summary button:hover:enabled { background: var(--ui-soft); color: var(--ui-accent); }
+.project > summary .drag-handle { cursor: grab; font-size: 24px; touch-action: none; user-select: none; }
+.project > summary .pin-project[aria-pressed=true] { color: var(--ui-accent); background: var(--ui-soft); }
+.project-body { padding: 0 22px 16px; }
+[data-topic] h2 { font-size: 13px; color: var(--ui-muted); margin: 18px 0 7px; }
+article { display: flex; align-items: center; gap: 18px; padding: 13px 0; border-top: 1px solid #edf0ec; min-width: 0; }
+.family-name { flex: 1; min-width: 0; }
+h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
+.family-name p { margin: 3px 0 0; font-size: 12px; color: var(--ui-muted); overflow-wrap: anywhere; }
+.run { display: none; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+.open { font-size: 13px; white-space: nowrap; }
+.compare-choice { white-space: nowrap; }
+#empty { padding: 25px; color: var(--ui-muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.project.dragging { opacity: .35; }
+.project.drop-before { box-shadow: 0 -4px 0 var(--ui-accent); }
+.project.drop-after { box-shadow: 0 4px 0 var(--ui-accent); }
+.project-list.drop-zone { outline: 2px dashed var(--ui-accent); outline-offset: 3px; background: var(--ui-soft); }
+.drag-ghost { position: fixed; z-index: 9999; pointer-events: none; padding: 10px 18px; background: var(--ui-ink); color: white; border-radius: 8px; box-shadow: 0 8px 24px #20373022; font-size: 14px; max-width: 85vw; }
+body.project-dragging { user-select: none; cursor: grabbing; }
+@media (max-width: 650px) {
+  main#catalog { padding: 25px 16px 110px; }
+  h1 { font-size: 30px; }
+  .controls { flex-direction: column; }
+  .order-help { align-items: flex-start; gap: 10px; }
+  .order-help p { font-size: 12px; }
+  .project > summary { padding: 12px 8px; font-size: 15px; gap: 6px; }
+  .project > summary button { width: 28px; height: 34px; }
+  .project-body { padding: 0 15px 12px; }
+  article { flex-wrap: wrap; gap: 8px; }
+  .family-name { flex-basis: 100%; }
+  .open { margin-right: auto; }
+}

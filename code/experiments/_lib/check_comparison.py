@@ -8,7 +8,9 @@ with sync_playwright() as pw:
  b=pw.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--autoplay-policy=no-user-gesture-required']);p=b.new_page(viewport={'width':1600,'height':1000})
  p.goto('http://127.0.0.1:8780/');p.select_option('#project','similarity')
  for i in [0,1]:p.locator('article:visible input[name="compare"]').nth(i).check()
- p.click('#open-comparison')
+ with p.context.expect_page() as opened:p.click('#open-comparison')
+ catalog=p;p=opened.value;p.wait_for_load_state()
+ assert catalog.locator('#catalog').is_visible() and not catalog.url.endswith('?left=')
  for side in ['left','right']:
   outer=p.frame_locator('#'+side+'-frame');outer.locator('#family-app[data-ready="true"]').wait_for(timeout=60000)
   p.wait_for_function('(side)=>document.querySelector("#"+side+"-frame").contentDocument.querySelector("#detail-frame").contentDocument?.querySelector("video")?.readyState>=2',arg=side,timeout=60000)

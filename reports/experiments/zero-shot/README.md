@@ -78,3 +78,7 @@ GT를 활용한 프레임 배정은 정답 정보를 사용하는 진단이며 �
 - [선택 프레임 캐시 이관](results/operations/selected_frame_cache_migration/shared/REPORT.md)
 
 HTML은 통합 서버8780에서 제공한다. 입력 전처리와 Python 환경은 `../_shared/timelens/`를 공유한다. [Attention 실험](../attention/README.md)은 독립 프로젝트다.
+
+## Rollout reconsideration · pilot600
+
+고정600 query에서 agent, verifier, model-based test-time scaling을 비교한다. [계열 통합 뷰](results/rollout/reconsideration/viewer.html)에서 설계·진행·interactive detail을 탐색한다. [실험 설계](results/rollout/reconsideration/pilot/600/SPEC.md).

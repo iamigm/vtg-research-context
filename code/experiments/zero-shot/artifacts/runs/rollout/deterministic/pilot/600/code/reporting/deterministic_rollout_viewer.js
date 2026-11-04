@@ -99,6 +99,22 @@ function answerBlock(title,candidate,position){
 function resultCard(label,pair,kind,candidate=null){
  return `<article class="result-card ${kind}"><span class="result-label">${label}</span><strong>${escapeHTML(pairText(pair))}</strong><span class="result-score">${kind==='truth'?'GT':`IoU <b>${score(candidate.iou)}</b>`}</span>${candidate?`<span class="decoding-method">${candidate.index===1?'greedy decoding':'forced token → greedy decoding'}</span>`:''}<button data-overview-play="${kind}">이 구간 재생 ↗</button></article>`;
 }
+function renderBranchMap(current){
+ const data=state.current,chain=[];
+ for(let row=current;row;row=row.branch?data.candidates[row.branch.parent-1]:null)chain.unshift(row);
+ const ancestors=new Set(chain.map(row=>row.index));
+ $('branchAncestry').innerHTML=chain.map(row=>`<button data-branch-candidate="${row.index}" aria-current="${row.index===current.index?'step':'false'}">${row.branch?`${row.branch.position+1}번째 · ${escapeHTML(row.branch.forced_token)} → #${row.index}`:'greedy #1'}</button>`).join('<span aria-hidden="true">→</span>');
+ const children=new Map();for(const row of data.candidates){const parent=row.branch?.parent||0;if(!children.has(parent))children.set(parent,[]);children.get(parent).push(row);}
+ function tree(parent,depth){return (children.get(parent)||[]).map(row=>{
+  const b=row.branch,selected=row.index===current.index;
+  return `<div class="branch-map-node"><button data-branch-candidate="${row.index}" class="branch-map-choice ${selected?'selected':ancestors.has(row.index)?'ancestor':''}" style="--depth:${depth}" aria-pressed="${selected}"><span class="branch-connector" aria-hidden="true">${depth?'└─':'●'}</span><b>#${row.index}</b><span>${b?`${b.position+1}번째 토큰 · 부모 #${b.parent} · <code class="before-token">${escapeHTML(b.original_token)}</code> → <code class="after-token">${escapeHTML(b.forced_token)}</code>`:'greedy 응답 · 시작 경로'}</span><span class="branch-map-result">${escapeHTML(pairText(row.pair))}${selected?' · 선택됨':''}</span></button>${tree(row.index,depth+1)}</div>`;
+ }).join('');}
+ const map=$('branchMap'),top=map.scrollTop;map.innerHTML=tree(0,0);map.scrollTop=top;
+ const selected=map.querySelector('.selected');if(selected&&(selected.offsetTop<map.scrollTop||selected.offsetTop+selected.offsetHeight>map.scrollTop+map.clientHeight))map.scrollTop=selected.offsetTop-map.clientHeight/2;
+ const b=current.branch,parent=b?data.candidates[b.parent-1]:current;
+ $('branchPreview').innerHTML=b?`<span>공통 prefix · ${b.position}개 토큰</span><pre>${escapeHTML(current.tokens.slice(0,b.position).join(''))}<b class="fork-cursor">분기 · ${b.position+1}번째</b></pre><div class="branch-preview-path before-text">↳ 부모 #${parent.index} <code>${escapeHTML(parent.tokens[b.position])}</code><span> → ${escapeHTML(pairText(parent.pair))}</span></div><div class="branch-preview-path after-text">↳ 후보 #${current.index} <code>${escapeHTML(current.tokens[b.position])}</code><span> → ${escapeHTML(pairText(current.pair))}</span></div>`:'greedy 응답을 보고 있습니다. 경로 지도에서 후보를 고르면 분기 위치를 표시합니다.';
+ document.querySelectorAll('[data-branch-candidate]').forEach(button=>button.onclick=()=>showCandidate(Number(button.dataset.branchCandidate)));
+}
 function showCandidate(index){
  const data=state.current;if(!data)return;const c=data.candidates.find(x=>x.index===index)||data.candidates[0];state.candidate=c.index;
  const b=c.branch,parent=b?data.candidates[b.parent-1]:c,greedy=data.candidates[0];
@@ -112,7 +128,7 @@ function showCandidate(index){
  if($('showOriginal'))$('showOriginal').onclick=()=>showCandidate(1);if($('parentJump'))$('parentJump').onclick=()=>showCandidate(parent.index);
  $('branchSelect').innerHTML=data.candidates.map(row=>{const rb=row.branch,p=rb?data.candidates[rb.parent-1]:row;return `<option value="${row.index}">${row.index===1?'greedy 응답':`후보 ${row.index} ← 부모 ${rb.parent} · ${roleText(rb.roles)} · ${rb.original_token}→${rb.forced_token}`} · ${pairText(p.pair)} → ${pairText(row.pair)} · IoU ${score(row.iou)}</option>`;}).join('');$('branchSelect').value=String(c.index);
  $('answerComparison').innerHTML=answerBlock('분기 부모 후보',parent,b?.position)+answerBlock('분기 후 응답',c,b?.position)+(parent.index!==1?answerBlock('greedy 응답',greedy,null):'');
- renderSelectionAnalysis();renderTimeline(c,parent);renderCatalog();updateHash();
+ renderBranchMap(c);renderSelectionAnalysis();renderTimeline(c,parent);renderCatalog();updateHash();
  if(window.ROLLOUT_DISTRIBUTIONS)window.ROLLOUT_DISTRIBUTIONS.render(data,c);
 }
 function renderSelectionAnalysis(){

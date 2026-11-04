@@ -131,3 +131,7 @@ rollout도 같은 계층으로 통합했다. 기존 FPS 임시 링크는 제거�
 뷰어의 기본 흐름은 샘플 선택 → 정답·분기 전후 구간 비교 → 바꾼 토큰과 조건화된 다음 token distribution다. 목록은 분기별 중복 행을 샘플당 카드 하나로 묶으며 각 카드의 대표 변경은 현재 정렬·필터에 따른다. greedy 응답과 분기 직전 부모가 다르면 구분해서 표시한다. 최종 후보 선택기는 접힌 보조 분석이며, 선택기 설정을 바꿔도 확인 중인 분기는 유지한다. 기본 분포는 실제 분기 위치에 자동 정렬되고 두 경로의 전체 응답 확률(EOS 포함)을 함께 표시한다. 분포 위의 디코딩 토큰 버튼으로 위치를 선택하며 분포·후속 경로가 함께 갱신된다. 검색·데이터셋·샘플 정렬은 나란히 표시하고 변화 유형 선택과 독립적으로 유지한다. 초기 화면은 모든 샘플, ID순이다.
 
 Rollout UI는 공통 prefix/분기 이후 경로의 토큰별 확률과 누적곱을 가로 두 줄로 표시한다. top-k/top-p는 원래 전체 어휘 확률 기준이며, 상위30개로 부족하면 FP32 전체 배열을 읽는다. 경로 토큰의 추가 표시를 별도 표시하고 검색 시 전체 어휘를 사용한다. 수치 필터는 greedy/부모/분기 IoU와 두 기준 ΔIoU, 분기 토큰 순번, 대체 토큰 확률의 min/max다. 영상·응답 원문 검토를 하나로 합쳤다. 응답 쌍 선택과 디코딩 위치 선택을 구분한다.
+
+## Rollout reconsideration
+
+`runs/rollout/reconsideration/pilot/600/`에 새 model review와 final answer(`responses/`), review-conditioned FP32 token distribution(`token_traces/`), input hash 참조(`inputs/`), metrics·validation·logs·source snapshots를 저장한다. 원래 후보·영상·frame arrays·baseline distribution은 `runs/rollout/deterministic/pilot/900/`를 참조하고 복제하지 않는다. config/cohort/provenance/source_manifest는 metadata에 동결한다. 실행은 `_lib/rollout_reconsideration.py`, 보고·검증·HTML은 `_lib/rollout_reconsideration_report.py`, `_lib/rollout_reconsideration_check.py`다. 두 worker의 완료 후 supervisor가 보고서를 자동 생성하며 고정 첫300 query가 준비되면300 보고서를 먼저 생성한다.600 결과와300 결과는 같은 responses를 참조한다. supervisor와 worker의 진행·오류는 `metadata/status.json`, `metadata/worker*.json`, `logs/`에서 확인한다.

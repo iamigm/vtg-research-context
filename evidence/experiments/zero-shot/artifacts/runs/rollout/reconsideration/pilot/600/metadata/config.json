@@ -1,0 +1,92 @@
+{
+  "family": "rollout/reconsideration",
+  "queries": 600,
+  "cohort": "/home/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json",
+  "model": "/home/irteam/backbones/models/Qwen3-VL-8B-Instruct",
+  "fps": 2,
+  "target_pixels": 100352,
+  "input_order": "video_query",
+  "proposal_pools": [
+    8,
+    32
+  ],
+  "variants": [
+    [
+      "direct_pool8",
+      "direct",
+      8,
+      1
+    ],
+    [
+      "agent_pool8",
+      "agent",
+      8,
+      3
+    ],
+    [
+      "verifier_pool8",
+      "verifier",
+      8,
+      3
+    ],
+    [
+      "tts_pool8_select4",
+      "tts",
+      8,
+      4
+    ],
+    [
+      "tts_pool8_select8",
+      "tts",
+      8,
+      8
+    ],
+    [
+      "direct_pool32",
+      "direct",
+      32,
+      1
+    ],
+    [
+      "agent_pool32",
+      "agent",
+      32,
+      7
+    ],
+    [
+      "verifier_pool32",
+      "verifier",
+      32,
+      7
+    ],
+    [
+      "tts_pool32_select4",
+      "tts",
+      32,
+      4
+    ],
+    [
+      "tts_pool32_select8",
+      "tts",
+      32,
+      8
+    ]
+  ],
+  "decoding": "greedy; no random sampling, no training, no new model",
+  "agent": "adaptive controller chooses event/boundary inspection; same-VLM visual inspector returns observations; 3/7 action-observation rounds then regeneration",
+  "verifier": "3/7 fixed diverse candidates; independent event and boundary Yes/No likelihoods then regeneration",
+  "tts": "4/8 diverse candidates from pool8/32; model pairwise knockout; both presentation orders per comparison; final regeneration",
+  "decision_budget": "agent/verifier low/high ceilings 7/15 model evaluations; tts select4/8 ceilings 7/15; actual costs recorded, NOT FLOPs matched",
+  "control": "direct regeneration with the same candidate ledger but no review; existing greedy/max_probability/weighted_medoid/oracle references",
+  "candidate_selection": "GT-free unique-interval farthest-first, greedy first; ties by original log probability then candidate index",
+  "clustering": "complete-link temporal IoU >= .5; temporal occurrence proxy, not semantic event identity gold",
+  "probes": "at most one disjoint event proxy and one local boundary proxy, selected without GT from pool32; root and both immediate child FP32 distributions",
+  "generation_limits": {
+    "controller": 48,
+    "inspector": 48,
+    "final": 64
+  },
+  "new_review_prompt_chunk": 128,
+  "seed": "no sampling; bootstrap42 only",
+  "additional_diagnostics": "qvhighlights-timelens_00507 not in frozen600; inspect saved trace only, excluded from all600 outcomes"
+}
