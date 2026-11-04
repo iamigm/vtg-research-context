@@ -1657,3 +1657,12 @@
 추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
 
 - evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+
+## 2026-11-04T11:35:13.945507+09:00
+
+원본 파일 직접 관찰: 18개 실행, 533개 코드·의존성 파일. 이전 commit: cfba42a94e723a276179e90a80d8bd50ca9dba5c.
+
+추가 0 / 변경 2 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
