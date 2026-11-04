@@ -3,7 +3,7 @@ from result_layout import relocate_path
 import os, sys, time, signal, subprocess, fcntl, json
 from pathlib import Path
 from fps_spatial_control import ROOT, OUT, REPORT, RUN, read, write, stamp
-DEPENDENCY=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/sweep_v2/pilot/900/metadata/status.json')
+DEPENDENCY=relocate_path(ROOT/'artifacts/runs/sampling/spatial_allocation/allocation_sweep/pilot/900/metadata/status.json')
 
 def memory_pressure(stats,current,limit):
     # Both active and inactive clean file pages are reclaimable by the kernel.

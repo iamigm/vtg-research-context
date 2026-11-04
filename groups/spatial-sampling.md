@@ -8,19 +8,19 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
 
-현재 관련 코드 122개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/spatial_budget_pilot900_v1
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md)
 
-현재 관련 코드 122개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/sampling
 
 [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md) · [A_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/overview/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/300/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/600/REPORT.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/overview/REPORT.md)
 
-현재 관련 코드 122개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -135,6 +135,10 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_report.py)
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_smoke.py)
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/543c552cf193d7b1a385cd7926d52e8eed037f7b7e23f7ed39241e8eb66e7bcc/fps_spatial_supervisor.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_control.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_report.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_smoke.py)
+- [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_supervisor.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_supervisor.py)
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_control.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_control.py)
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_report.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_report.py)
 - [zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_smoke.py](../code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/cf730e867c3033a02d6ba92e542f39c6e29facf3d4bbb6691afea7482d32cd19/fps_spatial_smoke.py)

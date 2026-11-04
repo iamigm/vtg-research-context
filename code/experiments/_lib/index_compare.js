@@ -73,13 +73,6 @@
     window.open(url.href, '_blank', 'noopener');
   });
   $('clear-selection').addEventListener('click', () => { selected = []; updateSelection(); });
-  $('close-comparison').addEventListener('click', () => {
-    const url = new URL(location.href);
-    url.searchParams.delete('left');
-    url.searchParams.delete('right');
-    history.pushState(null, '', url);
-    render();
-  });
   $('swap-comparison').addEventListener('click', () => open($('right-experiment').value, $('left-experiment').value));
   function restore() {
     const params = new URLSearchParams(location.search);

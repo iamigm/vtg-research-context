@@ -1,5 +1,7 @@
 # Zero-shot 평가와 생성 실험
 
+[Branch feedback 후속 실험 설계](results/rollout/reconsideration/shared/NEXT_EXPERIMENT.md): 재검토 후 실제 conditional rollout을 새로 수행하는 pilot600 설계. 현재 실행 결과와 구분한다.
+
 [전체 실험 목록](../index.html)에서 아래 주제별로 탐색한다. 같은 질문의 선행·후속 실험을 함께 묶고, pilot/full 및 실행 버전은 구분한다. 실행 ID는 유지한다. `<주제>/<실험 계열>/full/` 또는 `pilot/`로 실제 폴더를 나누고, `results/`와 `artifacts/runs/`의 상대 경로를 맞췄다. 전체는 full9404, pilot은 질문 수를 명시한다. 저장·재사용 방법은 [산출물 저장소 안내](artifacts/README.md)를 따른다.
 
 

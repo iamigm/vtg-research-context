@@ -13,17 +13,20 @@ with sync_playwright() as pw:
  assert catalog.locator('#catalog').is_visible() and not catalog.url.endswith('?left=')
  for side in ['left','right']:
   outer=p.frame_locator('#'+side+'-frame');outer.locator('#family-app[data-ready="true"]').wait_for(timeout=60000)
+  assert outer.locator('#family-sidebar').is_hidden()
   p.wait_for_function('(side)=>document.querySelector("#"+side+"-frame").contentDocument.querySelector("#detail-frame").contentDocument?.querySelector("video")?.readyState>=2',arg=side,timeout=60000)
   video=outer.frame_locator('#detail-frame').locator('video').first;video.evaluate('(v)=>{v.muted=true;v.play()}')
   p.wait_for_function('(side)=>document.querySelector("#"+side+"-frame").contentDocument.querySelector("#detail-frame").contentDocument.querySelector("video").currentTime>.1',arg=side,timeout=20000)
  assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
  assert p.frame_locator('#right-frame').locator('#scope').input_value()=='full/9404'
+ p.frame_locator('#right-frame').locator('#toggle-sidebar').click()
+ assert p.frame_locator('#left-frame').locator('#family-sidebar').is_hidden()
  p.frame_locator('#right-frame').locator('#scope').select_option('pilot/300')
  assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
  p.frame_locator('#right-frame').locator('#scope').select_option('full/9404')
  assert p.frame_locator('#left-frame').locator('#scope').input_value()=='pilot/300'
  url=p.url;p.reload();p.frame_locator('#left-frame').locator('#family-app[data-ready="true"]').wait_for(timeout=45000);assert p.url==url
- p.click('#close-comparison');p.set_viewport_size({'width':390,'height':844});assert p.evaluate('document.documentElement.scrollWidth<=innerWidth')
+ p.close();p=catalog;p.set_viewport_size({'width':390,'height':844});assert p.evaluate('document.documentElement.scrollWidth<=innerWidth')
  b.close()
 result=dict(passed=True,two_family_videos_play=True,scope_selection_independent=True,url_restore=True,mobile=True)
 (ROOT/'artifacts/maintenance/rollout_views_20261104/comparison.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

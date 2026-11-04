@@ -1757,3 +1757,34 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/reconsideration/pilot/600/metadata/status.json
 - reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/REPORT.md
 - reports/experiments/zero-shot/results/rollout/reconsideration/pilot/600/STRATA.md
+
+## 2026-11-04T15:30:43.191821+09:00
+
+원본 파일 직접 관찰: 18개 실행, 556개 코드·의존성 파일. 이전 commit: 1eca87e7a0c5f84b789693904cfdd0f9088e1003.
+
+추가 7 / 변경 17 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_control.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_report.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_smoke.py
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/versions/a9520c1d4f0e6cfe8672e01ee86097bca6e3be4769356590f673b0053e83051f/fps_spatial_supervisor.py
+- reports/experiments/zero-shot/results/rollout/reconsideration/shared/NEXT_EXPERIMENT.md
+- code/experiments/_lib/check_view_controls.py
+- code/experiments/_lib/history_controls.js
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.css
+- code/experiments/zero-shot/_lib/deterministic_rollout_viewer.js
+- code/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/code/fps_spatial_supervisor.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- reports/experiments/_lib/README.md
+- code/experiments/_lib/build_index.py
+- code/experiments/_lib/check_comparison.py
+- code/experiments/_lib/check_family_views.py
+- code/experiments/_lib/experiment_theme.css
+- code/experiments/_lib/family_catalog.py
+- code/experiments/_lib/family_view.css
+- code/experiments/_lib/family_view.js
+- code/experiments/_lib/index_catalog.css
+- code/experiments/_lib/index_compare.css
+- code/experiments/_lib/index_compare.js
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md

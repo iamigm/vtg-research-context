@@ -30,6 +30,14 @@ button:disabled { cursor: default; opacity: .45; }
   outline: 3px solid var(--ui-focus); outline-offset: 3px;
 }
 [hidden] { display: none !important; }
+.history-controls { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+.history-controls button {
+  display: grid; place-items: center; width: 32px; height: 32px;
+  padding: 6px; border: 0; border-radius: 50%; background: transparent; color: var(--ui-muted);
+}
+.history-controls button:hover:enabled { background: var(--ui-soft); color: var(--ui-accent); }
+.history-controls button:disabled { opacity: .3; }
+.history-controls svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 /* A scoped layer also styles older, independently generated detail viewers. */
 html[data-experiment-detail] body {
@@ -75,7 +83,8 @@ html[data-experiment-detail] [data-experiment-home] {
   background: var(--ui-surface); color: var(--ui-muted);
   border-bottom: 1px solid var(--ui-line); font: 13px/1.6 var(--ui-font) !important;
 }
-html[data-experiment-detail] [data-experiment-home] a { background: none; padding: 0; margin: 0; }
+html[data-experiment-detail] [data-experiment-home] .history-controls { margin: 0; padding: 0; background: none; }
+html[data-experiment-detail] [data-experiment-home] .history-controls button { border: 0; background: transparent; padding: 6px; }
 html[data-experiment-detail] body[data-family-embedded] [data-experiment-home] { display: none; }
 @media (max-width: 760px) {
   html[data-experiment-detail] body > main { grid-template-columns: minmax(0, 1fr); padding: 16px; }

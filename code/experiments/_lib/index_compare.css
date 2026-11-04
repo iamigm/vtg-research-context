@@ -7,6 +7,7 @@ article:has(input[name=compare]:checked){border-color:#256650;box-shadow:0 0 0 1
 #selection-status{flex:1;min-width:200px;font-size:14px}#open-comparison{background:#256650;color:white}#open-comparison:hover:enabled{background:#174b3b}
 body.comparing{overflow:hidden}.comparison-toolbar{height:72px;display:flex;align-items:center;gap:20px;padding:12px 20px;background:#edf4f2;border-bottom:1px solid #cedbd3}
 .comparison-toolbar h1{font-size:20px;margin:0;flex:1}.comparison-panes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:calc(100dvh - 72px);gap:8px;padding:8px}
+.comparison-toolbar .history-controls button{border:0;border-radius:50%;padding:6px;background:transparent;width:32px;height:32px}
 .comparison-pane{display:flex;flex-direction:column;min-width:0;min-height:0;background:white;border:1px solid #cedbd3;border-radius:10px;overflow:hidden}
 .pane-toolbar{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #dbe3dd}.pane-toolbar label,.pane-toolbar a{font-size:13px;white-space:nowrap}.pane-toolbar select{min-width:0;flex:1;width:0;padding:8px;font-size:13px}
 .comparison-pane iframe{width:100%;flex:1;min-height:0;border:0;background:white}

@@ -18,3 +18,7 @@
 - `index_catalog.js` · `index_catalog.css`: 프로젝트 핸들 드래그·상단 고정·위/아래 이동·검색. 순서와 고정은 localStorage에 저장하고 같은 주소의 다른 탭에도 동기화한다. 실험 링크와 비교 시작은 새 탭을 연다.
 - `experiment_theme.css`: index·비교·계열 대표 뷰·상세 HTML의 공통 글꼴, 색상, 입력 요소, 표, 헤더. `build_index.py`가 상세 HTML에 스타일 참조를 넣어 재생성 후에도 적용한다. 그래프와 정답/오답 등 데이터 색상은 각 분석 정의를 유지한다.
 - `check_index_preferences.py`: 실제 포인터 드래그, 저장·복원, 상단 고정, 검색, 새 탭, 모바일, 저장 불가 시 동작, 전체 상세 페이지 테마 검증. 공용 브라우저 의존성에 맞춰 `/usr/bin/python3`로 실행한다.
+
+- `history_controls.js`: index·계열·상세·비교 화면의 실제 브라우저 뒤로/앞으로 이동. Chrome의 이동 기록에 따라 사용 가능한 화살표만 활성화한다.
+- 계열 화면 상단은 이동 화살표, `목록` 토글, `결과`/`보고서` 탭, 원본 MD와 새 탭 버튼으로 구성한다. 사이드바는 기본으로 접으며, 연결된 보고서와 결과만 같은 탭 그룹에서 전환한다. iframe 로드는 별도 이동 기록을 추가하지 않는다.
+- `check_view_controls.py`: 결과/보고서 전환, 키보드 탭 조작, 페이지 안/밖 뒤로·앞으로 이동, 새 탭의 이동 기록 경계, 모바일 검증. 최신 기록은 `../artifacts/maintenance/view_controls_validation.json`이다.

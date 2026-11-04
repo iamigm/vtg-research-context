@@ -1,8 +1,6 @@
 """Build the single experiment entry point from existing result pages."""
-from result_layout import relocate_path
 from pathlib import Path
-from html import escape, unescape
-from urllib.parse import quote
+from html import escape
 import os
 import re
 
@@ -74,22 +72,11 @@ def scope_label(path):
     return ''
 
 
+def history_controls():
+    return '<nav class="history-controls" aria-label="페이지 이동"><button type="button" data-history-back aria-label="뒤로 가기" title="뒤로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></button><button type="button" data-history-forward aria-label="앞으로 가기" title="앞으로 가기" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button></nav>'
+
+
 def add_navigation(path, text):
-    scope = scope_label(path)
-    href = os.path.relpath(ROOT / 'index.html', path.parent)
-    badge = f'<span data-experiment-scope>{escape(scope)}</span>' if scope else ''
-    family_link = ''
-    normalized = str(path).replace('/home1/irteam/', '/home/irteam/')
-    for project in sorted(PROJECTS, key=len, reverse=True):
-        marker = '/experiments/' + project + '/results/'
-        if marker not in normalized:
-            continue
-        parts = normalized.split(marker, 1)[1].split('/')
-        if len(parts) >= 3:
-            family = Path(normalized.split(marker)[0] + marker) / parts[0] / parts[1]
-            view = os.path.relpath(family / 'viewer.html', path.parent) + '?view=' + quote('/'.join(parts[2:]), safe='')
-            family_link = f'<a href="{view}">계열 통합 보기</a>'
-        break
     # Inject at generation time, including old documents with an implicit head/body.
     # Keep this idempotent so rebuilding never accumulates theme tags.
     text = re.sub(r'<link\b[^>]*data-experiment-theme[^>]*>', '', text, flags=re.I)
@@ -105,9 +92,12 @@ def add_navigation(path, text):
     styles = list(re.finditer(r'</style\s*>|<link\b[^>]*rel=[\'"]stylesheet[\'"][^>]*>', text, re.I))
     pos = styles[-1].end() if styles else re.search(r'<html\b[^>]*>', text, re.I).end()
     text = text[:pos] + link + text[pos:]
-    nav = f'<nav data-experiment-home><a href="{href}">← 전체 실험 목록</a>{family_link}{badge}</nav>'
+    history_js = os.path.relpath(ROOT / '_lib/history_controls.js', path.parent)
+    text = re.sub(r'<script\b[^>]*data-experiment-history[^>]*>.*?</script>', '', text, flags=re.I | re.S)
+    text = text.replace(link, link + f'<script data-experiment-history defer src="{history_js}"></script>', 1)
+    nav = '<div data-experiment-home>' + history_controls() + '</div>'
     if 'data-experiment-home' in text:
-        return re.sub(r'<nav\b[^>]*data-experiment-home[^>]*>.*?</nav>', lambda m: nav, text, count=1, flags=re.S)
+        return re.sub(r'<(nav|div)\b[^>]*data-experiment-home[^>]*>.*?</\1>', lambda m: nav, text, count=1, flags=re.S)
     body = re.search(r'<body\b[^>]*>', text, re.I)
     if body:
         return text[:body.end()] + nav + text[body.end():]
@@ -139,15 +129,15 @@ def build():
             groups.append(f'<section data-topic><h2>{escape(topic)}</h2>{"".join(rows)}</section>')
         sections.append(f'''<details class="project" data-project="{project}" data-label="{escape(label, quote=True)}"><summary><button type="button" class="drag-handle" aria-label="{escape(label)} 프로젝트 끌어서 이동" title="끌어서 순서 변경">⠿</button><span class="project-title">{escape(label)}<small>{len(values)}개 실험 계열</small></span><span class="project-actions"><button type="button" class="move-up" aria-label="{escape(label)} 위로 이동" title="위로 이동">↑</button><button type="button" class="move-down" aria-label="{escape(label)} 아래로 이동" title="아래로 이동">↓</button><button type="button" class="pin-project" aria-label="{escape(label)} 상단 고정" aria-pressed="false" title="상단 고정">☆</button></span></summary><div class="project-body">{"".join(groups)}</div></details>''')
     options = ''.join(f'<option value="{p}">{label}</option>' for p, label in PROJECTS.items())
-    document = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>실험 목록</title><link rel="stylesheet" href="_lib/experiment_theme.css"><link rel="stylesheet" href="_lib/index_catalog.css"><link rel="stylesheet" href="_lib/index_compare.css"></head><body><main id="catalog"><header><div class="eyebrow">EXPERIMENTS / RESEARCH FAMILIES</div><h1>실험 목록</h1><p>프로젝트에서 주제와 실험 계열을 탐색하세요.<br>실험과 비교 화면은 새 탭에서 열립니다.</p></header>
+    document = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>실험 목록</title><link rel="stylesheet" href="_lib/experiment_theme.css"><link rel="stylesheet" href="_lib/index_catalog.css"><link rel="stylesheet" href="_lib/index_compare.css"><script defer src="_lib/history_controls.js"></script></head><body><main id="catalog"><header>__HISTORY_CONTROLS__<div class="eyebrow">EXPERIMENTS / RESEARCH FAMILIES</div><h1>실험 목록</h1><p>프로젝트에서 주제와 실험 계열을 탐색하세요.<br>실험과 비교 화면은 새 탭에서 열립니다.</p></header>
 <div class="controls"><input id="search" type="search" aria-label="실험 검색" placeholder="주제, 실험 계열, full/pilot 또는 분석명 검색"><select id="project" aria-label="프로젝트 선택"><option value="">전체 프로젝트</option>__OPTIONS__</select></div><p id="count" aria-live="polite"></p>
 <div class="order-help"><p>⠿ 핸들을 끌어 순서를 바꾸거나 ☆로 상단에 고정하세요. 순서는 이 브라우저에 저장됩니다.</p><button id="reset-project-order" type="button">기본 순서로</button></div>
 <section class="project-zone" aria-labelledby="pinned-heading"><h2 id="pinned-heading" class="zone-heading">고정한 프로젝트 <span>PINNED</span></h2><div id="pinned-projects" class="project-list" data-pinned="true"><p class="pin-empty">자주 보는 프로젝트를 여기로 끌어다 놓으세요.</p></div></section>
 <section class="project-zone" aria-labelledby="projects-heading"><h2 id="projects-heading" class="zone-heading">프로젝트</h2><div id="other-projects" class="project-list" data-pinned="false">__SECTIONS__</div></section><p id="empty" hidden>검색 조건에 맞는 실험 계열이 없습니다.</p><p id="order-status" class="sr-only" role="status"></p>
 <div id="compare-tray"><span id="selection-status" role="status">비교할 실험 계열 2개를 선택하세요 (0/2)</span><button id="clear-selection" type="button" disabled>선택 해제</button><button id="open-comparison" type="button" disabled>두 계열 비교 ↗</button></div></main>
-<div id="comparison" hidden><div class="comparison-toolbar"><button id="close-comparison" type="button">← 실험 목록</button><h1>실험 계열 비교</h1><button id="swap-comparison" type="button">좌우 바꾸기</button></div><div class="comparison-panes"><div class="comparison-pane"><div class="pane-toolbar"><label for="left-experiment">실험 A</label><select id="left-experiment"></select><a id="left-open" target="_blank" rel="noopener">새 탭 ↗</a></div><iframe id="left-frame" title="실험 A 결과"></iframe></div><div class="comparison-pane"><div class="pane-toolbar"><label for="right-experiment">실험 B</label><select id="right-experiment"></select><a id="right-open" target="_blank" rel="noopener">새 탭 ↗</a></div><iframe id="right-frame" title="실험 B 결과"></iframe></div></div></div>
+<div id="comparison" hidden><div class="comparison-toolbar">__HISTORY_CONTROLS__<h1>실험 계열 비교</h1><button id="swap-comparison" type="button">좌우 바꾸기</button></div><div class="comparison-panes"><div class="comparison-pane"><div class="pane-toolbar"><label for="left-experiment">실험 A</label><select id="left-experiment"></select><a id="left-open" target="_blank" rel="noopener">새 탭 ↗</a></div><iframe id="left-frame" title="실험 A 결과"></iframe></div><div class="comparison-pane"><div class="pane-toolbar"><label for="right-experiment">실험 B</label><select id="right-experiment"></select><a id="right-open" target="_blank" rel="noopener">새 탭 ↗</a></div><iframe id="right-frame" title="실험 B 결과"></iframe></div></div></div>
 <script src="_lib/index_catalog.js"></script><script src="_lib/index_compare.js"></script></body></html>'''
-    document = document.replace('__OPTIONS__', options).replace('__SECTIONS__', '\n'.join(sections))
+    document = document.replace('__OPTIONS__', options).replace('__SECTIONS__', '\n'.join(sections)).replace('__HISTORY_CONTROLS__', history_controls())
     target = ROOT / 'index.html'
     target.write_text(document)
     print(f'Built {target}: {len(families)} experiment families across {len(PROJECTS)} projects')

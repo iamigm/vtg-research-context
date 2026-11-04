@@ -51,12 +51,16 @@ def browser_checks():
    row=dict(family=family['href'])
    try:
     page.goto('http://127.0.0.1:8780/'+family['href']);page.wait_for_selector('#family-app[data-ready="true"]',timeout=45000)
+    assert page.locator('#family-sidebar').is_hidden()
+    assert page.locator('#toggle-sidebar').get_attribute('aria-expanded')=='false'
+    page.locator('#toggle-sidebar').click();assert page.locator('#family-sidebar').is_visible()
     page.wait_for_timeout(700)
     assert page.locator('#view-nav button[aria-current="true"]').count()==1
     m=json.loads((ROOT/family['manifest']).read_text());active=next(e for e in m['entries'] if e['id']==m['default'])
     if active['kind']=='html':
      frame=page.frame_locator('#detail-frame');frame.locator('body').wait_for(timeout=30000)
-     if frame.locator('video').count():
+     # Lazy videos inside a closed details panel have no source until opened.
+     if frame.locator('video:visible').count():
       page.wait_for_function("document.querySelector('#detail-frame').contentDocument.querySelector('video')?.readyState>=2",timeout=45000)
       frame.locator('video').first.evaluate('(v)=>{v.muted=true;v.play().catch(()=>{})}')
       frame.locator('video').first.evaluate('(v)=>v.readyState')
