@@ -216,7 +216,8 @@ def report(n,refresh=True):
  for method,vals in paired.items():
   a,b=vals['miou'],vals['r50'];text.append(f"| {method} | {a['delta']:+.4f} [{a['low']:+.4f},{a['high']:+.4f}] | {100*b['delta']:+.2f} [{100*b['low']:+.2f},{100*b['high']:+.2f}] |")
  text+=['','## 범위별 결과','','[dataset·영상 길이·GT 비율·두 축 교차표](STRATA.md). paired-valid 결과는 실패를 제외하므로 전체 성능·실패율과 함께 해석한다.','']
- if (dest/'FINDINGS.md').exists():text[4:4]=['해석 주의: 실패 분석에서 기존 greedy와 신규 후보의 duration 기준 불일치, 최종 비교 pool의 동일 interval 중복, 숫자 prefix 내부 확장 부족을 확인했다. 아래는 원래 실행 정책의 결과이며, 알고리즘 일반의 우열이나 초기 가설 기각으로 해석하지 않는다. [실패 원인 분석](FINDINGS.md).','']
+ findings=ROOT/'results'/FAMILY/'pilot/900/FINDINGS.md'
+ if findings.exists():text[4:4]=['해석 주의: 실패 분석에서 기존 greedy와 신규 후보의 duration 기준 불일치, 최종 비교 pool의 동일 interval 중복, 숫자 prefix 내부 확장 부족을 확인했다. 아래는 원래 실행 정책의 결과이며, 알고리즘 일반의 우열이나 초기 가설 기각으로 해석하지 않는다. [실패 원인 분석]('+os.path.relpath(findings,dest)+').','']
  (dest/'REPORT.md').write_text('\n'.join(text));strata(rows,methods,dest,n);build_view(n)
  (out/'code/reporting').mkdir(parents=True,exist_ok=True);(out/'code/reporting'/Path(__file__).name).write_bytes(Path(__file__).read_bytes())
  write(out/'validation/report.json',dict(passed=True,queries=n,all_methods=len(METHODS),search_caps=CONFIG['search_token_caps'],input_hashes_verified=True,baseline_records_unchanged=True,tree_parent_invariants=True,budget_caps_verified=True,submodular_approximation_verified=True,source=sha(Path(__file__))))
