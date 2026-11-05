@@ -180,6 +180,7 @@ def report(n,refresh=True):
    p=pair(c)
    if p and tuple(p) not in seen:orig.append(p);seen.add(tuple(p))
   fresh=[e['span'] for e in events if usable(e['span'],row['duration'])];eligible=[e['span'] for e in events if e['assessment']['eligible']];raw=max((iou(p,gt) for p in fresh),default=0);gated=max((iou(p,gt) for p in eligible),default=0);pinfo=dict(key=key,dataset=row['dataset'],old_unique=len(orig),new_unique=len(fresh),eligible=len(eligible),invalid=len(events)-len(fresh),oracle_raw=raw,oracle_gated=gated,gate_lost_best=raw>gated+1e-9,old8=max((iou(pair(c),gt) for c in old['result']['candidates'][:8]),default=0),old32=max((iou(pair(c),gt) for c in old['result']['candidates']),default=0))
+  pinfo['old8_unique']=len({tuple(pair(c)) for c in old['result']['candidates'][:8] if pair(c)})
   for k in (1,4,8,16,32):pinfo[f'old_unique_oracle{k}']=max((iou(p,gt) for p in orig[:k]),default=0);pinfo[f'new_unique_oracle{k}']=max((iou(p,gt) for p in fresh[:k]),default=0)
   old8=[pair(c) for c in old['result']['candidates'][:8] if pair(c)]
   for threshold in (.3,.5,.7):pinfo[f'old_clusters{int(threshold*100)}']=temporal_group_count(old8,threshold);pinfo[f'new_clusters{int(threshold*100)}']=temporal_group_count(fresh,threshold)
@@ -191,8 +192,8 @@ def report(n,refresh=True):
  with (out/'metrics/per_query.csv').open('w') as f:w=csv.DictWriter(f,fields);w.writeheader();w.writerows(rows)
  text=[f'# Event proposal and tree search · pilot{n}','',f'완료: {n} query, dataset별{n//3}. 15개 방법×2 search budget 및 proposal-only controls를 같은 고정 query에서 비교했다. 반복 조건 수를 query 수로 합산하지 않았다.','', '[설계·수식·문헌](SPEC.md)' if n==900 else '[설계·수식·문헌](../900/SPEC.md)', '',
  '## 지표','', 'mIoU=전체 query의 temporal IoU 평균, R@t=IoU≥t인 query 수/전체 query 수(t=.3/.5/.7), 높을수록 좋다. IoU=시간 교집합/합집합. Δ는 기존 greedy 대비이며 R의 변화는pp다. 실패는0점. decoder tokens는 seed 생성·공통 proposal/critic·search·최종 선택을 합산한 conceptual cost이며 exact cache reuse로 줄어든 실행 비용과 다르다. model seconds는 새 model operation의 cold-cache 측정 시간 합이고 공통 video prefill 및 과거 seed 생성 시간은 제외되어 latency로 직접 해석하지 않는다. 같은 token 상한이 같은 FLOPs를 뜻하지 않는다.','', '## 전체 성능','']+table(rows,methods)
- text+=['','## 사건 proposal과 oracle','','raw는 gate 이전, gated는 사건 적합성 gate 이후다. oracle은 GT를 보고 가장 좋은 후보를 고른 상한이며 실제 선택 결과가 아니다. new는 실제 생성된 유효 unique interval이며 의미적으로 다른 사건 개수가 아니다.','','| source | average unique candidates | oracle mIoU | R@.3 | R@.5 | R@.7 |','|---|---:|---:|---:|---:|---:|']
- for label,count_key,value_key in [('old paths first8',None,'old8'),('old paths first32','old_unique','old32'),('new proposals raw','new_unique','oracle_raw'),('new proposals gated','eligible','oracle_gated')]:
+ text+=['','## 사건 proposal과 oracle','','duration-valid는 시간 범위 검사를 통과한 뒤 model gate 적용 전이며, gated는 사건 적합성 gate 이후다. oracle은 GT를 보고 가장 좋은 후보를 고른 상한이며 실제 선택 결과가 아니다. new는 실제 생성된 유효 unique interval이며 의미적으로 다른 사건 개수가 아니다. 시간 범위 검사 이전의 oracle은 실패 분석에 별도 표시한다.','','| source | average unique candidates | oracle mIoU | R@.3 | R@.5 | R@.7 |','|---|---:|---:|---:|---:|---:|']
+ for label,count_key,value_key in [('old paths first8','old8_unique','old8'),('old paths first32','old_unique','old32'),('new proposals duration-valid','new_unique','oracle_raw'),('new proposals gated','eligible','oracle_gated')]:
   vals=[p[value_key] for p in proposals];count=sum(p[count_key] for p in proposals)/n if count_key else 8
   text.append(f'| {label} | {count:.2f} | {sum(vals)/n:.4f} | '+ ' | '.join(f'{100*sum(x>=t for x in vals)/n:.2f}' for t in (.3,.5,.7))+' |')
  text+=['',f"Gate가 raw 최고 IoU를 낮춘 query: {sum(p['gate_lost_best'] for p in proposals)}/{n}. old8 oracle<.5 → new raw oracle≥.5: {sum(p['old8']<.5 and p['oracle_raw']>=.5 for p in proposals)}/{sum(p['old8']<.5 for p in proposals)}. 이는 gate의 false negative와 proposal coverage를 사후 GT로 분석한 값이다.",f"Temporal complete-link cluster(IoU≥.5)의 query당 평균은 old8 {sum(p['old_clusters50'] for p in proposals)/n:.2f} → new proposals {sum(p['new_clusters50'] for p in proposals)/n:.2f}다. 이는 의미적 사건 정체성 gold가 아니며 threshold .3/.7 원자료도 보존한다.",'','| unique candidate budget | old oracle mIoU | new oracle mIoU | old R@.3 | new R@.3 | old R@.5 | new R@.5 | old R@.7 | new R@.7 |','|---|---:|---:|---:|---:|---:|---:|---:|---:|']
@@ -214,7 +215,9 @@ def report(n,refresh=True):
  text+=['','### Budget scaling와 ablation의 paired 차이','','| comparison | ΔmIoU [95% CI] | ΔR@.5 [95% CI] |','|---|---|---|']
  for method,vals in paired.items():
   a,b=vals['miou'],vals['r50'];text.append(f"| {method} | {a['delta']:+.4f} [{a['low']:+.4f},{a['high']:+.4f}] | {100*b['delta']:+.2f} [{100*b['low']:+.2f},{100*b['high']:+.2f}] |")
- text+=['','## 범위별 결과','','[dataset·영상 길이·GT 비율·두 축 교차표](STRATA.md). paired-valid 결과는 실패를 제외하므로 전체 성능·실패율과 함께 해석한다.',''];(dest/'REPORT.md').write_text('\n'.join(text));strata(rows,methods,dest,n);build_view(n)
+ text+=['','## 범위별 결과','','[dataset·영상 길이·GT 비율·두 축 교차표](STRATA.md). paired-valid 결과는 실패를 제외하므로 전체 성능·실패율과 함께 해석한다.','']
+ if (dest/'FINDINGS.md').exists():text[4:4]=['해석 주의: 실패 분석에서 기존 greedy와 신규 후보의 duration 기준 불일치, 최종 비교 pool의 동일 interval 중복, 숫자 prefix 내부 확장 부족을 확인했다. 아래는 원래 실행 정책의 결과이며, 알고리즘 일반의 우열이나 초기 가설 기각으로 해석하지 않는다. [실패 원인 분석](FINDINGS.md).','']
+ (dest/'REPORT.md').write_text('\n'.join(text));strata(rows,methods,dest,n);build_view(n)
  (out/'code/reporting').mkdir(parents=True,exist_ok=True);(out/'code/reporting'/Path(__file__).name).write_bytes(Path(__file__).read_bytes())
  write(out/'validation/report.json',dict(passed=True,queries=n,all_methods=len(METHODS),search_caps=CONFIG['search_token_caps'],input_hashes_verified=True,baseline_records_unchanged=True,tree_parent_invariants=True,budget_caps_verified=True,submodular_approximation_verified=True,source=sha(Path(__file__))))
  if refresh:subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)

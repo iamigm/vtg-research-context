@@ -15,6 +15,16 @@ class Progress:
  def heartbeat(self):
   while not self.stop.wait(20):self.update()
 
+def verify_worker_exit(process):
+ """Both Popen and attached workers expose poll(); no returncode attribute is required."""
+ code=process.poll()
+ if code is not None and code!=0:raise RuntimeError(f'Worker {process.pid} exited {code}')
+
+def completion_status(counts,recovery_elapsed_seconds,completed_at=None):
+ import datetime
+ completed_at=completed_at or stamp();manifest=read(OUT/'metadata/source_manifest.json');origin=datetime.datetime.fromisoformat(manifest['started_at']);end=datetime.datetime.fromisoformat(completed_at)
+ return dict(state='complete',stage='complete',completed=900,total=900,percentage=100,counts=dict(counts),elapsed_seconds=(end-origin).total_seconds(),elapsed_seconds_scope='initialization through final report, including recovery gap',inference_elapsed_seconds=max(read(OUT/'metadata'/f'worker{i}.json')['elapsed_seconds'] for i in range(2)),postprocessing_recovery_seconds=recovery_elapsed_seconds,timestamp=completed_at,eta_seconds=0)
+
 def setup():
  cohort=read(COHORT);assert len(cohort)==900
  assert collections.Counter(s['dataset'] for s in cohort)==dict.fromkeys(['charades-timelens','activitynet-timelens','qvhighlights-timelens'],300)
@@ -119,14 +129,15 @@ def supervise(existing=False):
     write(OUT/'metadata/status.json',status)
     with (OUT/'logs/progress.log').open('a') as f:f.write(json.dumps(status,ensure_ascii=False)+'\n')
     if any(s.get('state')=='failed' for s in states):raise RuntimeError('Worker failure; see worker runner logs')
-    for proc in workers:
-     if proc.poll() is not None and proc.returncode!=0:raise RuntimeError(f'Worker {proc.pid} exited {proc.returncode}')
+    for proc in workers:verify_worker_exit(proc)
     for size in (300,600,900):
-     if size not in reported and all(s['sample_key'] in completed for s in cohort[:size]):subprocess.run([sys.executable,str(Path(__file__).with_name('event_tree_report.py')),str(size)],check=True);reported.add(size)
+     if size not in reported and all(s['sample_key'] in completed for s in cohort[:size]):
+      status.update(stage=f'reporting_pilot{size}',timestamp=stamp());write(OUT/'metadata/status.json',status)
+      subprocess.run([sys.executable,str(Path(__file__).with_name('event_tree_report.py')),str(size)],check=True);reported.add(size)
     if n==900:break
     time.sleep(20)
    for proc in workers:assert proc.wait()==0
-   write(OUT/'metadata/status.json',dict(state='complete',stage='complete',completed=900,total=900,percentage=100,counts=dict(counts),elapsed_seconds=time.monotonic()-started,timestamp=stamp(),eta_seconds=0))
+   write(OUT/'metadata/status.json',completion_status(counts,time.monotonic()-started))
   except BaseException:
    write(OUT/'metadata/status.json',dict(state='failed',stage='failed',completed=n,total=900,timestamp=stamp(),error=traceback.format_exc()));raise
 

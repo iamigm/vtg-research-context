@@ -1991,3 +1991,24 @@
 추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
 
 - evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/status.json
+
+## 2026-11-05T13:27:56.072984+09:00
+
+원본 파일 직접 관찰: 18개 실행, 586개 코드·의존성 파일. 이전 commit: 86fd29c2f18e958605705c2e49124223c3287c9c.
+
+추가 5 / 변경 9 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/event_tree_failure_analysis.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/reporting/event_tree_failure_analysis.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/reporting/event_tree_report.py
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/FINDINGS.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/STRATA.md
+- code/experiments/zero-shot/_lib/event_tree_check.py
+- code/experiments/zero-shot/_lib/event_tree_report.py
+- code/experiments/zero-shot/_lib/event_tree_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/REPORT.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md

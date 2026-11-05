@@ -58,6 +58,14 @@ def run():
  b=FakeBackend();b.meter(100);x=b.choice('same');b.choice('same');assert b.spent==100 and len(b.active)==2 and b.active[0]==b.active[1]
  try:b.choice('same');raise AssertionError('Budget must stop cache replay too')
  except BudgetEnd:pass
+ from event_tree_runtime import verify_worker_exit
+ class PollOnly:
+  pid=123
+  def __init__(self,value):self.value=value
+  def poll(self):return self.value
+ verify_worker_exit(PollOnly(None));verify_worker_exit(PollOnly(0))
+ try:verify_worker_exit(PollOnly(1));raise AssertionError('Failed worker must raise')
+ except RuntimeError:pass
  result=dict(passed=True,queries=900,methods=len(METHODS),source_inputs_verified=True,cohort_prefixes_identical=True,public_input_gt_redaction=True,clock_parser=True,leading_digit_prefix_reconstruction=True,tree_backup_invariants=True,cache_cost_charged=True,budget_caps=True,contradiction_backtracking=True,commit_ablation=True,submodularity_exhaustive_subset_check=True,coverage_greedy=greedy,coverage_optimal=optimal,coverage_ratio=greedy/optimal,timestamp=stamp())
  write(OUT/'validation/cpu.json',result);print(json.dumps(result,ensure_ascii=False,indent=2));return result
 
