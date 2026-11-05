@@ -1,0 +1,150 @@
+{
+  "models": {
+    "Qwen2-VL-2B-Instruct": {
+      "phase": "ready",
+      "repo_id": "Qwen/Qwen2-VL-2B-Instruct",
+      "revision": "895c3a49bc3fa70a340399125c650a463535e71c",
+      "path": "/home/irteam/backbones/models/Qwen2-VL-2B-Instruct",
+      "files": {
+        "chat_template.json": {
+          "bytes": 1050,
+          "sha256": "ad60d90252ed0b0705ba14e2d0ad0fec0beac1ea955642b54059b36052d8bc96",
+          "hub_sha256_verified": false
+        },
+        "config.json": {
+          "bytes": 1196,
+          "sha256": "422adefa19e62dd175961cec85bc0400344fe5bf9b22bd1182e05aaae78556e0",
+          "hub_sha256_verified": false
+        },
+        "generation_config.json": {
+          "bytes": 272,
+          "sha256": "d2864bf1edea5863d331edfff48106b586a366f5a2c41aa77731fadc53aa25d2",
+          "hub_sha256_verified": false
+        },
+        "merges.txt": {
+          "bytes": 1671839,
+          "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+          "hub_sha256_verified": false
+        },
+        "model-00001-of-00002.safetensors": {
+          "bytes": 3988609112,
+          "sha256": "994ac2b03f97de8bc647d0fe5eba2e4b632b3e28dc03574c29bdfc36cf47e1b9",
+          "hub_sha256_verified": true
+        },
+        "model-00002-of-00002.safetensors": {
+          "bytes": 429441656,
+          "sha256": "92540d8353c8d226a589a3b179bdb33851c970ee2cc2ac7ba035f79425e7b833",
+          "hub_sha256_verified": true
+        },
+        "model.safetensors.index.json": {
+          "bytes": 56411,
+          "sha256": "260ab9fa1418d6d6ab79daa1d9da2c47264f3b72edb4630fc799077ac67d27c6",
+          "hub_sha256_verified": false
+        },
+        "preprocessor_config.json": {
+          "bytes": 347,
+          "sha256": "b5eaad0c2815f07631535dcc58f3c462b0d73693638ad21d19f3c50820eae1cc",
+          "hub_sha256_verified": false
+        },
+        "tokenizer.json": {
+          "bytes": 7029741,
+          "sha256": "cb63a0a23eef3d5b01063a9880a1925a65aaf4d1591d519910ee3527852950a0",
+          "hub_sha256_verified": false
+        },
+        "tokenizer_config.json": {
+          "bytes": 4190,
+          "sha256": "ff5c4fd898fe8c39591eb70e5d39d2782802d4204d6ae9ba1223252f354842a0",
+          "hub_sha256_verified": false
+        },
+        "vocab.json": {
+          "bytes": 2776833,
+          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "hub_sha256_verified": false
+        }
+      },
+      "complete_shard_set": true,
+      "processor_class": "Qwen2VLProcessor"
+    },
+    "Qwen2-VL-7B-Instruct": {
+      "phase": "ready",
+      "repo_id": "Qwen/Qwen2-VL-7B-Instruct",
+      "revision": "eed13092ef92e448dd6875b2a00151bd3f7db0ac",
+      "path": "/home/irteam/backbones/models/Qwen2-VL-7B-Instruct",
+      "files": {
+        "chat_template.json": {
+          "bytes": 1050,
+          "sha256": "ad60d90252ed0b0705ba14e2d0ad0fec0beac1ea955642b54059b36052d8bc96",
+          "hub_sha256_verified": false
+        },
+        "config.json": {
+          "bytes": 1197,
+          "sha256": "4745aaba24756172765cb804b86512792202df6c65ac28989355971bbb27649c",
+          "hub_sha256_verified": false
+        },
+        "generation_config.json": {
+          "bytes": 244,
+          "sha256": "85fb0349cef993fe7d1cab4baa61c81a42326c3a549dc220fcecb43e6eea3413",
+          "hub_sha256_verified": false
+        },
+        "merges.txt": {
+          "bytes": 1671839,
+          "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+          "hub_sha256_verified": false
+        },
+        "model-00001-of-00005.safetensors": {
+          "bytes": 3898649896,
+          "sha256": "eab4f4dc1abf860794c98ce3759b4ace1059fc0fc041ede76b88988b3557c132",
+          "hub_sha256_verified": true
+        },
+        "model-00002-of-00005.safetensors": {
+          "bytes": 3864726320,
+          "sha256": "0546b7cd070ff239de0f61a28770de6a0ac517ad313071e151653e38911ffb25",
+          "hub_sha256_verified": true
+        },
+        "model-00003-of-00005.safetensors": {
+          "bytes": 3864726424,
+          "sha256": "11368ea1e9c0039ca54012a74ac32d543a9e9d980b2d0ad7e93af0341ace1fe6",
+          "hub_sha256_verified": true
+        },
+        "model-00004-of-00005.safetensors": {
+          "bytes": 3864733680,
+          "sha256": "381e110d74db594cc24956af0e74a01ae02104497113a78926990c5bd1f395f6",
+          "hub_sha256_verified": true
+        },
+        "model-00005-of-00005.safetensors": {
+          "bytes": 1089994880,
+          "sha256": "e76ec4dc2e7c0dcbe3432e58fae08e62204a2ef2323069d85c8fa0affb87332a",
+          "hub_sha256_verified": true
+        },
+        "model.safetensors.index.json": {
+          "bytes": 56470,
+          "sha256": "4cb1cbc47a33f4b18226b5d938127227cbdcb21bf0448f78aa665e3dbe7f15d6",
+          "hub_sha256_verified": false
+        },
+        "preprocessor_config.json": {
+          "bytes": 347,
+          "sha256": "b5eaad0c2815f07631535dcc58f3c462b0d73693638ad21d19f3c50820eae1cc",
+          "hub_sha256_verified": false
+        },
+        "tokenizer.json": {
+          "bytes": 7029741,
+          "sha256": "cb63a0a23eef3d5b01063a9880a1925a65aaf4d1591d519910ee3527852950a0",
+          "hub_sha256_verified": false
+        },
+        "tokenizer_config.json": {
+          "bytes": 4190,
+          "sha256": "ff5c4fd898fe8c39591eb70e5d39d2782802d4204d6ae9ba1223252f354842a0",
+          "hub_sha256_verified": false
+        },
+        "vocab.json": {
+          "bytes": 2776833,
+          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "hub_sha256_verified": false
+        }
+      },
+      "complete_shard_set": true,
+      "processor_class": "Qwen2VLProcessor"
+    }
+  },
+  "phase": "complete"
+}

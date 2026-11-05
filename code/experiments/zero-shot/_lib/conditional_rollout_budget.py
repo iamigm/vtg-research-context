@@ -310,6 +310,7 @@ def iou(s,e,gt):
     return max(0.,min(e,gt[1])-max(s,gt[0]))/max(1e-12,max(e,gt[1])-min(s,gt[0]))
 
 def report():
+    from rollout_method_docs import formalize, refresh_spec
     import csv
     records=[read(p) for p in sorted((OUT/'trees').glob('*.json'))]
     lines=['# 시작 조건부 종료 탐색 예산 진단','',
@@ -404,7 +405,8 @@ def report():
         f'[시작별 종료 분포 차이](../../artifacts/runs/{RUN}/metrics/start_end_dependence.json)', '',
         f'완료 원자료 {len(records)}/30. 시작별 종료 질량은 [조건부 종료 자료](../../artifacts/runs/{RUN}/metrics/conditional_end.json), 예산별 자료는 [CSV](../../artifacts/runs/{RUN}/metrics/budget.csv)에 있다.', '',
         '예산 권고는 raw joint 질량 0.90/0.95 달성 여부와 oracle 성능 포화, 계산량을 함께 보고 정한다. 최대 상한에서 미달하면 예산을 확보했다고 주장하지 않는다. 숫자 문법 제한 때문에 0.95가 도달 불가능할 수도 있다.']
-    (REPORT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    (REPORT/'REPORT.md').write_text(formalize('\n'.join(lines)+'\n','conditional_budget',30))
+    refresh_spec(REPORT,'conditional_budget',30)
     for r in records:
         for t in r['trees']:
             for s in t['snapshots']:

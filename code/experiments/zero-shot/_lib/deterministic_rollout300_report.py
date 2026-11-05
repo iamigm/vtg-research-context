@@ -1,4 +1,5 @@
 from result_layout import write_result_text, relocate_path
+from rollout_method_docs import formalize, refresh_spec
 """Performance/cost reporting without any model calls or GT-dependent generation."""
 import collections,csv,math,statistics,subprocess,sys
 import numpy as np
@@ -113,7 +114,8 @@ def report(records=None,cohort_label=None):
  '고정 중첩 코호트의 층화 진단 표본이다. 원래 벤치마크의 무작위 평균 또는 독립 test라고 부르지 않는다. 원래300개는 앞선 개발30개를 포함하며 추가600개는 별도 범위로 보고한다. 정책·후보 상한은 기존300개 실행과 동일하다.']
  from deterministic_rollout_diagnostics import diagnostic_sections
  text+=diagnostic_sections(records,rows,OUT)
- write_result_text(REPORT/'REPORT.md', '\n'.join(text)+'\n')
+ write_result_text(REPORT/'REPORT.md', formalize('\n'.join(text)+'\n','deterministic',count))
+ refresh_spec(REPORT,'deterministic',count)
  strata(rows)
  # Validate aggregate denominators, original identities and GT-free selector invariance.
  assert len(rows)==count*len(BUDGETS)*len(METHODS)

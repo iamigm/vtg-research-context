@@ -1,5 +1,6 @@
 """Validate rollout candidates, compare paired baselines, and build video viewer."""
 from result_layout import relocate_path, write_result_text
+from rollout_method_docs import formalize
 from pathlib import Path
 import json,statistics,hashlib,os,gzip,base64
 import numpy as np
@@ -67,7 +68,7 @@ def build():
             lines.append(f"- {model} {var}: 세 벤치마크 평균 mIoU 차이 {avg([g['miou']-g['baseline_miou'] for g in gs]):+.2f} pp, 평균 고유 응답 {avg([g['mean_unique_answers'] for g in gs]):.2f}/5. Sampling 설정 변경의 관측 결과이며 후보 집합 크기만의 인과 효과는 아니다.")
     lines+=['','기존 decoder와 프레임 전처리를 유지했다. 앞선 MMCO 진단에서 sparse Decord와 순차 Decord 사이에 9개 영상의 표본 픽셀 차이가 있었으므로 입력 디코딩 품질에 관한 기존 한계도 유지된다.','',
         '[영상·생성 단계별 전체 후보 집합 HTML](report.html) · [정량 JSON](summary.json) · [진행 로그](logs/progress.log)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), formalize('\n'.join(lines)+'\n','stochastic',300))
     write_result_text((relocate_path(OUT/'manifest.js')), 'window.MANIFEST='+json.dumps(manifest,ensure_ascii=False)+';\n')
     html=HTML.replace('Full-head autoregressive top-30','Stochastic rollout · top-k / top-p').replace('Full-head top-30','Stochastic rollout').replace('전체 어휘 softmax · top-30 재정규화 없음','단계별 실제 후보 전체 · sampling 확률 / 필터 전 확률 / raw 확률')
     a=html.index('<select id="mode">');b=html.index('</select>',a)+len('</select>')

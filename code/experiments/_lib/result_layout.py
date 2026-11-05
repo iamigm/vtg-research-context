@@ -6,10 +6,14 @@ unrelated paths are returned unchanged; no global pathlib behavior is changed.
 import json
 import os
 import re
+import sys
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlsplit, unquote, quote
 ROOT=Path(str(Path(__file__).resolve().parent.parent).replace('/home1/irteam/','/home/irteam/'))
+COMMON_LIB = str(ROOT / '_lib')
+if COMMON_LIB not in sys.path:
+ sys.path.append(COMMON_LIB)
 @lru_cache(maxsize=1)
 def layout():
  return json.loads((ROOT/'artifacts/maintenance/layout.json').read_text())

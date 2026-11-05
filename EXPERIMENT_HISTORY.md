@@ -2021,3 +2021,49 @@
 
 - code/experiments/zero-shot/_lib/event_tree_report.py
 - evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+
+## 2026-11-05T17:09:24.870572+09:00
+
+원본 파일 직접 관찰: 18개 실행, 591개 코드·의존성 파일. 이전 commit: 936ac6da4661160b15d450447fb51ededad1f21a.
+
+추가 12 / 변경 27 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/check_fps_family_view.py
+- code/experiments/zero-shot/_lib/rollout_method_docs.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metrics/summary.csv
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metrics/summary.json
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/AXES.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/REPORT.md
+- reports/experiments/_shared/math_renderer/README.md
+- code/experiments/_shared/math_renderer/katex/LICENSE
+- code/experiments/_shared/math_renderer/katex/katex.min.css
+- code/experiments/_shared/math_renderer/katex/katex.min.js
+- evidence/experiments/_shared/math_renderer/katex/manifest.json
+- evidence/backbones/manifests/qwen2_vl_download.json
+- code/experiments/zero-shot/_lib/conditional_rollout_budget.py
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- code/experiments/zero-shot/_lib/event_tree_report.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration_report.py
+- code/experiments/zero-shot/_lib/timelens_rollout_report.py
+- evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/REPORT.md
+- reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/reconsideration/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/reconsideration/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/reconsideration/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/rollout/stochastic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md
+- code/experiments/_lib/family_catalog.py
+- code/experiments/_lib/family_view.css
+- code/experiments/_lib/family_view.js
+- code/experiments/_lib/result_layout.py
+- evidence/backbones/manifests/registry.json
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md

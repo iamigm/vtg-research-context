@@ -1,23 +1,10 @@
 {
-  "timestamp": "2026-11-05T14:59:46.909137+09:00",
-  "state": "running",
-  "stage": "parallel_generation",
-  "completed": 5838,
+  "timestamp": "2026-11-05T16:41:49.651616+09:00",
+  "state": "complete",
+  "stage": "complete",
+  "completed": 6000,
   "total": 6000,
-  "percentage": 97.3,
-  "counts": {
-    "instruct|charades-timelens": 1000,
-    "instruct|activitynet-timelens": 1000,
-    "instruct|qvhighlights-timelens": 1000,
-    "thinking|charades-timelens": 1000,
-    "thinking|activitynet-timelens": 1000,
-    "thinking|qvhighlights-timelens": 838
-  },
-  "elapsed_seconds": 7267.690285053104,
-  "eta_seconds": 5527.539090040389,
-  "eta_scope": "remaining inference based on fresh responses after resume; startup included, reporting excluded",
-  "workers": [
-    571160,
-    571161
-  ]
+  "percentage": 100.0,
+  "validation_passed": true,
+  "report": "/home/irteam/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/REPORT.md"
 }

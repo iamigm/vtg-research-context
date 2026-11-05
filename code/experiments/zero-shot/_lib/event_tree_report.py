@@ -1,5 +1,6 @@
 """Reports and shared-view integration for event proposal → boundary search."""
 from event_tree_core import *
+from rollout_method_docs import formalize, refresh_spec
 import collections,csv,itertools,subprocess,sys
 
 LABELS={'likelihood_best_first':'Likelihood best-first','value_best_first':'Value best-first','value_beam':'Value beam','diverse_beam':'Diverse beam','uct':'UCT + progressive widening','puct':'PUCT + progressive widening','neural_controller':'Neural controller','self_refine':'Self-Refine','submodular_coverage':'Submodular coverage','reward_balanced':'Reward-balanced allocation','sequential_halving':'Sequential halving','nucleus_frontier':'Candidate nucleus frontier','typicality_frontier':'Candidate typicality frontier','commit_then_refine':'Commit then refine','token_seed_best_first':'Token-seed best-first'}
@@ -113,7 +114,7 @@ def temporal_group_count(spans,threshold=.5):
  return len(groups)
 def initialize(cohort):
  spec=SPEC+'\n## 문헌 조사와 적용 범위\n\n'+'\n'.join(f'- [{t}]({u}): {note}' for t,u,note in LITERATURE)+'\n'
- (REPORT/'SPEC.md').write_text(spec)
+ (REPORT/'SPEC.md').write_text(formalize(spec,'event_tree_search',900,spec=True))
  if not (REPORT/'REPORT.md').exists():(REPORT/'REPORT.md').write_text('# Event tree search · pilot900\n\n상태: running. 아직 완료된 성능 결과가 아니다.\n\n[설계·방법·수식·문헌](SPEC.md)\n')
  samples=[]
  for s in cohort:
@@ -218,7 +219,7 @@ def report(n,refresh=True):
  text+=['','## 범위별 결과','','[dataset·영상 길이·GT 비율·두 축 교차표](STRATA.md). paired-valid 결과는 실패를 제외하므로 전체 성능·실패율과 함께 해석한다.','']
  findings=ROOT/'results'/FAMILY/'pilot/900/FINDINGS.md'
  if findings.exists():text[4:4]=['해석 주의: 실패 분석에서 기존 greedy와 신규 후보의 duration 기준 불일치, 최종 비교 pool의 동일 interval 중복, 숫자 prefix 내부 확장 부족을 확인했다. 아래는 원래 실행 정책의 결과이며, 알고리즘 일반의 우열이나 초기 가설 기각으로 해석하지 않는다. [실패 원인 분석]('+os.path.relpath(findings,dest)+').','']
- (dest/'REPORT.md').write_text('\n'.join(text));strata(rows,methods,dest,n);build_view(n)
+ (dest/'REPORT.md').write_text(formalize('\n'.join(text),'event_tree_search',n));refresh_spec(dest,'event_tree_search',n);strata(rows,methods,dest,n);build_view(n)
  (out/'code/reporting').mkdir(parents=True,exist_ok=True);(out/'code/reporting'/Path(__file__).name).write_bytes(Path(__file__).read_bytes())
  write(out/'validation/report.json',dict(passed=True,queries=n,all_methods=len(METHODS),search_caps=CONFIG['search_token_caps'],input_hashes_verified=True,baseline_records_unchanged=True,tree_parent_invariants=True,budget_caps_verified=True,submodular_approximation_verified=True,source=sha(Path(__file__))))
  if refresh:subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)

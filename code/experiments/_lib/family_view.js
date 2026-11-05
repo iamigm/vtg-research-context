@@ -1,4 +1,5 @@
 (async()=>{
+ const mathAssets=new URL('../_shared/math_renderer/katex/',document.currentScript.src);let mathReady;
  const $=id=>document.getElementById(id),root=$('family-app');let config,active,serial=0;const contexts=new Map();
  window.addEventListener('experiment-refresh',event=>{
   if(!active)return;
@@ -31,11 +32,28 @@
  $('reference-menu').addEventListener('keydown',event=>{if(event.key==='Escape'){$('reference-menu').open=false;$('reference-menu').querySelector('summary').focus();}});
  const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const urlFor=e=>new URL(e.href,location.href).href;
+ async function renderMath(container){
+  const expressions=[...container.querySelectorAll('[data-math-tex]')];if(!expressions.length)return;
+  if(!mathReady)mathReady=new Promise((resolve,reject)=>{
+   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('katex.min.css',mathAssets);document.head.append(css);
+   if(window.katex){resolve();return}
+   const script=document.createElement('script');script.src=new URL('katex.min.js',mathAssets);script.onload=resolve;script.onerror=()=>reject(Error('수식 표시 파일을 불러오지 못했습니다.'));document.head.append(script);
+  });
+  await mathReady;
+  for(const element of expressions)window.katex.render(element.dataset.mathTex,element,{displayMode:element.classList.contains('math-block'),throwOnError:false,trust:false,maxExpand:1000});
+ }
+ function revealReportHash(report,hash){
+  if(!hash)return;let id;try{id=decodeURIComponent(hash.slice(1))}catch{return}
+  const target=[...report.querySelectorAll('[id]')].find(element=>element.id===id);if(!target)return;
+  for(let element=target;element&&element!==report;element=element.parentElement)if(element.tagName==='DETAILS')element.open=true;
+  target.scrollIntoView({block:'start'});
+ }
  function markdown(text,base){
   const tokens=[];const save=s=>{tokens.push(s);return `\u0000${tokens.length-1}\u0000`};
   function inline(raw){
-   let s=escape(raw);
-   s=s.replace(/`([^`]+)`/g,(_,t)=>save('<code>'+t+'</code>'));
+   let s=raw.replace(/`([^`]+)`/g,(_,t)=>save('<code>'+escape(t)+'</code>'));
+   s=s.replace(/\\\((.+?)\\\)|(?<![\\$])\$(?!\$)([^\n$]+?)\$(?!\$)/g,(_,paren,dollar)=>save('<span class="math-inline" data-math-tex="'+escape(paren||dollar)+'">'+escape(paren||dollar)+'</span>'));
+   s=escape(s);
    s=s.replace(/(!?)\[([^\]]*)\]\(([^\s)]+)(?:\s+&quot;[^)]*&quot;)?\)/g,(_,img,label,ref)=>{
     const decoded=ref.replace(/&amp;/g,'&');let url;
     try{url=new URL(decoded,base);if(!['http:','https:'].includes(url.protocol))return label}catch{return label}
@@ -44,11 +62,16 @@
    s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>');
    return s.replace(/\u0000(\d+)\u0000/g,(_,i)=>tokens[+i]);
   }
-  const lines=text.split('\n'),out=[];let i=0;
+  const lines=text.split('\n'),out=[];let i=0,details=0;
   const cells=line=>line.trim().replace(/^\||\|$/g,'').split('|');
   while(i<lines.length){const line=lines[i];
    if(!line.trim()){i++;continue}
    if(line.startsWith('```')){const code=[];i++;while(i<lines.length&&!lines[i].startsWith('```'))code.push(lines[i++]);i++;out.push('<pre><code>'+escape(code.join('\n'))+'</code></pre>');continue}
+   if(line.trim()==='$$'){const tex=[];i++;while(i<lines.length&&lines[i].trim()!=='$$')tex.push(lines[i++]);i++;const expression=tex.join('\n');out.push('<div class="math-block" data-math-tex="'+escape(expression)+'">'+escape(expression)+'</div>');continue}
+   const detail=line.trim().match(/^<details(?: id="([a-zA-Z][a-zA-Z0-9_-]*)")?( open)?>$/);
+   if(detail){out.push('<details class="method-details"'+(detail[1]?' id="'+detail[1]+'"':'')+(detail[2]?' open':'')+'>');details++;i++;continue}
+   if(line.trim()==='</details>'&&details){out.push('</details>');details--;i++;continue}
+   const summary=line.trim().match(/^<summary>(.*)<\/summary>$/);if(summary&&details){out.push('<summary>'+inline(summary[1])+'</summary>');i++;continue}
    const heading=line.match(/^(#{1,6})\s+(.*)$/);if(heading){out.push(`<h${heading[1].length}>${inline(heading[2])}</h${heading[1].length}>`);i++;continue}
    if(line.includes('|')&&i+1<lines.length&&/^\s*\|?\s*:?-{3}/.test(lines[i+1])){
     const header=cells(line);i+=2;const rows=[];while(i<lines.length&&lines[i].trim().startsWith('|'))rows.push(cells(lines[i++]));
@@ -59,7 +82,7 @@
    if(/^<!--/.test(line)){while(i<lines.length&&!lines[i].includes('-->'))i++;i++;continue}
    out.push('<p>'+inline(line)+'</p>');i++;
   }
-  return out.join('\n');
+  while(details--)out.push('</details>');return out.join('\n');
  }
  const documentLabels={SPEC:'실험 설계',STRATA:'조건별 결과',END_DECIMAL_CASES:'소수점 분기 사례',SCHEMA:'데이터 구조',SPATIAL_AUDIT:'공간 입력 검증',CACHE_REPORT:'캐시 분석',PIPELINE_REVIEW:'파이프라인 검토',NEXT_EXPERIMENT:'후속 실험',ANALYSIS:'상세 분석',REPORT:'추가 보고서'};
  function indexNavigation(){
@@ -163,7 +186,7 @@
   }else{
    try{frame.contentDocument?.querySelectorAll('video,audio').forEach(media=>media.pause())}catch{}
    report.textContent='보고서를 불러오는 중…';
-   try{const response=await fetch(urlFor(e),{cache:refresh?'no-store':'default'});if(!response.ok)throw Error(response.status);const text=await response.text();if(call!==serial)return;report.innerHTML=markdown(text,urlFor(e));report.scrollTop=0;report.querySelectorAll('a').forEach(a=>{const target=config.entries.find(x=>new URL(urlFor(x)).pathname===new URL(a.href).pathname);if(target)a.onclick=ev=>{ev.preventDefault();show(target.id,false,new URL(a.href).hash)};else{a.target='_blank';a.rel='noopener'}})}catch(error){if(call===serial)report.textContent='보고서를 불러오지 못했습니다: '+error.message}
+   try{const response=await fetch(urlFor(e),{cache:refresh?'no-store':'default'});if(!response.ok)throw Error(response.status);const text=await response.text();if(call!==serial)return;report.innerHTML=markdown(text,urlFor(e));report.scrollTop=0;report.querySelectorAll('a').forEach(a=>{const target=config.entries.find(x=>new URL(urlFor(x)).pathname===new URL(a.href).pathname);if(target)a.onclick=ev=>{ev.preventDefault();show(target.id,false,new URL(a.href).hash)};else{a.target='_blank';a.rel='noopener'}});await renderMath(report);if(call!==serial)return;revealReportHash(report,location.hash)}catch(error){if(call===serial)report.textContent='보고서를 불러오지 못했습니다: '+error.message}
   }
  }
  try{
