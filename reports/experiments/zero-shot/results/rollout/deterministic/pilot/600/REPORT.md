@@ -469,3 +469,8 @@ Token 경로·분포 탐색은 토큰 선택과 조건부 token distribution를 
 
 원래 입력 tensor hash, greedy suffix, 강제 토큰 확률과 전체 응답 확률 곱을 검증했다. [기존 샘플별 HTML에서 보기](viewer.html#panel=distributions). 원자료는 전체900개 실행의 token_traces를 공유하며 pilot별로 복제하지 않는다.
 <!-- rollout-distributions:end -->
+
+<!-- oracle-diversity-reference -->
+## Oracle interval overlap
+
+[Oracle와 greedy가 겹치는지, 전체 완성 분기 중 oracle와 겹치는 비율](oracle_diversity/REPORT.md). 교집합 길이>0만 overlap으로 사용한 CPU 분석이다.

@@ -1,0 +1,599 @@
+{
+  "1": {
+    "queries": 300,
+    "budget": 1,
+    "greedy_miou": 0.48696153620013305,
+    "oracle_miou": 0.48696153620013305,
+    "greedy_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "oracle_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "improved": 0,
+    "material_improvement": 0,
+    "oracle_correct": 154,
+    "singleton_queries": 300,
+    "correct_singleton_queries": 154,
+    "singleton_non_greedy": 0,
+    "out_of_duration": 29,
+    "tied_queries": 0,
+    "tied_correct_queries": 0,
+    "tie_category_ambiguous": 0,
+    "categories": {
+      "identical": {
+        "n": 300,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 154,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": null
+      },
+      "overlapping": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": null
+      },
+      "disjoint": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": null
+      },
+      "invalid_greedy": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": null
+      },
+      "invalid_oracle": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": null
+      }
+    },
+    "groups": {
+      "other_candidates": {
+        "total": 0,
+        "overlap": 0,
+        "invalid": 0,
+        "disjoint": 0,
+        "pooled_fraction": null,
+        "macro_fraction": null,
+        "macro_n": 0,
+        "average_overlaps": 0
+      },
+      "all_branches": {
+        "total": 0,
+        "overlap": 0,
+        "invalid": 0,
+        "disjoint": 0,
+        "pooled_fraction": null,
+        "macro_fraction": null,
+        "macro_n": 0,
+        "average_overlaps": 0
+      },
+      "other_branches": {
+        "total": 0,
+        "overlap": 0,
+        "invalid": 0,
+        "disjoint": 0,
+        "pooled_fraction": null,
+        "macro_fraction": null,
+        "macro_n": 0,
+        "average_overlaps": 0
+      }
+    },
+    "overlap_count_histogram": {
+      "0": 300
+    },
+    "macro_unique_interval_fraction": null
+  },
+  "4": {
+    "queries": 300,
+    "budget": 4,
+    "greedy_miou": 0.48696153620013305,
+    "oracle_miou": 0.6074276396227608,
+    "greedy_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "oracle_r": {
+      "0.3": 0.7833333333333333,
+      "0.5": 0.6566666666666666,
+      "0.7": 0.4866666666666667
+    },
+    "improved": 208,
+    "material_improvement": 192,
+    "oracle_correct": 197,
+    "singleton_queries": 20,
+    "correct_singleton_queries": 5,
+    "singleton_non_greedy": 10,
+    "out_of_duration": 24,
+    "tied_queries": 39,
+    "tied_correct_queries": 8,
+    "tie_category_ambiguous": 1,
+    "categories": {
+      "identical": {
+        "n": 91,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 54,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "overlapping": {
+        "n": 191,
+        "improved": 190,
+        "material_improvement": 174,
+        "oracle_correct": 134,
+        "improved_and_correct": 134,
+        "contribution_to_miou": 0.09317771490555322,
+        "share_of_gain": 0.7734766233673265
+      },
+      "disjoint": {
+        "n": 18,
+        "improved": 18,
+        "material_improvement": 18,
+        "oracle_correct": 9,
+        "improved_and_correct": 9,
+        "contribution_to_miou": 0.027288388517074533,
+        "share_of_gain": 0.22652337663267375
+      },
+      "invalid_greedy": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "invalid_oracle": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      }
+    },
+    "groups": {
+      "other_candidates": {
+        "total": 896,
+        "overlap": 768,
+        "invalid": 1,
+        "disjoint": 127,
+        "pooled_fraction": 0.8571428571428571,
+        "macro_fraction": 0.8577777777777778,
+        "macro_n": 300,
+        "average_overlaps": 2.56
+      },
+      "all_branches": {
+        "total": 896,
+        "overlap": 786,
+        "invalid": 1,
+        "disjoint": 109,
+        "pooled_fraction": 0.8772321428571429,
+        "macro_fraction": 0.8777777777777778,
+        "macro_n": 300,
+        "average_overlaps": 2.62
+      },
+      "other_branches": {
+        "total": 687,
+        "overlap": 577,
+        "invalid": 1,
+        "disjoint": 109,
+        "pooled_fraction": 0.8398835516739447,
+        "macro_fraction": 0.843400447427293,
+        "macro_n": 298,
+        "average_overlaps": 1.9233333333333333
+      }
+    },
+    "overlap_count_histogram": {
+      "0": 20,
+      "1": 14,
+      "2": 44,
+      "3": 222
+    },
+    "macro_unique_interval_fraction": 0.8566666666666667
+  },
+  "8": {
+    "queries": 300,
+    "budget": 8,
+    "greedy_miou": 0.48696153620013305,
+    "oracle_miou": 0.6434916269259936,
+    "greedy_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "oracle_r": {
+      "0.3": 0.8266666666666667,
+      "0.5": 0.6933333333333334,
+      "0.7": 0.5133333333333333
+    },
+    "improved": 239,
+    "material_improvement": 221,
+    "oracle_correct": 208,
+    "singleton_queries": 8,
+    "correct_singleton_queries": 2,
+    "singleton_non_greedy": 7,
+    "out_of_duration": 21,
+    "tied_queries": 36,
+    "tied_correct_queries": 15,
+    "tie_category_ambiguous": 2,
+    "categories": {
+      "identical": {
+        "n": 61,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 41,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "overlapping": {
+        "n": 215,
+        "improved": 215,
+        "material_improvement": 197,
+        "oracle_correct": 154,
+        "improved_and_correct": 154,
+        "contribution_to_miou": 0.11847578148045838,
+        "share_of_gain": 0.7568882183039898
+      },
+      "disjoint": {
+        "n": 24,
+        "improved": 24,
+        "material_improvement": 24,
+        "oracle_correct": 13,
+        "improved_and_correct": 13,
+        "contribution_to_miou": 0.038054309245402165,
+        "share_of_gain": 0.24311178169601091
+      },
+      "invalid_greedy": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "invalid_oracle": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      }
+    },
+    "groups": {
+      "other_candidates": {
+        "total": 2083,
+        "overlap": 1806,
+        "invalid": 2,
+        "disjoint": 275,
+        "pooled_fraction": 0.8670187229956793,
+        "macro_fraction": 0.8680952380952381,
+        "macro_n": 300,
+        "average_overlaps": 6.02
+      },
+      "all_branches": {
+        "total": 2083,
+        "overlap": 1830,
+        "invalid": 2,
+        "disjoint": 251,
+        "pooled_fraction": 0.8785405664906385,
+        "macro_fraction": 0.8795238095238095,
+        "macro_n": 300,
+        "average_overlaps": 6.1
+      },
+      "other_branches": {
+        "total": 1844,
+        "overlap": 1591,
+        "invalid": 2,
+        "disjoint": 251,
+        "pooled_fraction": 0.8627982646420824,
+        "macro_fraction": 0.8627356983061681,
+        "macro_n": 298,
+        "average_overlaps": 5.303333333333334
+      }
+    },
+    "overlap_count_histogram": {
+      "0": 8,
+      "1": 7,
+      "2": 13,
+      "3": 8,
+      "4": 10,
+      "5": 16,
+      "6": 37,
+      "7": 201
+    },
+    "macro_unique_interval_fraction": 0.8667936507936508
+  },
+  "16": {
+    "queries": 300,
+    "budget": 16,
+    "greedy_miou": 0.48696153620013305,
+    "oracle_miou": 0.6729581645261871,
+    "greedy_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "oracle_r": {
+      "0.3": 0.8433333333333334,
+      "0.5": 0.73,
+      "0.7": 0.5666666666666667
+    },
+    "improved": 255,
+    "material_improvement": 239,
+    "oracle_correct": 219,
+    "singleton_queries": 2,
+    "correct_singleton_queries": 1,
+    "singleton_non_greedy": 2,
+    "out_of_duration": 19,
+    "tied_queries": 40,
+    "tied_correct_queries": 18,
+    "tie_category_ambiguous": 0,
+    "categories": {
+      "identical": {
+        "n": 45,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 28,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "overlapping": {
+        "n": 230,
+        "improved": 230,
+        "material_improvement": 214,
+        "oracle_correct": 177,
+        "improved_and_correct": 177,
+        "contribution_to_miou": 0.14384608954916625,
+        "share_of_gain": 0.7733800921218988
+      },
+      "disjoint": {
+        "n": 25,
+        "improved": 25,
+        "material_improvement": 25,
+        "oracle_correct": 14,
+        "improved_and_correct": 14,
+        "contribution_to_miou": 0.04215053877688778,
+        "share_of_gain": 0.22661990787810113
+      },
+      "invalid_greedy": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "invalid_oracle": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      }
+    },
+    "groups": {
+      "other_candidates": {
+        "total": 4417,
+        "overlap": 3841,
+        "invalid": 3,
+        "disjoint": 573,
+        "pooled_fraction": 0.8695947475662215,
+        "macro_fraction": 0.872,
+        "macro_n": 300,
+        "average_overlaps": 12.803333333333333
+      },
+      "all_branches": {
+        "total": 4417,
+        "overlap": 3866,
+        "invalid": 3,
+        "disjoint": 548,
+        "pooled_fraction": 0.8752546977586597,
+        "macro_fraction": 0.8775555555555555,
+        "macro_n": 300,
+        "average_overlaps": 12.886666666666667
+      },
+      "other_branches": {
+        "total": 4162,
+        "overlap": 3611,
+        "invalid": 3,
+        "disjoint": 548,
+        "pooled_fraction": 0.867611725132148,
+        "macro_fraction": 0.8691434963247043,
+        "macro_n": 298,
+        "average_overlaps": 12.036666666666667
+      }
+    },
+    "overlap_count_histogram": {
+      "0": 2,
+      "1": 7,
+      "2": 4,
+      "3": 7,
+      "4": 6,
+      "5": 4,
+      "6": 3,
+      "7": 5,
+      "8": 1,
+      "9": 9,
+      "10": 5,
+      "11": 16,
+      "12": 9,
+      "13": 13,
+      "14": 19,
+      "15": 190
+    },
+    "macro_unique_interval_fraction": 0.8704529914529915
+  },
+  "32": {
+    "queries": 300,
+    "budget": 32,
+    "greedy_miou": 0.48696153620013305,
+    "oracle_miou": 0.7051250341630715,
+    "greedy_r": {
+      "0.3": 0.6466666666666666,
+      "0.5": 0.5133333333333333,
+      "0.7": 0.35
+    },
+    "oracle_r": {
+      "0.3": 0.8733333333333333,
+      "0.5": 0.75,
+      "0.7": 0.61
+    },
+    "improved": 270,
+    "material_improvement": 257,
+    "oracle_correct": 225,
+    "singleton_queries": 0,
+    "correct_singleton_queries": 0,
+    "singleton_non_greedy": 0,
+    "out_of_duration": 15,
+    "tied_queries": 49,
+    "tied_correct_queries": 28,
+    "tie_category_ambiguous": 0,
+    "categories": {
+      "identical": {
+        "n": 30,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 17,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "overlapping": {
+        "n": 243,
+        "improved": 243,
+        "material_improvement": 230,
+        "oracle_correct": 192,
+        "improved_and_correct": 192,
+        "contribution_to_miou": 0.168892125675395,
+        "share_of_gain": 0.7741539132457729
+      },
+      "disjoint": {
+        "n": 27,
+        "improved": 27,
+        "material_improvement": 27,
+        "oracle_correct": 16,
+        "improved_and_correct": 16,
+        "contribution_to_miou": 0.049271372287543434,
+        "share_of_gain": 0.22584608675422707
+      },
+      "invalid_greedy": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      },
+      "invalid_oracle": {
+        "n": 0,
+        "improved": 0,
+        "material_improvement": 0,
+        "oracle_correct": 0,
+        "improved_and_correct": 0,
+        "contribution_to_miou": 0.0,
+        "share_of_gain": 0.0
+      }
+    },
+    "groups": {
+      "other_candidates": {
+        "total": 8868,
+        "overlap": 7656,
+        "invalid": 4,
+        "disjoint": 1208,
+        "pooled_fraction": 0.8633288227334236,
+        "macro_fraction": 0.8696774193548387,
+        "macro_n": 300,
+        "average_overlaps": 25.52
+      },
+      "all_branches": {
+        "total": 8868,
+        "overlap": 7683,
+        "invalid": 4,
+        "disjoint": 1181,
+        "pooled_fraction": 0.8663734776725305,
+        "macro_fraction": 0.8725806451612903,
+        "macro_n": 300,
+        "average_overlaps": 25.61
+      },
+      "other_branches": {
+        "total": 8598,
+        "overlap": 7413,
+        "invalid": 4,
+        "disjoint": 1181,
+        "pooled_fraction": 0.8621772505233776,
+        "macro_fraction": 0.8678790502994876,
+        "macro_n": 298,
+        "average_overlaps": 24.71
+      }
+    },
+    "overlap_count_histogram": {
+      "1": 4,
+      "2": 5,
+      "3": 4,
+      "4": 2,
+      "6": 2,
+      "7": 2,
+      "8": 3,
+      "9": 2,
+      "10": 3,
+      "11": 8,
+      "12": 2,
+      "13": 3,
+      "14": 1,
+      "15": 12,
+      "18": 3,
+      "19": 8,
+      "20": 3,
+      "21": 2,
+      "22": 3,
+      "23": 4,
+      "24": 7,
+      "25": 6,
+      "26": 6,
+      "27": 19,
+      "28": 6,
+      "29": 5,
+      "30": 12,
+      "31": 163
+    },
+    "macro_unique_interval_fraction": 0.868294263859707
+  }
+}

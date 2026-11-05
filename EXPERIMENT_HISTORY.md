@@ -2067,3 +2067,24 @@
 - code/experiments/_lib/result_layout.py
 - evidence/backbones/manifests/registry.json
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-05T18:00:00.000942+09:00
+
+원본 파일 직접 관찰: 18개 실행, 592개 코드·의존성 파일. 이전 commit: d441acf70452a9f275b788d47c6bce4918d7f0fb.
+
+추가 10 / 변경 4 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/deterministic_oracle_diversity.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/oracle_diversity/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/oracle_diversity/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/oracle_diversity/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/oracle_diversity/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/oracle_diversity/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/oracle_diversity/STRATA.md
+- code/experiments/zero-shot/_lib/deterministic_rollout300_report.py
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md
