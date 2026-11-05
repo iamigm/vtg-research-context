@@ -1952,3 +1952,34 @@
 - code/experiments/zero-shot/_lib/event_tree_runtime.py
 - evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json
 - conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
+
+## 2026-11-05T09:00:00.000323+09:00
+
+원본 파일 직접 관찰: 18개 실행, 583개 코드·의존성 파일. 이전 commit: 8ba9a3b1342d4e35a6fbdd5eb27dc1600fa9956c.
+
+추가 19 / 변경 5 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/event_tree_check.py
+- code/experiments/zero-shot/_lib/event_tree_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/300/code/reporting/event_tree_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/600/code/reporting/event_tree_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/event_tree_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/event_tree_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/event_tree_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/code/event_tree_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/300/STRATA.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/600/STRATA.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/rollout/event_tree_search/pilot/overview/REPORT.md
+- evidence/experiments/_shared/browser_runtime/manifest.json
+- reports/experiments/_shared/browser_runtime/system/usr/share/doc/fonts-dejavu-core/README.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/event_tree_core.py
+- code/experiments/zero-shot/_lib/event_tree_runtime.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/_lib/family_catalog.py

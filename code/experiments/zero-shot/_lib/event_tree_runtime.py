@@ -89,12 +89,26 @@ def worker(rank,world,limit=None):
  except BaseException:p.update(state='failed',stage='failed',error=traceback.format_exc());raise
  finally:p.stop.set()
 
-def supervise():
- cohort=setup()
+def supervise(existing=False):
+ cohort=read(COHORT) if existing else setup()
  with (OUT/'metadata/run.lock').open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);workers=[]
-  for rank in range(2):
-   stream=(OUT/'logs'/f'worker{rank}_runner.log').open('a');proc=subprocess.Popen([sys.executable,'-u',__file__,'--worker',str(rank)],stdin=subprocess.DEVNULL,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True,cwd=ROOT);stream.close();workers.append(proc)
+  if existing:
+   class Attached:
+    def __init__(self,pid,rank):self.pid=pid;self.rank=rank
+    def poll(self):
+     state=read(OUT/'metadata'/f'worker{self.rank}.json').get('state')
+     if state=='complete':return 0
+     if state=='failed':return 1
+     try:os.kill(self.pid,0);return None
+     except ProcessLookupError:return 0 if read(OUT/'metadata'/f'worker{self.rank}.json').get('state')=='complete' else 1
+    def wait(self):
+     while self.poll() is None:time.sleep(1)
+     return self.poll()
+   workers=[Attached(pid,rank) for rank,pid in enumerate(read(OUT/'metadata/launcher.json')['worker_pids'])]
+  else:
+   for rank in range(2):
+    stream=(OUT/'logs'/f'worker{rank}_runner.log').open('a');proc=subprocess.Popen([sys.executable,'-u',__file__,'--worker',str(rank)],stdin=subprocess.DEVNULL,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True,cwd=ROOT);stream.close();workers.append(proc)
   write(OUT/'metadata/launcher.json',dict(supervisor_pid=os.getpid(),worker_pids=[p.pid for p in workers],timestamp=stamp()))
   started=time.monotonic();reported=set();n=0
   try:
@@ -107,9 +121,8 @@ def supervise():
     if any(s.get('state')=='failed' for s in states):raise RuntimeError('Worker failure; see worker runner logs')
     for proc in workers:
      if proc.poll() is not None and proc.returncode!=0:raise RuntimeError(f'Worker {proc.pid} exited {proc.returncode}')
-    from event_tree_report import report
     for size in (300,600,900):
-     if size not in reported and all(s['sample_key'] in completed for s in cohort[:size]):report(size);reported.add(size)
+     if size not in reported and all(s['sample_key'] in completed for s in cohort[:size]):subprocess.run([sys.executable,str(Path(__file__).with_name('event_tree_report.py')),str(size)],check=True);reported.add(size)
     if n==900:break
     time.sleep(20)
    for proc in workers:assert proc.wait()==0
@@ -118,6 +131,9 @@ def supervise():
    write(OUT/'metadata/status.json',dict(state='failed',stage='failed',completed=n,total=900,timestamp=stamp(),error=traceback.format_exc()));raise
 
 if __name__=='__main__':
- parser=argparse.ArgumentParser();parser.add_argument('--worker',type=int);parser.add_argument('--world',type=int,default=2);parser.add_argument('--limit',type=int);args=parser.parse_args()
- if args.worker is None:supervise()
+ parser=argparse.ArgumentParser();parser.add_argument('--worker',type=int);parser.add_argument('--world',type=int,default=2);parser.add_argument('--limit',type=int);parser.add_argument('--watch',action='store_true');args=parser.parse_args()
+ if args.worker is None:
+  try:supervise(args.watch)
+  except BaseException:
+   write(OUT/'metadata/status.json',dict(state='failed',stage='setup_or_supervision',total=900,timestamp=stamp(),error=traceback.format_exc()));raise
  else:worker(args.worker,args.world,args.limit)

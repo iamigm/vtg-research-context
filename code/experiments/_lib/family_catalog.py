@@ -15,6 +15,7 @@ FAMILIES={'reconsideration':'Rollout reconsideration','all_zeroshot':'Zero-shot 
 LEAF_NAMES={'REPORT.md','FINAL_REPORT.md','FINDINGS.md','SPEC.md','ANALYSIS.md','NEXT_EXPERIMENT.md','STRATA.md','SCHEMA.md','END_DECIMAL_CASES.md','SPATIAL_AUDIT.md','AXES.md','PIPELINE_REVIEW.md','CACHE_REPORT.md','final_report.md'}
 
 ANALYSIS_LABELS={'reconsideration':'Reconsideration','dynamics':'토큰별 attention','generation':'Query·답변 attention','hidden':'Hidden state similarity','query':'Query attention','spatial':'Spatial attention','generation / head_analysis':'Layer·head attention','generation / distribution_analysis':'Attention 분포','consistency':'Input order consistency','budget_comparison':'공간 예산 비교','allocation_sweep':'공간·시간 배정','digit_correctness':'자릿수별 정답','digit_correctness / blue_analysis':'정답 가능성','digit_correctness / first_error_distance':'최초 오류 거리','integrated':'Entropy 통합 분석','entropy_iou':'Entropy와 IoU','numeric_uncertainty':'숫자 불확실성','prefix_entropy':'Prefix entropy','all_sources':'데이터 출처 통계'}
+FAMILIES['event_tree_search']='Event proposal and tree search'
 
 def analysis_parts(relative):
  parts=relative.parent.parts

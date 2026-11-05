@@ -5,7 +5,7 @@ os.environ['TOKENIZERS_PARALLELISM']='false'
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF','expandable_segments:True')
 import copy,gc,hashlib,json,math,re,time
 from pathlib import Path
-from deterministic_rollout300 import parse,sites
+from deterministic_rollout300 import parse,sites,seconds as time_seconds
 from result_layout import relocate_path
 
 ROOT=Path('/home/irteam/experiments/zero-shot')
@@ -95,7 +95,9 @@ class Backend:
    r=dict(id=key,kind=kind,prompt=prompt,context_ids=context,context_hash=signature(context),options=options)
    if score_ids:
     ids=score_ids;lp0=torch.log_softmax(self.root,-1)[ids[0]].item()
-    logits=self.get(ids[:-1],all_logits=True);lp=torch.log_softmax(logits,-1);targets=torch.tensor(ids[1:],device=lp.device);values=lp.gather(1,targets[:,None]).squeeze(1).cpu().tolist();del logits,lp
+    values=[]
+    for start in range(0,len(ids)-1,128):
+     logits=self.get(ids[:min(start+128,len(ids)-1)],all_logits=True);lp=torch.log_softmax(logits,-1);targets=torch.tensor(ids[start+1:start+1+len(logits)],device=lp.device);values+=lp.gather(1,targets[:,None]).squeeze(1).cpu().tolist();del logits,lp
     vals=[lp0]+values;r.update(ids=ids,log_probabilities=vals,log_probability=sum(vals),mean_log_probability=sum(vals)/len(vals))
    elif options:
     lp=torch.log_softmax(self.get(context),-1);ids=[self.tok.encode(x,add_special_tokens=False) for x in options];assert all(len(x)==1 for x in ids)
@@ -155,7 +157,7 @@ def initial_proposals(b,sample,record):
    r=b.operation('leading_digit_rollout','',prefix=prefix+ids,limit=64)
    full_ids=prefix+ids+r['ids'];full_text=b.tok.decode(full_ids,skip_special_tokens=True,clean_up_tokenization_spaces=False)
    score=b.operation('original_digit_path','',prefix=[],score_ids=full_ids)
-   span=pair(dict(parsed=parse(full_text),stopped_on_eos=r['stopped_on_eos']));paths.append(dict(digit=digit,prefix_ids=prefix,forced_token=ids[0],forced_probability=distribution['raw_probabilities'][int(digit)],distribution_call=distribution['id'],call=r['id'],score_call=score['id'],prefix_log_probability=sum(score['log_probabilities'][:len(prefix)]),path_log_probability=score['log_probability'],full_ids=full_ids,answer=full_text,span=span))
+   span=pair(dict(parsed=parse(full_text),stopped_on_eos=r['stopped_on_eos']));paths.append(dict(digit=digit,prefix_ids=prefix,prefix_text=b.tok.decode(prefix,skip_special_tokens=True),forced_token=ids[0],forced_probability=distribution['raw_probabilities'][int(digit)],distribution_call=distribution['id'],call=r['id'],score_call=score['id'],prefix_log_probability=sum(score['log_probabilities'][:len(prefix)]),path_log_probability=score['log_probability'],full_ids=full_ids,answer=full_text,span=span))
    add(span,'leading_digit',call=r['id'])
  prompt=f"Target event: {sample['query']}\nVideo duration: {sample['duration']:g} seconds. Identify up to6 genuinely plausible, distinct occurrences anywhere in this video, including lower-confidence alternatives. Use visible evidence, not just nearby decimal variants. Do not invent an occurrence to fill the list. Return a JSON array ordered by time: [{{\"start\":number,\"end\":number,\"evidence\":\"at most8 words\"}}]. All times are seconds."
  r=b.generate(prompt,CONFIG['proposal_max_tokens'],'multi_event_proposal','array')
@@ -165,7 +167,7 @@ def initial_proposals(b,sample,record):
    try:items.append(json.loads(m.group()))
    except ValueError:pass
  for item in items[:6]:
-  try:span=[float(item['start']),float(item['end'])];assert all(math.isfinite(x) for x in span)
+  try:span=[time_seconds(str(item['start'])),time_seconds(str(item['end']))];assert all(math.isfinite(x) for x in span)
   except (KeyError,TypeError,ValueError,AssertionError):continue
   add(span,'semantic_proposal',str(item.get('evidence',''))[:200],r['id'])
  for event in events:
@@ -209,7 +211,7 @@ class Search:
  def add(self,parent,span,kind,assessment,call=None,observation=None,source_event=None):
   parent=0 if parent is None else parent;index=len(self.nodes);depth=self.nodes[parent]['depth']+1
   event_id=index if kind in ('event','event_switch') else self.nodes[parent]['event_id']
-  node=dict(id=index,parent=parent,kind=kind,event_id=event_id,depth=depth,span=span,assessment=copy.deepcopy(assessment),children=[],visits=0,total_value=0.,expanded=0,call=call,observation=observation,prior_logp=source_event.get('prior_logp',-100.) if source_event else self.nodes[parent].get('prior_logp',-100.),source_event=source_event.get('id') if source_event else None)
+  node=dict(id=index,parent=parent,kind=kind,event_id=event_id,depth=depth,span=span,assessment=copy.deepcopy(assessment),children=[],visits=0,total_value=0.,expanded=0,used_focus=[],call=call,observation=observation,prior_logp=source_event.get('prior_logp',-100.) if source_event else self.nodes[parent].get('prior_logp',-100.),source_event=source_event.get('id') if source_event else None)
   self.nodes.append(node);self.nodes[parent]['children'].append(index);return node
  def available(self,node):
   if node['id']==0:return False
@@ -289,12 +291,13 @@ class Search:
   avoided=[dict(interval=n['span'],status=n['assessment']['reason'],evidence=(n.get('observation') or '')[:120]) for n in self.nodes[1:] if n['kind'] in ('event','event_switch') or n['assessment']['blocked']][-12:]
   prompt=f"Target: {self.sample['query']}\nDuration: {self.sample['duration']:g} seconds.\nAlready considered: {json.dumps(avoided,ensure_ascii=False)}\nFind a different plausible occurrence supported by the video, including an earlier low-confidence possibility. Avoid merely shifting a decimal of the same event. Return one JSON object {{\"start\":number,\"end\":number,\"evidence\":\"at most12 words\"}} with seconds."
   r=self.b.generate(prompt,96,'new_event_proposal','object');item=r.get('json');self.proposal_rounds+=1
-  try:span=[float(item['start']),float(item['end'])];assert all(math.isfinite(x) for x in span)
+  try:span=[time_seconds(str(item['start'])),time_seconds(str(item['end']))];assert all(math.isfinite(x) for x in span)
   except (TypeError,KeyError,ValueError,AssertionError):self.log.append(dict(action='proposal_failed',call=r['id']));return
   a=assess(self.b,self.sample,span);prior=self.b.prior(span) if usable(span,self.sample['duration']) else None
   node=self.add(0,span,'event',a,r['id'],str(item.get('evidence',''))[:200],dict(id=None,prior_logp=prior['log_probability'] if prior else -1e6));self.log.append(dict(action='new_event',node=node['id'],call=r['id']));self.backup(node['id'],a['value'])
  def expand(self,node,focus=None):
-  focus=focus or ('onset','offset','joint')[node['expanded']];node['expanded']+=1
+  remaining=[f for f in ('onset','offset','joint') if f not in node['used_focus']]
+  focus=focus if focus in remaining else remaining[0];node['used_focus'].append(focus);node['expanded']+=1
   history=[];p=node
   while p['id']:
    if p.get('observation'):history.append(p['observation'])
@@ -307,7 +310,7 @@ class Search:
   prior=self.b.prior(span) if usable(span,self.sample['duration']) else None
   child=self.add(node['id'],span,kind,a,r['id'],note['text'] if note else 'invalid generation');self.expansions+=1
   if prior:child.update(prior_logp=prior['log_probability'],prior_call=prior['id'])
-  if a['blocked'] and kind!='event_switch':
+  if a['reason']=='model_confirmed_contradiction' and kind!='event_switch':
    self.nodes[node['event_id']]['assessment']['blocked']=True
    self.log.append(dict(action='contradiction_backtrack',from_node=child['id'],event=node['event_id'],reason='two_model_contradiction_checks'))
   if self.method in ('self_refine','commit_then_refine'):self.current=child['id']
