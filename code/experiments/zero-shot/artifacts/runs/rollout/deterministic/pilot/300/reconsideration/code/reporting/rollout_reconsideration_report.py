@@ -2,6 +2,7 @@
 import collections,csv,hashlib,json,math,os,re,shutil,statistics,subprocess,sys
 from html import escape
 from pathlib import Path
+from rollout_method_docs import formalize, refresh_spec
 from rollout_reconsideration import ROOT,OUT,REPORT,SOURCE,COHORT,CONFIG,VARIANTS,FAMILY,ANALYSIS,read,write,sha,stamp,interval,iou,clusters
 LITERATURE=[
  ('Snell et al., Scaling LLM Test-Time Compute Optimally','https://arxiv.org/abs/2408.03314','proposal revision과 verifier-guided search를 구분하고, 평가·수정 연산을 포함한 예산을 비교한다. 이 pilot은 학습된 PRM을 재현하지 않으며 frozen VLM judge로 두 축을 시험한다.'),
@@ -11,63 +12,12 @@ LITERATURE=[
 
 def init():
  from rollout_reconsideration import setup
- cohort=setup();spec='''# Rollout reconsideration · pilot600
+ cohort=setup()
+ (REPORT/'SPEC.md').write_text(formalize('', 'reconsideration',len(cohort),spec=True))
+ if not (REPORT/'REPORT.md').exists():
+  (REPORT/'REPORT.md').write_text('# Rollout reconsideration · pilot900\n\n상태: running. 완료된 pilot900 성능 결과가 아니다.\n\n[실험 설계](SPEC.md)\n')
+ return cohort
 
-고정 pilot600, dataset별200 query다. 기존600개와 순서를 유지하며 GT·예측 성능으로 query를 재선택하지 않는다. Qwen3-VL-8B-Instruct, 2 FPS, 약100,352 pixels의 기존 spatial resolution, video_query input order 및 실제 frame IDs/PTS/input tensor hash를 유지한다. 새로운 학습이나 stochastic sampling을 하지 않는다.
-
-## 가설과 세 접근
-
-재검토 context가 주어졌을 때 token distribution과 path probability가 바뀌는지, 변화가 실제 localization 개선으로 이어지는지 평가한다. model weights는 frozen이며 context-conditioned distribution의 변화다.
-
-| 접근 | 재검토 방식 | low / high |
-|---|---|---|
-| agent | controller가 event comparison 또는 boundary inspection을 고르고, 같은 VLM의 독립 visual inspector observation을 받아 다음 action을 결정 | 최대3 / 7 action-observation rounds + final regeneration |
-| verifier | 서로 다른 candidate3 / 7개의 event alignment와 boundary fit을 독립 Yes/No likelihood로 평가하고 final regeneration | 최대7 / 15 model evaluations |
-| test-time scaling | pool8 / pool32에서 candidate4 / 8개를 선택해 model pairwise knockout, 각 pair를 양쪽 presentation order로 평가하고 final regeneration | generation pool × selection compute의2×2 factorial |
-
-세 방법은 같은 candidate pool 및 video evidence를 사용한다. agent의 inspector는 fixed verifier와 같은 backbone을 쓰지만 inspection 순서와 종류가 adaptive다. verifier는 fixed independent pointwise assessments이며, test-time scaling은 fixed-schedule pairwise search다. 이 차이를 operational comparison으로 해석하며 서로 배타적인 이론 범주라고 주장하지 않는다.
-
-TTS는 pool8/select4, pool8/select8, pool32/select4, pool32/select8을 모두 수행한다. 따라서 후보 수를 고정한 selection scaling과 selection 수를 고정한 generation scaling을 구별한다. 선택은 max probability 후처리가 아니라 실제 video-conditioned model inference다. 같은 interval은 중복해서 padding하지 않고, 후보가 부족하면 실제 candidate·evaluation 수를 기록한다.
-
-## 공통 조건과 비용
-
-기존 deterministic rollout의 앞8/32 candidate를 참조하며 새로 복제·sampling하지 않는다. unique interval을 GT 없이 farthest-first로 골라 greedy와 떨어진 temporal hypothesis를 포함한다. pool generation의 원래 decoder cost도 차감하지 않고 합산하며, online 재사용 비용과 conceptual deployment 비용을 구분한다. 기존 greedy, max probability, probability-weighted medoid, oracle과 함께 직접 재응답(direct regeneration, model evaluation1회)을 비교한다.
-
-low/high의 주 비교는 pool8/32와 model evaluation ceiling7/15다. agent early stop과 candidate 부족으로 실제 비용은 달라질 수 있다. model evaluation 수만으로 FLOPs가 같다고 주장하지 않는다. prompt processing·generated token·KV replay를 포함한 decoder input tokens, forward calls, synchronized model wall seconds, attention-context work를 기록하고 성능-비용 Pareto를 비교한다. diagnostic probability replay 비용은 의사결정 비용과 분리해 둘 다 보고한다.
-
-final regeneration은 모든 방법에 같은 timestamp 응답 형식을 요청하며 grammar-constrained decoding을 하지 않는다. 파싱 실패·invalid interval·EOS 미도달은0점이다. main score에서 이전 답으로 자동 fallback하지 않는다. clipping이나 rounding도 하지 않는다.
-
-## 사건 변경과 boundary refinement
-
-GT 없는 complete-link temporal IoU≥0.5 clustering으로 candidate hypotheses를 나눈다. 다른 cluster로 이동했는지와 같은 cluster 안에서 boundary가 달라졌는지를 구분한다. cluster는 temporal occurrence의 proxy이며 semantic event identity의 gold label이 아니다. clustering threshold0.3/0.5/0.7의 민감도도 함께 보고한다.
-
-- event recovery proxy: valid greedy IoU<0.1 → 새 응답 IoU≥0.5이며 temporal cluster도 바뀐 경우. 분모는 valid greedy IoU<0.1인 query다.
-- switch rate: valid greedy와 valid final이 다른 cluster인 query / 두 응답이 모두 valid인 query.
-- beneficial switch: switch 중 ΔIoU>0.01 비율. harmful revision은 greedy IoU≥0.5 → final IoU<0.5다.
-- boundary refinement: greedy IoU≥0.5이고 final도 같은 temporal cluster에 속한 paired-valid query의 endpoint MAE 및 ΔIoU. 해당 분모를 항상 표시한다.
-- endpoint MAE=(|start−GTstart|+|end−GTend|)/2, 단위seconds, 낮을수록 좋다. invalid를 제외한 조건부 지표이므로 failure rate와 함께 본다.
-
-주 성능은 mIoU와 R@0.3/0.5/0.7이며, 전체600 query와 dataset별, video duration별, GT/video duration ratio별, 두 축 교차표를 함께 보고한다. paired bootstrap은 video 단위 재표집(seed42)으로 시행한다. GT는 이 보고 단계에서만 쓴다.
-
-## token distribution과 path probability
-
-기존 pool32에서 GT 없이 event proxy(disjoint intervals, center separation>max(2s,0.05×duration))와 local boundary proxy(temporal IoU≥0.5, endpoint shift≤max(2s,0.1×parent length)) 각각 최대1개를 고정한다. 각 종류에서 branch token의 raw probability가 큰 probe를 택한다. low pool에 포함되지 않은 probe는 prompt에 노출하지 않고 사후 counterfactual diagnostic에만 쓴다.
-
-동일한 생성 token prefix를 review context 뒤에 teacher-force하여 원래·대체 token의 확률 변화, log odds 변화, full-vocabulary JS divergence를 측정한다. 두 선택 뒤의 child distribution도 저장한다. 원래 parent/alternative 응답의 EOS 포함 path probability를 같은 review context에서 다시 계산한다. prefix를 고정한 counterfactual probability와 unconstrained final prediction을 구분한다.
-
-qvhighlights-timelens_00507은 고정 pilot600에 없다. 기존 trace를 이용한 reference case audit만 별도로 기록하며600개 통계에 포함하거나 cohort를 교체하지 않는다.
-
-## 문헌과 적용 범위
-
-'''
- for title,url,note in LITERATURE:spec+=f'- [{title}]({url}): {note}\n'
- (REPORT/'SPEC.md').write_text(spec)
- reference=SOURCE/'rollouts/qvhighlights-timelens_00507.json'
- if reference.exists():
-  rec=read(reference);assert all(s['sample_key']!=rec['sample']['sample_key'] for s in cohort)
-  dest=ROOT/'artifacts/runs/rollout/deterministic/shared/reconsideration/case_study';write(dest/'reference_case.json',dict(sample_key=rec['sample']['sample_key'],in_pilot600=False,source_record=str(reference),source_trace=str(SOURCE/'token_traces'/rec['sample']['sample_key']/'index.json'),note='Existing data audit only; no additional inference counted in600'))
- (REPORT/'REPORT.md').write_text('# Rollout reconsideration · pilot600\n\n상태: running. 완료된 성능 결과가 아니다.\n\n600 query의 재검토와 token distribution 측정이 진행 중이다. 완료 후 이 보고서에 결과와 검증을 자동으로 통합한다.\n\n[실험 설계](SPEC.md)\n')
- build_view(600,[]);return cohort
 
 def assigned_cluster(pair,groups,threshold=.5):
  if not pair:return None
@@ -105,7 +55,7 @@ def bootstrap(rows,n_boot=400,reference="greedy"):
    draws=(weights@values)/denom;low,high=np.quantile(draws,[.025,.975]);result.setdefault(method,{})[metric]=dict(delta=float(values.sum()/counts.sum()),lower=float(low),upper=float(high))
  return result
 
-def report(n=600,refresh=True):
+def report(n=900,refresh=True):
  cohort=read(COHORT)[:n];out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n)/ANALYSIS;dest=ROOT/'results'/FAMILY/'pilot'/str(n)/ANALYSIS;dest.mkdir(parents=True,exist_ok=True);rows=[];details=[];validated=[]
  for sample in cohort:
   key=sample['sample_key'];rec=read(SOURCE/'rollouts'/f'{key}.json');data=read(OUT/'responses'/f'{key}.json');assert set(data['variants'])=={v[0] for v in VARIANTS};assert data['input_hashes']==rec['input_hashes'];assert sha(data['baseline_reference'])==data['baseline_sha256']
@@ -145,7 +95,7 @@ def report(n=600,refresh=True):
   compared=bootstrap(rows,reference=reference)
   for target in targets:pairs[target+' minus '+reference]=compared[target]
  write(out/'metrics/paired_video_bootstrap.json',dict(against_greedy=ci,pairwise=pairs))
- text=[f'# Rollout reconsideration · pilot{n}','',f'완료: {n} query, dataset별{n//3}. 3개 접근과 direct regeneration control을 같은 고정 cohort에서 평가했다. 생성 input hash는 기존 deterministic rollout과 일치하며 GT는 보고 단계에서만 사용했다.','', '[실험 설계](SPEC.md)' if n==600 else '[실험 설계](../../600/reconsideration/SPEC.md)', '',
+ text=[f'# Rollout reconsideration · pilot{n}','',f'완료: {n} query, dataset별{n//3}. 3개 접근과 direct regeneration control을 같은 고정 cohort에서 평가했다. 생성 input hash는 기존 deterministic rollout과 일치하며 GT는 보고 단계에서만 사용했다.','', '[실험 설계](SPEC.md)' if (dest/'SPEC.md').exists() else '[실험 설계](../../900/reconsideration/SPEC.md)', '',
  '## 지표와 비교 기준','',f'mIoU는 {n} query의 temporal IoU 평균, R@τ는 IoU≥τ query 비율이다. IoU=intersection duration/union duration이며 높을수록 좋다. Δ는 같은 query의 greedy 대비 차이, Δpp는 성공률 차이×100이다. failure는 파싱 실패·invalid interval·EOS 미도달 비율이고0점으로 포함한다. model seconds는 CUDA 동기화로 측정한 의사결정 model wall time이며 공통 video prefill과 사후 probability diagnostic을 제외한다. decoder tokens는 기존 proposal generation 비용과 새 review의 prompt·generated token·KV replay를 합산한다. probability diagnostics 비용은 별도 원자료에 보존한다. 기존 baseline은 추가 review time이0이다. 평가 호출 수를 맞춘 비교가 FLOPs 일치를 뜻하지 않는다.','',
  '## 전체 성능','']+table(rows,methods)
  text+=['','## Paired comparison · 95% bootstrap CI','','video 단위 paired bootstrap의 방법 간 차이다. CI가0을 포함하면 순위 차이를 확정하지 않는다.','','| comparison | ΔmIoU [95% CI] | ΔR@.5 [95% CI] |','|---|---|---|']
@@ -174,8 +124,8 @@ def report(n=600,refresh=True):
    roots=[p['nodes'][0] for p in probes];logodds=[math.log(max(x['alternative_probability_after'],1e-38)/max(x['original_probability_after'],1e-38))-math.log(max(x['alternative_probability_before'],1e-38)/max(x['original_probability_before'],1e-38)) for x in roots]
    paths=[(p['paths']['alternative']['after_log_probability']-p['paths']['parent']['after_log_probability'])-(p['paths']['alternative']['before_log_probability']-p['paths']['parent']['before_log_probability']) for p in probes]
    text.append(f"| {name} | {axis} | {len(probes)} | {statistics.mean(x['js_divergence'] for x in roots):.6f} | {statistics.mean(x['alternative_probability_after']-x['alternative_probability_before'] for x in roots):+.6f} | {statistics.mean(logodds):+.4f} | {statistics.mean(paths):+.4f} |")
- text+=['','## 추가 분석','', '[dataset·video duration·GT ratio·교차표](STRATA.md). [video별 paired bootstrap 원자료]('+os.path.relpath(out/'metrics/paired_video_bootstrap.json',dest)+'). 동일 video query를 묶어400회 재표집했다.','', '선택만의 이득과 regeneration의 이득은 interactive detail에서 verifier/TTS selected candidate와 final answer를 비교한다. agent의 마지막 inspection 대상은 최종 선택 후보라고 간주하지 않는다. qvhighlights-timelens_00507은600 cohort 밖이므로 이 통계에서 제외했다.','']
- (dest/'REPORT.md').write_text('\n'.join(text));strata=['# Stratified results · pilot'+str(n),'','mIoU와 R@0.3/0.5/0.7은 각 칸 query를 분모로 한다. n<10은 small cell, n=0은 empty다. Δ는 동일 칸의 greedy 대비다.','']
+ text+=['','## 추가 분석','', '[dataset·video duration·GT ratio·교차표](STRATA.md). [video별 paired bootstrap 원자료]('+os.path.relpath(out/'metrics/paired_video_bootstrap.json',dest)+'). 동일 video query를 묶어400회 재표집했다.','', '선택만의 이득과 regeneration의 이득은 interactive detail에서 verifier/TTS selected candidate와 final answer를 비교한다. agent의 마지막 inspection 대상은 최종 선택 후보라고 간주하지 않는다. '+('qvhighlights-timelens_00507은 이 고정 cohort에 포함되어 정상 평가했다.' if any(s['sample_key']=='qvhighlights-timelens_00507' for s in cohort) else 'qvhighlights-timelens_00507은 이 고정 cohort 밖이므로 통계에서 제외했다.'),'']
+ (dest/'REPORT.md').write_text(formalize('\n'.join(text),'reconsideration',n));refresh_spec(dest,'reconsideration',n);strata=['# Stratified results · pilot'+str(n),'','mIoU와 R@0.3/0.5/0.7은 각 칸 query를 분모로 한다. n<10은 small cell, n=0은 empty다. Δ는 동일 칸의 greedy 대비다.','']
  axes=[('dataset',sorted({r['dataset'] for r in rows})),('duration',[(0,30),(30,60),(60,120),(120,180),(180,float('inf'))]),('ratio',[(0,.05),(.05,.1),(.1,.2),(.2,.4),(.4,1.000001)])]
  for axis,bins in axes:
   for cell in bins:
@@ -199,7 +149,7 @@ def report(n=600,refresh=True):
 
 
 def build_view(n,details=None):
- assert n in (300,600)
+ assert n in (300,600,900)
  out=ROOT/'artifacts/runs'/FAMILY/'pilot'/str(n)/ANALYSIS
  dest=ROOT/'results'/FAMILY/'pilot'/str(n)/ANALYSIS;web=out/'web'
  web.mkdir(parents=True,exist_ok=True);dest.mkdir(parents=True,exist_ok=True)
@@ -214,7 +164,7 @@ def build_view(n,details=None):
  css=Path(__file__).with_name('rollout_reconsideration_viewer.css');js=css.with_suffix('.js')
  config=dict(store=os.path.relpath(OUT,dest),queries=n,sourceViewer=os.path.relpath(ROOT/'results'/FAMILY/'viewer.html',dest)+'?view=pilot/'+str(n)+'/viewer.html')
  boot='<script>window.ROLLOUT_EXPLORER_OPTIONS={caseOnly:true};window.ROLLOUT_VIDEO_BASE='+json.dumps(os.path.relpath(ROOT/'results'/FAMILY/'pilot/900/viewer.html',dest))+';window.RECONSIDERATION_CONFIG='+json.dumps(config)+';</script>'
- for a,b in [('__PILOT_SIZE__',str(n)),('__ASSET_BASE__',os.path.relpath(baseline,dest)),('__SAMPLE_BASE__',os.path.relpath(samples,dest)),('__REVIEW_ASSETS__',os.path.relpath(web,dest)),('__SPEC__','SPEC.md' if n==600 else '../../600/reconsideration/SPEC.md'),('__BOOT__',boot)]:template=template.replace(a,b)
+ for a,b in [('__PILOT_SIZE__',str(n)),('__ASSET_BASE__',os.path.relpath(baseline,dest)),('__SAMPLE_BASE__',os.path.relpath(samples,dest)),('__REVIEW_ASSETS__',os.path.relpath(web,dest)),('__SPEC__','SPEC.md' if (dest/'SPEC.md').exists() else '../../900/reconsideration/SPEC.md'),('__BOOT__',boot)]:template=template.replace(a,b)
  sys.path.insert(0,str(ROOT.parent/'_lib'));from build_index import add_navigation
  (dest/'viewer.html').write_text(add_navigation(dest/'viewer.html',template))
  shutil.copyfile(css,web/'reconsideration.css');shutil.copyfile(js,web/'reconsideration.js')
@@ -231,7 +181,7 @@ def build_view(n,details=None):
 
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser();p.add_argument('--init',action='store_true');p.add_argument('--queries',type=int,default=600);p.add_argument('--view-only',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--init',action='store_true');p.add_argument('--queries',type=int,default=900);p.add_argument('--view-only',action='store_true');a=p.parse_args()
  if a.view_only:build_view(a.queries)
  elif a.init:init()
  else:report(a.queries)

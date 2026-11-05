@@ -96,6 +96,16 @@ Oracle GT IoU≥.5: 461/600. duration 초과 oracle: 32/600.
 
 다른 후보가 oracle와 하나도 겹치지 않는 singleton: 0/600 (0.00%). oracle GT IoU≥.5인 경우만 보면 0/461 (0.00%). 동일 interval 경로를 합친 unique interval fraction은 89.11%다.
 
+## Greedy와 겹치지 않는 oracle만 따로 본 결과 · K=32
+
+전체 평균은 greedy 주변 후보가 많은 query의 영향을 받으므로 disjoint subset도 따로 집계한다. 다른 분기에서는 greedy와 oracle 자신을 제외한다.
+
+| subset | query 수 | 다른 분기 overlap macro | pooled 겹치는 수/분기 수 | 다른 겹치는 후보 수 평균 | singleton |
+|---|---:|---:|---:|---:|---:|
+| 모든 query | 600 | 89.09% | 15194/17157 (88.56%) | 26.15 | 0/600 (0.00%) |
+| greedy와 disjoint | 49 | 31.29% | 460/1470 (31.29%) | 9.39 | 0/49 (0.00%) |
+| greedy와 disjoint & oracle GT IoU≥.5 | 28 | 34.29% | 288/840 (34.29%) | 10.29 | 0/28 (0.00%) |
+
 ## Overlap by budget
 
 | K | greedy와 disjoint인 oracle | 다른 분기 overlap macro | 다른 분기 overlap pooled | oracle GT IoU≥.5 중 singleton |

@@ -141,3 +141,6 @@ Reconsideration 뷰는 같은 cohort manifest와 사례 유형·필터를 재사
 
 `runs/rollout/event_tree_search/pilot/900/`에900 query의 원자료를 한 번 저장한다. `responses/`의 query JSON은 모델 기반 proposal, event/boundary tree, 선택·backtracking, context IDs, raw token probability·path probability, model-call 참조 및 비용을 보존한다. `inputs/`는 deterministic rollout의 frame/input hash와 원자료 참조를 보존하며 영상·기존 token trace를 복제하지 않는다. `metadata/`는 동결 설정·cohort/source hash·실행 상태, `logs/`는 통합 실행 로그, `validation/`은 검증, `metrics/`는 파생 지표, `web/`는 조회 자료다. pilot300·600은 같은900 응답의 고정 prefix를 참조하고 MD·viewer만 생성한다. 재실행은 동일 config hash·input hash일 때 checkpoint와 exact model-operation cache를 재사용한다. 새 생성 정책으로 기존 응답을 덮어쓰지 않는다.
 
+## Reconsideration canonical storage
+
+Deterministic rollout의 reconsideration 응답·입력·token distribution·실행 로그는 `artifacts/runs/rollout/deterministic/pilot/900/reconsideration/`에 한 번 저장한다. pilot300·600·900은 각 scope의 `metadata/source_records.json`으로 같은 원자료를 참조한다. 기존600 응답의 byte hash와 과학적 설정 동등성은 canonical900의 `metadata/reuse.json`에 기록한다. 원래600 응답 내부 config hash는 보존하며, legacy config와900 config의 scope 외 과학적 설정이 같을 때만 재사용한다.

@@ -243,6 +243,18 @@ def report(rows, n):
             a=s['groups'][field]
             lines.append(f"| {label} | {rate(a['overlap'],a['total'])} | {a['disjoint']} | {a['invalid']} | {fmt(100*a['macro_fraction'] if a['macro_fraction'] is not None else None,2)}% ({a['macro_n']}) | {a['average_overlaps']:.2f} |")
         lines += ['', f"다른 후보가 oracle와 하나도 겹치지 않는 singleton: {rate(s['singleton_queries'],n)}. oracle GT IoU≥.5인 경우만 보면 {rate(s['correct_singleton_queries'],s['oracle_correct'])}. 동일 interval 경로를 합친 unique interval fraction은 {fmt(100*s['macro_unique_interval_fraction'] if s['macro_unique_interval_fraction'] is not None else None,2)}%다."]
+        if k == 32:
+            lines += ['', '## Greedy와 겹치지 않는 oracle만 따로 본 결과 · K=32', '',
+                '전체 평균은 greedy 주변 후보가 많은 query의 영향을 받으므로 disjoint subset도 따로 집계한다. 다른 분기에서는 greedy와 oracle 자신을 제외한다.', '',
+                '| subset | query 수 | 다른 분기 overlap macro | pooled 겹치는 수/분기 수 | 다른 겹치는 후보 수 평균 | singleton |',
+                '|---|---:|---:|---:|---:|---:|']
+            for label,subset in [('모든 query',rows),
+                ('greedy와 disjoint',[r for r in rows if r['budgets']['32']['relation']=='disjoint']),
+                ('greedy와 disjoint & oracle GT IoU≥.5',[r for r in rows if r['budgets']['32']['relation']=='disjoint' and r['budgets']['32']['oracle_correct']])]:
+                if not subset:
+                    continue
+                q=summarize(subset,32);a=q['groups']['other_branches']
+                lines.append(f"| {label} | {len(subset)} | {100*a['macro_fraction']:.2f}% | {rate(a['overlap'],a['total'])} | {q['groups']['other_candidates']['average_overlaps']:.2f} | {rate(q['singleton_queries'],len(subset))} |")
     lines += ['', '## Overlap by budget', '', '| K | greedy와 disjoint인 oracle | 다른 분기 overlap macro | 다른 분기 overlap pooled | oracle GT IoU≥.5 중 singleton |', '|---|---:|---:|---:|---:|']
     for k in BUDGETS[1:]:
         s=summaries[str(k)];a=s['groups']['other_branches']
@@ -271,7 +283,7 @@ def report(rows, n):
 
 
 def strata(rows,dest):
-    lines=['# Stratified oracle interval overlap', '', '각 표는 해당 조건의 query만 분모로 사용한다. n<10은 small, n=0은 empty다. R은 %이고 Δ는 같은 subset의 greedy 대비다. overlap의 정의와 분모는 REPORT.md를 따른다.', '']
+    lines=[f'# Stratified oracle interval overlap · pilot{len(rows)}', '', '각 표는 해당 조건의 query만 분모로 사용한다. n<10은 small, n=0은 empty다. R은 %이고 Δ는 같은 subset의 greedy 대비다. overlap의 정의와 분모는 REPORT.md를 따른다.', '']
     for ds in sorted({r['dataset'] for r in rows}):
         sub=[r for r in rows if r['dataset']==ds]
         lines += ['## '+ds, '']+performance_table(sub)+['']

@@ -1,0 +1,15 @@
+{
+  "state": "complete",
+  "stage": "complete",
+  "completed": 900,
+  "total": 900,
+  "percentage": 100,
+  "counts": {
+    "charades-timelens": 300,
+    "activitynet-timelens": 300,
+    "qvhighlights-timelens": 300
+  },
+  "timestamp": "2026-11-05T19:43:45.991069+09:00",
+  "elapsed_seconds": 5255.69611441344,
+  "eta_seconds": 0
+}

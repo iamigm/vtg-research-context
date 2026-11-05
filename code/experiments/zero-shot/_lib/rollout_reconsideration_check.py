@@ -1,13 +1,13 @@
-"""GT-leakage, budget topology, full600 input references, and frozen cohort checks."""
+"""GT-leakage, budget topology, fixed900 input references, and nested cohort checks."""
 import copy,json,math
 from pathlib import Path
 from rollout_reconsideration import *
 
 def run():
- cohort=read(COHORT);assert len(cohort)==600
- assert read(ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json')[:600]==cohort
- counts=collections.Counter(s['dataset'] for s in cohort);assert sorted(counts.values())==[200,200,200]
- assert all(s['sample_key']!='qvhighlights-timelens_00507' for s in cohort)
+ cohort=read(COHORT);assert len(cohort)==900
+ for n in (300,600):assert read(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{n}/samples.json')==cohort[:n]
+ counts=collections.Counter(s['dataset'] for s in cohort);assert sorted(counts.values())==[300,300,300]
+ assert any(s['sample_key']=='qvhighlights-timelens_00507' for s in cohort)
  failures=[]
  for s in cohort:
   key=s['sample_key'];rec=read(SOURCE/'rollouts'/f'{key}.json');trace=SOURCE/'token_traces'/key/'index.json';inp=read(SOURCE/'inputs'/f'{key}.json');cache_path=relocate_path(Path(inp['cache_metadata']));cache=read(cache_path)
@@ -37,6 +37,6 @@ def run():
   cap=1 if method=='direct' else 2*amount+1 if method in ('agent','verifier') else 2*(amount-1)+1
   assert out['cost_decision']['model_evaluations']<=cap
  assert iou([0,10],[5,15])==1/3 and iou([0,1],[3,4])==0
- write(OUT/'validation/cpu.json',dict(passed=True,queries=600,dataset_counts=dict(counts),all_input_and_trace_references_exist=True,cohort_unchanged=True,gt_redaction_leaves_probes_and_prompts_unchanged=True,topology_budgets_checked=True,reference_case_excluded=True))
+ write(OUT/'validation/cpu.json',dict(passed=True,queries=900,dataset_counts=dict(counts),all_input_and_trace_references_exist=True,cohort_unchanged=True,gt_redaction_leaves_probes_and_prompts_unchanged=True,topology_budgets_checked=True,reference_case_included_in900=True))
  print('CPU CHECK PASSED',flush=True)
 if __name__=='__main__':run()

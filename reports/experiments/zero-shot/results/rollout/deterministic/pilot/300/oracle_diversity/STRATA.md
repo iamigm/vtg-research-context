@@ -1,4 +1,4 @@
-# Stratified oracle interval overlap
+# Stratified oracle interval overlap · pilot300
 
 각 표는 해당 조건의 query만 분모로 사용한다. n<10은 small, n=0은 empty다. R은 %이고 Δ는 같은 subset의 greedy 대비다. overlap의 정의와 분모는 REPORT.md를 따른다.
 

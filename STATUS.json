@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-05T18:00:00.000942+09:00",
+  "observed_at": "2026-11-05T20:12:48.368276+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -51,6 +51,11 @@
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-04T04:04:03.424531+09:00",
       "sha256": "92e696134dcc60c43ed4c56fc2117a365e3dd7b3e2ddd2939def772408435d90"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/metadata/status.json",
+      "source_modified_at": "2026-11-05T19:43:45.990330+09:00",
+      "sha256": "56f0059abd6bb9bd1569f9c0bef3c1d7773f90cb57167ad00e867a457cfe3de6"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/status.json",

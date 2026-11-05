@@ -553,7 +553,7 @@ $$
 RECONSIDERATION = r'''
 ## Shared pipeline — 기존 rollout 후보를 재검토하는 실험
 
-완료 범위는 고정 pilot600이며 pilot300은 그 subset이다. 같은 Qwen3-VL-8B-Instruct와 기존 frame·input hash를 재사용했다. 앞선 deterministic rollout에서 이미 완성한 8개 또는 32개 경로를 읽고, 그 후보를 근거로 **새 model context에서 추가 추론**한다. 원래 token tree를 다시 열어 미탐색 prefix를 확장한 실험은 아니다.
+고정 pilot300·600·900은 같은 질문 순서의 중첩 cohort로 관리한다. 각 범위의 완료 여부는 보고서 상단의 상태를 따른다. 같은 Qwen3-VL-8B-Instruct와 기존 frame·input hash를 재사용한다. 앞선 deterministic rollout에서 이미 완성한 8개 또는 32개 경로를 읽고, 그 후보를 근거로 **새 model context에서 추가 추론**한다. 원래 token tree를 다시 열어 미탐색 prefix를 확장한 실험은 아니다.
 
 review 대화는 원래 greedy 응답 token과 EOS 뒤에 새 user turn을 붙인다. 따라서 모든 접근이 원래 greedy 답을 볼 수 있다. inspector는 같은 영상과 원래 greedy 응답은 보지만 controller의 review history 전체를 보지는 않는다. 다른 backbone의 독립 verifier를 사용하지 않았다.
 
@@ -826,7 +826,7 @@ def refresh_existing():
                 if content != original:
                     path.write_text(content)
                     changed.append(str(path.relative_to(ROOT)))
-    for count in [300, 600]:
+    for count in [300, 600, 900]:
         folder = ROOT / 'results/rollout/deterministic/pilot' / str(count) / 'reconsideration'
         for name in ['REPORT.md', 'SPEC.md']:
             path = folder / name

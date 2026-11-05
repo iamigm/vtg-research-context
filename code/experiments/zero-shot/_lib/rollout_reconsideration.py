@@ -1,4 +1,4 @@
-"""Pilot600: adaptive agent, fixed verifier, and model-selected test-time scaling."""
+"""Cumulative pilot900: adaptive agent, verifier and model-selected test-time scaling."""
 import os
 for _name in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS'):os.environ[_name]='1'
 os.environ['TOKENIZERS_PARALLELISM']='false'
@@ -10,13 +10,13 @@ from deterministic_rollout300 import parse,sites
 ROOT=Path('/home/irteam/experiments/zero-shot')
 FAMILY='rollout/deterministic'
 ANALYSIS='reconsideration'
-OUT=ROOT/'artifacts/runs'/FAMILY/'pilot/600'/ANALYSIS
-REPORT=ROOT/'results'/FAMILY/'pilot/600'/ANALYSIS
+OUT=ROOT/'artifacts/runs'/FAMILY/'pilot/900'/ANALYSIS
+REPORT=ROOT/'results'/FAMILY/'pilot/900'/ANALYSIS
 SOURCE=ROOT/'artifacts/runs/rollout/deterministic/pilot/900'
-COHORT=ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_600/samples.json'
+COHORT=ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json'
 MODEL=Path('/home/irteam/backbones/models/Qwen3-VL-8B-Instruct')
 VARIANTS=[('direct_pool8','direct',8,1),('agent_pool8','agent',8,3),('verifier_pool8','verifier',8,3),('tts_pool8_select4','tts',8,4),('tts_pool8_select8','tts',8,8),('direct_pool32','direct',32,1),('agent_pool32','agent',32,7),('verifier_pool32','verifier',32,7),('tts_pool32_select4','tts',32,4),('tts_pool32_select8','tts',32,8)]
-CONFIG=dict(family=FAMILY,analysis=ANALYSIS,queries=600,cohort=str(COHORT),model=str(MODEL),fps=2,target_pixels=100352,input_order='video_query',
+CONFIG=dict(family=FAMILY,analysis=ANALYSIS,queries=900,cohort=str(COHORT),model=str(MODEL),fps=2,target_pixels=100352,input_order='video_query',
  proposal_pools=[8,32],variants=VARIANTS,decoding='greedy; no random sampling, no training, no new model',
  agent='adaptive controller chooses event/boundary inspection; same-VLM visual inspector returns observations; 3/7 action-observation rounds then regeneration',
  verifier='3/7 fixed diverse candidates; independent event and boundary Yes/No likelihoods then regeneration',
@@ -27,7 +27,7 @@ CONFIG=dict(family=FAMILY,analysis=ANALYSIS,queries=600,cohort=str(COHORT),model
  clustering='complete-link temporal IoU >= .5; temporal occurrence proxy, not semantic event identity gold',
  probes='at most one disjoint event proxy and one local boundary proxy, selected without GT from pool32; root and both immediate child FP32 distributions',
  generation_limits=dict(controller=48,inspector=48,final=64),new_review_prompt_chunk=128,seed='no sampling; bootstrap42 only',
- additional_diagnostics='qvhighlights-timelens_00507 not in frozen600; inspect saved trace only, excluded from all600 outcomes')
+ additional_diagnostics='fixed900 includes qvhighlights-timelens_00507; ordinary inference and probes for every query; fixed300/600 remain exact subsets')
 
 def stamp():
  import datetime
@@ -37,6 +37,12 @@ def sha(path):return hashlib.sha256(relocate_path(Path(path)).read_bytes()).hexd
 def write(path,value):
  path=Path(path);path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_suffix(path.suffix+'.tmp');tmp.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\n');tmp.replace(path)
 def signature(obj):return hashlib.sha256(json.dumps(obj,sort_keys=True).encode()).hexdigest()
+def accepted_config_hashes():
+ legacy=read(ROOT/'artifacts/runs'/FAMILY/'pilot/600'/ANALYSIS/'metadata/config.json')
+ scope={'family','analysis','queries','cohort','additional_diagnostics'}
+ project=lambda c:{k:v for k,v in c.items() if k not in scope}
+ assert project(legacy)==json.loads(json.dumps(project(CONFIG))),'Scientific configuration changed'
+ return {signature(legacy),signature(CONFIG)}
 def interval(c):
  p=c.get('parsed');return [p['start'],p['end']] if p and p.get('positive') and c.get('stopped_on_eos',True) else None
 def iou(a,b):return max(0,min(a[1],b[1])-max(a[0],b[0]))/max(1e-12,max(a[1],b[1])-min(a[0],b[0])) if a and b else 0.
@@ -243,8 +249,9 @@ def capture_probes(session,outcome,record,trace,probes,key):
 def setup():
  for category in ('metadata','responses','token_traces','logs','inputs','validation','code'):(OUT/category).mkdir(parents=True,exist_ok=True)
  REPORT.mkdir(parents=True,exist_ok=True)
- cohort=read(COHORT);assert len(cohort)==600 and sorted(collections.Counter(s['dataset'] for s in cohort).values())==[200,200,200]
- full=read(ROOT/'artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json');assert full[:600]==cohort
+ cohort=read(COHORT);assert len(cohort)==900 and sorted(collections.Counter(s['dataset'] for s in cohort).values())==[300,300,300]
+ for n in (300,600):assert read(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{n}/samples.json')==cohort[:n]
+ accepted_config_hashes()
  for name,obj in [('config.json',CONFIG),('cohort.json',cohort)]:
   path=OUT/'metadata'/name
   if path.exists():
@@ -263,7 +270,7 @@ def setup():
  return cohort
 
 def worker(rank,world):
- cohort=read(COHORT);rows=[s for s in cohort if int(hashlib.sha256(s['video_path'].encode()).hexdigest(),16)%world==rank];p=Progress(rank,len(rows));done=0;counts=collections.Counter();fresh=0;started=time.monotonic()
+ cohort=read(COHORT);rows=[s for s in cohort if int(hashlib.sha256(s['video_path'].encode()).hexdigest(),16)%world==rank];p=Progress(rank,len(rows));done=0;counts=collections.Counter();fresh=0;started=time.monotonic();accepted=accepted_config_hashes()
  try:
   import torch
   import fps_spatial_control as source
@@ -278,7 +285,7 @@ def worker(rank,world):
   for row in rows:
    key=row['sample_key'];dest=OUT/'responses'/f'{key}.json'
    if dest.exists():
-    saved=read(dest);assert saved['config_hash']==signature(CONFIG);done+=1;counts[row['dataset']]+=1;continue
+    saved=read(dest);assert saved['config_hash'] in accepted;done+=1;counts[row['dataset']]+=1;continue
    p.update(stage='preparing_input',sample_key=key,variant=None,completed=done)
    record=read(SOURCE/'rollouts'/f'{key}.json');assert record['sample']==row
    old_input=read(SOURCE/'inputs'/f'{key}.json');cache_path=relocate_path(Path(old_input['cache_metadata']));cache=read(cache_path)
@@ -321,7 +328,7 @@ def supervise():
    stream=(OUT/'logs'/f'worker{rank}_runner.log').open('a')
    process=subprocess.Popen([sys.executable,'-u',__file__,'--worker',str(rank),'--world','2'],cwd=ROOT,stdin=subprocess.DEVNULL,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True);workers.append(process);stream.close()
   write(OUT/'metadata/launcher.json',dict(supervisor_pid=os.getpid(),worker_pids=[p.pid for p in workers],started_at=stamp()))
-  started=time.monotonic();reported300=False
+  started=time.monotonic()
   try:
    while True:
     states=[read(OUT/'metadata'/f'worker{i}.json') if (OUT/'metadata'/f'worker{i}.json').exists() else {} for i in range(2)]
@@ -329,23 +336,25 @@ def supervise():
     failed=[s for s in states if s.get('state')=='failed']
     counts=collections.Counter(s['dataset'] for s in cohort if s['sample_key'] in completed)
     etas=[s['eta_seconds'] for s in states if s.get('eta_seconds') is not None]
-    status=dict(state='failed' if failed else 'running',stage='inference',completed=n,total=600,percentage=n/6,counts=dict(counts),elapsed_seconds=time.monotonic()-started,eta_seconds=max(etas) if etas else None,eta_scope='remaining worker inference; excludes final reporting',timestamp=stamp(),workers=states)
+    status=dict(state='failed' if failed else 'running',stage='inference',completed=n,total=900,percentage=100*n/900,counts=dict(counts),elapsed_seconds=time.monotonic()-started,eta_seconds=max(etas) if etas else None,eta_scope='remaining worker inference; excludes final reporting',timestamp=stamp(),workers=states)
     write(OUT/'metadata/status.json',status)
     with (OUT/'logs/progress.log').open('a') as f:f.write(json.dumps(status,ensure_ascii=False)+'\n')
     if failed:raise RuntimeError('Worker failed; see worker logs')
-    if not reported300 and all(s['sample_key'] in completed for s in cohort[:300]):
-     from rollout_reconsideration_report import report
-     report(300,refresh=True);reported300=True
-    if n==600:break
+    if n==900:break
     for process in workers:
      if process.poll() is not None and process.returncode!=0:raise RuntimeError(f'Worker {process.pid} exited {process.returncode}')
     time.sleep(20)
    for process in workers:assert process.wait()==0
-   from rollout_reconsideration_report import report
-   report(600,refresh=True)
-   write(OUT/'metadata/status.json',dict(state='complete',stage='complete',completed=600,total=600,percentage=100,counts=dict(counts),timestamp=stamp(),elapsed_seconds=time.monotonic()-started,eta_seconds=0))
+   write(OUT/'metadata/status.json',dict(state='running',stage='reporting',completed=900,total=900,counts=dict(counts),timestamp=stamp()))
+   from rollout_reconsideration_runtime import finish
+   finish()
+   write(OUT/'metadata/status.json',dict(state='complete',stage='complete',completed=900,total=900,percentage=100,counts=dict(counts),timestamp=stamp(),elapsed_seconds=time.monotonic()-started,eta_seconds=0))
   except BaseException:
-   write(OUT/'metadata/status.json',dict(state='failed',stage='failed',completed=n if 'n' in locals() else 0,total=600,error=traceback.format_exc(),timestamp=stamp()));raise
+   for process in workers:
+    if process.poll() is None:
+     import signal
+     os.killpg(process.pid,signal.SIGTERM)
+   write(OUT/'metadata/status.json',dict(state='failed',stage='failed',completed=n if 'n' in locals() else 0,total=900,error=traceback.format_exc(),timestamp=stamp()));raise
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser();parser.add_argument('--worker',type=int);parser.add_argument('--world',type=int,default=2);args=parser.parse_args()

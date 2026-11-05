@@ -2,7 +2,7 @@
 
 완료: 300 query, dataset별100. 3개 접근과 direct regeneration control을 같은 고정 cohort에서 평가했다. 생성 input hash는 기존 deterministic rollout과 일치하며 GT는 보고 단계에서만 사용했다.
 
-[실험 설계](../../600/reconsideration/SPEC.md)
+[실험 설계](../../900/reconsideration/SPEC.md)
 
 <!-- rollout-methods:begin -->
 
@@ -84,7 +84,7 @@ query 수를 $N$, 해당 query의 평가 IoU를 $u_n$이라고 하면 $\mathrm{m
 
 ## Shared pipeline — 기존 rollout 후보를 재검토하는 실험
 
-완료 범위는 고정 pilot600이며 pilot300은 그 subset이다. 같은 Qwen3-VL-8B-Instruct와 기존 frame·input hash를 재사용했다. 앞선 deterministic rollout에서 이미 완성한 8개 또는 32개 경로를 읽고, 그 후보를 근거로 **새 model context에서 추가 추론**한다. 원래 token tree를 다시 열어 미탐색 prefix를 확장한 실험은 아니다.
+고정 pilot300·600·900은 같은 질문 순서의 중첩 cohort로 관리한다. 각 범위의 완료 여부는 보고서 상단의 상태를 따른다. 같은 Qwen3-VL-8B-Instruct와 기존 frame·input hash를 재사용한다. 앞선 deterministic rollout에서 이미 완성한 8개 또는 32개 경로를 읽고, 그 후보를 근거로 **새 model context에서 추가 추론**한다. 원래 token tree를 다시 열어 미탐색 prefix를 확장한 실험은 아니다.
 
 review 대화는 원래 greedy 응답 token과 EOS 뒤에 새 user turn을 붙인다. 따라서 모든 접근이 원래 greedy 답을 볼 수 있다. inspector는 같은 영상과 원래 greedy 응답은 보지만 controller의 review history 전체를 보지는 않는다. 다른 backbone의 독립 verifier를 사용하지 않았다.
 
@@ -324,7 +324,7 @@ temporal clustering은 semantic event identity gold가 아닌 proxy다. switch�
 
 [dataset·video duration·GT ratio·교차표](STRATA.md). [video별 paired bootstrap 원자료](../../../../../../artifacts/runs/rollout/deterministic/pilot/300/reconsideration/metrics/paired_video_bootstrap.json). 동일 video query를 묶어400회 재표집했다.
 
-선택만의 이득과 regeneration의 이득은 interactive detail에서 verifier/TTS selected candidate와 final answer를 비교한다. agent의 마지막 inspection 대상은 최종 선택 후보라고 간주하지 않는다. qvhighlights-timelens_00507은600 cohort 밖이므로 이 통계에서 제외했다.
+선택만의 이득과 regeneration의 이득은 interactive detail에서 verifier/TTS selected candidate와 final answer를 비교한다. agent의 마지막 inspection 대상은 최종 선택 후보라고 간주하지 않는다. qvhighlights-timelens_00507은 이 고정 cohort 밖이므로 통계에서 제외했다.
 
 <!-- reconsideration-viewer:start -->
 ## Reconsideration 프로세스 탐색

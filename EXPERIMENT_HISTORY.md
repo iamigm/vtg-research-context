@@ -2088,3 +2088,48 @@
 - reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/REPORT.md
 - reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/REPORT.md
 - reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/REPORT.md
+
+## 2026-11-05T20:12:48.368276+09:00
+
+원본 파일 직접 관찰: 18개 실행, 606개 코드·의존성 파일. 이전 commit: 57c4edb0c562cb722b8f1dcc51a0517927ac6035.
+
+추가 19 / 변경 19 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/rollout_reconsideration_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_method_docs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/rollout_reconsideration_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/reporting/rollout_reconsideration_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/reporting/rollout_reconsideration_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/reporting/rollout_reconsideration_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/code/reporting/rollout_reconsideration_viewer_check.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/web/reconsideration.css
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/reconsideration/web/reconsideration.js
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/reconsideration/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/reconsideration/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/reconsideration/STRATA.md
+- code/experiments/zero-shot/_lib/deterministic_oracle_diversity.py
+- code/experiments/zero-shot/_lib/rollout_method_docs.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration_check.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration_report.py
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/300/reconsideration/code/reporting/rollout_reconsideration_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/600/reconsideration/code/reporting/rollout_reconsideration_report.py
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/oracle_diversity/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/300/reconsideration/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/oracle_diversity/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/reconsideration/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/600/reconsideration/SPEC.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/oracle_diversity/REPORT.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/oracle_diversity/STRATA.md
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/overview/reconsideration/REPORT.md
+- conversations/01a19bb6-3014-7f63-b648-622dd1487d58.md
