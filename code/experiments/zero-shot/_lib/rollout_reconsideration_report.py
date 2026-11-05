@@ -125,7 +125,8 @@ def report(n=900,refresh=True):
    paths=[(p['paths']['alternative']['after_log_probability']-p['paths']['parent']['after_log_probability'])-(p['paths']['alternative']['before_log_probability']-p['paths']['parent']['before_log_probability']) for p in probes]
    text.append(f"| {name} | {axis} | {len(probes)} | {statistics.mean(x['js_divergence'] for x in roots):.6f} | {statistics.mean(x['alternative_probability_after']-x['alternative_probability_before'] for x in roots):+.6f} | {statistics.mean(logodds):+.4f} | {statistics.mean(paths):+.4f} |")
  text+=['','## 추가 분석','', '[dataset·video duration·GT ratio·교차표](STRATA.md). [video별 paired bootstrap 원자료]('+os.path.relpath(out/'metrics/paired_video_bootstrap.json',dest)+'). 동일 video query를 묶어400회 재표집했다.','', '선택만의 이득과 regeneration의 이득은 interactive detail에서 verifier/TTS selected candidate와 final answer를 비교한다. agent의 마지막 inspection 대상은 최종 선택 후보라고 간주하지 않는다. '+('qvhighlights-timelens_00507은 이 고정 cohort에 포함되어 정상 평가했다.' if any(s['sample_key']=='qvhighlights-timelens_00507' for s in cohort) else 'qvhighlights-timelens_00507은 이 고정 cohort 밖이므로 통계에서 제외했다.'),'']
- (dest/'REPORT.md').write_text(formalize('\n'.join(text),'reconsideration',n));refresh_spec(dest,'reconsideration',n);strata=['# Stratified results · pilot'+str(n),'','mIoU와 R@0.3/0.5/0.7은 각 칸 query를 분모로 한다. n<10은 small cell, n=0은 empty다. Δ는 동일 칸의 greedy 대비다.','']
+ from rollout_boundary_clipping import integrate_text
+ (dest/'REPORT.md').write_text(integrate_text(formalize('\n'.join(text),'reconsideration',n),n,'reconsideration'));refresh_spec(dest,'reconsideration',n);strata=['# Stratified results · pilot'+str(n),'','mIoU와 R@0.3/0.5/0.7은 각 칸 query를 분모로 한다. n<10은 small cell, n=0은 empty다. Δ는 동일 칸의 greedy 대비다.','']
  axes=[('dataset',sorted({r['dataset'] for r in rows})),('duration',[(0,30),(30,60),(60,120),(120,180),(180,float('inf'))]),('ratio',[(0,.05),(.05,.1),(.1,.2),(.2,.4),(.4,1.000001)])]
  for axis,bins in axes:
   for cell in bins:

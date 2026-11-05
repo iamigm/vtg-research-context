@@ -116,7 +116,8 @@ def report(records=None,cohort_label=None):
  text+=diagnostic_sections(records,rows,OUT)
  from deterministic_oracle_diversity import analysis_reference
  text+=analysis_reference(count)
- write_result_text(REPORT/'REPORT.md', formalize('\n'.join(text)+'\n','deterministic',count))
+ from rollout_boundary_clipping import integrate_text
+ write_result_text(REPORT/'REPORT.md', integrate_text(formalize('\n'.join(text)+'\n','deterministic',count),count,'deterministic'))
  refresh_spec(REPORT,'deterministic',count)
  strata(rows)
  # Validate aggregate denominators, original identities and GT-free selector invariance.

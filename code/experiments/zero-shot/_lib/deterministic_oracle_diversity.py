@@ -277,7 +277,8 @@ def report(rows, n):
         '[조건별 성능](STRATA.md) · [summary]('+prefix+str(n)+'/oracle_diversity/metrics/summary.json) · [query별 파생값]('+canonical+'metrics/per_query.json) · [완성 분기별 비교]('+canonical+'metrics/branches.csv)', '',
         'query별 파생값·source SHA-256·oracle의 parent chain은 canonical900 analysis에 한 번만 저장한다. 작은 cohort는 같은 배열의 앞부분을 참조한다. 원래 응답·GT·frame·token distribution은 복제하거나 변경하지 않았다.', '',
         '재생성: `python experiments/zero-shot/_lib/deterministic_oracle_diversity.py`.']
-    (dest/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    from rollout_boundary_clipping import integrate_text
+    (dest/'REPORT.md').write_text(integrate_text('\n'.join(lines)+'\n',n,'oracle'))
     strata(rows,dest)
     return summaries
 

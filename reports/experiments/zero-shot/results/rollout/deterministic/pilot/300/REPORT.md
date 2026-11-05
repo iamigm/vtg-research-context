@@ -198,6 +198,12 @@ $$
 
 ## 32개 후보 선택의 오차·형식 진단
 
+<!-- clipping-exception:begin -->
+
+**범위 초과 예측:** 예측 start/end를 `[0, 영상 길이]`로 clipping하고 길이0이면 IoU=0으로 처리하는 예외를 사후 확인했다. GT는 유지한다. greedy mIoU는 0.4870→0.4889, probability-weighted medoid(32개)는 0.5051→0.5080다. 기존 표는 clipping 전 기준이다.
+
+<!-- clipping-exception:end -->
+
 | 선택 | 파싱/완성 실패 | 영상 길이 초과 | 분:초 응답 | 시작 MAE | 종료 MAE |
 |---|---:|---:|---:|---:|---:|
 | greedy | 0 | 29 | 10 | 8.896 | 10.832 |
@@ -472,3 +478,4 @@ Token 경로·분포 탐색은 토큰 선택과 조건부 token distribution를 
 ## Oracle interval overlap
 
 [Oracle와 greedy가 겹치는지, 전체 완성 분기 중 oracle와 겹치는 비율](oracle_diversity/REPORT.md). 교집합 길이>0만 overlap으로 사용한 CPU 분석이다.
+

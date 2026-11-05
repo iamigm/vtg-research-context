@@ -42,6 +42,12 @@ invalid 경로는 전체 경로 수 분모에는 포함하되 overlap이나 disj
 
 ## Oracle performance
 
+<!-- clipping-exception:begin -->
+
+**범위 초과 예측:** 예측 start/end를 `[0, 영상 길이]`로 clipping하고 길이0이면 IoU=0으로 처리하는 예외를 사후 확인했다. GT는 유지한다. 후보 clipping 후 oracle을 다시 고르면 mIoU는 0.7347→0.7354, greedy와 비겹침인 oracle은 65→62 query다. clipping 후 길이0인 응답 때문에 4 query는 구간 비교가 불가능하며, 기존 표는 clipping 전 기준이다.
+
+<!-- clipping-exception:end -->
+
 | K | greedy mIoU | oracle mIoU (Δ) | oracle R@.3 (Δpp) | oracle R@.5 (Δpp) | oracle R@.7 (Δpp) | 개선 query |
 |---|---:|---:|---:|---:|---:|---:|
 | 1 | 0.5193 | 0.5193 (+0.0000) | 67.67% (+0.00) | 54.56% (+0.00) | 39.67% (+0.00) | 0/900 |
