@@ -220,6 +220,23 @@ def report():
     original.report()
 
 
+def install_ground_truth_view():
+    import os
+    import re
+    source=Path(__file__).with_name('temporal_mode_ground_truth.js')
+    target=OUT/'web/ground_truth.js'
+    target.write_text(source.read_text())
+    path=RESULT/'detail.html'
+    html=path.read_text()
+    script=os.path.relpath(target,RESULT)+'?sha256='+sha(target)[:12]
+    tag=f'<script id="ground-truth-script" src="{script}"></script>'
+    if 'id="ground-truth-script"' in html:
+        html=re.sub(r'<script id="ground-truth-script"[^>]*></script>',tag,html)
+    else:
+        html=html.replace('</body>',tag+'</body>')
+    path.write_text(html)
+
+
 def initialize():
     original.initialize()
     path=RESULT/'detail.html'
@@ -228,8 +245,12 @@ def initialize():
     path.write_text(html)
     script=OUT/'web/viewer.js'
     script.write_text(script.read_text()+'''\nconst renderBeforePrefixCost=render;render=function(){renderBeforePrefixCost();const cost=data?.results?.[$('method').value+':'+$('seed').value]?.checkpoints?.[$('budget').value]?.cost;const output=document.getElementById('case-cost');if(output&&cost?.prefix_cache){output.textContent+=` Prefix cache: ${cost.prefix_cache.entries}/${cost.prefix_cache.limit}, KV ${(cost.prefix_cache.gpu_bytes/2**20).toFixed(1)}MiB, 저장·복원 CUDA ${cost.prefix_cache.sweep.prefix_cache_cuda_seconds.toFixed(4)}s.`;}};\n''')
+    install_ground_truth_view()
 
 
 if __name__=='__main__':
     import sys
-    initialize() if '--initialize' in sys.argv else report()
+    if '--viewer-only' in sys.argv:
+        install_ground_truth_view()
+    else:
+        initialize() if '--initialize' in sys.argv else report()
