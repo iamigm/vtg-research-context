@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-06T00:00:00.001284+09:00",
+  "observed_at": "2026-11-06T17:01:35.503378+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -458,6 +458,23 @@
       "source_modified_at": "2026-11-05T01:38:06.593830+09:00",
       "messages": 23,
       "last_user_message": "2026-11-04T10:55:10.080Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1af6d-1894-79e1-9d9c-9a38a6397610",
+      "title": "/home/irteam/experiments/zero-shot/results/rollout/event_tree_search\n\n이 실험을 다시 해보자.\n\n제안된 후보들 사이에서 중복을 어떻게 처리할 건지 명확한 정책을 세워야 돼. 어디까지 중복으로 볼 것인지. 만약 전부 중복인 예외 상황을 어떻게 처리할지 등을 생각해보자.\n\n우선 앞선 예시 외에도 정확한 기준을 세워야 할 요소들에 대해 얘기해봐",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md",
+      "sha256": "40d665ac5abbe04e31152e43515670b8436734d51c30c0d0853369389d6f06c1",
+      "bytes": 65212,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/06/rollout-2026-11-06T14-55-24-01a1af6d-1894-79e1-9d9c-9a38a6397610.jsonl",
+      "source_modified_at": "2026-11-06T17:01:34.061880+09:00",
+      "messages": 21,
+      "last_user_message": "2026-11-06T06:55:55.229Z",
       "turn_running": false,
       "retained_snapshot": false
     }

@@ -59,6 +59,7 @@
 - [zero-shot 아래의 싫럼들 정리 좀 하자. 어떻게 묶어볼 수 있겠어? 같은 맥락에서 진행된 거는 함께 정리해놓고 싶은데. 그리고 legacy_quantitive는 그냥 없애버려](../conversations/01a1a254-4ff9-79f0-9647-3d3934565691.md) — deleted
 - [/home/irteam/experiments/zero-shot/results/rollout/deterministic](../conversations/01a1a468-0ed4-7750-978e-18011c5d8260.md) — active
 - [/home/irteam/experiments/zero-shot/results/rollout/deterministic/viewer.html](../conversations/01a1a53c-e6a1-7181-b338-d38607a7b02b.md) — active
+- [/home/irteam/experiments/zero-shot/results/rollout/event_tree_search](../conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md) — active
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
