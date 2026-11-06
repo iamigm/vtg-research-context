@@ -2345,3 +2345,17 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metrics/summary.json
 - reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-07T03:29:20.132248+09:00
+
+원본 파일 직접 관찰: 18개 실행, 666개 코드·의존성 파일. 이전 commit: f539663f26cd34906285450551099dee0d15ebd3.
+
+추가 0 / 변경 7 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/temporal_mode_prefix_cache_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache_report.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/SPEC.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

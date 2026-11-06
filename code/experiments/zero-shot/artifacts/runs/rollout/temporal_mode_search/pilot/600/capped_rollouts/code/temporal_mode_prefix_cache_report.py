@@ -7,6 +7,90 @@ _summary=original.summarize
 _definitions=original.definitions
 _tables=original.tables
 _rows=original.cost_rows
+_base_report=original._report
+
+ZERO_SHOT_NOTE=('Zero-shot 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. '
+    '추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. '
+    '탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. '
+    '모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. '
+    '각 성능 cell은 zero-shot → 결과 (Δpp)이며 Δpp=100×(결과−zero-shot)이다. '
+    'mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. '
+    '진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 zero-shot 기준값을 함께 읽는다.')
+
+
+def performance_summary(rows):
+    result=original.original.common.summarize(rows)
+    zero=dict(iou=original.avg(rows,lambda r:r['baseline']))
+    for field,threshold in (('r03',.3),('r05',.5),('r07',.7)):
+        zero[field]=original.avg(rows,lambda r:float(r['baseline']>=threshold))
+    result['zero_shot']=zero
+    result['delta_pp']={field:100*(result[field]-zero[field]) if rows else None
+        for field in ('iou','r03','r05','r07')}
+    return result
+
+
+def performance_cell(summary,field):
+    if not summary['queries']:
+        return '—'
+    return f'{summary["zero_shot"][field]:.4f} → {summary[field]:.4f} ({summary["delta_pp"][field]:+.2f}pp)'
+
+
+def zero_shot_table(rows,methods=METHODS):
+    lines=['| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|']
+    for method in methods:
+        summary=performance_summary([r for r in rows if r['method']==method])
+        cells=[performance_cell(summary,field) for field in ('iou','r03','r05','r07')]
+        cells += [f'{summary[field]:.4f}' if summary['queries'] else '—' for field in ('main_oracle','diagnostic_oracle')]
+        lines.append(f'| {method} | {summary["queries"]}/{summary["responses"]} | '+' | '.join(cells)+' |')
+    return lines
+
+
+def zero_shot_cross_tables(rows):
+    common=original.original.common
+    lines=[]
+    for method in METHODS:
+        selected=[r for r in rows if r['method']==method]
+        lines+=['',f'### {method} · duration × GT ratio · zero-shot 비교','']
+        for field in ('iou','r03','r05','r07'):
+            lines += [f'지표: {field}. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.', '',
+                '| duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |', '|---|---:|---:|---:|---:|---:|']
+            for duration in range(5):
+                cells=[]
+                for ratio in range(5):
+                    subset=[r for r in selected if common.band(r['duration'],common.DURATIONS)==duration
+                        and common.band(r['gt_ratio'],common.RATIOS)==ratio]
+                    summary=performance_summary(subset)
+                    n=summary['queries']
+                    cells.append((performance_cell(summary,field)+f' / {n}'+('*' if n<10 else '')) if n else '— / 0')
+                lines.append(f'| [{common.DURATIONS[duration]:g},{common.DURATIONS[duration+1]:g}) | '+' | '.join(cells)+' |')
+    return lines
+
+
+def zero_shot_base_report():
+    _base_report()
+    rows=read(OUT/'metrics/per_query.json')
+    groups=[]
+    lines=['## 예산 비교 · zero-shot 대비','',ZERO_SHOT_NOTE,'',
+        '| 총 rollout 상한 | Main/Tail 상한 | 방법 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle |',
+        '|---:|---:|---|---:|---:|---:|---:|---:|---:|']
+    for budget in CHECKPOINTS:
+        for method in METHODS:
+            summary=performance_summary([r for r in rows if r['method']==method and r['budget']==budget])
+            summary.update(method=method,budget=budget,total_rollout_budget=2*budget)
+            groups.append(summary)
+            cells=[performance_cell(summary,field) for field in ('iou','r03','r05','r07')]
+            cells += [f'{summary["main_oracle"]:.4f}' if summary['queries'] else '—']
+            lines.append(f'| {2*budget} | {budget}/{budget} | {method} | {summary["queries"]}/{summary["responses"]} | '+' | '.join(cells)+' |')
+    path=RESULT/'REPORT.md'
+    text=path.read_text()
+    start=text.index('## 예산 비교\n')
+    end=text.index('## 실제 시도·중복·적응 선택',start)
+    text=text[:start]+'\n'.join(lines)+'\n\n'+text[end:]
+    text=text.replace('Δ는 동일 clipping greedy 대비다.', 'Δ는 동일 clipping의 zero-shot greedy 대비다.')
+    text=text.replace('Greedy 대비 paired ΔmIoU 95% CI','Zero-shot 대비 paired ΔmIoU 95% CI')
+    path.write_text(text)
+    write(OUT/'metrics/zero_shot_comparison.json',dict(definition=ZERO_SHOT_NOTE,groups=groups,timestamp=stamp()))
 
 
 def work(*args,**kwargs):
@@ -27,7 +111,7 @@ def cost_rows():
 
 
 def definitions():
-    return _definitions()+'''
+    return _definitions()+'\n\n### Zero-shot 성능 비교\n\n'+ZERO_SHOT_NOTE+'\n'+'''
 
 ### Exact prefix KV cache
 
@@ -122,6 +206,9 @@ def tables(summary):
     return text+'\n'+'\n'.join(lines)+'\n\n'
 
 
+original._report=zero_shot_base_report
+original.original.common.table=zero_shot_table
+original.original.common.cross_tables=zero_shot_cross_tables
 original.standalone_work=work
 original.cost_rows=cost_rows
 original.summarize=summarize
