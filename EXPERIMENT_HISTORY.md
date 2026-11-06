@@ -2164,3 +2164,34 @@
 추가 1 / 변경 0 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
 
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-06T17:43:00.401668+09:00
+
+원본 파일 직접 관찰: 18개 실행, 622개 코드·의존성 파일. 이전 commit: 3e6a16962a9c90bc3678d026aa8c24549cdbc75c.
+
+추가 22 / 변경 2 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/temporal_mode_check.py
+- code/experiments/zero-shot/_lib/temporal_mode_core.py
+- code/experiments/zero-shot/_lib/temporal_mode_report.py
+- code/experiments/zero-shot/_lib/temporal_mode_runtime.py
+- code/experiments/zero-shot/_lib/temporal_mode_smoke.py
+- code/experiments/zero-shot/_lib/temporal_mode_view_check.py
+- code/experiments/zero-shot/_lib/temporal_mode_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_smoke.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/SPEC.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/artifacts/README.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

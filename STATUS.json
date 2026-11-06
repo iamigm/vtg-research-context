@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-06T17:01:35.503378+09:00",
+  "observed_at": "2026-11-06T17:43:00.401668+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -66,6 +66,11 @@
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/status.json",
       "source_modified_at": "2026-10-21T10:29:40.703112+09:00",
       "sha256": "27a8f1085c4cdb6807d01cca3c4c6b2d4c746d2d62bb9f1e366cc3861ba0a519"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json",
+      "source_modified_at": "2026-11-06T17:43:01.818627+09:00",
+      "sha256": "0b95bbb7280c34be5e731975999f302369925dfd7a8151dd98dfe047a1cef67b"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
