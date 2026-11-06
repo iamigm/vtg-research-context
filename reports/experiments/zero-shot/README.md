@@ -1,6 +1,6 @@
 # Zero-shot 평가와 생성 실험
 
-[Temporal mode search · pilot600](results/rollout/temporal_mode_search/viewer.html): 확률적 분기3방법·seed42/43·총 rollout32/64/128/256의 누적 checkpoint를 비교한다. [보고서](results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md)는 greedy 대비 성능과 independent trace work,main/tail/judge의 실제 CUDA·wall 시간 및 memory를 함께 제시한다.
+[Temporal mode search · pilot600](results/rollout/temporal_mode_search/viewer.html): 확률적 분기3방법·seed42/43·총 rollout32/64/128/256의 누적 checkpoint를 비교한다. 동일 native 계산의 prefix KV 재사용과 worker3개 MPS 실행으로 가속한다. [보고서](results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md)는 greedy 대비 성능과 independent trace work,main/tail/judge의 실제 CUDA·wall 시간 및 memory를 함께 제시한다.
 
 [Event proposal and tree search · pilot900](results/rollout/event_tree_search/viewer.html): 넓은 모델 기반 사건 proposal, boundary refinement, contradiction backtracking을15개 정책·두 search token 예산에서 비교한다. 설계·수식·문헌은 [SPEC.md](results/rollout/event_tree_search/pilot/900/SPEC.md), 실행 상태는 대응 artifacts의 metadata/status.json을 참조한다.
 

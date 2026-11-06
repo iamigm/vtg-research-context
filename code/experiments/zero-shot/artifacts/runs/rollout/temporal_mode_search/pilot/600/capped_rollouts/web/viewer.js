@@ -34,3 +34,5 @@ function showCaseCost(){const output=document.getElementById('case-cost');if(!ou
 const renderWithoutCost=render;render=function(){renderWithoutCost();showCaseCost();};
 async function refreshCost(){await drawCostFrontier();showCaseCost();}
 refreshCost().catch(()=>{});setInterval(()=>refreshCost().catch(()=>{}),30000);['method','seed','budget'].forEach(id=>$(id).addEventListener('change',()=>showCaseCost()));
+
+const renderBeforePrefixCost=render;render=function(){renderBeforePrefixCost();const cost=data?.results?.[$('method').value+':'+$('seed').value]?.checkpoints?.[$('budget').value]?.cost;const output=document.getElementById('case-cost');if(output&&cost?.prefix_cache){output.textContent+=` Prefix cache: ${cost.prefix_cache.entries}/${cost.prefix_cache.limit}, KV ${(cost.prefix_cache.gpu_bytes/2**20).toFixed(1)}MiB, 저장·복원 CUDA ${cost.prefix_cache.sweep.prefix_cache_cuda_seconds.toFixed(4)}s.`;}};

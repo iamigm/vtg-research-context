@@ -60,3 +60,16 @@ Main/pool/diagnostic oracle을 구분하고 GT는 모든 선택 이후 평가에
 Observed main/tail은 해당 K까지의 누적,judge는 해당 K의 구간이다. `sweep`은 이전 모든 작은 예산 judge를 포함한 phase 합계이고,`sweep_elapsed_seconds`는 이전 checkpoint 저장과 phase 밖 Python 처리까지 포함한 경과시간(현재 checkpoint 저장 직전)이다. 독립 K 실행시간으로 부르지 않는다. method 실행 순서·이미 저장된 cache·재개에 따라 관측 비용이 달라지므로 method 공정 비교는 independent trace work를 사용한다. 재개 실행의 재탐색·실패 비용은 누적 실행 로그와 raw actual_cost에 보존한다. 계측 도입 이전 checkpoint의 실측은 결측으로 남기며0초로 처리하지 않는다.
 
 효율 지표는 greedy 대비 `ΔmIoU(pp)=100×mean(IoU−IoU_greedy)`,추가1,000 decoder inputs당 향상 `ΔmIoU(pp)/(mean(extra decoder inputs)/1000)`다. 음수는 비용을 써도 성능이 악화됐다는 뜻이다. `marginal Δ`와 `추가 비용`은 같은 query에서 직전 절반 예산 대비 값이다. 같은 query 집합에서 더 낮은 비용·같거나 높은 mIoU의 다른 조건이 있으면 dominated로 표시한다. 평균 개선만으로 연구적 기여를 단정하지 않으며 비용 배율,실측 시간,seed·dataset별 결과와 불확실성을 함께 본다.
+
+
+### Exact prefix KV cache
+
+생성의 input·token distribution·RNG·draw stream·mode·judge prompt는 유지한다. 한 query 안에서 이미 계산한 prefix의 CPU logits와 token별 KV를 재사용한다. 영상 KV는 한 번만 별도 참조하고 text KV는 token당 한 개를 저장하며 최대4,096 prefix로 제한한다. cache가 가득 차면 추가 prefix는 기존 native replay를 사용한다. judge text prefill과 관측 근거 생성은 기존 경로를 유지한다.
+
+현재 independent trace work는 이 prefix cache를 fresh 상태로 시작했을 때의 native forward 횟수다. 과거 query에도 같은 trace의 최적화된 연산 횟수를 재구성한다. 기존 single-KV replay 횟수는 `single_kv_reference`로 함께 보존하며 같은 query·method·seed·예산에서 비교한다. cache 저장·복원 kernel은 decoder forward가 아니므로 decoder inputs/attention pairs에는 더하지 않고 별도 CUDA 시간과 memory로 실측한다.
+
+실측은 `single_kv_replay`와 `prefix_kv_cache`를 구분한다. 두 구현의 서로 다른 query 평균으로 가속률을 계산하지 않는다. 기본 실측 표는 prefix cache의 모든24개 checkpoint가 완료된 공통 query만 사용한다. 기존 구현의 실측은 아래 별도 표와 원자료에 남긴다. CUDA forward 시간에 cache copy 시간이 포함되지 않으므로 cache CUDA 시간도 함께 읽는다. 본문 peak memory에는 prefix cache를 포함한다. 같은 입력으로 두 구현을 실행한 calibration의 가속률은 제한된3 query 결과이며 전체 pilot 가속률을 보장하지 않는다.
+
+worker3개의 CUDA 실행은 이 실험 전용 pipe의 NVIDIA MPS를 사용한다. 서로 다른 process의 kernel 실행을 겹칠 수 있는 실행 서비스이며 모델·입력·dtype·rollout 정책은 바꾸지 않는다. [NVIDIA MPS 설명](https://docs.nvidia.com/deploy/mps/when-to-use-mps.html). 동일3 client·8,192 context·client당80 native single-token forward의 microbenchmark는 실험 전체 가속률과 구분한다. MPS 전후 전체 logits byte hash와 세 데이터셋의 기존 분포·경로·judge 기록을 대조한다. 기존 kernel replay 비용과 새 MPS+prefix cache 실측은 합산하지 않는다.
+
+paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·trace를 유지하되 기존 구현의 wall/CUDA 평균에서 제외한다. 중단 시간과 query는 metadata/execution_interruptions.json에 기록하고 원래 시간 계측은 responses에 보존한다. 행정적 대기 시간을 탐색 연산 시간으로 해석하지 않는다.
