@@ -4,6 +4,8 @@
 
 `runs/rollout/temporal_mode_search/pilot/600/`은 확률 하한·clipping·main/tail 격리를 적용한 새 stochastic rollout 실험의 단일 원자료 저장소다. `metadata/config.json`과 code snapshot으로 설정을 동결하고, 입력은 기존 deterministic의 tensor hash·frame IDs·PTS·H×W와 대조해 재사용한다. `responses/`의 query별 원자료와 조건별 atomic checkpoint를 사용하며 tail은 진단 전용이다. 상태는 `metadata/status.json`, 진행 로그는 `logs/progress.log`다. `temporal_mode_search.pilot600.responses` registry는 최종 데이터·뷰어 검증까지 `building` 상태를 유지한다.
 
+현재 실행 범위는 `metadata/execution_scope.json`과 `metadata/effective_config.json`을 따른다. Active seed는42·43,영상 hash로 분할한 GPU worker는3개이며600 query×3조건×2seed=3,600개 선택이 목표다. 최초 설정의 seed44 원자료는 보존하지만 신규 생성·집계·뷰어 선택에서 제외한다. 최초 생성 코드8개는 유지하고 병렬 runtime snapshot과 hash는 `metadata/parallel_manifest.json`에 기록한다. Worker별 로그는 `logs/worker0.log`부터 `worker2.log`이며 공통 진행 로그와 자동 후처리는 supervisor 하나가 담당한다.
+
 실행별 자료는 `runs/<주제>/<실험 계열>/<full|pilot>/<범위>/`(results와 동일 경로), 실행 간 재사용 자료는 `common/`에 둔다. 보고서는 별도의 `../results/<주제>/<실험 계열>/<full|pilot>/<범위>/`에 두며 그 안에 `artifacts/`를 만들지 않는다.
 
 재사용 자료의 기준 목록은 `common/registry/*.json`이다. 파일을 새로 저장할 때 기존 분류에 등록하고, 모델·입력·생성 설정 또는 판정 기준이 바뀌면 새 버전 ID를 부여한다. 같은 ID로 다른 경로를 덮어쓰지 않는다.

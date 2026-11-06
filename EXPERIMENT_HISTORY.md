@@ -2203,3 +2203,26 @@
 추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
 
 - evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json
+
+## 2026-11-06T18:31:16.917350+09:00
+
+원본 파일 직접 관찰: 18개 실행, 631개 코드·의존성 파일. 이전 commit: 4d039f0182c7a8ae9822eadf26438f85bcdd63e3.
+
+추가 9 / 변경 7 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/temporal_mode_parallel.py
+- code/experiments/zero-shot/_lib/temporal_mode_parallel_check.py
+- code/experiments/zero-shot/_lib/temporal_mode_scope.py
+- code/experiments/zero-shot/_lib/temporal_mode_scope_report.py
+- code/experiments/zero-shot/_lib/temporal_mode_switch.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_parallel.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_parallel_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_scope.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/code/temporal_mode_scope_report.py
+- reports/experiments/zero-shot/artifacts/README.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/SPEC.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

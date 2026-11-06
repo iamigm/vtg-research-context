@@ -18,7 +18,7 @@ Mode의 모든 interval 쌍은 IoU≥.5 및 max endpoint 차이≤max(1초,.1×�
 
 ## 탐색과 확률 추정
 
-조건은 probability·token_entropy·temporal_mode,seed42/43/44다. Main root probe16회,주요 분기 suffix 최소8회 후 적응 배정한다. Tail entry는 최소32회 후 추가 조사한다. 방문하지 않은 prefix나 미달 probe는 미조사로 남긴다.
+조건은 probability·token_entropy·temporal_mode,seed42/43다. Main root probe16회,주요 분기 suffix 최소8회 후 적응 배정한다. Tail entry는 최소32회 후 추가 조사한다. 방문하지 않은 prefix나 미달 probe는 미조사로 남긴다.
 
 공통 확률 우선순위는 log P(prefix+edge)−log 평균 logical cost−.5 log(1+probe 수)다. entropy 조건은 여기에 log(max(Htoken,1e-6))를 더한다. mode 조건은 log(min(1,새 mode weighted yield/n+sqrt(log(2+draw 수)/(2n))))을 더한다. 새 mode는 해당 조건의 이전 draw에 없던 mode다. 초기 최소 probe를 만족하지 못한 edge는 prefix probability 우선으로 먼저 조사한다.
 
@@ -36,10 +36,14 @@ Pair preference=.5×{forward P(A)+.5 forward P(C)+reverse P(B)+.5 reverse P(C)}�
 
 기존 제안보다 분기 예산을 두 배로 올렸다. query·조건·seed마다 main65,536,tail131,072,judge32,768 decoder input tokens다. Prefix replay+생성+새 judge prompt를 logical 독립 실행 비용으로 계수하고 실제 cache 실행 tokens·wall time·video prefill은 별도 기록한다. 생성 도중 cap은 후보로 commit하지 않으며 이미 사용한 비용은 남긴다. Tail 예산 미달 조사 항목은 완료로 표현하지 않는다.
 
-600 query×3조건×3seed=최대5,400개의 최종 선택이다. 이것을 pilot5400으로 부르지 않는다. Main·tail·judge 비용을 분리하고 합계도 보고한다. detached supervisor·20초 heartbeat·조건별 atomic checkpoint·최대3회 자동 재개 후 완료 보고서·검증·registry·index 갱신을 연결한다. 다른 GPU 작업을 중지하지 않는다.
+600 query×3조건×2seed=최대3,600개의 최종 선택이다. 이것을 pilot5400으로 부르지 않는다. Main·tail·judge 비용을 분리하고 합계도 보고한다. detached supervisor·20초 heartbeat·조건별 atomic checkpoint·최대3회 자동 재개 후 완료 보고서·검증·registry·index 갱신을 연결한다. 다른 GPU 작업을 중지하지 않는다.
 
 ## 평가
 
-IoU=시간 교집합/합집합,mIoU=query별 IoU 평균,R@τ=IoU≥τ인 비율(τ=.3/.5/.7)이다. 높을수록 좋고 실패는0점이다. 같은 clipping을 greedy에도 적용한다. 조건별3seed는 query 안에서 평균하고 query 수와 반복 응답 수를 구분한다. 영상 길이·GT/영상 길이 비율·교차표는 사후 평가에만 사용한다. GT는 후보 생성·mode 구성·선택·중단에 사용하지 않는다.
+IoU=시간 교집합/합집합,mIoU=query별 IoU 평균,R@τ=IoU≥τ인 비율(τ=.3/.5/.7)이다. 높을수록 좋고 실패는0점이다. 같은 clipping을 greedy에도 적용한다. 조건별2seed는 query 안에서 평균하고 query 수와 반복 응답 수를 구분한다. 영상 길이·GT/영상 길이 비율·교차표는 사후 평가에만 사용한다. GT는 후보 생성·mode 구성·선택·중단에 사용하지 않는다.
 
-Main candidate oracle·shortlist oracle·실제 선택·main+tail diagnostic oracle을 분리한다. Tail 포함 oracle은 운영 가능한 성능이 아니다. Mode 수는 관측된 시간 가설 수이며 실제 모든 사건에 대한 coverage 비율을 주장하지 않는다. video 단위 paired bootstrap(seed42,400회)로 greedy 대비 ΔmIoU의95% CI를 보고한다. 같은 query의3seed·조건을 독립 query로 합산하지 않는다.
+Main candidate oracle·shortlist oracle·실제 선택·main+tail diagnostic oracle을 분리한다. Tail 포함 oracle은 운영 가능한 성능이 아니다. Mode 수는 관측된 시간 가설 수이며 실제 모든 사건에 대한 coverage 비율을 주장하지 않는다. video 단위 paired bootstrap(seed42,400회)로 greedy 대비 ΔmIoU의95% CI를 보고한다. 같은 query의2seed·조건을 독립 query로 합산하지 않는다.
+
+## 현재 실행 범위
+
+사용자 요청으로 active seed는42·43 두 개다. 기존 seed44 원자료는 보존하지만 신규 생성·집계·뷰어 선택에서 제외한다. 고정600 query×3조건×2seed=3,600개 최종 선택이 목표다. 영상 SHA-256 modulo3으로 세 GPU worker에 겹치지 않게 배정한다. worker마다 Torch threads2와 별도 processor의 CPU 입력 prefetch1개를 사용한다. 입력·모델·raw 확률·budget·RNG·single-token rollout 연산은 기존 동결 코드와 동일하다. `metadata/config.json`은 최초 생성 설정 원본이며 실제 실행 범위는 `metadata/execution_scope.json`과 `metadata/effective_config.json`이 원본이다.
