@@ -116,7 +116,8 @@ def build_family_catalog(projects):
   html=[e for e in entries if e['kind']=='html']
   candidates=html or entries
   # Report-only families open their primary report before supplementary MDs.
-  default=min(candidates,key=lambda e:(-e['queries'],len(Path(e['id']).parts),e['id']!=e.get('report'),e['id']))
+  preferred=[e for e in candidates if e['kind']=='html' and 'data-family-default' in (family/e['id']).read_text()[:2000]]
+  default=min(preferred or candidates,key=lambda e:(-e['queries'],len(Path(e['id']).parts),e['id']!=e.get('report'),e['id']))
   # Structural manifest belongs to the family's corresponding artifact tree.
   rel=family.relative_to(ROOT/f['project']/'results');web=ROOT/f['project']/'artifacts/runs'/rel/'overview/web'
   manifest=web/'view_manifest.json'

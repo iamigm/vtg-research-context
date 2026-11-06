@@ -2,6 +2,8 @@
 
 ## Temporal mode search · pilot600
 
+현재 활성 조건은 `runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/`이다. Main/tail 각각16·32·64·128개의 rollout 시도 checkpoint를 한 번의 누적 stream으로 비교한다. 총 예산은32·64·128·256회이며 query당 최대1,536개의 탐색 시도와 별도 greedy baseline1개다. 중복 시도·unique sequence·mode를 구분하고,초기 공통 조사를최대8회로 제한한 뒤 방법별 적응 선택을 실행한다. Seed42·43와 GPU worker3개는 유지한다. 이전 token-budget 원자료·checkpoint는 상위600폴더에 보존하지만 새 조건의 집계에는 포함하지 않는다. 활성 상태와 로그는 capped_rollouts의 `metadata/status.json`과 `logs/progress.log`다.
+
 `runs/rollout/temporal_mode_search/pilot/600/`은 확률 하한·clipping·main/tail 격리를 적용한 새 stochastic rollout 실험의 단일 원자료 저장소다. `metadata/config.json`과 code snapshot으로 설정을 동결하고, 입력은 기존 deterministic의 tensor hash·frame IDs·PTS·H×W와 대조해 재사용한다. `responses/`의 query별 원자료와 조건별 atomic checkpoint를 사용하며 tail은 진단 전용이다. 상태는 `metadata/status.json`, 진행 로그는 `logs/progress.log`다. `temporal_mode_search.pilot600.responses` registry는 최종 데이터·뷰어 검증까지 `building` 상태를 유지한다.
 
 현재 실행 범위는 `metadata/execution_scope.json`과 `metadata/effective_config.json`을 따른다. Active seed는42·43,영상 hash로 분할한 GPU worker는3개이며600 query×3조건×2seed=3,600개 선택이 목표다. 최초 설정의 seed44 원자료는 보존하지만 신규 생성·집계·뷰어 선택에서 제외한다. 최초 생성 코드8개는 유지하고 병렬 runtime snapshot과 hash는 `metadata/parallel_manifest.json`에 기록한다. Worker별 로그는 `logs/worker0.log`부터 `worker2.log`이며 공통 진행 로그와 자동 후처리는 supervisor 하나가 담당한다.

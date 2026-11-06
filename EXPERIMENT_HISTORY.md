@@ -2235,3 +2235,34 @@
 
 - evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-06T20:06:07.268898+09:00
+
+원본 파일 직접 관찰: 18개 실행, 644개 코드·의존성 파일. 이전 commit: 90582dad5cef8cb6bca223b39bd9951d423b0db0.
+
+추가 19 / 변경 5 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/temporal_mode_capped_check.py
+- code/experiments/zero-shot/_lib/temporal_mode_capped_core.py
+- code/experiments/zero-shot/_lib/temporal_mode_capped_report.py
+- code/experiments/zero-shot/_lib/temporal_mode_capped_runtime.py
+- code/experiments/zero-shot/_lib/temporal_mode_capped_smoke.py
+- code/experiments/zero-shot/_lib/temporal_mode_capped_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_smoke.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_view_check.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/SPEC.md
+- reports/experiments/zero-shot/artifacts/README.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/REPORT.md
+- code/experiments/_lib/family_catalog.py
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

@@ -1,6 +1,8 @@
 # Temporal mode search · pilot600 · 결과 보고서
 
-상태: 실행 중·미완료. 고정600 query 중 2 query 완료. 세 데이터셋별200 query,3조건×2seed의 반복 선택은 query 수와 구분한다.
+> 이 token-budget 조건은 초기 조사에서 방법별 우선순위가 충분히 작동하지 않아 중단했습니다. 원자료를 보존하며 [capped_rollouts 조건](capped_rollouts/REPORT.md)과 합산하지 않습니다.
+
+상태: 중단·미완료. 고정600 query 중 2 query 완료. 세 데이터셋별200 query,3조건×2seed의 반복 선택은 query 수와 구분한다.
 
 절대 하한0.9%,상대 계수0.01,누적 main 질량90%,예측을[0,D]로 clipping한다. main65,536/tail131,072/judge32,768 decoder input tokens이며 기존 제안 대비 분기 예산을 두 배로 늘렸다.
 
