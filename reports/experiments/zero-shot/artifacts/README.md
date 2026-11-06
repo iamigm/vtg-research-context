@@ -152,3 +152,11 @@ Reconsideration 뷰는 같은 cohort manifest와 사례 유형·필터를 재사
 ## Reconsideration canonical storage
 
 Deterministic rollout의 reconsideration 응답·입력·token distribution·실행 로그는 `artifacts/runs/rollout/deterministic/pilot/900/reconsideration/`에 한 번 저장한다. pilot300·600·900은 각 scope의 `metadata/source_records.json`으로 같은 원자료를 참조한다. 기존600 응답의 byte hash와 과학적 설정 동등성은 canonical900의 `metadata/reuse.json`에 기록한다. 원래600 응답 내부 config hash는 보존하며, legacy config와900 config의 scope 외 과학적 설정이 같을 때만 재사용한다.
+
+## Temporal mode search · pilot600 · capped rollouts
+
+`runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/`는3방법×seed42/43×main/tail 각각16·32·64·128회 checkpoint를 저장한다. `responses/`의 기존 token IDs·probability·선택은 유지하고 native forward 계측을 추가했다. `metadata/manifest.json`은 생성 정책의 원본 snapshot,`metadata/cost_manifest.json`은 계측 확장 코드·원본 manifest hash다. 계측 전 checkpoint의 시간은 결측으로 남긴다.
+
+`metrics/cost_per_query.json`은 기존 경로로 재구성한 independent-case decoder inputs·forward·attention pairs와 checkpoint별 실측,`metrics/costs.json`은 모든 방법·예산의 공통 query 비교다. attention pairs는 context workload proxy이며 FLOPs가 아니다. Tail을 제외한 operational 비용과 tail 포함 research 비용을 모두 보존한다. `responses/*.json`의 `checkpoint.cost`는 main/tail/judge·누적 sweep CUDA stream 시간·wall 시간·memory이고,`measured_actual_cost`는 재개 실행을 포함한 측정 구간의 누적 실제 비용이다.
+
+재개 진입점은 동결된 `code/temporal_mode_capped_cost_runtime.py`다. 현재 사용하는 Python은 프로젝트 `.venv/bin/python`이고 프로젝트 `_lib`를 PYTHONPATH에 둔다. 보고서·HTML 재생성은 같은 code의 `temporal_mode_capped_cost_report.py --initialize`,검증은 `temporal_mode_capped_cost_check.py`와 기존 capped 검증을 사용한다. GPU smoke는 입력 hash·greedy·draw stream·선택 보존과 재구성 counter의 native forward 일치를 검사한다. 완료 후 보고서·검증·공통 index 갱신은 supervisor가 자동 수행한다. 상태는 `metadata/status.json`,통합 로그는 `logs/progress.log`,worker 로그는 `logs/worker0.log`–`worker2.log`다.

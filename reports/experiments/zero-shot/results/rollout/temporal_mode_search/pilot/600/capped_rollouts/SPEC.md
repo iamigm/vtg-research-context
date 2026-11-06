@@ -37,8 +37,26 @@ Checkpoint마다 root/initialization/coverage/adaptive 선택 횟수와 미조�
 
 IoU=교집합/합집합,mIoU=query별 IoU 평균,R@τ=IoU≥τ 비율(τ=.3/.5/.7)이다. 높을수록 좋다. 실패는0점이며 두 seed를 query 안에서 평균한다. 다른 예산의 값을 한 평균으로 합치지 않는다. 진행 중 표는 해당 방법·예산에서 두 seed가 모두 완료된 query만 집계한다.600 query×3방법×2seed=3,600 route,각4checkpoint=14,400개 예산별 선택이며 독립14,400 query가 아니다.
 
-Main/pool/diagnostic oracle을 구분하고 GT는 모든 선택 이후 평가에만 사용한다. MI는 p/q-weighted 조건부 mode 정보량(bits) 진단이다. Native model mass와 관측 경로 질량 하한을 구분한다. Main/tail token 비용은 해당 checkpoint까지 누적이며 judge는 그 checkpoint만 독립 배치했을 때 필요한 logical 비용이다. 이전 작은 예산의 judge 비용을 큰 예산의 독립 비용에 더하지 않는다. 실제 전체 sweep GPU 비용은 raw actual_cost에 따로 기록한다.
+Main/pool/diagnostic oracle을 구분하고 GT는 모든 선택 이후 평가에만 사용한다. MI는 p/q-weighted 조건부 mode 정보량(bits) 진단이다. Native model mass와 관측 경로 질량 하한을 구분한다. Main/tail token 비용은 해당 checkpoint까지 누적이며 judge는 그 checkpoint만 독립 배치했을 때 필요한 logical 비용이다. 이전 작은 예산의 judge 비용을 큰 예산의 독립 비용에 더하지 않는다. 실제 forward의 CUDA stream 시간은 raw measured_actual_cost와 checkpoint.cost,기존 token·forward·wall 비용은 actual_cost에 기록한다.
 
 ## 운영
 
 영상 hash modulo3으로 GPU worker3개에 겹치지 않게 배정한다. worker별 Torch threads2와 CPU input prefetch1개를 사용한다. 고정 code snapshot·조건 및 예산별 atomic checkpoint·20초 heartbeat·최대3회 재개를 사용한다. 완료 후 MD·HTML·raw validation·viewer validation·registry·통합 index를 자동 갱신한다. 동일 계열의 capped_rollouts 조건이며 이전 결과는 별도 선택 항목으로 남긴다.
+
+## 연산 비용과 성능 대비 비용
+
+비용의 분모는 query·method·seed·예산 한 경우다. seed42·43을 query 안에서 먼저 평균한다. 진행 중 비교는 3방법×4예산×2seed가 모두 완료된 같은 query만 사용한다. 다음 두 비용을 구분한다.
+
+**Independent trace work**는 저장된 token ID·분기 prefix·judge prompt를 따라 fresh video KV와 빈 distribution/prompt cache에서 greedy → main K회 → 해당 K의 judge → tail K회만 실행하는 경우의 연산 횟수를 재구성한다. 다른 method·seed·작은 예산 judge의 cache를 빌려 쓰지 않는다. 영상 prefill은 한 번 포함한다. 이는 시간 실측이나 FLOPs 추정이 아니며 실제 native forward 계측과 대조한다. Tail이 중간 main에 영향을 주지 않는 고정 draw stream을 사용한다.
+
+- `decoder inputs`: native decoder forward에 실제 투입하는 token position 수의 합. 재생한 prefix, judge text prefill·근거 생성, 영상 prefill 뒤의 multimodal decoder positions를 포함한다. sampling 횟수나 출력 token 수와 다르다.
+- `forwards`: native model forward 호출 수. 하나의 긴 judge text prefill도1회이므로 token 수와 함께 해석한다.
+- `attention pairs`: 각 forward의 causal query-key position 쌍 `q(k−q)+q(q+1)/2`의 합. q는 새 input 길이,k는 전체 KV 길이다. layer/head 곱을 생략한 context 길이 workload proxy이며 정확한 FLOPs가 아니다. vision encoder의 별도 연산은 포함하지 않는다.
+- `operational`: video prefill+greedy+main+judge. `research total`: operational+진단용 tail. Tail을 후보로 쓰지 않아도 이번 실험의 총비용에서 제외하지 않는다.
+- `greedy ×`: 같은 query의 video prefill+greedy 대비 decoder inputs 또는 forward 호출 수 배율. 원래 입력의 hash와 greedy ID가 동일하다. 입력 prefill과 추가 text 비용도 분리한다.
+
+**Observed execution**은 지금 사용하는 worker3개·공유 cache의 nested sweep에서 각 main/tail/judge 구간의 wall seconds,native forward CUDA stream seconds,forward 수,decoder inputs,process별 peak allocated/reserved memory를 기록한다. CUDA events를 각 forward 전후에 배치하며 GPU 동시 실행·queue 대기의 영향을 받을 수 있다. CUDA stream seconds는 GPU 전체 사용시간이나 정확한 kernel active time이 아니다. wall−forward wall은 Python/cache/mode grouping 등 host-side 잔여시간의 근사다. peak memory는 worker별 model/KV를 포함하고 다른 worker의 점유량과 합산한 장치 전체 peak가 아니다.
+
+Observed main/tail은 해당 K까지의 누적,judge는 해당 K의 구간이다. `sweep`은 이전 모든 작은 예산 judge를 포함한 phase 합계이고,`sweep_elapsed_seconds`는 이전 checkpoint 저장과 phase 밖 Python 처리까지 포함한 경과시간(현재 checkpoint 저장 직전)이다. 독립 K 실행시간으로 부르지 않는다. method 실행 순서·이미 저장된 cache·재개에 따라 관측 비용이 달라지므로 method 공정 비교는 independent trace work를 사용한다. 재개 실행의 재탐색·실패 비용은 누적 실행 로그와 raw actual_cost에 보존한다. 계측 도입 이전 checkpoint의 실측은 결측으로 남기며0초로 처리하지 않는다.
+
+효율 지표는 greedy 대비 `ΔmIoU(pp)=100×mean(IoU−IoU_greedy)`,추가1,000 decoder inputs당 향상 `ΔmIoU(pp)/(mean(extra decoder inputs)/1000)`다. 음수는 비용을 써도 성능이 악화됐다는 뜻이다. `marginal Δ`와 `추가 비용`은 같은 query에서 직전 절반 예산 대비 값이다. 같은 query 집합에서 더 낮은 비용·같거나 높은 mIoU의 다른 조건이 있으면 dominated로 표시한다. 평균 개선만으로 연구적 기여를 단정하지 않으며 비용 배율,실측 시간,seed·dataset별 결과와 불확실성을 함께 본다.
