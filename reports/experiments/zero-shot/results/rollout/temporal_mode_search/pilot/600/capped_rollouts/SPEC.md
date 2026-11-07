@@ -78,3 +78,5 @@ Zero-shot 기준은 동일 모델·동일 영상 입력·원래 query prompt에�
 worker3개의 CUDA 실행은 이 실험 전용 pipe의 NVIDIA MPS를 사용한다. 서로 다른 process의 kernel 실행을 겹칠 수 있는 실행 서비스이며 모델·입력·dtype·rollout 정책은 바꾸지 않는다. [NVIDIA MPS 설명](https://docs.nvidia.com/deploy/mps/when-to-use-mps.html). 동일3 client·8,192 context·client당80 native single-token forward의 microbenchmark는 실험 전체 가속률과 구분한다. MPS 전후 전체 logits byte hash와 세 데이터셋의 기존 분포·경로·judge 기록을 대조한다. 기존 kernel replay 비용과 새 MPS+prefix cache 실측은 합산하지 않는다.
 
 paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·trace를 유지하되 기존 구현의 wall/CUDA 평균에서 제외한다. 중단 시간과 query는 metadata/execution_interruptions.json에 기록하고 원래 시간 계측은 responses에 보존한다. 행정적 대기 시간을 탐색 연산 시간으로 해석하지 않는다.
+
+원자료는 누적 pilot900에 한 번 저장한다. pilot300·600·900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.

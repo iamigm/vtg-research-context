@@ -71,6 +71,10 @@ def canonical_read(path):
         return json_read(path)
     if relative.parts[0] in ('responses','inputs','code','environment','logs'):
         path=CANONICAL/relative
+        if relative.parts[0]=='responses' and path.name.endswith('.partial.json'):
+            final=path.with_name(path.name.replace('.partial.json','.json'))
+            if final.exists():
+                path=final
     elif relative.parts[0]=='metadata' and not path.exists():
         path=CANONICAL/relative
     value=json_read(path)
@@ -100,3 +104,23 @@ def preflight():
         source_cohort_sha256=core.sha(COHORT_ROOT/'pilot_600/samples.json'),
         generation_changes=[],scope_only_config_changes=['queries'],seeds=origin['seeds'],
         checkpoints=origin['checkpoints'],timestamp=core.stamp())
+
+
+def register_canonical(count,state='building'):
+    """Relocate the same registered resource after the verified physical move."""
+    from artifact_store import register,STORE,relative,atomic,now
+    resource=f'temporal_mode_search.capped_rollouts.pilot{count}.responses'
+    target=STORE/'registry'/f'{resource}.json'
+    if target.exists():
+        old=json_read(target)
+        canonical=relative(CANONICAL/'responses')
+        if old['path']!=canonical:
+            assert count==600 and not (OLD/'responses').exists()
+            assert old['path'].endswith('/pilot/600/capped_rollouts/responses')
+            assert json_read(CANONICAL/'metadata/reuse.json')['source_config']['queries']==600
+            old.update(path=canonical,updated_at=now())
+            atomic(target,old)
+    register(resource,'rollouts',CANONICAL/'responses',
+        f'Fixed cumulative pilot{count}; canonical900 source; two seeds.',
+        producer='temporal_mode_cumulative_runtime.py',
+        cohort=str(COHORT_ROOT/f'pilot_{count}/samples.json'),state=state)

@@ -2473,3 +2473,38 @@
 - 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache_runtime.py
 - 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/config.json
 - 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/manifest.json
+
+## 2026-11-07T17:53:08.765130+09:00
+
+원본 파일 직접 관찰: 18개 실행, 687개 코드·의존성 파일. 이전 commit: 3ab89e3c5c3f3de9e4bd5e77ef8fdbefe3503bb9.
+
+추가 7 / 변경 21 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/300/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/300/capped_rollouts/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/300/capped_rollouts/web/ground_truth.js
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/300/capped_rollouts/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/300/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/300/capped_rollouts/SPEC.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/overview/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/temporal_mode_continue_pilot.py
+- code/experiments/zero-shot/_lib/temporal_mode_cumulative_check.py
+- code/experiments/zero-shot/_lib/temporal_mode_cumulative_report.py
+- code/experiments/zero-shot/_lib/temporal_mode_cumulative_runtime.py
+- code/experiments/zero-shot/_lib/temporal_mode_cumulative_scope.py
+- code/experiments/zero-shot/_lib/temporal_mode_cumulative_view_check.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_continue_pilot.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_scope.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_view_check.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/SPEC.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/SPEC.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

@@ -79,5 +79,4 @@ worker3개의 CUDA 실행은 이 실험 전용 pipe의 NVIDIA MPS를 사용한�
 
 paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·trace를 유지하되 기존 구현의 wall/CUDA 평균에서 제외한다. 중단 시간과 query는 metadata/execution_interruptions.json에 기록하고 원래 시간 계측은 responses에 보존한다. 행정적 대기 시간을 탐색 연산 시간으로 해석하지 않는다.
 
-
-고정900 cohort로 범위만 확장한다. 기존600의 원본 response/config hash는 보존하며 원자료는 누적900에 통합한다.
+원자료는 누적 pilot900에 한 번 저장한다. pilot300·600·900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.

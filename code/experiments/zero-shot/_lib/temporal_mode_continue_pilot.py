@@ -120,11 +120,8 @@ def migrate():
     (overview/'REPORT.md').write_text('# Temporal mode search · 누적 pilot\n\n고정600 ⊂ 900 cohort다. 응답은 pilot900에 한 번 저장하고 각 범위를 부분집합으로 평가한다. 중복 query를 독립 합산하지 않는다.\n\n| 범위 | Query | 보고서 |\n|---|---:|---|\n| pilot | 600 | [결과](../600/capped_rollouts/REPORT.md) |\n| pilot | 900 | [결과](../900/capped_rollouts/REPORT.md) |\n')
     subprocess.run([sys.executable,str(scope.ROOT.parent/'_lib/build_index.py')],check=True)
     subprocess.run([sys.executable,str(scope.ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
-    from artifact_store import register
-    for count in (600,900):
-        register(f'temporal_mode_search.capped_rollouts.pilot{count}.responses','rollouts',new/'responses',
-            f'Cumulative pilot{count}; shared canonical900; generation unchanged.',producer='temporal_mode_cumulative_runtime.py',
-            cohort=str(scope.COHORT_ROOT/f'pilot_{count}/samples.json'),state='complete' if count==600 else 'building')
+    for count in (300,600,900):
+        scope.register_canonical(count,'complete' if count<=600 else 'building')
     print(json.dumps(dict(state='running',stage='cumulative900_start',queries=900,reused_queries=600,timestamp=stamp())),flush=True)
     os.execv(sys.executable,[sys.executable,'-u',str(new/'code/temporal_mode_cumulative_runtime.py')])
 

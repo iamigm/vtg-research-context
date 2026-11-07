@@ -46,7 +46,7 @@ def validate():
                     tail|=not edge['core']
                 assert tail==(draw['kind']=='tail')
             total_draws+=len(route['draws'])
-    for count in (600,900):
+    for count in (300,600,900):
         run=scope.FAMILY/str(count)/'capped_rollouts'
         records=core.read(run/'metadata/source_records.json')
         assert records['queries']==count and len(records['records'])==count

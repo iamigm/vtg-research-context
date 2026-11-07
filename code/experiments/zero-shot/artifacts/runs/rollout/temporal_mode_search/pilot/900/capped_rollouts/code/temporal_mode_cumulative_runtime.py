@@ -241,7 +241,7 @@ def supervise():
         write(OUT/'metadata/launcher.json',dict(supervisor_pid=os.getpid(),worker_pids=[p.pid for p in processes.values()],
             worker_count=3,seeds=CONFIG['seeds'],timestamp=stamp()))
         write(OUT/'metadata/execution_scope.json',dict(queries=900,active_queries=900,state='running',
-            retained_scopes=[600,900],new_query_count=300,timestamp=stamp()))
+            retained_scopes=[300,600,900],new_query_count=300,timestamp=stamp()))
         origin=time.monotonic()
         while True:
             states=[read(OUT/'metadata'/f'worker{rank}.json') if (OUT/'metadata'/f'worker{rank}.json').exists() else {} for rank in processes]
@@ -282,11 +282,9 @@ def supervise():
             subprocess.run([sys.executable,str(Path(__file__).with_name(script))],check=True)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
-        from artifact_store import register
-        for scope in (600,900):
-            register(f'temporal_mode_search.capped_rollouts.pilot{scope}.responses','rollouts',OUT/'responses',
-                f'Fixed cumulative pilot{scope}; canonical900 source; two seeds; validated.',
-                producer='temporal_mode_cumulative_runtime.py',cohort=str(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{scope}/samples.json'),state='complete')
+        from temporal_mode_cumulative_scope import register_canonical
+        for count in (300,600,900):
+            register_canonical(count,'complete')
         status.update(state='complete',stage='complete',completed=900,timestamp=stamp())
         write(OUT/'metadata/status.json',status)
         subprocess.run(['nvidia-cuda-mps-control'],input='quit\n',text=True,check=False)

@@ -12,7 +12,7 @@ def run():
         browser=pw.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
         page=browser.new_page(viewport=dict(width=1600,height=1100))
         page.on('pageerror',lambda error:errors.append(str(error)))
-        for count in (600,900):
+        for count in (300,600,900):
             rows=core.read(scope.COHORT_ROOT/f'pilot_{count}/samples.json')
             key=rows[0]['sample_key']
             url=f'http://127.0.0.1:8780/zero-shot/results/rollout/temporal_mode_search/pilot/{count}/capped_rollouts/detail.html?sample={key}'
@@ -30,7 +30,7 @@ def run():
             page.set_viewport_size(dict(width=1600,height=1100))
         assert not errors,errors
         browser.close()
-    core.write(core.OUT/'validation/cumulative_viewer.json',dict(passed=True,scopes=[600,900],
+    core.write(core.OUT/'validation/cumulative_viewer.json',dict(passed=True,scopes=[300,600,900],
         shared_canonical_response_urls=True,gt_visible=True,zero_shot_report=True,page_errors=errors,timestamp=core.stamp()))
     print('CUMULATIVE_VIEWER_PASSED')
 

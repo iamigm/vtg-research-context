@@ -1205,3 +1205,5 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 ## 재현과 비용
 
 [실행 명세](SPEC.md) · [상세 결과](detail.html). 이전 token-budget 결과와 원자료를 합산하지 않는다. Main/tail token 비용은 해당 checkpoint까지 누적,judge 비용은 그 예산만 독립 실행하는 기준이다. 실제 전체 sweep 비용은 raw actual_cost·measured_actual_cost·checkpoint.cost에 보존한다. 관측 mode 수는 실제 모든 사건의 coverage가 아니다.
+
+원자료는 누적 pilot900에 한 번 저장한다. pilot300·600·900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.

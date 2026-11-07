@@ -22,6 +22,48 @@ def prepare(count):
     old=report._base_report
     constants=tuple(count if type(value) is int and value==600 else value for value in old.__code__.co_consts)
     report._base_report=types.FunctionType(old.__code__.replace(co_consts=constants),old.__globals__,old.__name__,old.__defaults__,old.__closure__)
+    # Complete response files are immutable. Reuse derived query rows only when
+    # their source file predates the aggregate; calculate new/partial records normally.
+    def cached_rows(name):
+        path=scope.CANONICAL/'metrics'/name
+        if not path.exists():
+            return [],set()
+        data=scope.json_read(path)
+        grouped=collections.defaultdict(list)
+        for row in data:
+            grouped[row['key']].append(row)
+        valid=set()
+        for key,values in grouped.items():
+            response=scope.CANONICAL/'responses'/f'{key}.json'
+            if len(values)==24 and response.exists() and response.stat().st_mtime_ns<=path.stat().st_mtime_ns:
+                valid.add(key)
+        return data,valid
+    base=report.original.original
+    collect=base.collect
+    def collect_cached(cohort):
+        data,valid=cached_rows('per_query.json')
+        keys={r['sample_key'] for r in cohort}
+        rows,done=collect([r for r in cohort if r['sample_key'] not in valid])
+        return [r for r in data if r['key'] in keys & valid]+rows,[r['sample_key'] for r in cohort if r['sample_key'] in valid]+done
+    base.collect=collect_cached
+    cost_module=report.original
+    cost_read=cost_module.read
+    cost_rows=cost_module.cost_rows
+    def costs_cached():
+        data,valid=cached_rows('cost_per_query.json')
+        cohort=scope.json_read(scope.COHORT)
+        keys={r['sample_key'] for r in cohort}
+        def filtered_read(path):
+            if Path(path)==scope.COHORT:
+                return [r for r in cohort if r['sample_key'] not in valid]
+            return cost_read(path)
+        cost_module.read=filtered_read
+        try:
+            fresh=cost_rows()
+        finally:
+            cost_module.read=cost_read
+        return [r for r in data if r['key'] in keys & valid]+fresh
+    cost_module.cost_rows=costs_cached
     tables=report.tables
     def canonical_calibration(summary):
         saved=report.OUT
@@ -83,7 +125,7 @@ def refresh(count,initialize=False):
         text=scoped_text(path.read_text(),count)
         text=re.sub(r'(비교 공통 query: \*\*\d+)/600',rf'\g<1>/{count}',text)
         text=re.sub(r'(공통 query: \*\*\d+)/600',rf'\g<1>/{count}',text)
-        text+='\n원자료는 누적 pilot900에 한 번 저장한다. pilot600과 pilot900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.\n'
+        text+='\n원자료는 누적 pilot900에 한 번 저장한다. pilot300·600·900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.\n'
         path.write_text(text)
     summary=core.read(scope.OUT/'metrics/summary.json')
     summary.update(target_queries=count,complete=summary['queries_completed']==count)
@@ -103,15 +145,33 @@ def refresh(count,initialize=False):
     install_view(count)
 
 
+def overview_report():
+    overview=scope.ROOT/'results/rollout/temporal_mode_search/pilot/overview/capped_rollouts'
+    overview.mkdir(parents=True,exist_ok=True)
+    lines=['# Temporal mode search · 누적 pilot300·600·900','','고정 cohort는300 ⊂ 600 ⊂ 900이다. 동일 query를 독립 합산하지 않는다. 응답은 pilot900에 한 번 저장한다.','','| Query | 완료 | 보고서 |','|---:|---:|---|']
+    for count in (300,600,900):
+        info=scope.json_read(scope.FAMILY/str(count)/'capped_rollouts/metrics/summary.json')
+        lines.append(f'| {count} | {info["queries_completed"]}/{count} | [pilot{count}](../../{count}/capped_rollouts/REPORT.md) |')
+    lines+=['','mIoU는 query별 IoU 평균,Δpp는 같은 query의 zero-shot 대비100×평균 차이다. 높을수록 좋다. seed42·43을 query 안에서 평균한다. 진행 중 pilot900의 값은 완료된 부분집합이며 최종900 성능이 아니다.','','| Query | 총 rollout | 방법 | 평가 n | mIoU | Zero-shot | Δpp |','|---:|---:|---|---:|---:|---:|---:|']
+    for count in (300,600,900):
+        for g in scope.json_read(scope.FAMILY/str(count)/'capped_rollouts/metrics/zero_shot_comparison.json')['groups']:
+            if g['queries']:
+                lines.append(f'| {count} | {g["total_rollout_budget"]} | {g["method"]} | {g["queries"]} | {g["iou"]:.4f} | {g["zero_shot"]["iou"]:.4f} | {g["delta_pp"]["iou"]:+.2f} |')
+    (overview/'REPORT.md').write_text('\n'.join(lines)+'\n')
+
+
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--scope',type=int,choices=[600,900]);parser.add_argument('--all',action='store_true');parser.add_argument('--initialize',action='store_true');parser.add_argument('--viewer-only',action='store_true')
+    parser=argparse.ArgumentParser();parser.add_argument('--scope',type=int,choices=[300,600,900]);parser.add_argument('--all',action='store_true');parser.add_argument('--initialize',action='store_true');parser.add_argument('--viewer-only',action='store_true');parser.add_argument('--overview-only',action='store_true')
     args=parser.parse_args()
-    if args.viewer_only:
+    if args.overview_only:
+        overview_report()
+    elif args.viewer_only:
         prepare(args.scope or 900)
         install_view(args.scope or 900)
     elif args.all:
-        for count in (600,900):
+        for count in (900,300,600):
             subprocess.run([sys.executable,__file__,'--scope',str(count),*(['--initialize'] if args.initialize else [])],check=True)
+        overview_report()
         subprocess.run([sys.executable,str(scope.ROOT.parent/'_lib/build_index.py')],check=True)
     else:
         refresh(args.scope or 900,args.initialize)
