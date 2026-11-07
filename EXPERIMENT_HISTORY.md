@@ -2508,3 +2508,11 @@
 - reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/REPORT.md
 - reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/SPEC.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-07T18:00:00.000660+09:00
+
+원본 파일 직접 관찰: 18개 실행, 687개 코드·의존성 파일. 이전 commit: 4142575564b73cce0955c211cdb1951dc3f58d3b.
+
+추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json

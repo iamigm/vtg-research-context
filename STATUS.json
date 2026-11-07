@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-07T17:53:08.765130+09:00",
+  "observed_at": "2026-11-07T18:00:00.000660+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -84,8 +84,8 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json",
-      "source_modified_at": "2026-11-07T17:52:53.846336+09:00",
-      "sha256": "09be5706a949ba6b56786bd2c77dd323c4de8b867269ce7fcf24836b6bac18df"
+      "source_modified_at": "2026-11-07T17:59:54.334643+09:00",
+      "sha256": "de5c94ae27b45fee54a9bc44455b5a0cb7985f706cbc8dbfa28227b1d4d339d9"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
