@@ -2402,3 +2402,74 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metrics/summary.json
 - reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-07T09:00:00.001103+09:00
+
+원본 파일 직접 관찰: 18개 실행, 685개 코드·의존성 파일. 이전 commit: 9e0dd474bab7020b31f68905e69ccaca7bdab503.
+
+추가 33 / 변경 4 / 현재 원본에서 사라짐 27. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_cost.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_cost_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_cost_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_cost_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_cost_smoke.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_smoke.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_capped_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_continue_pilot.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_scope.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_cumulative_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_ground_truth.js
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_ground_truth_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_mps_benchmark.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_mps_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_prefix_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_prefix_cache_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_prefix_cache_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/code/temporal_mode_prefix_cache_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/web/ground_truth.js
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/SPEC.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metrics/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/600/capped_rollouts/REPORT.md
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_core.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_cost.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_cost_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_cost_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_cost_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_cost_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_smoke.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_capped_view_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_continue_pilot.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_cumulative_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_cumulative_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_cumulative_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_cumulative_scope.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_cumulative_view_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_ground_truth.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_ground_truth_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_mps_benchmark.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_mps_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/code/temporal_mode_prefix_cache_runtime.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/manifest.json

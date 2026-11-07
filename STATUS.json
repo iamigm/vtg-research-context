@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-07T05:09:50.155183+09:00",
+  "observed_at": "2026-11-07T09:00:00.001103+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -69,13 +69,18 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json",
-      "source_modified_at": "2026-11-07T05:09:48.975321+09:00",
-      "sha256": "13f498d15de82e937adf604c4c78bf12e7bc3f2b9b218afc77ed0c93aa2d0595"
+      "source_modified_at": "2026-11-07T06:58:30.644354+09:00",
+      "sha256": "8c45dd34f2974674e9683bae08bd6a3d1070d7a6b16ab9d5e2ec96e958ca72a6"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/metadata/status.json",
       "source_modified_at": "2026-11-06T19:42:07.280530+09:00",
       "sha256": "6dbaa0c27ebe21cc9a4a6147be6b5b4d47b7fa582a9424494426ae11ee794146"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json",
+      "source_modified_at": "2026-11-07T06:58:31.160352+09:00",
+      "sha256": "b5ea694baac0ec586de3af6bcb3e6676ff71662518cae434e989770b19930b48"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/sampling/fps_spatial_control/pilot/300/metadata/status.json",
