@@ -24,7 +24,7 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 ## 관련 실험 대화
 
-- [# Files pasted by the user:](../conversations/01a18c45-0978-7563-9999-067f29e4426e.md) — active
+- [# Files pasted by the user:](../conversations/01a18c45-0978-7563-9999-067f29e4426e.md) — deleted
 - [주요 데이터셋 메타데이터 통계 정리](../conversations/01a192da-87cd-7582-8f38-d022b7d79a99.md) — deleted
 - [Charades-STA, ActivityNet, QVHilights 를 사용하는 기존 코드를 참고하여 fps, 이미지 해상도 등을 어떻게 처리하는지 봐봐. 웬만하면 최신, 검증된 학회 논문에서 공개한 코드로 조사해](../conversations/01a19350-4a1d-7572-b26c-ae796896677a.md) — deleted
 ## 코드 백업

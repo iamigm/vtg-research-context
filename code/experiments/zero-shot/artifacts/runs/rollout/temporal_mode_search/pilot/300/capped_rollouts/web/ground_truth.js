@@ -81,7 +81,7 @@
         });
       });
     }
-    const table = document.querySelector('#content .rows table');
+    const table = [...document.querySelectorAll('#content .rows table')].find(table => table.querySelector('[data-draw]'));
     if (table && !table.querySelector('.gt-iou-heading')) {
       const th = document.createElement('th');
       th.className = 'gt-iou-heading';

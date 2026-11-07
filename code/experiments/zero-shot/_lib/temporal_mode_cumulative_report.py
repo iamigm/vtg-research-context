@@ -108,6 +108,8 @@ def install_view(count):
     js=js.replace('pilot600',f'pilot{count}').replace('/600 query',f'/{count} query').replace('??3600',f'??{count*6}').replace('??14400',f'??{count*24}')
     js=js.replace('${summary.common_queries}/600',f'${{summary.common_queries}}/{count}')
     js_path.write_text(js)
+    from temporal_mode_case_presentation import install
+    install(count)
 
 
 def refresh(count,initialize=False):
@@ -143,6 +145,8 @@ def refresh(count,initialize=False):
         queries=count,cohort=str(scope.COHORT),cohort_sha256=core.sha(scope.COHORT),
         records=[dict(sample_key=row['sample_key'],response=str(scope.CANONICAL/'responses'/f'{row["sample_key"]}.json')) for row in rows]))
     install_view(count)
+    from temporal_mode_case_presentation import report as presentation_report
+    presentation_report(count)
 
 
 def overview_report():
