@@ -2516,3 +2516,19 @@
 추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
 
 - evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json
+
+## 2026-11-07T18:57:08.497879+09:00
+
+원본 파일 직접 관찰: 18개 실행, 687개 코드·의존성 파일. 이전 commit: 911a3ca45996bdf6ed106469c38044e74f790d96.
+
+추가 1 / 변경 8 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/shared/design_principles/REPORT.md
+- reports/experiments/zero-shot/README.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/300/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/900/capped_rollouts/REPORT.md
+- reports/experiments/zero-shot/results/rollout/temporal_mode_search/pilot/overview/capped_rollouts/REPORT.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

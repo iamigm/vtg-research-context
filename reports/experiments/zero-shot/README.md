@@ -1,6 +1,6 @@
 # Zero-shot 평가와 생성 실험
 
-[Temporal mode search · 누적 pilot300·600·900](results/rollout/temporal_mode_search/viewer.html): 확률적 분기3방법·seed42/43·총 rollout32/64/128/256을 비교한다. 기존600 응답을 보존하고 고정900으로 확장 중이며, pilot300·600은 같은 원자료의 고정 부분집합이다. [누적 보고서](results/rollout/temporal_mode_search/pilot/overview/capped_rollouts/REPORT.md)에서 zero-shot 대비 성능과 independent trace work,main/tail/judge의 실제 CUDA·wall 시간 및 memory를 비교한다.
+[Temporal mode search · 누적 pilot300·600·900](results/rollout/temporal_mode_search/viewer.html): 확률적 분기3방법·seed42/43·총 rollout32/64/128/256을 비교한다. 기존600 응답을 보존하고 고정900으로 확장 중이며, pilot300·600은 같은 원자료의 고정 부분집합이다. [누적 보고서](results/rollout/temporal_mode_search/pilot/overview/capped_rollouts/REPORT.md)에서 zero-shot 대비 성능과 independent trace work,main/tail/judge의 실제 CUDA·wall 시간 및 memory를 비교한다. [설계 원리와 기대 효과](results/rollout/temporal_mode_search/shared/design_principles/REPORT.md)에서 방법과 예외 처리를 쉽게 설명한다.
 
 [Event proposal and tree search · pilot900](results/rollout/event_tree_search/viewer.html): 넓은 모델 기반 사건 proposal, boundary refinement, contradiction backtracking을15개 정책·두 search token 예산에서 비교한다. 설계·수식·문헌은 [SPEC.md](results/rollout/event_tree_search/pilot/900/SPEC.md), 실행 상태는 대응 artifacts의 metadata/status.json을 참조한다.
 
