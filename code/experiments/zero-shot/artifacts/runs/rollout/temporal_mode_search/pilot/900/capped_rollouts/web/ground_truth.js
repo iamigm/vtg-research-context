@@ -37,18 +37,21 @@
       panel = document.createElement('section');
       panel.id = 'gt-comparison';
       panel.className = 'gt-comparison';
-      $('heading').appendChild(panel);
+      if ($('source-video')) $('source-video').after(panel);
+      else $('heading').after(panel);
     }
+    // Loading may create the panel before the video is available.
+    if ($('source-video')) $('source-video').after(panel);
     const rows = [
       ['GT', gt, '#25835a', null, true],
-      ['Zero-shot', current?.baseline?.span, '#718096', current?.baseline ? overlap(current.baseline.span, gt) : null, !!current?.baseline],
+      ['greedy', current?.baseline?.span, '#718096', current?.baseline ? overlap(current.baseline.span, gt) : null, !!current?.baseline],
       ['최종 선택', result?.selection?.span, '#3974b9', result ? overlap(result.selection.span, gt) : null, !!result]
     ];
     panel.innerHTML = `<h3>GT와 예측 비교</h3>` + rows.map(([label, span, color, score, present]) =>
       `<div class="gt-compare-row"><span class="gt-label">${label}</span>` +
       `<div class="gt-track" role="img" aria-label="${label} ${interval(span)}">${valid(span) ? `<i class="gt-band" style="${position(span)}background:${color}"></i>` : ''}</div>` +
-      `<span class="gt-value" title="${valid(span) ? span.join(' – ') : ''}">${valid(span) ? interval(span) : present ? '유효 interval 없음' : '대기 중'}${score !== null ? `<small>IoU vs GT ${score.toFixed(4)}</small>` : ''}</span></div>`
-    ).join('') + `<p class="gt-legend">공통 시간축 0 – ${Number.isFinite(duration) ? duration.toFixed(3) : '—'} s · 초록: GT · 회색: zero-shot · 파랑: 최종 선택</p>` +
+      `<span class="gt-value" title="${valid(span) ? span.join(' – ') : ''}">${valid(span) ? interval(span) : present ? '유효 interval 없음' : '대기 중'}${score !== null ? `<small>IoU vs GT ${score.toFixed(4)} · Δ vs greedy ${(score - (overlap(current?.baseline?.span, gt) ?? 0)).toFixed(4)}</small>` : ''}</span></div>`
+    ).join('') + `<p class="gt-legend">공통 시간축 0 – ${Number.isFinite(duration) ? duration.toFixed(3) : '—'} s · 초록: GT · 회색: greedy · 파랑: 최종 선택</p>` +
       `<button type="button" class="gt-seek" ${valid(gt) && current && $('video') ? '' : 'disabled'}>GT 시작으로 이동</button>` +
       `<p class="muted">GT는 사후 비교용입니다. 아래 후보 timeline의 위쪽 초록 막대가 GT이며, 아래쪽 막대가 해당 후보입니다.</p>`;
     panel.querySelector('.gt-seek').onclick = () => {

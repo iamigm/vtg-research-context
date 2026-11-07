@@ -9,13 +9,13 @@ _tables=original.tables
 _rows=original.cost_rows
 _base_report=original._report
 
-ZERO_SHOT_NOTE=('Zero-shot 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. '
+ZERO_SHOT_NOTE=('greedy 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. '
     '추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. '
     '탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. '
     '모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. '
-    '각 성능 cell은 zero-shot → 결과 (Δpp)이며 Δpp=100×(결과−zero-shot)이다. '
+    '각 성능 cell은 greedy → 결과 (Δpp)이며 Δpp=100×(결과−greedy)이다. '
     'mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. '
-    '진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 zero-shot 기준값을 함께 읽는다.')
+    '진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 greedy 기준값을 함께 읽는다.')
 
 
 def performance_summary(rows):
@@ -36,7 +36,7 @@ def performance_cell(summary,field):
 
 
 def zero_shot_table(rows,methods=METHODS):
-    lines=['| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |',
+    lines=['| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |',
         '|---|---:|---:|---:|---:|---:|---:|---:|']
     for method in methods:
         summary=performance_summary([r for r in rows if r['method']==method])
@@ -51,9 +51,9 @@ def zero_shot_cross_tables(rows):
     lines=[]
     for method in METHODS:
         selected=[r for r in rows if r['method']==method]
-        lines+=['',f'### {method} · duration × GT ratio · zero-shot 비교','']
+        lines+=['',f'### {method} · duration × GT ratio · greedy 비교','']
         for field in ('iou','r03','r05','r07'):
-            lines += [f'지표: {field}. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.', '',
+            lines += [f'지표: {field}. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.', '',
                 '| duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |', '|---|---:|---:|---:|---:|---:|']
             for duration in range(5):
                 cells=[]
@@ -71,8 +71,8 @@ def zero_shot_base_report():
     _base_report()
     rows=read(OUT/'metrics/per_query.json')
     groups=[]
-    lines=['## 예산 비교 · zero-shot 대비','',ZERO_SHOT_NOTE,'',
-        '| 총 rollout 상한 | Main/Tail 상한 | 방법 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle |',
+    lines=['## 예산 비교 · greedy 대비','',ZERO_SHOT_NOTE,'',
+        '| 총 rollout 상한 | Main/Tail 상한 | 방법 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle |',
         '|---:|---:|---|---:|---:|---:|---:|---:|---:|']
     for budget in CHECKPOINTS:
         for method in METHODS:
@@ -87,8 +87,8 @@ def zero_shot_base_report():
     start=text.index('## 예산 비교\n')
     end=text.index('## 실제 시도·중복·적응 선택',start)
     text=text[:start]+'\n'.join(lines)+'\n\n'+text[end:]
-    text=text.replace('Δ는 동일 clipping greedy 대비다.', 'Δ는 동일 clipping의 zero-shot greedy 대비다.')
-    text=text.replace('Greedy 대비 paired ΔmIoU 95% CI','Zero-shot 대비 paired ΔmIoU 95% CI')
+    text=text.replace('Δ는 동일 clipping greedy 대비다.', 'Δ는 동일 clipping의 greedy greedy 대비다.')
+    text=text.replace('Greedy 대비 paired ΔmIoU 95% CI','greedy 대비 paired ΔmIoU 95% CI')
     path.write_text(text)
     write(OUT/'metrics/zero_shot_comparison.json',dict(definition=ZERO_SHOT_NOTE,groups=groups,timestamp=stamp()))
 
@@ -111,7 +111,7 @@ def cost_rows():
 
 
 def definitions():
-    return _definitions()+'\n\n### Zero-shot 성능 비교\n\n'+ZERO_SHOT_NOTE+'\n'+'''
+    return _definitions()+'\n\n### greedy 성능 비교\n\n'+ZERO_SHOT_NOTE+'\n'+'''
 
 ### Exact prefix KV cache
 

@@ -4,13 +4,13 @@
 
 동일 source stream에서 main/tail 각각16·32·64·128회,총32·64·128·256회로 비교한다. 중복·무효 응답을 포함한 시도 수가 예산이며 unique sequence·interval·mode는 별도 집계한다. Main 초기화는최대8회이며 새 prefix마다8회를 요구하지 않는다.
 
-IoU=교집합/합집합,mIoU=query 평균 IoU,R@τ=IoU≥τ 비율(τ=.3/.5/.7). 높을수록 좋으며 실패는0점이다. 같은 query의 seed42·43을 먼저 평균한다. 진행 중에는 두 seed가 완료된 checkpoint만 표에 포함한다. Δ는 동일 clipping의 zero-shot greedy 대비다. Main oracle/pool oracle은 실제 main 후보/shortlist의 사후 최고 IoU이며 diagnostic oracle은 tail까지 포함한 비운영 상한이다.
+IoU=교집합/합집합,mIoU=query 평균 IoU,R@τ=IoU≥τ 비율(τ=.3/.5/.7). 높을수록 좋으며 실패는0점이다. 같은 query의 seed42·43을 먼저 평균한다. 진행 중에는 두 seed가 완료된 checkpoint만 표에 포함한다. Δ는 동일 clipping의 greedy greedy 대비다. Main oracle/pool oracle은 실제 main 후보/shortlist의 사후 최고 IoU이며 diagnostic oracle은 tail까지 포함한 비운영 상한이다.
 
-## 예산 비교 · zero-shot 대비
+## 예산 비교 · greedy 대비
 
-Zero-shot 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. 추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. 탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. 모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. 각 성능 cell은 zero-shot → 결과 (Δpp)이며 Δpp=100×(결과−zero-shot)이다. mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. 진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 zero-shot 기준값을 함께 읽는다.
+greedy 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. 추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. 탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. 모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. 각 성능 cell은 greedy → 결과 (Δpp)이며 Δpp=100×(결과−greedy)이다. mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. 진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 greedy 기준값을 함께 읽는다.
 
-| 총 rollout 상한 | Main/Tail 상한 | 방법 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle |
+| 총 rollout 상한 | Main/Tail 상한 | 방법 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle |
 |---:|---:|---|---:|---:|---:|---:|---:|---:|
 | 32 | 16/16 | probability | 600/1200 | 0.5164 → 0.5259 (+0.95pp) | 0.6767 → 0.6967 (+2.00pp) | 0.5433 → 0.5450 (+0.17pp) | 0.3867 → 0.3875 (+0.08pp) | 0.7096 |
 | 32 | 16/16 | token_entropy | 600/1200 | 0.5164 → 0.5298 (+1.34pp) | 0.6767 → 0.6983 (+2.17pp) | 0.5433 → 0.5467 (+0.33pp) | 0.3867 → 0.3992 (+1.25pp) | 0.7072 |
@@ -44,9 +44,9 @@ Observed main/tail은 해당 K까지의 누적,judge는 해당 K의 구간이다
 효율 지표는 greedy 대비 `ΔmIoU(pp)=100×mean(IoU−IoU_greedy)`,추가1,000 decoder inputs당 향상 `ΔmIoU(pp)/(mean(extra decoder inputs)/1000)`다. 음수는 비용을 써도 성능이 악화됐다는 뜻이다. `marginal Δ`와 `추가 비용`은 같은 query에서 직전 절반 예산 대비 값이다. 같은 query 집합에서 더 낮은 비용·같거나 높은 mIoU의 다른 조건이 있으면 dominated로 표시한다. 평균 개선만으로 연구적 기여를 단정하지 않으며 비용 배율,실측 시간,seed·dataset별 결과와 불확실성을 함께 본다.
 
 
-### Zero-shot 성능 비교
+### greedy 성능 비교
 
-Zero-shot 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. 추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. 탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. 모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. 각 성능 cell은 zero-shot → 결과 (Δpp)이며 Δpp=100×(결과−zero-shot)이다. mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. 진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 zero-shot 기준값을 함께 읽는다.
+greedy 기준은 동일 모델·동일 영상 입력·원래 query prompt에서 얻은 greedy 단일 응답이다. 추가 rollout이나 후보 판단 없이 생성했으며 deterministic 원본과 token IDs가 일치함을 실행 시 검증한다. 탐색 결과와 동일하게 [0,D] clipping·유효성 검사·IoU 평가를 적용한다. 모든 비교는 해당 행과 동일한 query 집합을 사용하고 seed42·43을 query 안에서 먼저 평균한다. 각 성능 cell은 greedy → 결과 (Δpp)이며 Δpp=100×(결과−greedy)이다. mIoU와 R@.3/.5/.7은0–1 값이고 양의 Δpp는 개선,음수는 악화다. 진행 중에는 조건별 완료 query 집합이 다를 수 있으므로 행별 query 수와 greedy 기준값을 함께 읽는다.
 
 
 ### Exact prefix KV cache
@@ -150,6 +150,9 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 동일 native decode,context8,192 tokens,client3개. 기존48.26 forwards/s → MPS82.80 forwards/s (1.72×). 전체 logits hash 일치=True. 영상 처리와 main/tail scheduling을 포함한 전체 pilot 처리량이 아닌 제한된 microbenchmark다.
 
 
+
+
+
 <!-- case-presentation:start -->
 ## Rollout 예산별 mIoU · 최종 선택과 oracle
 
@@ -174,7 +177,7 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 
 ### 그래프1·2·3: 더 많이 탐색하면 좋은 후보와 좋은 답이 함께 늘어나는가?
 
-아래 그림에는 왼쪽부터 세 그래프가 있다. **같은 평가를 서로 다른 탐색 방법에 각각 적용한 것**이다. 각 그래프 안의 세 선은 세 방법을 뜻하지 않는다.
+아래 그림에는 왼쪽부터 세 그래프가 있다. **같은 평가를 서로 다른 탐색 방법에 각각 적용한 것**이다. 각 그래프 안의 색은 평가값을 구분하며 회색 선은 greedy 기준이다.
 
 | 그래프 | 제목 | 무엇을 우선 탐색하는 방법인가? |
 |---|---|---|
@@ -191,6 +194,7 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 | 파란 실선 | Selected | 모델이 마지막에 실제로 고른 답의 평균 IoU | **그렇다. 성능 개선 여부는 이 선을 본다.** |
 | 초록 파선 | Main oracle | 찾은 모든 main interval 중 GT에 가장 잘 맞는 것을 사후에 골랐다면 얻는 평균 | 아니다. 탐색으로 확보한 기회의 상한이다. |
 | 황갈색 점선 | Judge pool oracle | 모델에게 실제 전달한 대표 interval 중 GT에 가장 잘 맞는 것을 사후에 골랐다면 얻는 평균 | 아니다. Shortlist 안에 남은 기회의 상한이다. |
+| 회색 일점쇄선 | greedy | 동일 입력의 greedy 단일 응답 mIoU | 모든 성능 비교의 기준이다. |
 
 ![그래프1·2·3: 예산별 최종 선택과 oracle](../../../../../../artifacts/runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/web/budget_oracle.png)
 
@@ -200,11 +204,11 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 
 #### 이 pilot의 숫자로 읽어 보기
 
-- **그래프1 · probability:** 총 rollout 상한32→256에서 파란 선은0.5259→0.5224로 -0.35pp(악화)다. 초록 선은0.7096→0.7737다. 최대 예산에서 발견한 후보의 사후 상한은0.7737,judge에 전달된 후보의 상한은0.6837,실제 선택은0.5224다. 이 세 값을 같은 성능으로 취급하지 않는다.
-- **그래프2 · token_entropy:** 총 rollout 상한32→256에서 파란 선은0.5298→0.5269로 -0.29pp(악화)다. 초록 선은0.7072→0.7773다. 최대 예산에서 발견한 후보의 사후 상한은0.7773,judge에 전달된 후보의 상한은0.6851,실제 선택은0.5269다. 이 세 값을 같은 성능으로 취급하지 않는다.
-- **그래프3 · temporal_mode:** 총 rollout 상한32→256에서 파란 선은0.5263→0.5267로 +0.03pp(개선)다. 초록 선은0.7097→0.7807다. 최대 예산에서 발견한 후보의 사후 상한은0.7807,judge에 전달된 후보의 상한은0.6861,실제 선택은0.5267다. 이 세 값을 같은 성능으로 취급하지 않는다.
+- **그래프1 · probability:** greedy 기준 mIoU는0.5164다. 총 rollout 상한32에서 실제 선택 mIoU는0.5259(greedy 대비+0.95pp), 상한256에서는0.5224(greedy 대비+0.60pp, 개선)다. 최대 예산의 main oracle은0.7737, judge 후보 oracle은0.6837다.
+- **그래프2 · token_entropy:** greedy 기준 mIoU는0.5164다. 총 rollout 상한32에서 실제 선택 mIoU는0.5298(greedy 대비+1.34pp), 상한256에서는0.5269(greedy 대비+1.05pp, 개선)다. 최대 예산의 main oracle은0.7773, judge 후보 oracle은0.6851다.
+- **그래프3 · temporal_mode:** greedy 기준 mIoU는0.5164다. 총 rollout 상한32에서 실제 선택 mIoU는0.5263(greedy 대비+0.99pp), 상한256에서는0.5267(greedy 대비+1.03pp, 개선)다. 최대 예산의 main oracle은0.7807, judge 후보 oracle은0.6861다.
 
-위 변화는 **작은 탐색 예산 대비 큰 탐색 예산의 차이**다. Zero-shot 대비 향상과는 다르며,zero-shot 대비 값은 앞의 성능 표에서 따로 확인한다. 예를 들어0.01 차이는1pp다.
+모든 성능 변화는 **같은 query의 greedy 대비**다. Δpp=100×(선택 mIoU−greedy mIoU)이며 양수일수록 좋다. 예를 들어0.01 차이는1pp다.
 
 ### 그래프4: 정확도를 조금 높이는 데 계산은 얼마나 더 필요한가?
 
@@ -223,14 +227,14 @@ paired microbenchmark 중 일시 정지된 기존 worker의3 query는 예측·tr
 | 파란 선 | probability 방법의 실제 최종 성능과 계산량 |
 | 황갈색 선 | token_entropy 방법의 실제 최종 성능과 계산량 |
 | 초록 선 | temporal_mode 방법의 실제 최종 성능과 계산량 |
-| 회색 점 Zero-shot | 추가 탐색·후보 judge 없이 greedy 답 하나를 생성한 기준 |
+| 회색 점 greedy | 추가 탐색·후보 judge 없이 greedy 답 하나를 생성한 기준 |
 | 각 점 옆의32·64·128·256 | 그 점을 얻을 때의 main+tail 총 rollout 상한. Query 수나 계산량 값 자체가 아니다. |
 
-**같은 높이라면 왼쪽 점이 더 적은 계산으로 같은 성능을 낸다. 같은 가로 위치라면 위쪽 점이 더 정확하다.** 한 점이 다른 점보다 오른쪽에만 있고 위로 올라가지 않았다면,이 비용 지표상 계산만 늘고 정확도는 좋아지지 않은 것이다. 선이 거의 수평으로 오른쪽으로 뻗으면 추가 계산의 이득이 작다는 뜻이다. Zero-shot 회색 점보다 위에 있는지와,그만큼 오른쪽으로 얼마나 이동했는지를 함께 본다. Tail은 답에 사용하지 않았어도 이번 연구에 쓴 계산이므로 비용에 포함한다.
+**같은 높이라면 왼쪽 점이 더 적은 계산으로 같은 성능을 낸다. 같은 가로 위치라면 위쪽 점이 더 정확하다.** 한 점이 다른 점보다 오른쪽에만 있고 위로 올라가지 않았다면,이 비용 지표상 계산만 늘고 정확도는 좋아지지 않은 것이다. 선이 거의 수평으로 오른쪽으로 뻗으면 추가 계산의 이득이 작다는 뜻이다. greedy 회색 점보다 위에 있는지와,그만큼 오른쪽으로 얼마나 이동했는지를 함께 본다. Tail은 답에 사용하지 않았어도 이번 연구에 쓴 계산이므로 비용에 포함한다.
 
 #### 이 pilot의 비용·정확도 예시
 
-temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,293→19,834로 약1.22배가 된다. 실제 mIoU는0.5263→0.5267(+0.03pp)다. 앞의 변화는 **계산량 증가**,뒤의 변화는 **얻은 정확도 변화**이므로 함께 판단한다.
+temporal_mode의 greedy 기준은 평균 decoder inputs 10,381, mIoU 0.5164다. 총 rollout 상한256의 평균 decoder inputs는19,834로 greedy의 약1.91배다. 실제 선택 mIoU는0.5267, greedy 대비+1.03pp다. 비용과 성능 모두 같은 greedy를 기준으로 비교한다.
 
 그래프4의 공통 비교 query 수는600개다. 같은 query 집합에서 모든 방법·예산·두 seed가 완료된 경우를 비교한다. 이 그림에는 error bar가 없으므로 작은 차이가 통계적으로 확실하다고 결론 내리지 않는다. 실제 wall/CUDA 시간,forward 호출 수,memory는 이 보고서의 연산 비용 표와 함께 읽는다. Operational 비용은 tail을 제외한 video prefill+greedy+main+judge이고,research total은 tail까지 포함한다. Viewer에는 선택한 query의 값만 표시한다.
 
@@ -255,7 +259,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 ## 총 rollout 상한 32 · 세부 집계
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/1200 | 0.5164 → 0.5259 (+0.95pp) | 0.6767 → 0.6967 (+2.00pp) | 0.5433 → 0.5450 (+0.17pp) | 0.3867 → 0.3875 (+0.08pp) | 0.7096 | 0.7723 |
 | token_entropy | 600/1200 | 0.5164 → 0.5298 (+1.34pp) | 0.6767 → 0.6983 (+2.17pp) | 0.5433 → 0.5467 (+0.33pp) | 0.3867 → 0.3992 (+1.25pp) | 0.7072 | 0.7720 |
@@ -265,7 +269,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### activitynet-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4739 → 0.4995 (+2.56pp) | 0.6200 → 0.6825 (+6.25pp) | 0.5200 → 0.5125 (-0.75pp) | 0.3350 → 0.3500 (+1.50pp) | 0.7026 | 0.7693 |
 | token_entropy | 200/400 | 0.4739 → 0.4970 (+2.32pp) | 0.6200 → 0.6750 (+5.50pp) | 0.5200 → 0.5075 (-1.25pp) | 0.3350 → 0.3525 (+1.75pp) | 0.6997 | 0.7676 |
@@ -273,7 +277,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### charades-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4655 → 0.4405 (-2.49pp) | 0.6300 → 0.6000 (-3.00pp) | 0.4650 → 0.4450 (-2.00pp) | 0.3250 → 0.2700 (-5.50pp) | 0.6321 | 0.7021 |
 | token_entropy | 200/400 | 0.4655 → 0.4470 (-1.85pp) | 0.6300 → 0.6025 (-2.75pp) | 0.4650 → 0.4550 (-1.00pp) | 0.3250 → 0.2850 (-4.00pp) | 0.6311 | 0.7031 |
@@ -281,7 +285,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### qvhighlights-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.6098 → 0.6376 (+2.78pp) | 0.7800 → 0.8075 (+2.75pp) | 0.6450 → 0.6775 (+3.25pp) | 0.5000 → 0.5425 (+4.25pp) | 0.7940 | 0.8454 |
 | token_entropy | 200/400 | 0.6098 → 0.6454 (+3.55pp) | 0.7800 → 0.8175 (+3.75pp) | 0.6450 → 0.6775 (+3.25pp) | 0.5000 → 0.5600 (+6.00pp) | 0.7908 | 0.8452 |
@@ -291,7 +295,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 42
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5273 (+1.09pp) | 0.6767 → 0.7050 (+2.83pp) | 0.5433 → 0.5450 (+0.17pp) | 0.3867 → 0.3867 (+0.00pp) | 0.7107 | 0.7734 |
 | token_entropy | 600/600 | 0.5164 → 0.5345 (+1.81pp) | 0.6767 → 0.7117 (+3.50pp) | 0.5433 → 0.5500 (+0.67pp) | 0.3867 → 0.4000 (+1.33pp) | 0.7088 | 0.7734 |
@@ -299,7 +303,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 43
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5244 (+0.80pp) | 0.6767 → 0.6883 (+1.17pp) | 0.5433 → 0.5450 (+0.17pp) | 0.3867 → 0.3883 (+0.17pp) | 0.7084 | 0.7711 |
 | token_entropy | 600/600 | 0.5164 → 0.5251 (+0.87pp) | 0.6767 → 0.6850 (+0.83pp) | 0.5433 → 0.5433 (+0.00pp) | 0.3867 → 0.3983 (+1.17pp) | 0.7056 | 0.7705 |
@@ -309,7 +313,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,30) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 100/200 | 0.4284 → 0.4078 (-2.05pp) | 0.5800 → 0.5650 (-1.50pp) | 0.4100 → 0.4050 (-0.50pp) | 0.2900 → 0.2200 (-7.00pp) | 0.6086 | 0.6764 |
 | token_entropy | 100/200 | 0.4284 → 0.4149 (-1.35pp) | 0.5800 → 0.5600 (-2.00pp) | 0.4100 → 0.4100 (+0.00pp) | 0.2900 → 0.2400 (-5.00pp) | 0.6084 | 0.6772 |
@@ -317,7 +321,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [30,60) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 144/288 | 0.5068 → 0.4910 (-1.58pp) | 0.6806 → 0.6701 (-1.04pp) | 0.5417 → 0.5139 (-2.78pp) | 0.3472 → 0.3264 (-2.08pp) | 0.6738 | 0.7494 |
 | token_entropy | 144/288 | 0.5068 → 0.4919 (-1.49pp) | 0.6806 → 0.6771 (-0.35pp) | 0.5417 → 0.5104 (-3.12pp) | 0.3472 → 0.3299 (-1.74pp) | 0.6720 | 0.7491 |
@@ -325,7 +329,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [60,120) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 49/98 | 0.4810 → 0.5270 (+4.60pp) | 0.5918 → 0.6531 (+6.12pp) | 0.5306 → 0.5510 (+2.04pp) | 0.3878 → 0.4592 (+7.14pp) | 0.7148 | 0.7535 |
 | token_entropy | 49/98 | 0.4810 → 0.5213 (+4.03pp) | 0.5918 → 0.6429 (+5.10pp) | 0.5306 → 0.5408 (+1.02pp) | 0.3878 → 0.4592 (+7.14pp) | 0.7169 | 0.7536 |
@@ -333,7 +337,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [120,180) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 256/512 | 0.5703 → 0.5995 (+2.92pp) | 0.7383 → 0.7754 (+3.71pp) | 0.5977 → 0.6289 (+3.12pp) | 0.4531 → 0.4863 (+3.32pp) | 0.7665 | 0.8195 |
 | token_entropy | 256/512 | 0.5703 → 0.6064 (+3.62pp) | 0.7383 → 0.7793 (+4.10pp) | 0.5977 → 0.6309 (+3.32pp) | 0.4531 → 0.5039 (+5.08pp) | 0.7622 | 0.8188 |
@@ -341,7 +345,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [180,inf) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 51/102 | 0.4797 → 0.4854 (+0.57pp) | 0.6275 → 0.6765 (+4.90pp) | 0.5490 → 0.4804 (-6.86pp) | 0.3529 → 0.3235 (-2.94pp) | 0.7177 | 0.8061 |
 | token_entropy | 51/102 | 0.4797 → 0.4856 (+0.60pp) | 0.6275 → 0.6765 (+4.90pp) | 0.5490 → 0.5000 (-4.90pp) | 0.3529 → 0.3235 (-2.94pp) | 0.7147 | 0.8050 |
@@ -351,7 +355,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,0.05)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 138/276 | 0.2882 → 0.2774 (-1.09pp) | 0.4058 → 0.4167 (+1.09pp) | 0.2971 → 0.2500 (-4.71pp) | 0.1304 → 0.1051 (-2.54pp) | 0.4587 | 0.5363 |
 | token_entropy | 138/276 | 0.2882 → 0.2813 (-0.69pp) | 0.4058 → 0.4167 (+1.09pp) | 0.2971 → 0.2645 (-3.26pp) | 0.1304 → 0.1196 (-1.09pp) | 0.4562 | 0.5365 |
@@ -359,7 +363,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.05,0.1)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 117/234 | 0.5056 → 0.4766 (-2.90pp) | 0.7350 → 0.6880 (-4.70pp) | 0.5214 → 0.4872 (-3.42pp) | 0.3419 → 0.3077 (-3.42pp) | 0.6836 | 0.7500 |
 | token_entropy | 117/234 | 0.5056 → 0.4792 (-2.64pp) | 0.7350 → 0.6880 (-4.70pp) | 0.5214 → 0.4786 (-4.27pp) | 0.3419 → 0.3248 (-1.71pp) | 0.6807 | 0.7479 |
@@ -367,7 +371,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.1,0.2)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 116/232 | 0.5752 → 0.5826 (+0.74pp) | 0.7414 → 0.7802 (+3.88pp) | 0.6379 → 0.6121 (-2.59pp) | 0.4741 → 0.4483 (-2.59pp) | 0.7976 | 0.8615 |
 | token_entropy | 116/232 | 0.5752 → 0.5922 (+1.70pp) | 0.7414 → 0.7802 (+3.88pp) | 0.6379 → 0.6207 (-1.72pp) | 0.4741 → 0.4698 (-0.43pp) | 0.7964 | 0.8613 |
@@ -375,7 +379,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.2,0.4)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 115/230 | 0.6640 → 0.6612 (-0.27pp) | 0.8609 → 0.8565 (-0.43pp) | 0.7304 → 0.7304 (+0.00pp) | 0.5217 → 0.5304 (+0.87pp) | 0.8339 | 0.8827 |
 | token_entropy | 115/230 | 0.6640 → 0.6582 (-0.58pp) | 0.8609 → 0.8652 (+0.43pp) | 0.7304 → 0.7130 (-1.74pp) | 0.5217 → 0.5217 (+0.00pp) | 0.8328 | 0.8830 |
@@ -383,7 +387,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.4,inf)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 114/228 | 0.5949 → 0.6830 (+8.80pp) | 0.6930 → 0.7982 (+10.53pp) | 0.5789 → 0.7061 (+12.72pp) | 0.5175 → 0.6053 (+8.77pp) | 0.8249 | 0.8786 |
 | token_entropy | 114/228 | 0.5949 → 0.6896 (+9.47pp) | 0.6930 → 0.7982 (+10.53pp) | 0.5789 → 0.7149 (+13.60pp) | 0.5175 → 0.6184 (+10.09pp) | 0.8208 | 0.8788 |
@@ -391,9 +395,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 ### duration × GT ratio
 
-### probability · duration × GT ratio · zero-shot 비교
+### probability · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -402,7 +406,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2369 (+2.23pp) / 12 | 0.4484 → 0.5027 (+5.43pp) / 10 | 0.6487 → 0.6418 (-0.69pp) / 9* | 0.6645 → 0.5595 (-10.49pp) / 9* | 0.5212 → 0.7933 (+27.21pp) / 9* |
 | [120,180) | 0.3844 → 0.3575 (-2.69pp) / 60 | 0.5896 → 0.5892 (-0.04pp) / 49 | 0.6780 → 0.7051 (+2.71pp) / 49 | 0.6232 → 0.6754 (+5.23pp) / 49 | 0.6181 → 0.7244 (+10.63pp) / 49 |
 | [180,inf) | 0.3906 → 0.3630 (-2.76pp) / 17 | 0.6607 → 0.5874 (-7.33pp) / 9* | 0.2954 → 0.3656 (+7.02pp) / 9* | 0.7078 → 0.6972 (-1.06pp) / 8* | 0.4444 → 0.5534 (+10.90pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -411,7 +415,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.6111 (-27.78pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5917 (-0.83pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8061 (+3.06pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.5294 (-5.88pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.5556 (+22.22pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -420,7 +424,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.6000 (+0.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.5556 (-22.22pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3750 (-7.50pp) / 60 | 0.6327 → 0.6122 (-2.04pp) / 49 | 0.7551 → 0.7653 (+1.02pp) / 49 | 0.5918 → 0.6939 (+10.20pp) / 49 | 0.5918 → 0.7551 (+16.33pp) / 49 |
 | [180,inf) | 0.4706 → 0.3235 (-14.71pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -430,9 +434,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1333 (-6.67pp) / 60 | 0.4694 → 0.5204 (+5.10pp) / 49 | 0.6327 → 0.6020 (-3.06pp) / 49 | 0.5102 → 0.5816 (+7.14pp) / 49 | 0.5102 → 0.6735 (+16.33pp) / 49 |
 | [180,inf) | 0.2353 → 0.2059 (-2.94pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.5000 (+12.50pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### token_entropy · duration × GT ratio · zero-shot 비교
+### token_entropy · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -441,7 +445,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2294 (+1.47pp) / 12 | 0.4484 → 0.4789 (+3.05pp) / 10 | 0.6487 → 0.6496 (+0.09pp) / 9* | 0.6645 → 0.5576 (-10.68pp) / 9* | 0.5212 → 0.7928 (+27.16pp) / 9* |
 | [120,180) | 0.3844 → 0.3664 (-1.80pp) / 60 | 0.5896 → 0.5989 (+0.93pp) / 49 | 0.6780 → 0.7152 (+3.73pp) / 49 | 0.6232 → 0.6789 (+5.57pp) / 49 | 0.6181 → 0.7267 (+10.87pp) / 49 |
 | [180,inf) | 0.3906 → 0.3493 (-4.13pp) / 17 | 0.6607 → 0.5900 (-7.06pp) / 9* | 0.2954 → 0.3686 (+7.33pp) / 9* | 0.7078 → 0.7060 (-0.18pp) / 8* | 0.4444 → 0.5692 (+12.48pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -450,7 +454,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.7500 (+15.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.6667 (-22.22pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.6000 (+0.00pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.5294 (-5.88pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.5556 (+22.22pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -459,7 +463,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.5556 (-22.22pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3833 (-6.67pp) / 60 | 0.6327 → 0.6122 (-2.04pp) / 49 | 0.7551 → 0.7653 (+1.02pp) / 49 | 0.5918 → 0.6939 (+10.20pp) / 49 | 0.5918 → 0.7551 (+16.33pp) / 49 |
 | [180,inf) | 0.4706 → 0.3824 (-8.82pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -469,9 +473,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1667 (-3.33pp) / 60 | 0.4694 → 0.5510 (+8.16pp) / 49 | 0.6327 → 0.6224 (-1.02pp) / 49 | 0.5102 → 0.5816 (+7.14pp) / 49 | 0.5102 → 0.6735 (+16.33pp) / 49 |
 | [180,inf) | 0.2353 → 0.1765 (-5.88pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.5000 (+12.50pp) / 8* | 0.3750 → 0.4375 (+6.25pp) / 8* |
 
-### temporal_mode · duration × GT ratio · zero-shot 비교
+### temporal_mode · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -480,7 +484,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2369 (+2.23pp) / 12 | 0.4484 → 0.5027 (+5.43pp) / 10 | 0.6487 → 0.6474 (-0.14pp) / 9* | 0.6645 → 0.5595 (-10.49pp) / 9* | 0.5212 → 0.7933 (+27.21pp) / 9* |
 | [120,180) | 0.3844 → 0.3566 (-2.77pp) / 60 | 0.5896 → 0.5891 (-0.05pp) / 49 | 0.6780 → 0.7054 (+2.74pp) / 49 | 0.6232 → 0.6754 (+5.23pp) / 49 | 0.6181 → 0.7243 (+10.62pp) / 49 |
 | [180,inf) | 0.3906 → 0.3630 (-2.76pp) / 17 | 0.6607 → 0.5874 (-7.33pp) / 9* | 0.2954 → 0.3656 (+7.02pp) / 9* | 0.7078 → 0.6972 (-1.06pp) / 8* | 0.4444 → 0.5534 (+10.90pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -489,7 +493,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.6111 (-27.78pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5833 (-1.67pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8061 (+3.06pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.5294 (-5.88pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.5556 (+22.22pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -498,7 +502,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.6000 (+0.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.5556 (-22.22pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3750 (-7.50pp) / 60 | 0.6327 → 0.6122 (-2.04pp) / 49 | 0.7551 → 0.7653 (+1.02pp) / 49 | 0.5918 → 0.6939 (+10.20pp) / 49 | 0.5918 → 0.7551 (+16.33pp) / 49 |
 | [180,inf) | 0.4706 → 0.3235 (-14.71pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -508,13 +512,13 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1333 (-6.67pp) / 60 | 0.4694 → 0.5204 (+5.10pp) / 49 | 0.6327 → 0.6020 (-3.06pp) / 49 | 0.5102 → 0.5816 (+7.14pp) / 49 | 0.5102 → 0.6735 (+16.33pp) / 49 |
 | [180,inf) | 0.2353 → 0.2059 (-2.94pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.5000 (+12.50pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### Zero-shot 대비 paired ΔmIoU 95% CI
+### greedy 대비 paired ΔmIoU 95% CI
 
 {'probability': [-0.008022911877815312, 0.026335543573356737], 'token_entropy': [-0.004362534303749441, 0.0294752828025535], 'temporal_mode': [-0.006849097510322744, 0.026700576546585034]}
 
 ## 총 rollout 상한 64 · 세부 집계
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/1200 | 0.5164 → 0.5250 (+0.87pp) | 0.6767 → 0.7000 (+2.33pp) | 0.5433 → 0.5375 (-0.58pp) | 0.3867 → 0.3942 (+0.75pp) | 0.7310 | 0.7971 |
 | token_entropy | 600/1200 | 0.5164 → 0.5238 (+0.74pp) | 0.6767 → 0.7042 (+2.75pp) | 0.5433 → 0.5342 (-0.92pp) | 0.3867 → 0.3917 (+0.50pp) | 0.7344 | 0.7976 |
@@ -524,7 +528,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### activitynet-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4739 → 0.4938 (+1.99pp) | 0.6200 → 0.6950 (+7.50pp) | 0.5200 → 0.5000 (-2.00pp) | 0.3350 → 0.3400 (+0.50pp) | 0.7301 | 0.7932 |
 | token_entropy | 200/400 | 0.4739 → 0.4917 (+1.79pp) | 0.6200 → 0.6925 (+7.25pp) | 0.5200 → 0.4925 (-2.75pp) | 0.3350 → 0.3300 (-0.50pp) | 0.7344 | 0.7938 |
@@ -532,7 +536,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### charades-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4655 → 0.4405 (-2.50pp) | 0.6300 → 0.6000 (-3.00pp) | 0.4650 → 0.4350 (-3.00pp) | 0.3250 → 0.2925 (-3.25pp) | 0.6525 | 0.7296 |
 | token_entropy | 200/400 | 0.4655 → 0.4466 (-1.89pp) | 0.6300 → 0.6125 (-1.75pp) | 0.4650 → 0.4450 (-2.00pp) | 0.3250 → 0.3025 (-2.25pp) | 0.6560 | 0.7295 |
@@ -540,7 +544,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### qvhighlights-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.6098 → 0.6409 (+3.10pp) | 0.7800 → 0.8050 (+2.50pp) | 0.6450 → 0.6775 (+3.25pp) | 0.5000 → 0.5500 (+5.00pp) | 0.8103 | 0.8686 |
 | token_entropy | 200/400 | 0.6098 → 0.6331 (+2.33pp) | 0.7800 → 0.8075 (+2.75pp) | 0.6450 → 0.6650 (+2.00pp) | 0.5000 → 0.5425 (+4.25pp) | 0.8128 | 0.8696 |
@@ -550,7 +554,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 42
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5260 (+0.96pp) | 0.6767 → 0.7067 (+3.00pp) | 0.5433 → 0.5433 (+0.00pp) | 0.3867 → 0.3883 (+0.17pp) | 0.7307 | 0.7987 |
 | token_entropy | 600/600 | 0.5164 → 0.5235 (+0.72pp) | 0.6767 → 0.7100 (+3.33pp) | 0.5433 → 0.5333 (-1.00pp) | 0.3867 → 0.3883 (+0.17pp) | 0.7352 | 0.7991 |
@@ -558,7 +562,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 43
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5241 (+0.77pp) | 0.6767 → 0.6933 (+1.67pp) | 0.5433 → 0.5317 (-1.17pp) | 0.3867 → 0.4000 (+1.33pp) | 0.7313 | 0.7956 |
 | token_entropy | 600/600 | 0.5164 → 0.5241 (+0.77pp) | 0.6767 → 0.6983 (+2.17pp) | 0.5433 → 0.5350 (-0.83pp) | 0.3867 → 0.3950 (+0.83pp) | 0.7336 | 0.7962 |
@@ -568,7 +572,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,30) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 100/200 | 0.4284 → 0.3934 (-3.50pp) | 0.5800 → 0.5350 (-4.50pp) | 0.4100 → 0.3550 (-5.50pp) | 0.2900 → 0.2400 (-5.00pp) | 0.6268 | 0.7031 |
 | token_entropy | 100/200 | 0.4284 → 0.4054 (-2.29pp) | 0.5800 → 0.5500 (-3.00pp) | 0.4100 → 0.3700 (-4.00pp) | 0.2900 → 0.2650 (-2.50pp) | 0.6292 | 0.7014 |
@@ -576,7 +580,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [30,60) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 144/288 | 0.5068 → 0.4934 (-1.34pp) | 0.6806 → 0.6944 (+1.39pp) | 0.5417 → 0.5069 (-3.47pp) | 0.3472 → 0.3368 (-1.04pp) | 0.6966 | 0.7734 |
 | token_entropy | 144/288 | 0.5068 → 0.4966 (-1.02pp) | 0.6806 → 0.7014 (+2.08pp) | 0.5417 → 0.5139 (-2.78pp) | 0.3472 → 0.3403 (-0.69pp) | 0.7006 | 0.7755 |
@@ -584,7 +588,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [60,120) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 49/98 | 0.4810 → 0.5313 (+5.03pp) | 0.5918 → 0.6939 (+10.20pp) | 0.5306 → 0.5510 (+2.04pp) | 0.3878 → 0.4286 (+4.08pp) | 0.7387 | 0.7788 |
 | token_entropy | 49/98 | 0.4810 → 0.5229 (+4.19pp) | 0.5918 → 0.6837 (+9.18pp) | 0.5306 → 0.5408 (+1.02pp) | 0.3878 → 0.4388 (+5.10pp) | 0.7422 | 0.7776 |
@@ -592,7 +596,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [120,180) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 256/512 | 0.5703 → 0.6017 (+3.14pp) | 0.7383 → 0.7793 (+4.10pp) | 0.5977 → 0.6309 (+3.32pp) | 0.4531 → 0.4941 (+4.10pp) | 0.7848 | 0.8448 |
 | token_entropy | 256/512 | 0.5703 → 0.5937 (+2.35pp) | 0.7383 → 0.7793 (+4.10pp) | 0.5977 → 0.6152 (+1.76pp) | 0.4531 → 0.4805 (+2.73pp) | 0.7883 | 0.8451 |
@@ -600,7 +604,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [180,inf) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 51/102 | 0.4797 → 0.4817 (+0.21pp) | 0.6275 → 0.6471 (+1.96pp) | 0.5490 → 0.5000 (-4.90pp) | 0.3529 → 0.3235 (-2.94pp) | 0.7547 | 0.8269 |
 | token_entropy | 51/102 | 0.4797 → 0.4827 (+0.31pp) | 0.6275 → 0.6569 (+2.94pp) | 0.5490 → 0.5000 (-4.90pp) | 0.3529 → 0.2941 (-5.88pp) | 0.7581 | 0.8299 |
@@ -610,7 +614,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,0.05)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 138/276 | 0.2882 → 0.2753 (-1.29pp) | 0.4058 → 0.4203 (+1.45pp) | 0.2971 → 0.2319 (-6.52pp) | 0.1304 → 0.1014 (-2.90pp) | 0.4879 | 0.5722 |
 | token_entropy | 138/276 | 0.2882 → 0.2687 (-1.95pp) | 0.4058 → 0.4094 (+0.36pp) | 0.2971 → 0.2283 (-6.88pp) | 0.1304 → 0.0978 (-3.26pp) | 0.4954 | 0.5746 |
@@ -618,7 +622,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.05,0.1)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 117/234 | 0.5056 → 0.4944 (-1.12pp) | 0.7350 → 0.7137 (-2.14pp) | 0.5214 → 0.5000 (-2.14pp) | 0.3419 → 0.3376 (-0.43pp) | 0.7076 | 0.7803 |
 | token_entropy | 117/234 | 0.5056 → 0.4921 (-1.35pp) | 0.7350 → 0.7308 (-0.43pp) | 0.5214 → 0.4872 (-3.42pp) | 0.3419 → 0.3291 (-1.28pp) | 0.7102 | 0.7807 |
@@ -626,7 +630,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.1,0.2)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 116/232 | 0.5752 → 0.5653 (-0.99pp) | 0.7414 → 0.7543 (+1.29pp) | 0.6379 → 0.5690 (-6.90pp) | 0.4741 → 0.4483 (-2.59pp) | 0.8159 | 0.8816 |
 | token_entropy | 116/232 | 0.5752 → 0.5692 (-0.60pp) | 0.7414 → 0.7716 (+3.02pp) | 0.6379 → 0.5905 (-4.74pp) | 0.4741 → 0.4483 (-2.59pp) | 0.8194 | 0.8819 |
@@ -634,7 +638,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.2,0.4)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 115/230 | 0.6640 → 0.6623 (-0.16pp) | 0.8609 → 0.8652 (+0.43pp) | 0.7304 → 0.7391 (+0.87pp) | 0.5217 → 0.5348 (+1.30pp) | 0.8460 | 0.8981 |
 | token_entropy | 115/230 | 0.6640 → 0.6656 (+0.16pp) | 0.8609 → 0.8652 (+0.43pp) | 0.7304 → 0.7348 (+0.43pp) | 0.5217 → 0.5435 (+2.17pp) | 0.8479 | 0.8978 |
@@ -642,7 +646,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.4,inf)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 114/228 | 0.5949 → 0.6794 (+8.45pp) | 0.6930 → 0.8026 (+10.96pp) | 0.5789 → 0.7105 (+13.16pp) | 0.5175 → 0.6096 (+9.21pp) | 0.8469 | 0.8989 |
 | token_entropy | 114/228 | 0.5949 → 0.6759 (+8.10pp) | 0.6930 → 0.8026 (+10.96pp) | 0.5789 → 0.6930 (+11.40pp) | 0.5175 → 0.6009 (+8.33pp) | 0.8475 | 0.8982 |
@@ -650,9 +654,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 ### duration × GT ratio
 
-### probability · duration × GT ratio · zero-shot 비교
+### probability · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -661,7 +665,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2365 (+2.18pp) / 12 | 0.4484 → 0.4928 (+4.44pp) / 10 | 0.6487 → 0.6254 (-2.33pp) / 9* | 0.6645 → 0.6117 (-5.28pp) / 9* | 0.5212 → 0.7925 (+27.13pp) / 9* |
 | [120,180) | 0.3844 → 0.3517 (-3.27pp) / 60 | 0.5896 → 0.6245 (+3.49pp) / 49 | 0.6780 → 0.6985 (+2.06pp) / 49 | 0.6232 → 0.6722 (+4.91pp) / 49 | 0.6181 → 0.7177 (+9.97pp) / 49 |
 | [180,inf) | 0.3906 → 0.3827 (-0.79pp) / 17 | 0.6607 → 0.5855 (-7.52pp) / 9* | 0.2954 → 0.3405 (+4.51pp) / 9* | 0.7078 → 0.6747 (-3.31pp) / 8* | 0.4444 → 0.5412 (+9.67pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -670,7 +674,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.3333 (+8.33pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.7778 (-11.11pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5917 (-0.83pp) / 60 | 0.8163 → 0.8265 (+1.02pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.5000 (-8.82pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.5000 (+16.67pp) / 9* | 1.0000 → 0.8750 (-12.50pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -679,7 +683,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6111 (-16.67pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3417 (-10.83pp) / 60 | 0.6327 → 0.6735 (+4.08pp) / 49 | 0.7551 → 0.7347 (-2.04pp) / 49 | 0.5918 → 0.7143 (+12.24pp) / 49 | 0.5918 → 0.7551 (+16.33pp) / 49 |
 | [180,inf) | 0.4706 → 0.3824 (-8.82pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.2778 (-5.56pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -689,9 +693,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1250 (-7.50pp) / 60 | 0.4694 → 0.5816 (+11.22pp) / 49 | 0.6327 → 0.5918 (-4.08pp) / 49 | 0.5102 → 0.5816 (+7.14pp) / 49 | 0.5102 → 0.6735 (+16.33pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.4375 (+6.25pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### token_entropy · duration × GT ratio · zero-shot 비교
+### token_entropy · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -700,7 +704,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2238 (+0.91pp) / 12 | 0.4484 → 0.4854 (+3.70pp) / 10 | 0.6487 → 0.6132 (-3.55pp) / 9* | 0.6645 → 0.6111 (-5.34pp) / 9* | 0.5212 → 0.7847 (+26.35pp) / 9* |
 | [120,180) | 0.3844 → 0.3542 (-3.01pp) / 60 | 0.5896 → 0.6015 (+1.19pp) / 49 | 0.6780 → 0.6873 (+0.93pp) / 49 | 0.6232 → 0.6718 (+4.86pp) / 49 | 0.6181 → 0.7077 (+8.96pp) / 49 |
 | [180,inf) | 0.3906 → 0.3448 (-4.59pp) / 17 | 0.6607 → 0.6029 (-5.77pp) / 9* | 0.2954 → 0.4107 (+11.54pp) / 9* | 0.7078 → 0.6523 (-5.54pp) / 8* | 0.4444 → 0.5521 (+10.77pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -709,7 +713,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.7778 (-11.11pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.6000 (+0.00pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.4706 (-11.76pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.6111 (+27.78pp) / 9* | 1.0000 → 0.8750 (-12.50pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -718,7 +722,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5000 (-10.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6111 (-16.67pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3417 (-10.83pp) / 60 | 0.6327 → 0.6122 (-2.04pp) / 49 | 0.7551 → 0.7449 (-1.02pp) / 49 | 0.5918 → 0.7041 (+11.22pp) / 49 | 0.5918 → 0.7347 (+14.29pp) / 49 |
 | [180,inf) | 0.4706 → 0.3235 (-14.71pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.4444 (+11.11pp) / 9* | 0.8750 → 0.6250 (-25.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -728,9 +732,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1333 (-6.67pp) / 60 | 0.4694 → 0.5510 (+8.16pp) / 49 | 0.6327 → 0.5714 (-6.12pp) / 49 | 0.5102 → 0.5714 (+6.12pp) / 49 | 0.5102 → 0.6531 (+14.29pp) / 49 |
 | [180,inf) | 0.2353 → 0.1471 (-8.82pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.2222 (+0.00pp) / 9* | 0.3750 → 0.3750 (+0.00pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### temporal_mode · duration × GT ratio · zero-shot 비교
+### temporal_mode · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -739,7 +743,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2302 (+1.55pp) / 12 | 0.4484 → 0.4969 (+4.85pp) / 10 | 0.6487 → 0.6224 (-2.64pp) / 9* | 0.6645 → 0.6067 (-5.77pp) / 9* | 0.5212 → 0.7923 (+27.11pp) / 9* |
 | [120,180) | 0.3844 → 0.3572 (-2.71pp) / 60 | 0.5896 → 0.6076 (+1.80pp) / 49 | 0.6780 → 0.6960 (+1.81pp) / 49 | 0.6232 → 0.6711 (+4.79pp) / 49 | 0.6181 → 0.7144 (+9.63pp) / 49 |
 | [180,inf) | 0.3906 → 0.3655 (-2.51pp) / 17 | 0.6607 → 0.5922 (-6.85pp) / 9* | 0.2954 → 0.3401 (+4.47pp) / 9* | 0.7078 → 0.6848 (-2.30pp) / 8* | 0.4444 → 0.5371 (+9.27pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -748,7 +752,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.3333 (+8.33pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.7778 (-11.11pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5917 (-0.83pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8878 (+9.18pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8163 (+8.16pp) / 49 |
 | [180,inf) | 0.5882 → 0.4706 (-11.76pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.5000 (+16.67pp) / 9* | 1.0000 → 0.8750 (-12.50pp) / 8* | 0.5000 → 0.7500 (+25.00pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -757,7 +761,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6111 (-16.67pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3333 (-11.67pp) / 60 | 0.6327 → 0.6429 (+1.02pp) / 49 | 0.7551 → 0.7347 (-2.04pp) / 49 | 0.5918 → 0.7143 (+12.24pp) / 49 | 0.5918 → 0.7449 (+15.31pp) / 49 |
 | [180,inf) | 0.4706 → 0.3529 (-11.76pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.2778 (-5.56pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -767,13 +771,13 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1500 (-5.00pp) / 60 | 0.4694 → 0.5612 (+9.18pp) / 49 | 0.6327 → 0.5918 (-4.08pp) / 49 | 0.5102 → 0.5816 (+7.14pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.4375 (+6.25pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### Zero-shot 대비 paired ΔmIoU 95% CI
+### greedy 대비 paired ΔmIoU 95% CI
 
 {'probability': [-0.009301611422198038, 0.02537412284494665], 'token_entropy': [-0.010185517180538986, 0.025379255772085715], 'temporal_mode': [-0.01152474151535659, 0.02420994107321877]}
 
 ## 총 rollout 상한 128 · 세부 집계
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/1200 | 0.5164 → 0.5195 (+0.31pp) | 0.6767 → 0.6917 (+1.50pp) | 0.5433 → 0.5292 (-1.42pp) | 0.3867 → 0.3967 (+1.00pp) | 0.7561 | 0.8258 |
 | token_entropy | 600/1200 | 0.5164 → 0.5247 (+0.84pp) | 0.6767 → 0.6892 (+1.25pp) | 0.5433 → 0.5342 (-0.92pp) | 0.3867 → 0.3967 (+1.00pp) | 0.7599 | 0.8270 |
@@ -783,7 +787,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### activitynet-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4739 → 0.4910 (+1.72pp) | 0.6200 → 0.6825 (+6.25pp) | 0.5200 → 0.5000 (-2.00pp) | 0.3350 → 0.3450 (+1.00pp) | 0.7613 | 0.8297 |
 | token_entropy | 200/400 | 0.4739 → 0.4977 (+2.38pp) | 0.6200 → 0.6775 (+5.75pp) | 0.5200 → 0.5125 (-0.75pp) | 0.3350 → 0.3500 (+1.50pp) | 0.7656 | 0.8306 |
@@ -791,7 +795,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### charades-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4655 → 0.4334 (-3.21pp) | 0.6300 → 0.6000 (-3.00pp) | 0.4650 → 0.4175 (-4.75pp) | 0.3250 → 0.2875 (-3.75pp) | 0.6796 | 0.7547 |
 | token_entropy | 200/400 | 0.4655 → 0.4340 (-3.15pp) | 0.6300 → 0.5925 (-3.75pp) | 0.4650 → 0.4100 (-5.50pp) | 0.3250 → 0.2875 (-3.75pp) | 0.6840 | 0.7548 |
@@ -799,7 +803,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### qvhighlights-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.6098 → 0.6342 (+2.44pp) | 0.7800 → 0.7925 (+1.25pp) | 0.6450 → 0.6700 (+2.50pp) | 0.5000 → 0.5575 (+5.75pp) | 0.8274 | 0.8931 |
 | token_entropy | 200/400 | 0.6098 → 0.6426 (+3.28pp) | 0.7800 → 0.7975 (+1.75pp) | 0.6450 → 0.6800 (+3.50pp) | 0.5000 → 0.5525 (+5.25pp) | 0.8301 | 0.8955 |
@@ -809,7 +813,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 42
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5169 (+0.05pp) | 0.6767 → 0.6933 (+1.67pp) | 0.5433 → 0.5233 (-2.00pp) | 0.3867 → 0.3917 (+0.50pp) | 0.7575 | 0.8274 |
 | token_entropy | 600/600 | 0.5164 → 0.5244 (+0.80pp) | 0.6767 → 0.6933 (+1.67pp) | 0.5433 → 0.5350 (-0.83pp) | 0.3867 → 0.3983 (+1.17pp) | 0.7610 | 0.8291 |
@@ -817,7 +821,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 43
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5222 (+0.58pp) | 0.6767 → 0.6900 (+1.33pp) | 0.5433 → 0.5350 (-0.83pp) | 0.3867 → 0.4017 (+1.50pp) | 0.7547 | 0.8242 |
 | token_entropy | 600/600 | 0.5164 → 0.5251 (+0.87pp) | 0.6767 → 0.6850 (+0.83pp) | 0.5433 → 0.5333 (-1.00pp) | 0.3867 → 0.3950 (+0.83pp) | 0.7588 | 0.8249 |
@@ -827,7 +831,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,30) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 100/200 | 0.4284 → 0.3904 (-3.79pp) | 0.5800 → 0.5400 (-4.00pp) | 0.4100 → 0.3400 (-7.00pp) | 0.2900 → 0.2350 (-5.50pp) | 0.6549 | 0.7274 |
 | token_entropy | 100/200 | 0.4284 → 0.3844 (-4.40pp) | 0.5800 → 0.5150 (-6.50pp) | 0.4100 → 0.3450 (-6.50pp) | 0.2900 → 0.2500 (-4.00pp) | 0.6588 | 0.7286 |
@@ -835,7 +839,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [30,60) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 144/288 | 0.5068 → 0.4881 (-1.86pp) | 0.6806 → 0.6875 (+0.69pp) | 0.5417 → 0.5069 (-3.47pp) | 0.3472 → 0.3472 (+0.00pp) | 0.7224 | 0.8022 |
 | token_entropy | 144/288 | 0.5068 → 0.4999 (-0.69pp) | 0.6806 → 0.6979 (+1.74pp) | 0.5417 → 0.5069 (-3.47pp) | 0.3472 → 0.3368 (-1.04pp) | 0.7260 | 0.8015 |
@@ -843,7 +847,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [60,120) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 49/98 | 0.4810 → 0.5340 (+5.30pp) | 0.5918 → 0.6939 (+10.20pp) | 0.5306 → 0.5714 (+4.08pp) | 0.3878 → 0.4490 (+6.12pp) | 0.7638 | 0.8118 |
 | token_entropy | 49/98 | 0.4810 → 0.5340 (+5.30pp) | 0.5918 → 0.6837 (+9.18pp) | 0.5306 → 0.5510 (+2.04pp) | 0.3878 → 0.4490 (+6.12pp) | 0.7636 | 0.8119 |
@@ -851,7 +855,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [120,180) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 256/512 | 0.5703 → 0.5941 (+2.39pp) | 0.7383 → 0.7637 (+2.54pp) | 0.5977 → 0.6172 (+1.95pp) | 0.4531 → 0.4922 (+3.91pp) | 0.8049 | 0.8723 |
 | token_entropy | 256/512 | 0.5703 → 0.6029 (+3.26pp) | 0.7383 → 0.7656 (+2.73pp) | 0.5977 → 0.6328 (+3.52pp) | 0.4531 → 0.4902 (+3.71pp) | 0.8086 | 0.8749 |
@@ -859,7 +863,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [180,inf) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 51/102 | 0.4797 → 0.4729 (-0.67pp) | 0.6275 → 0.6373 (+0.98pp) | 0.5490 → 0.4804 (-6.86pp) | 0.3529 → 0.3235 (-2.94pp) | 0.7973 | 0.8662 |
 | token_entropy | 51/102 | 0.4797 → 0.4690 (-1.06pp) | 0.6275 → 0.6275 (+0.00pp) | 0.5490 → 0.4706 (-7.84pp) | 0.3529 → 0.3333 (-1.96pp) | 0.8056 | 0.8655 |
@@ -869,7 +873,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,0.05)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 138/276 | 0.2882 → 0.2729 (-1.53pp) | 0.4058 → 0.3804 (-2.54pp) | 0.2971 → 0.2355 (-6.16pp) | 0.1304 → 0.1304 (+0.00pp) | 0.5263 | 0.6197 |
 | token_entropy | 138/276 | 0.2882 → 0.2747 (-1.35pp) | 0.4058 → 0.3732 (-3.26pp) | 0.2971 → 0.2500 (-4.71pp) | 0.1304 → 0.1051 (-2.54pp) | 0.5314 | 0.6208 |
@@ -877,7 +881,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.05,0.1)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 117/234 | 0.5056 → 0.4888 (-1.68pp) | 0.7350 → 0.7265 (-0.85pp) | 0.5214 → 0.5043 (-1.71pp) | 0.3419 → 0.3248 (-1.71pp) | 0.7416 | 0.8154 |
 | token_entropy | 117/234 | 0.5056 → 0.4866 (-1.90pp) | 0.7350 → 0.7094 (-2.56pp) | 0.5214 → 0.4915 (-2.99pp) | 0.3419 → 0.3205 (-2.14pp) | 0.7441 | 0.8166 |
@@ -885,7 +889,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.1,0.2)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 116/232 | 0.5752 → 0.5588 (-1.65pp) | 0.7414 → 0.7414 (+0.00pp) | 0.6379 → 0.5603 (-7.76pp) | 0.4741 → 0.4353 (-3.88pp) | 0.8370 | 0.8971 |
 | token_entropy | 116/232 | 0.5752 → 0.5728 (-0.24pp) | 0.7414 → 0.7500 (+0.86pp) | 0.6379 → 0.5776 (-6.03pp) | 0.4741 → 0.4612 (-1.29pp) | 0.8437 | 0.9009 |
@@ -893,7 +897,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.2,0.4)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 115/230 | 0.6640 → 0.6561 (-0.79pp) | 0.8609 → 0.8696 (+0.87pp) | 0.7304 → 0.7043 (-2.61pp) | 0.5217 → 0.5435 (+2.17pp) | 0.8607 | 0.9180 |
 | token_entropy | 115/230 | 0.6640 → 0.6673 (+0.33pp) | 0.8609 → 0.8739 (+1.30pp) | 0.7304 → 0.7043 (-2.61pp) | 0.5217 → 0.5522 (+3.04pp) | 0.8597 | 0.9172 |
@@ -901,7 +905,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.4,inf)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 114/228 | 0.5949 → 0.6719 (+7.70pp) | 0.6930 → 0.8026 (+10.96pp) | 0.5789 → 0.7018 (+12.28pp) | 0.5175 → 0.6053 (+8.77pp) | 0.8614 | 0.9205 |
 | token_entropy | 114/228 | 0.5949 → 0.6738 (+7.89pp) | 0.6930 → 0.8026 (+10.96pp) | 0.5789 → 0.7061 (+12.72pp) | 0.5175 → 0.6053 (+8.77pp) | 0.8667 | 0.9209 |
@@ -909,9 +913,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 ### duration × GT ratio
 
-### probability · duration × GT ratio · zero-shot 비교
+### probability · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -920,7 +924,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2428 (+2.81pp) / 12 | 0.4484 → 0.4942 (+4.58pp) / 10 | 0.6487 → 0.6201 (-2.86pp) / 9* | 0.6645 → 0.6324 (-3.21pp) / 9* | 0.5212 → 0.7820 (+26.08pp) / 9* |
 | [120,180) | 0.3844 → 0.3621 (-2.23pp) / 60 | 0.5896 → 0.6032 (+1.36pp) / 49 | 0.6780 → 0.6776 (-0.03pp) / 49 | 0.6232 → 0.6591 (+3.60pp) / 49 | 0.6181 → 0.7208 (+10.27pp) / 49 |
 | [180,inf) | 0.3906 → 0.3539 (-3.67pp) / 17 | 0.6607 → 0.6088 (-5.18pp) / 9* | 0.2954 → 0.3885 (+9.31pp) / 9* | 0.7078 → 0.6426 (-6.52pp) / 8* | 0.4444 → 0.4983 (+5.38pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -929,7 +933,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.8333 (-5.56pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5500 (-5.00pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8571 (+6.12pp) / 49 | 0.7755 → 0.8061 (+3.06pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.4412 (-14.71pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.5556 (+22.22pp) / 9* | 1.0000 → 0.9375 (-6.25pp) / 8* | 0.5000 → 0.6875 (+18.75pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -938,7 +942,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3583 (-9.17pp) / 60 | 0.6327 → 0.6633 (+3.06pp) / 49 | 0.7551 → 0.7245 (-3.06pp) / 49 | 0.5918 → 0.6327 (+4.08pp) / 49 | 0.5918 → 0.7653 (+17.35pp) / 49 |
 | [180,inf) | 0.4706 → 0.3529 (-11.76pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.6250 (-25.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -948,9 +952,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1667 (-3.33pp) / 60 | 0.4694 → 0.5612 (+9.18pp) / 49 | 0.6327 → 0.5714 (-6.12pp) / 49 | 0.5102 → 0.5714 (+6.12pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.4375 (+6.25pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### token_entropy · duration × GT ratio · zero-shot 비교
+### token_entropy · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -959,7 +963,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2207 (+0.60pp) / 12 | 0.4484 → 0.5019 (+5.35pp) / 10 | 0.6487 → 0.6274 (-2.13pp) / 9* | 0.6645 → 0.6486 (-1.59pp) / 9* | 0.5212 → 0.7794 (+25.82pp) / 9* |
 | [120,180) | 0.3844 → 0.3696 (-1.48pp) / 60 | 0.5896 → 0.6039 (+1.44pp) / 49 | 0.6780 → 0.6988 (+2.08pp) / 49 | 0.6232 → 0.6737 (+5.06pp) / 49 | 0.6181 → 0.7209 (+10.28pp) / 49 |
 | [180,inf) | 0.3906 → 0.3381 (-5.25pp) / 17 | 0.6607 → 0.6087 (-5.20pp) / 9* | 0.2954 → 0.3707 (+7.53pp) / 9* | 0.7078 → 0.6615 (-4.63pp) / 8* | 0.4444 → 0.5085 (+6.40pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -968,7 +972,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.8333 (-5.56pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5583 (-4.17pp) / 60 | 0.8163 → 0.7959 (-2.04pp) / 49 | 0.7959 → 0.8776 (+8.16pp) / 49 | 0.7755 → 0.8061 (+3.06pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.4412 (-14.71pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.5000 (+16.67pp) / 9* | 1.0000 → 0.9375 (-6.25pp) / 8* | 0.5000 → 0.6875 (+18.75pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -977,7 +981,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6111 (-16.67pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3917 (-5.83pp) / 60 | 0.6327 → 0.6531 (+2.04pp) / 49 | 0.7551 → 0.7245 (-3.06pp) / 49 | 0.5918 → 0.6837 (+9.18pp) / 49 | 0.5918 → 0.7653 (+17.35pp) / 49 |
 | [180,inf) | 0.4706 → 0.3235 (-14.71pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.6250 (-25.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -987,9 +991,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1333 (-6.67pp) / 60 | 0.4694 → 0.5408 (+7.14pp) / 49 | 0.6327 → 0.6020 (-3.06pp) / 49 | 0.5102 → 0.5918 (+8.16pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2059 (-2.94pp) / 17 | 0.6667 → 0.5556 (-11.11pp) / 9* | 0.2222 → 0.2222 (+0.00pp) / 9* | 0.3750 → 0.4375 (+6.25pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### temporal_mode · duration × GT ratio · zero-shot 비교
+### temporal_mode · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -998,7 +1002,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2301 (+1.54pp) / 12 | 0.4484 → 0.5249 (+7.65pp) / 10 | 0.6487 → 0.6094 (-3.93pp) / 9* | 0.6645 → 0.6387 (-2.58pp) / 9* | 0.5212 → 0.7801 (+25.89pp) / 9* |
 | [120,180) | 0.3844 → 0.3686 (-1.58pp) / 60 | 0.5896 → 0.5870 (-0.26pp) / 49 | 0.6780 → 0.6788 (+0.08pp) / 49 | 0.6232 → 0.6648 (+4.16pp) / 49 | 0.6181 → 0.7196 (+10.15pp) / 49 |
 | [180,inf) | 0.3906 → 0.3700 (-2.06pp) / 17 | 0.6607 → 0.6037 (-5.69pp) / 9* | 0.2954 → 0.3670 (+7.16pp) / 9* | 0.7078 → 0.6121 (-9.57pp) / 8* | 0.4444 → 0.4975 (+5.31pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1007,7 +1011,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.8333 (-5.56pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5750 (-2.50pp) / 60 | 0.8163 → 0.7857 (-3.06pp) / 49 | 0.7959 → 0.8571 (+6.12pp) / 49 | 0.7755 → 0.8061 (+3.06pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.4412 (-14.71pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.5000 (+16.67pp) / 9* | 1.0000 → 0.9375 (-6.25pp) / 8* | 0.5000 → 0.6875 (+18.75pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1016,7 +1020,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6667 (-11.11pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3500 (-10.00pp) / 60 | 0.6327 → 0.6327 (+0.00pp) / 49 | 0.7551 → 0.7347 (-2.04pp) / 49 | 0.5918 → 0.6837 (+9.18pp) / 49 | 0.5918 → 0.7551 (+16.33pp) / 49 |
 | [180,inf) | 0.4706 → 0.3824 (-8.82pp) / 17 | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.3333 → 0.3333 (+0.00pp) / 9* | 0.8750 → 0.5625 (-31.25pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1026,13 +1030,13 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1167 (-8.33pp) / 60 | 0.4694 → 0.5510 (+8.16pp) / 49 | 0.6327 → 0.5510 (-8.16pp) / 49 | 0.5102 → 0.5714 (+6.12pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.5000 (-16.67pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.3750 (+0.00pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### Zero-shot 대비 paired ΔmIoU 95% CI
+### greedy 대비 paired ΔmIoU 95% CI
 
 {'probability': [-0.013229392099807946, 0.020680805735264117], 'token_entropy': [-0.009649956578875957, 0.02562282094259814], 'temporal_mode': [-0.012627522277598712, 0.021623761453723758]}
 
 ## 총 rollout 상한 256 · 세부 집계
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/1200 | 0.5164 → 0.5224 (+0.60pp) | 0.6767 → 0.6967 (+2.00pp) | 0.5433 → 0.5342 (-0.92pp) | 0.3867 → 0.3933 (+0.67pp) | 0.7737 | 0.8488 |
 | token_entropy | 600/1200 | 0.5164 → 0.5269 (+1.05pp) | 0.6767 → 0.7025 (+2.58pp) | 0.5433 → 0.5367 (-0.67pp) | 0.3867 → 0.3975 (+1.08pp) | 0.7773 | 0.8510 |
@@ -1042,7 +1046,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### activitynet-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4739 → 0.4916 (+1.77pp) | 0.6200 → 0.6875 (+6.75pp) | 0.5200 → 0.4950 (-2.50pp) | 0.3350 → 0.3425 (+0.75pp) | 0.7830 | 0.8566 |
 | token_entropy | 200/400 | 0.4739 → 0.5059 (+3.20pp) | 0.6200 → 0.7025 (+8.25pp) | 0.5200 → 0.5125 (-0.75pp) | 0.3350 → 0.3525 (+1.75pp) | 0.7873 | 0.8586 |
@@ -1050,7 +1054,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### charades-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.4655 → 0.4375 (-2.79pp) | 0.6300 → 0.6050 (-2.50pp) | 0.4650 → 0.4350 (-3.00pp) | 0.3250 → 0.2875 (-3.75pp) | 0.7022 | 0.7809 |
 | token_entropy | 200/400 | 0.4655 → 0.4401 (-2.54pp) | 0.6300 → 0.6050 (-2.50pp) | 0.4650 → 0.4225 (-4.25pp) | 0.3250 → 0.2950 (-3.00pp) | 0.7065 | 0.7824 |
@@ -1058,7 +1062,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### qvhighlights-timelens
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 200/400 | 0.6098 → 0.6381 (+2.83pp) | 0.7800 → 0.7975 (+1.75pp) | 0.6450 → 0.6725 (+2.75pp) | 0.5000 → 0.5500 (+5.00pp) | 0.8361 | 0.9088 |
 | token_entropy | 200/400 | 0.6098 → 0.6349 (+2.51pp) | 0.7800 → 0.8000 (+2.00pp) | 0.6450 → 0.6750 (+3.00pp) | 0.5000 → 0.5450 (+4.50pp) | 0.8380 | 0.9120 |
@@ -1068,7 +1072,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 42
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5225 (+0.61pp) | 0.6767 → 0.7017 (+2.50pp) | 0.5433 → 0.5367 (-0.67pp) | 0.3867 → 0.3917 (+0.50pp) | 0.7732 | 0.8483 |
 | token_entropy | 600/600 | 0.5164 → 0.5253 (+0.89pp) | 0.6767 → 0.7033 (+2.67pp) | 0.5433 → 0.5367 (-0.67pp) | 0.3867 → 0.3950 (+0.83pp) | 0.7774 | 0.8508 |
@@ -1076,7 +1080,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### seed 43
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 600/600 | 0.5164 → 0.5224 (+0.60pp) | 0.6767 → 0.6917 (+1.50pp) | 0.5433 → 0.5317 (-1.17pp) | 0.3867 → 0.3950 (+0.83pp) | 0.7743 | 0.8493 |
 | token_entropy | 600/600 | 0.5164 → 0.5285 (+1.22pp) | 0.6767 → 0.7017 (+2.50pp) | 0.5433 → 0.5367 (-0.67pp) | 0.3867 → 0.4000 (+1.33pp) | 0.7772 | 0.8512 |
@@ -1086,7 +1090,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,30) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 100/200 | 0.4284 → 0.3961 (-3.23pp) | 0.5800 → 0.5450 (-3.50pp) | 0.4100 → 0.3550 (-5.50pp) | 0.2900 → 0.2550 (-3.50pp) | 0.6783 | 0.7598 |
 | token_entropy | 100/200 | 0.4284 → 0.3925 (-3.59pp) | 0.5800 → 0.5300 (-5.00pp) | 0.4100 → 0.3450 (-6.50pp) | 0.2900 → 0.2650 (-2.50pp) | 0.6823 | 0.7623 |
@@ -1094,7 +1098,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [30,60) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 144/288 | 0.5068 → 0.4920 (-1.47pp) | 0.6806 → 0.6910 (+1.04pp) | 0.5417 → 0.5139 (-2.78pp) | 0.3472 → 0.3333 (-1.39pp) | 0.7422 | 0.8198 |
 | token_entropy | 144/288 | 0.5068 → 0.5006 (-0.61pp) | 0.6806 → 0.7049 (+2.43pp) | 0.5417 → 0.5069 (-3.47pp) | 0.3472 → 0.3368 (-1.04pp) | 0.7463 | 0.8204 |
@@ -1102,7 +1106,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [60,120) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 49/98 | 0.4810 → 0.5235 (+4.25pp) | 0.5918 → 0.6939 (+10.20pp) | 0.5306 → 0.5510 (+2.04pp) | 0.3878 → 0.4388 (+5.10pp) | 0.7914 | 0.8468 |
 | token_entropy | 49/98 | 0.4810 → 0.5266 (+4.56pp) | 0.5918 → 0.6837 (+9.18pp) | 0.5306 → 0.5510 (+2.04pp) | 0.3878 → 0.4388 (+5.10pp) | 0.8014 | 0.8567 |
@@ -1110,7 +1114,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [120,180) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 256/512 | 0.5703 → 0.5989 (+2.86pp) | 0.7383 → 0.7676 (+2.93pp) | 0.5977 → 0.6211 (+2.34pp) | 0.4531 → 0.4883 (+3.52pp) | 0.8164 | 0.8916 |
 | token_entropy | 256/512 | 0.5703 → 0.6020 (+3.17pp) | 0.7383 → 0.7754 (+3.71pp) | 0.5977 → 0.6328 (+3.52pp) | 0.4531 → 0.4883 (+3.52pp) | 0.8187 | 0.8937 |
@@ -1118,7 +1122,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [180,inf) seconds
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 51/102 | 0.4797 → 0.4710 (-0.87pp) | 0.6275 → 0.6569 (+2.94pp) | 0.5490 → 0.4902 (-5.88pp) | 0.3529 → 0.3137 (-3.92pp) | 0.8190 | 0.8922 |
 | token_entropy | 51/102 | 0.4797 → 0.4885 (+0.88pp) | 0.6275 → 0.6863 (+5.88pp) | 0.5490 → 0.5000 (-4.90pp) | 0.3529 → 0.3333 (-1.96pp) | 0.8203 | 0.8915 |
@@ -1128,7 +1132,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0,0.05)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 138/276 | 0.2882 → 0.2811 (-0.72pp) | 0.4058 → 0.3986 (-0.72pp) | 0.2971 → 0.2428 (-5.43pp) | 0.1304 → 0.1232 (-0.72pp) | 0.5519 | 0.6606 |
 | token_entropy | 138/276 | 0.2882 → 0.2939 (+0.56pp) | 0.4058 → 0.4239 (+1.81pp) | 0.2971 → 0.2572 (-3.99pp) | 0.1304 → 0.1123 (-1.81pp) | 0.5591 | 0.6649 |
@@ -1136,7 +1140,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.05,0.1)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 117/234 | 0.5056 → 0.4863 (-1.93pp) | 0.7350 → 0.7265 (-0.85pp) | 0.5214 → 0.5171 (-0.43pp) | 0.3419 → 0.3162 (-2.56pp) | 0.7630 | 0.8430 |
 | token_entropy | 117/234 | 0.5056 → 0.4877 (-1.79pp) | 0.7350 → 0.7179 (-1.71pp) | 0.5214 → 0.4957 (-2.56pp) | 0.3419 → 0.3291 (-1.28pp) | 0.7651 | 0.8446 |
@@ -1144,7 +1148,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.1,0.2)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 116/232 | 0.5752 → 0.5602 (-1.50pp) | 0.7414 → 0.7457 (+0.43pp) | 0.6379 → 0.5690 (-6.90pp) | 0.4741 → 0.4310 (-4.31pp) | 0.8529 | 0.9181 |
 | token_entropy | 116/232 | 0.5752 → 0.5689 (-0.63pp) | 0.7414 → 0.7629 (+2.16pp) | 0.6379 → 0.5862 (-5.17pp) | 0.4741 → 0.4397 (-3.45pp) | 0.8563 | 0.9174 |
@@ -1152,7 +1156,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.2,0.4)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 115/230 | 0.6640 → 0.6643 (+0.04pp) | 0.8609 → 0.8783 (+1.74pp) | 0.7304 → 0.7000 (-3.04pp) | 0.5217 → 0.5565 (+3.48pp) | 0.8689 | 0.9286 |
 | token_entropy | 115/230 | 0.6640 → 0.6610 (-0.29pp) | 0.8609 → 0.8783 (+1.74pp) | 0.7304 → 0.7043 (-2.61pp) | 0.5217 → 0.5565 (+3.48pp) | 0.8704 | 0.9290 |
@@ -1160,7 +1164,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 #### [0.4,inf)
 
-| 조건 | query / seed 응답 | mIoU: zero-shot → 결과 (Δpp) | R@.3: zero-shot → 결과 (Δpp) | R@.5: zero-shot → 결과 (Δpp) | R@.7: zero-shot → 결과 (Δpp) | main oracle | diagnostic oracle |
+| 조건 | query / seed 응답 | mIoU: greedy → 결과 (Δpp) | R@.3: greedy → 결과 (Δpp) | R@.5: greedy → 결과 (Δpp) | R@.7: greedy → 결과 (Δpp) | main oracle | diagnostic oracle |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | probability | 114/228 | 0.5949 → 0.6699 (+7.50pp) | 0.6930 → 0.7939 (+10.09pp) | 0.5789 → 0.7018 (+12.28pp) | 0.5175 → 0.5965 (+7.89pp) | 0.8768 | 0.9315 |
 | token_entropy | 114/228 | 0.5949 → 0.6714 (+7.65pp) | 0.6930 → 0.7851 (+9.21pp) | 0.5789 → 0.6974 (+11.84pp) | 0.5175 → 0.6096 (+9.21pp) | 0.8797 | 0.9367 |
@@ -1168,9 +1172,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 
 ### duration × GT ratio
 
-### probability · duration × GT ratio · zero-shot 비교
+### probability · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1179,7 +1183,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2283 (+1.37pp) / 12 | 0.4484 → 0.4754 (+2.70pp) / 10 | 0.6487 → 0.6070 (-4.17pp) / 9* | 0.6645 → 0.6367 (-2.77pp) / 9* | 0.5212 → 0.7736 (+25.24pp) / 9* |
 | [120,180) | 0.3844 → 0.3614 (-2.30pp) / 60 | 0.5896 → 0.5844 (-0.52pp) / 49 | 0.6780 → 0.6970 (+1.91pp) / 49 | 0.6232 → 0.6759 (+5.27pp) / 49 | 0.6181 → 0.7290 (+11.09pp) / 49 |
 | [180,inf) | 0.3906 → 0.3584 (-3.22pp) / 17 | 0.6607 → 0.6273 (-3.34pp) / 9* | 0.2954 → 0.4008 (+10.54pp) / 9* | 0.7078 → 0.5925 (-11.53pp) / 8* | 0.4444 → 0.4917 (+4.73pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1188,7 +1192,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.8333 (-5.56pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5667 (-3.33pp) / 60 | 0.8163 → 0.8061 (-1.02pp) / 49 | 0.7959 → 0.8571 (+6.12pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.4706 (-11.76pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.6111 (+27.78pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.6250 (+12.50pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1197,7 +1201,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5000 (-10.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6667 (-11.11pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3667 (-8.33pp) / 60 | 0.6327 → 0.6224 (-1.02pp) / 49 | 0.7551 → 0.7347 (-2.04pp) / 49 | 0.5918 → 0.6633 (+7.14pp) / 49 | 0.5918 → 0.7755 (+18.37pp) / 49 |
 | [180,inf) | 0.4706 → 0.3235 (-14.71pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.3889 (+5.56pp) / 9* | 0.8750 → 0.6250 (-25.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1207,9 +1211,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1417 (-5.83pp) / 60 | 0.4694 → 0.5306 (+6.12pp) / 49 | 0.6327 → 0.5816 (-5.10pp) / 49 | 0.5102 → 0.6020 (+9.18pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.5556 (-11.11pp) / 9* | 0.2222 → 0.2222 (+0.00pp) / 9* | 0.3750 → 0.2500 (-12.50pp) / 8* | 0.3750 → 0.3750 (+0.00pp) / 8* |
 
-### token_entropy · duration × GT ratio · zero-shot 비교
+### token_entropy · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1218,7 +1222,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2354 (+2.07pp) / 12 | 0.4484 → 0.4775 (+2.91pp) / 10 | 0.6487 → 0.6228 (-2.59pp) / 9* | 0.6645 → 0.6182 (-4.63pp) / 9* | 0.5212 → 0.7819 (+26.07pp) / 9* |
 | [120,180) | 0.3844 → 0.3831 (-0.12pp) / 60 | 0.5896 → 0.5979 (+0.83pp) / 49 | 0.6780 → 0.6764 (-0.16pp) / 49 | 0.6232 → 0.6757 (+5.25pp) / 49 | 0.6181 → 0.7259 (+10.78pp) / 49 |
 | [180,inf) | 0.3906 → 0.3864 (-0.42pp) / 17 | 0.6607 → 0.6100 (-5.06pp) / 9* | 0.2954 → 0.4001 (+10.47pp) / 9* | 0.7078 → 0.6361 (-7.16pp) / 8* | 0.4444 → 0.5204 (+7.60pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1227,7 +1231,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.7778 (-11.11pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.6167 (+1.67pp) / 60 | 0.8163 → 0.7959 (-2.04pp) / 49 | 0.7959 → 0.8469 (+5.10pp) / 49 | 0.7755 → 0.8163 (+4.08pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.5294 (-5.88pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.6667 (+33.33pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.6250 (+12.50pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1236,7 +1240,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5500 (-5.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.6111 (-16.67pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.4000 (-5.00pp) / 60 | 0.6327 → 0.6531 (+2.04pp) / 49 | 0.7551 → 0.7245 (-3.06pp) / 49 | 0.5918 → 0.6735 (+8.16pp) / 49 | 0.5918 → 0.7653 (+17.35pp) / 49 |
 | [180,inf) | 0.4706 → 0.3824 (-8.82pp) / 17 | 0.7778 → 0.6667 (-11.11pp) / 9* | 0.3333 → 0.3889 (+5.56pp) / 9* | 0.8750 → 0.6875 (-18.75pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1246,9 +1250,9 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1417 (-5.83pp) / 60 | 0.4694 → 0.5510 (+8.16pp) / 49 | 0.6327 → 0.5510 (-8.16pp) / 49 | 0.5102 → 0.6122 (+10.20pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2059 (-2.94pp) / 17 | 0.6667 → 0.5556 (-11.11pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.3750 (+0.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
 
-### temporal_mode · duration × GT ratio · zero-shot 비교
+### temporal_mode · duration × GT ratio · greedy 비교
 
-지표: iou. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: iou. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1257,7 +1261,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2147 → 0.2336 (+1.90pp) / 12 | 0.4484 → 0.4695 (+2.11pp) / 10 | 0.6487 → 0.6035 (-4.52pp) / 9* | 0.6645 → 0.6344 (-3.00pp) / 9* | 0.5212 → 0.7717 (+25.06pp) / 9* |
 | [120,180) | 0.3844 → 0.3758 (-0.86pp) / 60 | 0.5896 → 0.5973 (+0.77pp) / 49 | 0.6780 → 0.6896 (+1.17pp) / 49 | 0.6232 → 0.6797 (+5.65pp) / 49 | 0.6181 → 0.7248 (+10.67pp) / 49 |
 | [180,inf) | 0.3906 → 0.3895 (-0.11pp) / 17 | 0.6607 → 0.6183 (-4.23pp) / 9* | 0.2954 → 0.4105 (+11.52pp) / 9* | 0.7078 → 0.6291 (-7.87pp) / 8* | 0.4444 → 0.5340 (+8.96pp) / 8* |
-지표: r03. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r03. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1266,7 +1270,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2917 (+4.17pp) / 12 | 0.6000 → 0.8000 (+20.00pp) / 10 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.8889 → 0.8333 (-5.56pp) / 9* | 0.5556 → 0.8889 (+33.33pp) / 9* |
 | [120,180) | 0.6000 → 0.5917 (-0.83pp) / 60 | 0.8163 → 0.8163 (+0.00pp) / 49 | 0.7959 → 0.8367 (+4.08pp) / 49 | 0.7755 → 0.8367 (+6.12pp) / 49 | 0.7347 → 0.8367 (+10.20pp) / 49 |
 | [180,inf) | 0.5882 → 0.5588 (-2.94pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.6667 (+33.33pp) / 9* | 1.0000 → 1.0000 (+0.00pp) / 8* | 0.5000 → 0.6250 (+12.50pp) / 8* |
-지표: r05. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r05. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1275,7 +1279,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [60,120) | 0.2500 → 0.2500 (+0.00pp) / 12 | 0.6000 → 0.5000 (-10.00pp) / 10 | 0.6667 → 0.6667 (+0.00pp) / 9* | 0.7778 → 0.7222 (-5.56pp) / 9* | 0.4444 → 0.7778 (+33.33pp) / 9* |
 | [120,180) | 0.4500 → 0.3667 (-8.33pp) / 60 | 0.6327 → 0.6429 (+1.02pp) / 49 | 0.7551 → 0.7245 (-3.06pp) / 49 | 0.5918 → 0.6735 (+8.16pp) / 49 | 0.5918 → 0.7653 (+17.35pp) / 49 |
 | [180,inf) | 0.4706 → 0.3824 (-8.82pp) / 17 | 0.7778 → 0.7778 (+0.00pp) / 9* | 0.3333 → 0.3889 (+5.56pp) / 9* | 0.8750 → 0.6250 (-25.00pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
-지표: r07. 각 cell은 zero-shot→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
+지표: r07. 각 cell은 greedy→결과 (Δpp) / query 수이며 n<10은 *로 표시한다.
 
 | duration | <.05 | .05–.10 | .10–.20 | .20–.40 | ≥.40 |
 |---|---:|---:|---:|---:|---:|
@@ -1285,7 +1289,7 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 | [120,180) | 0.2000 → 0.1333 (-6.67pp) / 60 | 0.4694 → 0.5510 (+8.16pp) / 49 | 0.6327 → 0.5918 (-4.08pp) / 49 | 0.5102 → 0.6020 (+9.18pp) / 49 | 0.5102 → 0.6633 (+15.31pp) / 49 |
 | [180,inf) | 0.2353 → 0.2353 (+0.00pp) / 17 | 0.6667 → 0.6111 (-5.56pp) / 9* | 0.2222 → 0.1667 (-5.56pp) / 9* | 0.3750 → 0.4375 (+6.25pp) / 8* | 0.3750 → 0.5000 (+12.50pp) / 8* |
 
-### Zero-shot 대비 paired ΔmIoU 95% CI
+### greedy 대비 paired ΔmIoU 95% CI
 
 {'probability': [-0.011208928326757971, 0.02399489745597856], 'token_entropy': [-0.007379892858550458, 0.02857003269548201], 'temporal_mode': [-0.008174297447986669, 0.028318927661377186]}
 
@@ -1294,3 +1298,23 @@ temporal_mode에서 점 옆의32→256으로 가면 평균 decoder inputs는16,2
 [실행 명세](SPEC.md) · [상세 결과](detail.html). 이전 token-budget 결과와 원자료를 합산하지 않는다. Main/tail token 비용은 해당 checkpoint까지 누적,judge 비용은 그 예산만 독립 실행하는 기준이다. 실제 전체 sweep 비용은 raw actual_cost·measured_actual_cost·checkpoint.cost에 보존한다. 관측 mode 수는 실제 모든 사건의 coverage가 아니다.
 
 원자료는 누적 pilot900에 한 번 저장한다. pilot300·600·900은 고정 cohort 부분집합이며 겹치는 query를 독립 합산하지 않는다.
+
+<!-- case-finder:start -->
+## 사례 탐색과 mode 비교
+
+사례 필터는 현재 선택한 방법·seed·예산의 query별 결과를 사용한다. 비교 기준은 같은 입력의 greedy 단일 응답이다. IoU는 GT와 예측 interval의 교집합 길이 / 합집합 길이이며 범위는 0–1이고 높을수록 좋다. ΔIoU = 해당 값 − greedy IoU이며 0.01은 1pp다. Main oracle과 judge 후보 oracle은 각각 발견한 모든 main interval과 judge에 전달한 대표 interval의 최고 IoU다. Diagnostic oracle은 tail까지 포함한 최고 IoU다. Oracle은 사후 상한이며 GT는 생성·선택에 사용하지 않는다.
+
+| 특수 기준 | query별 조건 |
+|---|---|
+| 회복 | greedy IoU < 0.5, 최종 선택 IoU ≥ 0.5 |
+| 개선 / 악화 | 최종 선택의 greedy 대비 ΔIoU ≥ 0.01 / ≤ −0.01 |
+| 후보 발견 후 선택 실패 | greedy IoU < 0.5, main oracle ≥ 0.5, 최종 선택 IoU < 0.5 |
+| 탐색 후에도 미회복 | greedy IoU < 0.5, main oracle < 0.5 |
+| 여러 mode | main mode 수 ≥ 2 |
+| Tail에만 회복 후보 | greedy IoU < 0.5, main oracle < 0.5, diagnostic oracle ≥ 0.5 |
+| 최종 선택 무효 | 유효한 최종 interval이 없음 |
+
+수치 범위는 greedy IoU, greedy 대비 ΔIoU, main mode 수에 적용하며 양 끝을 포함한다. 모든 조건을 동시에 적용한다. Query 수는 현재 cohort의 고유 query 수이며 seed 응답 수나 영상 수가 아니다. 표본별 목록은 canonical 응답을 복제하지 않고 기존 query 지표를 조회한다.
+
+Mode 비교는 저장된 checkpoint의 소속을 그대로 보여준다. 새 interval은 기존 mode의 **모든 interval**에 대해 IoU ≥ 0.5이고 시작·끝 차이가 각각 max(1 s, 0.1 × 두 interval 중 짧은 길이) 이내이면 통합한다. 해당 mode가 여러 개면 endpoint 거리와 mode ID 순서로 결정한다. 조건을 만족하는 mode가 없으면 새 mode다. Mode ID는 해당 방법·seed·예산 안에서만 유효하며 실제 사건 수나 정답 확률을 뜻하지 않는다. 무효 경로는 mode에 넣지 않는다. 같은 sequence의 반복은 관측 횟수로 묶고 각 고유 응답의 mode, interval, IoU와 greedy 대비 ΔIoU를 표시한다. 공통 시간축의 얇은 막대는 각 고유 interval이며 mode 전체를 하나의 합친 interval로 해석하지 않는다.
+<!-- case-finder:end -->

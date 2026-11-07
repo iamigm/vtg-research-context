@@ -156,7 +156,7 @@ def overview_report():
     for count in (300,600,900):
         info=scope.json_read(scope.FAMILY/str(count)/'capped_rollouts/metrics/summary.json')
         lines.append(f'| {count} | {info["queries_completed"]}/{count} | [pilot{count}](../../{count}/capped_rollouts/REPORT.md) |')
-    lines+=['','mIoU는 query별 IoU 평균,Δpp는 같은 query의 zero-shot 대비100×평균 차이다. 높을수록 좋다. seed42·43을 query 안에서 평균한다. 진행 중 pilot900의 값은 완료된 부분집합이며 최종900 성능이 아니다.','','| Query | 총 rollout | 방법 | 평가 n | mIoU | Zero-shot | Δpp |','|---:|---:|---|---:|---:|---:|---:|']
+    lines+=['','mIoU는 query별 IoU 평균,Δpp는 같은 query의 greedy 대비100×평균 차이다. 높을수록 좋다. seed42·43을 query 안에서 평균한다. 진행 중 pilot900의 값은 완료된 부분집합이며 최종900 성능이 아니다.','','| Query | 총 rollout | 방법 | 평가 n | mIoU | greedy | Δpp |','|---:|---:|---|---:|---:|---:|---:|']
     for count in (300,600,900):
         for g in scope.json_read(scope.FAMILY/str(count)/'capped_rollouts/metrics/zero_shot_comparison.json')['groups']:
             if g['queries']:

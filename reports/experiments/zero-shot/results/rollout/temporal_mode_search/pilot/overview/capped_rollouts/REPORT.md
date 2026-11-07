@@ -8,9 +8,9 @@
 | 600 | 600/600 | [pilot600](../../600/capped_rollouts/REPORT.md) |
 | 900 | 900/900 | [pilot900](../../900/capped_rollouts/REPORT.md) |
 
-mIoU는 query별 IoU 평균,Δpp는 같은 query의 zero-shot 대비100×평균 차이다. 높을수록 좋다. seed42·43을 query 안에서 평균한다. 진행 중 pilot900의 값은 완료된 부분집합이며 최종900 성능이 아니다.
+mIoU는 query별 IoU 평균,Δpp는 같은 query의 greedy 대비100×평균 차이다. 높을수록 좋다. seed42·43을 query 안에서 평균한다. 진행 중 pilot900의 값은 완료된 부분집합이며 최종900 성능이 아니다.
 
-| Query | 총 rollout | 방법 | 평가 n | mIoU | Zero-shot | Δpp |
+| Query | 총 rollout | 방법 | 평가 n | mIoU | greedy | Δpp |
 |---:|---:|---|---:|---:|---:|---:|
 | 300 | 32 | probability | 300 | 0.4877 | 0.4875 | +0.02 |
 | 300 | 32 | token_entropy | 300 | 0.4929 | 0.4875 | +0.54 |
