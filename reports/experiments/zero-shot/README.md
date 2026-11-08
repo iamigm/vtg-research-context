@@ -69,6 +69,7 @@ GT를 활용한 프레임 배정은 정답 정보를 사용하는 진단이며 �
 
 ## Rollout
 
+- [Interval distribution](results/rollout/interval_distribution/viewer.html): native top-p=0.99·확률 하한1%의 무예산 경로 추적,두 모델 semantic,독립4B clip 검증. Pilot300의 전체 후처리·검증을 마친 뒤 누적900으로 확장한다. [실행 명세](results/rollout/interval_distribution/pilot/300/SPEC.md).
 - [Deterministic rollout](results/rollout/deterministic/viewer.html): 고정 pilot300·600·900을 같은900개 원자료에서 참조한다. token distribution과 branch search도 같은 뷰에 통합했다.
 - [Stochastic rollout](results/rollout/stochastic/viewer.html): pilot300.
 - [Conditional rollout budget](results/rollout/conditional_budget/viewer.html): pilot30.

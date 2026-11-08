@@ -2626,3 +2626,42 @@
 - reports/experiments/zero-shot/results/rollout/temporal_mode_search/shared/design_principles/REPORT.md
 - code/experiments/_lib/build_index.py
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-09T02:42:29.182581+09:00
+
+원본 파일 직접 관찰: 18개 실행, 719개 코드·의존성 파일. 이전 commit: 487d4b6d308cbfd66eb7ba9fccf91beaf2254003.
+
+추가 29 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/interval_distribution_check.py
+- code/experiments/zero-shot/_lib/interval_distribution_core.py
+- code/experiments/zero-shot/_lib/interval_distribution_launch.py
+- code/experiments/zero-shot/_lib/interval_distribution_prepare.py
+- code/experiments/zero-shot/_lib/interval_distribution_report.py
+- code/experiments/zero-shot/_lib/interval_distribution_runtime.py
+- code/experiments/zero-shot/_lib/interval_distribution_semantic.py
+- code/experiments/zero-shot/_lib/interval_distribution_verify.py
+- code/experiments/zero-shot/_lib/interval_distribution_view_check.py
+- code/experiments/zero-shot/_lib/interval_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_launch.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_prepare.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_semantic.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_verify.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/web/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/README.md
+- reports/experiments/zero-shot/artifacts/README.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md

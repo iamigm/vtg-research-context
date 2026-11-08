@@ -1,5 +1,17 @@
 # 실험 산출물 저장소
 
+## Interval distribution · pilot300 → pilot900
+
+Canonical 원자료는 `runs/rollout/interval_distribution/pilot/900/`에 한 번 저장한다. `trees/`는 SQLite token tree와 branch 통계, `queries/`는 exact interval 분포, `semantic/`은 scalar 통계·clip 입력 fingerprint·실측 비용, `verification/`은 독립4B의 후보별 판단과 최종 선택이다. 영구 embedding vector는 저장하지 않는다. `work/`의 영상 단위 임시 vector DB는 통계 산출 후 삭제한다. Pilot300은 같은 원자료의 고정 prefix를 `pilot/300/metadata/source_records.json`으로 참조한다.
+
+실행 조건·모델·출처·frozen code hash는 `pilot/900/metadata/`에 보존한다. `logs/supervisor.log`는 실행·오류, `logs/progress.log`와 `metadata/status.json`은20초 heartbeat, `logs/report.log`는 자동 보고서 생성 로그다. `validation/pilot300.json`은 decoding·두 semantic 모델·독립 검증·MD/HTML·원자료/브라우저 검증을 모두 통과한 뒤에만 생성하며, 이것이 누적900 진행 조건이다. 보고서와 viewer는 `../results/rollout/interval_distribution/`에서 연다.
+
+재개는 원래 Python 환경에서 frozen runtime을 사용한다. 실행 중 prepare로 코드를 다시 동결하지 않는다.
+
+```bash
+/home1/irteam/experiments/zero-shot/.venv/bin/python /home1/irteam/experiments/zero-shot/_lib/interval_distribution_launch.py
+```
+
 ## Temporal mode search · pilot600
 
 현재 활성 조건은 `runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/`이다. Main/tail 각각16·32·64·128개의 rollout 시도 checkpoint를 한 번의 누적 stream으로 비교한다. 총 예산은32·64·128·256회이며 query당 최대1,536개의 탐색 시도와 별도 greedy baseline1개다. 중복 시도·unique sequence·mode를 구분하고,초기 공통 조사를최대8회로 제한한 뒤 방법별 적응 선택을 실행한다. Seed42·43와 GPU worker3개는 유지한다. 이전 token-budget 원자료·checkpoint는 상위600폴더에 보존하지만 새 조건의 집계에는 포함하지 않는다. 활성 상태와 로그는 capped_rollouts의 `metadata/status.json`과 `logs/progress.log`다.
