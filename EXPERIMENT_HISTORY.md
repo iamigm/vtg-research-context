@@ -2665,3 +2665,88 @@
 - reports/experiments/zero-shot/README.md
 - reports/experiments/zero-shot/artifacts/README.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-09T06:06:24.528536+09:00
+
+원본 파일 직접 관찰: 18개 실행, 732개 코드·의존성 파일. 이전 commit: e7ae862df4d3804e26f144354adf405de15f961f.
+
+추가 46 / 변경 3 / 현재 원본에서 사라짐 29. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/path_mass_core.py
+- code/experiments/zero-shot/_lib/path_mass_inputs.py
+- code/experiments/zero-shot/_lib/path_mass_report.py
+- code/experiments/zero-shot/_lib/path_mass_runtime.py
+- code/experiments/zero-shot/_lib/path_mass_validate.py
+- code/experiments/zero-shot/_lib/path_mass_viewer.js
+- code/experiments/zero-shot/_lib/probability_budget_backend.py
+- code/experiments/zero-shot/_lib/probability_budget_checks.py
+- code/experiments/zero-shot/_lib/probability_budget_core.py
+- code/experiments/zero-shot/_lib/probability_budget_inputs.py
+- code/experiments/zero-shot/_lib/probability_budget_manage.py
+- code/experiments/zero-shot/_lib/probability_budget_report.py
+- code/experiments/zero-shot/_lib/probability_budget_runtime.py
+- code/experiments/zero-shot/_lib/probability_budget_search.py
+- code/experiments/zero-shot/_lib/probability_budget_view_check.py
+- code/experiments/zero-shot/_lib/probability_budget_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_inputs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_validate.py
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/web/viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_backend.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_checks.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_inputs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_manage.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_search.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/path_mass_constraints/pilot/3/REPORT.md
+- reports/experiments/zero-shot/results/rollout/path_mass_constraints/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/README.md
+- reports/experiments/zero-shot/artifacts/README.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_check.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_core.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_launch.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_prepare.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_report.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_runtime.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_semantic.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_verify.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_view_check.py
+- 원본 부재: code/experiments/zero-shot/_lib/interval_distribution_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/300/metadata/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_core.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_launch.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_prepare.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_semantic.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_verify.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_view_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/code/interval_distribution_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/manifest.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/web/summary.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/interval_distribution/pilot/900/web/viewer.js
+- 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/overview/REPORT.md

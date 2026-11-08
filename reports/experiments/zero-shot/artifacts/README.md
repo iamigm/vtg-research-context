@@ -1,16 +1,24 @@
 # 실험 산출물 저장소
 
-## Interval distribution · pilot300 → pilot900
+## Probability budget · pilot300 → pilot900
 
-Canonical 원자료는 `runs/rollout/interval_distribution/pilot/900/`에 한 번 저장한다. `trees/`는 SQLite token tree와 branch 통계, `queries/`는 exact interval 분포, `semantic/`은 scalar 통계·clip 입력 fingerprint·실측 비용, `verification/`은 독립4B의 후보별 판단과 최종 선택이다. 영구 embedding vector는 저장하지 않는다. `work/`의 영상 단위 임시 vector DB는 통계 산출 후 삭제한다. Pilot300은 같은 원자료의 고정 prefix를 `pilot/300/metadata/source_records.json`으로 참조한다.
+`runs/rollout/probability_budget/pilot/900/`이 단일 canonical 원자료다. `queries/`는 입력 provenance·greedy baseline·방법별 scalar checkpoint, `search/<query>/<method>.json`은 해당 방법의 token tree·완성 경로를 한 번 저장한다. Budget512·1,024·2,048과 pilot300은 같은 원자료의 prefix 및 checkpoint를 참조한다. `metadata/source_records.json`은 scope별 query 순서·cohort hash를 보존한다.
 
-실행 조건·모델·출처·frozen code hash는 `pilot/900/metadata/`에 보존한다. `logs/supervisor.log`는 실행·오류, `logs/progress.log`와 `metadata/status.json`은20초 heartbeat, `logs/report.log`는 자동 보고서 생성 로그다. `validation/pilot300.json`은 decoding·두 semantic 모델·독립 검증·MD/HTML·원자료/브라우저 검증을 모두 통과한 뒤에만 생성하며, 이것이 누적900 진행 조건이다. 보고서와 viewer는 `../results/rollout/interval_distribution/`에서 연다.
+조건은 `metadata/config.json`,frozen code와 의존 파일 hash는 `metadata/manifest.json`,모델 파일 검증은 `metadata/model.json`에 있다. 진행은 `metadata/status.json`과20초 heartbeat의 `logs/progress.log`,실행·오류는 `logs/supervisor.log`,보고서 생성은 `logs/report.log`를 확인한다. `validation/pilot300.json`은 추론·원자료·MD/HTML·브라우저 검증을 통과한 뒤 생성하며,그 전에는 누적900으로 진행하지 않는다.
 
-재개는 원래 Python 환경에서 frozen runtime을 사용한다. 실행 중 prepare로 코드를 다시 동결하지 않는다.
+KV suffix는 query·방법 단위의 임시 GPU cache이며 영구 vector·frame·영상 사본을 만들지 않는다. 실제 decoder 입력 상한은 query×방법별2,048이고 replay를 포함한다. Video/query prefill·KV 복사·greedy reference 비용은 별도 보존한다. 후보 생성만의 비교이며 numeric novelty는 semantic이나 정답 점수가 아니다.
+
+재개는 다음 실행 진입점을 사용한다. 원자료가 생긴 뒤에는 prepare로 재동결하지 않는다.
 
 ```bash
-/home1/irteam/experiments/zero-shot/.venv/bin/python /home1/irteam/experiments/zero-shot/_lib/interval_distribution_launch.py
+/home1/irteam/experiments/zero-shot/.venv/bin/python /home1/irteam/experiments/zero-shot/_lib/probability_budget_manage.py launch
 ```
+
+## Path mass constraints · pilot3
+
+`runs/rollout/path_mass_constraints/pilot/3/`에 원자료를 한 번 저장한다. `queries/`는 greedy 응답과 두 조건의 nested checkpoint·최종 후보·native 질량·실측 비용, `metadata/`는 세 query 선정·설정·frozen code hash, `validation/`은 문법·질량 보존·실제 분기 위치 감사다. `logs/runtime.log`와 `metadata/status.json`에서 실행·오류를 확인한다. 결과·보고서는 `../results/rollout/path_mass_constraints/`에서 연다.
+
+정수부와 소수점 기호 위치만 분기하며, 일반 문구와 소수 자릿수는 greedy로 이어간다. 소수 자릿수의 branch entropy는 저장하지 않는다. 조건별45초는 빠른 진단의 운영 제한이며 ε 목표 미도달은 완료로 처리하지 않는다. Vector·영상·frame cache를 복제하지 않고 기존 native 입력의 tensor hash와 공통 media를 참조한다. 재생성은 frozen `code/path_mass_report.py`로 수행한다.
 
 ## Temporal mode search · pilot600
 
