@@ -86,7 +86,11 @@ class Models:
     model=Qwen3VLForEmbedding.from_pretrained(path,local_files_only=True,dtype=torch.bfloat16,attn_implementation='flash_attention_2',device_map={'':'cuda:0'})
    else:model=AutoModelForImageTextToText.from_pretrained(path,local_files_only=True,dtype=torch.bfloat16,attn_implementation='flash_attention_2',device_map={'':'cuda:0'})
    self.models[key]=model.eval();loads[key]=time.monotonic()-started
-  self.loads=loads
+  self.loads=loads;policy=read(OUT/'metadata/execution_policy.json') if (OUT/'metadata/execution_policy.json').exists() else {}
+  if policy:
+   assert policy['settings_hash']==digest(SETTINGS);self.validated=set(policy.get('validated',[]));self.serial_kinds=set(policy.get('serial_kinds',[]));self.batch_size=policy.get('batch_size',self.batch_size)
+ def save_execution_policy(self):
+  write(OUT/'metadata/execution_policy.json',dict(settings_hash=digest(SETTINGS),validated=sorted(self.validated),serial_kinds=sorted(self.serial_kinds),batch_size=self.batch_size,timestamp=stamp()))
  def forward(self,kind,items):
   torch=self.torch;model=self.models[kind];processor=self.processors[kind];inp=collate(items,processor.tokenizer.pad_token_id);lengths=inp['attention_mask'].sum(-1).tolist();visual=int((inp['input_ids']==model.config.video_token_id).sum());started=time.monotonic();inp={k:v.to('cuda') if isinstance(v,torch.Tensor) else v for k,v in inp.items()};a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);a.record()
   with torch.inference_mode():
@@ -114,13 +118,13 @@ class Models:
     else:
      error=max(1-float(first[0][key]@values[0][key]) for key in first[0] if key!='cost');equivalent=error<.001
     if not equivalent:
-     self.serial_kinds.add(kind);progress(stage='batch_equivalence_fallback',model=kind,error=error,execution='serial native forward')
+     self.serial_kinds.add(kind);progress(stage='batch_equivalence_fallback',model=kind,batch_equivalence_error=error,execution='serial native forward')
      values=[first[0]]
      for item in batch[1:]:
       one,extra=self.forward(kind,[item]);batches.append(extra);values.extend(one)
-    self.validated.add(kind)
+    self.validated.add(kind);self.save_execution_policy()
    for (spec,_),value in zip(prepared,values):out[spec['id']]=value
-   progress(stage=kind,clips_done=len(out),clips_total=len(specs));prepared=[];tokens=0
+   progress(stage=kind,model=kind,clips_done=len(out),clips_total=len(specs));prepared=[];tokens=0
   for spec in specs:
    start=time.monotonic();cpu=crops.cpu(processor,spec,kind);prep+=time.monotonic()-start;length=int(cpu.input_ids.shape[1])
    if prepared and (len(prepared)>=(1 if kind in self.serial_kinds else self.batch_size) or (max(tokens,length)*(len(prepared)+1)>SETTINGS['batch_tokens'])):flush()

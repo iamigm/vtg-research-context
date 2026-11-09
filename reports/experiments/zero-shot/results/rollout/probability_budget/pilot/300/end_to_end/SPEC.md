@@ -18,7 +18,7 @@ Qwen3의 원래 H×W를 보존한다. Qwen2.5 verifier에는 원래 면적과 �
 
 Qwen3-VL-8B-Instruct의 마지막 layer에서 video token만 mean pooling하고 L2 정규화한다. 공간 격자 크기가 일정하므로 시간별 격자에 같은 가중치를 주는 frame-balanced mean과 같다. 마지막 nonpadding token pooling도 같은 forward에서 보조 측정한다. Qwen3-VL-Embedding-8B는 공식 구현과 같은 generic instruction·chat template·마지막 nonpadding token pooling을 사용한다. 이 tokenizer에서 마지막 token이 문자 그대로 EOS인지는 따로 가정하지 않는다. 임의의 EOS를 추가하거나8192 token으로 자르지 않는다. 두 모델 모두 query·GT 없이 crop만 받는다.
 
-실제 벡터는 query 처리 중 RAM에만 두고 폐기한다. 동일 모델 안의 cosine에 대해 native-mass 가중 mean·std·10/50/90% quantile, temporal IoU 구간별 통계, 시간 그룹 내부/사이 통계, greedy와의 유사도, 가장 다른12쌍을 저장한다. 서로 다른 모델의 벡터를 직접 비교하지 않는다. Cosine이 높다는 사실만으로 같은 사건이라고 확정하지 않는다.
+실제 벡터는 query 처리 중 RAM에만 두고 폐기한다. 모델별 scalar 통계를 계산한 즉시 checkpoint로 저장하며 재개할 때 끝난 모델은 건너뛴다. 후보가0개면 비교를 만들지 않고,1개면 서로 다른 두 구간의 cosine 통계는 n=0·미정의로 남긴다. 이를 cosine0으로 대체하지 않는다. 동일 모델 안의 cosine에 대해 native-mass 가중 mean·std·10/50/90% quantile, temporal IoU 구간별 통계, 시간 그룹 내부/사이 통계, greedy와의 유사도, 가장 다른12쌍을 저장한다. 서로 다른 모델의 벡터를 직접 비교하지 않는다. Cosine이 높다는 사실만으로 같은 사건이라고 확정하지 않는다.
 
 ## 시간 분포와 분기별 불확실성
 

@@ -65,7 +65,7 @@ def weighted_stats(values,weights=None):
 def semantic_summary(spans,members,vectors,greedy_index,mode):
  ids=[r['id'] for r in members];weights=np.array([r['native_mass'] for r in members]);weights=weights/weights.sum() if len(weights) else weights;out={}
  if not ids:return out
- a,b=np.triu_indices(len(ids),1);pairs=[(ids[i],ids[j]) for i,j in zip(a,b)];overlap=np.array([iou(spans[i],spans[j]) for i,j in pairs]);pair_w=weights[a]*weights[b];same=np.array([mode['assignment'][ids[i]]==mode['assignment'][ids[j]] for i,j in zip(a,b)])
+ a,b=np.triu_indices(len(ids),1);pairs=[(ids[i],ids[j]) for i,j in zip(a,b)];overlap=np.array([iou(spans[i],spans[j]) for i,j in pairs],dtype=float);pair_w=weights[a]*weights[b];same=np.array([mode['assignment'][ids[i]]==mode['assignment'][ids[j]] for i,j in zip(a,b)],dtype=bool)
  for name,v in vectors.items():
   z=np.asarray(v,float);cos=np.clip(z[ids]@z[ids].T,-1,1);values=cos[a,b];stats=dict(all=weighted_stats(values,pair_w) if len(values) else weighted_stats([]),within_mode=weighted_stats(values[same],pair_w[same]) if same.any() else weighted_stats([]),between_modes=weighted_stats(values[~same],pair_w[~same]) if (~same).any() else weighted_stats([]),overlap_bins={})
   for lo,hi in [(0,.1),(.1,.5),(.5,1.000001)]:

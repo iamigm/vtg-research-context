@@ -25,7 +25,7 @@ Qwen3의 원래 H×W를 보존한다. Qwen2.5 verifier에는 원래 면적과 �
 
 Qwen3-VL-8B-Instruct의 마지막 layer에서 video token만 mean pooling하고 L2 정규화한다. 공간 격자 크기가 일정하므로 시간별 격자에 같은 가중치를 주는 frame-balanced mean과 같다. 마지막 nonpadding token pooling도 같은 forward에서 보조 측정한다. Qwen3-VL-Embedding-8B는 공식 구현과 같은 generic instruction·chat template·마지막 nonpadding token pooling을 사용한다. 이 tokenizer에서 마지막 token이 문자 그대로 EOS인지는 따로 가정하지 않는다. 임의의 EOS를 추가하거나8192 token으로 자르지 않는다. 두 모델 모두 query·GT 없이 crop만 받는다.
 
-실제 벡터는 query 처리 중 RAM에만 두고 폐기한다. 동일 모델 안의 cosine에 대해 native-mass 가중 mean·std·10/50/90% quantile, temporal IoU 구간별 통계, 시간 그룹 내부/사이 통계, greedy와의 유사도, 가장 다른12쌍을 저장한다. 서로 다른 모델의 벡터를 직접 비교하지 않는다. Cosine이 높다는 사실만으로 같은 사건이라고 확정하지 않는다.
+실제 벡터는 query 처리 중 RAM에만 두고 폐기한다. 모델별 scalar 통계를 계산한 즉시 checkpoint로 저장하며 재개할 때 끝난 모델은 건너뛴다. 후보가0개면 비교를 만들지 않고,1개면 서로 다른 두 구간의 cosine 통계는 n=0·미정의로 남긴다. 이를 cosine0으로 대체하지 않는다. 동일 모델 안의 cosine에 대해 native-mass 가중 mean·std·10/50/90% quantile, temporal IoU 구간별 통계, 시간 그룹 내부/사이 통계, greedy와의 유사도, 가장 다른12쌍을 저장한다. 서로 다른 모델의 벡터를 직접 비교하지 않는다. Cosine이 높다는 사실만으로 같은 사건이라고 확정하지 않는다.
 
 ## 시간 분포와 분기별 불확실성
 
@@ -88,6 +88,9 @@ def report():
     for pool in ('instruct_visual_mean','instruct_last','embedding_last'):
      ss=[c['semantic'].get(pool) for c in cs if c['semantic'].get(pool)];means=[s['all']['mean'] for s in ss if s['all']['mean'] is not None];gaps=[s['within_mode']['mean']-s['between_modes']['mean'] for s in ss if s['within_mode']['mean'] is not None and s['between_modes']['mean'] is not None]
      lines.append(f'| {method} | {budget} | {pool} | {sum(s["all"]["n"] for s in ss)} | {f(sum(means)/len(means) if means else None)} (n={len(means)}) | {f(sum(gaps)/len(gaps) if gaps else None)} (n={len(gaps)}) | {f(sum(len(c["modes"]["groups"]) for c in cs)/len(cs),2)} |')
+  recovery=OUT/'metadata/recovery.json'
+  if recovery.exists():
+   event=read(recovery);lines+=['','## 중단·재개 기록','',f'완료된 {event["completed_before"]}개 query를 보존하고 {event["resume_key"]}부터 재개했다. 후보1개인 조건의 빈 pair mask 처리 오류를 수정했으며 과거 다중 후보 통계는 그대로다. 해당 query에서 저장되지 못했던 semantic 계산은 다시 실행했다. 위 비용 합은 checkpoint에 남은 계산 기준이며, 중단 전에 저장되지 못한 semantic 작업의 CUDA 비용까지 복원한 수치가 아니다. 전체 worker 경과 시간에는 중단 전 작업 시간도 포함한다. 이후부터 모델별 scalar checkpoint를 저장해 재개 시 완료된 모델을 반복하지 않는다.','']
   lines+=['','## 해석 범위','','본 실험은 모든 후보의 독립 영상 검증과 실제 final generation을 수행한다. 후속 계산이 완료되지 않은 query를 최종 성능 평균에 넣지 않는다. Semantic은 진단 전용이며 pruning·후보 선정·score에 사용하지 않는다. 관측 interval entropy·variance·MI는 완성된 valid descendant에 조건부이며 미탐색 분포의 정확한 값이 아니다. 비용은 동시 실행 환경에서의 실제 측정이며 FLOPs 또는 전용 GPU latency와 동일시하지 않는다.','', '[실행 명세·지표 정의·공개 구현 출처](SPEC.md)']
   (result/'REPORT.md').write_text('\n'.join(lines)+'\n');(result/'SPEC.md').write_text(specs(count));web=OUT/'web';web.mkdir(exist_ok=True)
   for suffix in ('js','css'):

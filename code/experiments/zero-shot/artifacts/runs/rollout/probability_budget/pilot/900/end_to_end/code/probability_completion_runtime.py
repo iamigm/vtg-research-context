@@ -8,13 +8,23 @@ from probability_completion_core import *
 from probability_completion_models import Models,Crops,FinalSession
 from probability_budget_inputs import processor_input
 
+_PROGRESS=None
 class Progress:
  def __init__(self):
-  self.start=time.monotonic();self.lock=threading.RLock();self.stop=threading.Event();self.state=dict(state='running',stage='starting',completed=0,total=900,active_queries=300,eta_seconds=None,eta_scope='remaining postprocessing at observed throughput; excludes waiting for proposal search and report validation');threading.Thread(target=self.heartbeat,daemon=True).start()
+  global _PROGRESS
+  previous={};path=OUT/'logs/progress.log'
+  if path.exists():
+   with path.open('rb') as stream:
+    stream.seek(max(0,path.stat().st_size-65536));lines=stream.read().decode(errors='replace').splitlines()
+   for line in reversed(lines):
+    try:previous=json.loads(line);break
+    except ValueError:continue
+  done=sum(read(p).get('complete',False) for p in (OUT/'queries').glob('*.json'))
+  self.start=time.monotonic()-previous.get('elapsed_seconds',0);self.lock=threading.RLock();self.stop=threading.Event();self.state=dict(state='running',stage='starting',completed=done,total=900,active_queries=previous.get('active_queries',300),elapsed_scope='sum of worker runtime; excludes downtime between attempts',eta_seconds=None,eta_scope='remaining postprocessing at observed throughput; excludes waiting for proposal search and report validation');_PROGRESS=self;threading.Thread(target=self.heartbeat,daemon=True).start()
  def __call__(self,**kw):
   with self.lock:
    if kw.get('sample_key') and kw['sample_key']!=self.state.get('sample_key'):
-    for key in ('clips_done','clips_total','condition','variant'):self.state.pop(key,None)
+    for key in ('clips_done','clips_total','condition','variant','model','error','execution'):self.state.pop(key,None)
    self.state.update(kw,timestamp=stamp(),elapsed_seconds=time.monotonic()-self.start);write(OUT/'metadata/status.json',self.state)
    with (OUT/'logs/progress.log').open('a') as stream:stream.write(json.dumps(self.state,ensure_ascii=False)+'\n')
    print(json.dumps(kw,ensure_ascii=False),flush=True)
@@ -38,18 +48,25 @@ def process(row,models,progress):
  if 'verifications' not in data:
   values,cost=models.run_crops(crops,'verifier',progress);data['verifications']=[values[i] for i in range(len(crops.specs))];data['phase_costs']['verifier']=cost;write(target,data)
  if not data.get('semantic_complete'):
-  vectors={}
-  for kind in ('instruct','embedding'):
-   values,cost=models.run_crops(crops,kind,progress);data['phase_costs'][kind]=cost
-   for name in values[0] if values else []:
-    if name!='cost':vectors[name]=np.stack([values[crops.assignment[i]][name] for i in range(len(spans))])
-  progress(stage='temporal_and_semantic_statistics');before=time.monotonic();greedy=spans.index(tuple(q['greedy']['span'])) if q['greedy']['span'] and tuple(q['greedy']['span']) in spans else None
+  # Compute the CPU grouping once. Each model's scalar summaries are committed
+  # before its vectors are discarded; no persistent embeddings are required.
+  progress(stage='temporal_and_branch_statistics');before=time.monotonic();modes={};greedy=spans.index(tuple(q['greedy']['span'])) if q['greedy']['span'] and tuple(q['greedy']['span']) in spans else None
   for name,c in sets.items():
-   mode=condition_modes(spans,c);members=c['members'];condition=dict(method=c['method'],budget=c['budget'],members=members,modes=mode,sensitivity={str(h):len(condition_modes(spans,c,h)['groups']) for h in (.5,1.,2.)},semantic=semantic_summary(spans,members,vectors,greedy,mode),branches=branch_statistics(trees[c['method']],c['snapshot'],spans,mode),proposal_selected_span=c['snapshot']['selected_span'])
-   if members:condition['verified_selected_id']=max(members,key=lambda m:(data['verifications'][crops.assignment[m['id']]]['score'],m['native_mass'],-m['id']))['id']
-   else:condition['verified_selected_id']=None
-   data['conditions'][name]=condition
-  data['phase_costs']['statistics_wall_seconds']=time.monotonic()-before;data['semantic_complete']=True;write(target,data);del vectors,values
+   mode=condition_modes(spans,c);modes[name]=mode;members=c['members']
+   if name not in data['conditions']:
+    condition=dict(method=c['method'],budget=c['budget'],members=members,modes=mode,sensitivity={str(h):len(condition_modes(spans,c,h)['groups']) for h in (.5,1.,2.)},semantic={},branches=branch_statistics(trees[c['method']],c['snapshot'],spans,mode),proposal_selected_span=c['snapshot']['selected_span'])
+    condition['verified_selected_id']=max(members,key=lambda m:(data['verifications'][crops.assignment[m['id']]]['score'],m['native_mass'],-m['id']))['id'] if members else None
+    data['conditions'][name]=condition
+  data['phase_costs']['statistics_wall_seconds']=data['phase_costs'].get('statistics_wall_seconds',0)+time.monotonic()-before;write(target,data)
+  for kind,pools in [('instruct',{'instruct_visual_mean','instruct_last'}),('embedding',{'embedding_last'})]:
+   if all(not c['members'] or pools.issubset(c['semantic']) for c in data['conditions'].values()):
+    data['phase_costs'].setdefault(kind,dict(batches=[],validation=[],cpu_prepare_seconds=0.));continue
+   values,cost=models.run_crops(crops,kind,progress);vectors={}
+   for pool in pools:vectors[pool]=np.stack([values[crops.assignment[i]][pool] for i in range(len(spans))])
+   progress(stage='semantic_statistics',model=kind);before=time.monotonic()
+   for name,c in data['conditions'].items():c['semantic'].update(semantic_summary(spans,c['members'],vectors,greedy,modes[name]))
+   data['phase_costs'][kind]=cost;data['phase_costs']['statistics_wall_seconds']+=time.monotonic()-before;write(target,data);del vectors,values
+  data['semantic_complete']=True;write(target,data)
  progress(stage='preparing_final_generation');before=time.monotonic();cache=crops.cache;plan=cache['plans']['2'];cpu=processor_input(models.processors['instruct'],crops.frames,plan['frame_ids'],plan['source_pts'],cache['source_fps'],cache['N'],row['query'])
  from adaptive_temporal_sampling import tensorhash
  assert {k:tensorhash(v) for k,v in cpu.items()}==q['input']['hashes']
@@ -88,7 +105,7 @@ def run():
  with (OUT/'metadata/run.lock').open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);progress=Progress();manifest=read(OUT/'metadata/manifest.json');assert manifest['settings']==json.loads(json.dumps(SETTINGS))
   for entry in manifest['files']:assert sha(entry['snapshot'])==entry['sha256'],entry['snapshot']
-  models=Models(progress);write(OUT/'metadata/model_loads.json',models.loads);rows=read(COHORT);last_report=0
+  models=Models(progress);write(OUT/'metadata/model_loads.json',models.loads);history=read(OUT/'metadata/model_load_history.json') if (OUT/'metadata/model_load_history.json').exists() else [];history.append(dict(models=models.loads,timestamp=stamp()));write(OUT/'metadata/model_load_history.json',history);rows=read(COHORT);last_report=0
   for count in SETTINGS['stages']:
    gate=OUT/'validation'/f'pilot{count}.json'
    if gate.exists() and read(gate).get('reports_and_viewer_verified'):continue
@@ -103,7 +120,7 @@ def run():
      try:process(row,models,progress);break
      except torch.OutOfMemoryError:
       if models.batch_size<=1 or attempt==3:raise
-      models.batch_size=max(1,models.batch_size//2);progress(stage='retry_after_oom',batch_size=models.batch_size,attempt=attempt+1);gc.collect();torch.cuda.empty_cache()
+      models.batch_size=max(1,models.batch_size//2);models.save_execution_policy();progress(stage='retry_after_oom',batch_size=models.batch_size,attempt=attempt+1);gc.collect();torch.cuda.empty_cache()
     done=sum(read(p).get('complete',False) for p in (OUT/'queries').glob('*.json'));progress(stage='query_complete',completed=done,eta_seconds=(900-done)*(time.monotonic()-progress.start)/max(1,done))
     if done==1 or time.monotonic()-last_report>300:report();last_report=time.monotonic()
    progress(stage='reporting_and_validating');report(True);validate_scope(count)
@@ -116,4 +133,9 @@ def run():
 if __name__=='__main__':
  try:run()
  except BaseException:
-  write(OUT/'metadata/status.json',dict(state='failed',stage='failed',error=traceback.format_exc(),timestamp=stamp()));raise
+  error=traceback.format_exc();progress=_PROGRESS
+  if progress is not None:
+   progress.stop.set()
+   with progress.lock:state=dict(progress.state)
+  else:state=read(OUT/'metadata/status.json') if (OUT/'metadata/status.json').exists() else {}
+  state.update(state='failed',failed_stage=state.get('stage'),stage='failed',error=error,timestamp=stamp());write(OUT/'metadata/status.json',state);raise
