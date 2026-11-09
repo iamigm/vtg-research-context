@@ -2750,3 +2750,13 @@
 - 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/300/SPEC.md
 - 원본 부재: reports/experiments/zero-shot/results/rollout/interval_distribution/pilot/overview/REPORT.md
+
+## 2026-11-09T09:00:00.002266+09:00
+
+원본 파일 직접 관찰: 18개 실행, 732개 코드·의존성 파일. 이전 commit: ec0bfd2cde688906c654c6b73a1274ce27dec2a6.
+
+추가 0 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
