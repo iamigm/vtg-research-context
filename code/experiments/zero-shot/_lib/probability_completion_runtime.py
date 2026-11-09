@@ -68,7 +68,7 @@ def process(row,models,progress):
    signature=digest(prompt);c[variant]=signature
    if signature not in data['generations']:
     progress(stage='final_generation',condition=name,variant=variant);data['generations'][signature]=session.generate(prompt);write(target,data)
- data['phase_costs']['final_unique_input_tokens']=session.inputs;data['phase_costs']['final_unique_forward_calls']=session.calls;data['phase_costs']['final_unique_cuda_seconds']=session.cuda
+ data['phase_costs']['final_unique_input_tokens']=sum(g['cost']['input_tokens'] for g in data['generations'].values());data['phase_costs']['final_unique_forward_calls']=sum(g['cost']['forward_calls'] for g in data['generations'].values());data['phase_costs']['final_unique_cuda_seconds']=sum(g['cost']['cuda_seconds'] for g in data['generations'].values())
  data.update(complete=True,postprocess_wall_seconds=time.monotonic()-started,timestamp=stamp());write(target,data);del session,crops,cpu;gc.collect();models.torch.cuda.empty_cache()
 
 def report(final=False):
@@ -81,7 +81,7 @@ def validate_scope(count):
   for c in data['conditions'].values():
    assert c['proposal_only'] in data['generations'] and c['reviewed'] in data['generations'];assert set(c['semantic'])=={'instruct_visual_mean','instruct_last','embedding_last'} or not c['members']
   assert not any(p.suffix in ('.npy','.npz','.pt','.bin') for p in (OUT/'queries').glob('*'))
- write(OUT/'validation'/f'pilot{count}.json',dict(passed=True,queries=count,scope='isolated clip verification, both semantic models, proposal-only and reviewed final generation, report, viewer',timestamp=stamp()))
+ write(OUT/'validation'/f'raw_pilot{count}.json',dict(passed=True,queries=count,scope='isolated clip verification, both semantic models, proposal-only and reviewed final generation, report, viewer',timestamp=stamp()))
 
 def run():
  import torch
@@ -91,7 +91,7 @@ def run():
   models=Models(progress);write(OUT/'metadata/model_loads.json',models.loads);rows=read(COHORT);last_report=0
   for count in SETTINGS['stages']:
    gate=OUT/'validation'/f'pilot{count}.json'
-   if gate.exists():continue
+   if gate.exists() and read(gate).get('reports_and_viewer_verified'):continue
    progress(active_queries=count)
    for row in rows[:count]:
     target=OUT/'queries'/f'{row["sample_key"]}.json'
@@ -109,8 +109,8 @@ def run():
    progress(stage='reporting_and_validating');report(True);validate_scope(count)
    subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True);subprocess.run([sys.executable,str(ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
    subprocess.run([sys.executable,str(Path(__file__).with_name('probability_completion_view_check.py')),'--scope',str(count)],check=True)
-   gate_data=read(gate);gate_data['reports_and_viewer_verified']=True;write(gate,gate_data)
-   write(PARENT/'validation'/f'end_to_end_pilot{count}.json',gate_data);progress(stage=f'pilot{count}_end_to_end_complete',completed=count)
+   gate_data=read(OUT/'validation'/f'raw_pilot{count}.json');gate_data['reports_and_viewer_verified']=True;write(gate,gate_data)
+   write(PARENT/'validation'/f'end_to_end_pilot{count}.json',gate_data);report(True);progress(stage=f'pilot{count}_end_to_end_complete',completed=count)
   progress(state='complete',stage='complete',completed=900);progress.stop.set()
 
 if __name__=='__main__':

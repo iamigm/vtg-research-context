@@ -21,9 +21,9 @@ function updateURL(){if(!selectedKey)return;const url=new URL(location.href);for
 function listing(keepPage=false){
  filtered=catalog.filter(r=>(r.key+' '+r.query).toLowerCase().includes($('filter').value.toLowerCase())&&(!$('dataset').value||r.dataset===$('dataset').value)&&(!$('completion').value||(r.complete?'complete':'partial')===$('completion').value));
  if(!keepPage)pageIndex=0;pageIndex=Math.max(0,Math.min(pageIndex,Math.max(0,Math.ceil(filtered.length/pageSize)-1)));
- $('sample-count').textContent=`${catalog.filter(r=>r.complete).length}/${catalog.length} 완료`;
+ $('sample-count').textContent=`${catalog.filter(r=>r.complete).length}/${catalog.length} 후보 완료`;
  $('list-count').textContent=`조건에 맞는 query ${filtered.length}개`;
- $('samples').innerHTML=filtered.slice(pageIndex*pageSize,(pageIndex+1)*pageSize).map(r=>`<button data-key="${esc(r.key)}" class="${r.key===selectedKey?'selected':''}" aria-current="${r.key===selectedKey?'true':'false'}"><small>${esc(r.dataset.replace('-timelens',''))} · ${r.complete?'완료':r.methods.length?'진행 '+r.methods.length+'/3':'대기'}</small><strong>${esc(r.query)}</strong><small class="sample-id">${esc(r.key)}</small></button>`).join('')||'<p class="small">조건에 맞는 query가 없습니다.</p>';
+ $('samples').innerHTML=filtered.slice(pageIndex*pageSize,(pageIndex+1)*pageSize).map(r=>`<button data-key="${esc(r.key)}" class="${r.key===selectedKey?'selected':''}" aria-current="${r.key===selectedKey?'true':'false'}"><small>${esc(r.dataset.replace('-timelens',''))} · ${r.complete?'후보 완료':r.methods.length?'진행 '+r.methods.length+'/3':'대기'}</small><strong>${esc(r.query)}</strong><small class="sample-id">${esc(r.key)}</small></button>`).join('')||'<p class="small">조건에 맞는 query가 없습니다.</p>';
  $('samples').querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>load(b.dataset.key));$('page-count').textContent=`${filtered.length?pageIndex+1:0} / ${Math.ceil(filtered.length/pageSize)}`;$('list-prev').disabled=pageIndex===0;$('list-next').disabled=(pageIndex+1)*pageSize>=filtered.length;
  const index=filtered.findIndex(r=>r.key===selectedKey);$('query-prev').disabled=index<=0;$('query-next').disabled=index<0||index>=filtered.length-1;
 }
@@ -142,7 +142,7 @@ async function load(key,fromURL=false){
  }catch(e){if(seq===serial){$('query-detail').innerHTML=`<p class="notice error">결과를 불러오지 못했습니다. ${esc(e.message)}</p>`;console.error(e)}}finally{if(seq===serial)$('explorer').classList.remove('loading')}
 }
 async function refresh(initial=false){
- if(refreshing)return;refreshing=true;try{catalog=await fetchJSON(new URL(cfg.catalog,location.href));listing(true);const state=await get('metadata/status.json');$('status').textContent=`${state.state==='complete'?'완료':'진행 중'} · 현재 범위 ${catalog.filter(r=>r.complete).length}/${catalog.length} query\n누적 ${state.completed??0}/${state.total??900} · ${state.timestamp?.replace('T',' ').slice(0,19)||''}`;
+ if(refreshing)return;refreshing=true;try{catalog=await fetchJSON(new URL(cfg.catalog,location.href));listing(true);const state=await get('metadata/status.json');$('status').textContent=`${state.state==='complete'?'후보 생성 완료':'후보 생성 중'} · 현재 범위 ${catalog.filter(r=>r.complete).length}/${catalog.length} query\n누적 ${state.completed??0}/${state.total??900} · ${state.timestamp?.replace('T',' ').slice(0,19)||''}`;
  if(initial){const p=new URL(location.href).searchParams;if(Object.keys(methodNames).includes(p.get('method')))$('method').value=p.get('method');if(['512','1024','2048'].includes(p.get('budget')))$('budget').value=p.get('budget');const key=catalog.some(r=>r.key===p.get('sample'))?p.get('sample'):catalog[0]?.key;if(key){const idx=catalog.findIndex(r=>r.key===key);pageIndex=Math.floor(idx/pageSize);await load(key,true)}}else if(selectedKey&&(!tree||supplement.size===0)){if(!tree)await load(selectedKey);else await loadTraces(selectedKey,serial)}
  }catch(e){$('status').textContent='상태 갱신 실패 · '+e.message}finally{refreshing=false}}
 for(const id of ['filter','dataset','completion'])$(id).addEventListener(id==='filter'?'input':'change',()=>listing());

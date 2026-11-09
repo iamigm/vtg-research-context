@@ -6,7 +6,9 @@
 
 조건은 `metadata/config.json`,frozen code와 의존 파일 hash는 `metadata/manifest.json`,모델 파일 검증은 `metadata/model.json`에 있다. 진행은 `metadata/status.json`과20초 heartbeat의 `logs/progress.log`,실행·오류는 `logs/supervisor.log`,보고서 생성은 `logs/report.log`를 확인한다. `validation/pilot300.json`은 추론·원자료·MD/HTML·브라우저 검증을 통과한 뒤 생성하며,그 전에는 누적900으로 진행하지 않는다.
 
-KV suffix는 query·방법 단위의 임시 GPU cache이며 영구 vector·frame·영상 사본을 만들지 않는다. 실제 decoder 입력 상한은 query×방법별2,048이고 replay를 포함한다. Video/query prefill·KV 복사·greedy reference 비용은 별도 보존한다. 후보 생성만의 비교이며 numeric novelty는 semantic이나 정답 점수가 아니다.
+KV suffix는 query·방법 단위의 임시 GPU cache이며 영구 vector·frame·영상 사본을 만들지 않는다. 실제 decoder 입력 상한은 query×방법별2,048이고 replay를 포함한다. Video/query prefill·KV 복사·greedy reference 비용은 별도 보존한다. 이 원자료는 후보 생성 단계의 비교이며 numeric novelty는 semantic이나 정답 점수가 아니다.
+
+`runs/rollout/probability_budget/pilot/900/end_to_end/`는 같은 후보를 재사용하는 후속 처리의 단일 canonical 자료다. Qwen2.5-VL-7B-Instruct가 각 고유 crop을 독립적으로 검증하고, Qwen3-VL-8B-Instruct와 Qwen3-VL-Embedding-8B가 query 없이 semantic을 측정한다. 벡터는 RAM에서 폐기하고 cosine 통계만 남긴다. 후보만 받은 최종 답과 검증 점수도 받은 최종 답을 실제 생성해 비교한다. `metadata/status.json`, `logs/supervisor.log`에서 진행·오류를 확인한다. `validation/pilot300.json`의 전체 계산·보고서·viewer gate 통과 후 나머지600개의 후속 처리로 넘어간다. 재실행은 frozen `code/probability_completion_manage.py launch`를 사용하며, pilot300은 이 원자료를 참조한다.
 
 재개는 다음 실행 진입점을 사용한다. 원자료가 생긴 뒤에는 prepare로 재동결하지 않는다.
 

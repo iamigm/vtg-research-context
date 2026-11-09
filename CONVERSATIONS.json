@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-09T21:00:00.000876+09:00",
+  "observed_at": "2026-11-10T00:00:00.000316+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -469,13 +469,13 @@
       "tracked": true,
       "source_available": true,
       "archive": "conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md",
-      "sha256": "05becb3f9609634729cf3a2a99379b851bcf07d25a6708db98b47018884ea9f9",
-      "bytes": 189482,
+      "sha256": "9cca70bfa83a8fd8f0c9b0dfb906dccdd52ebcfd6f49cb3c3aee35226063432a",
+      "bytes": 190458,
       "source_path": "/home1/irteam/.codex/sessions/2026/11/06/rollout-2026-11-06T14-55-24-01a1af6d-1894-79e1-9d9c-9a38a6397610.jsonl",
-      "source_modified_at": "2026-11-09T20:59:56.958902+09:00",
-      "messages": 136,
+      "source_modified_at": "2026-11-09T21:20:07.789934+09:00",
+      "messages": 137,
       "last_user_message": "2026-11-09T11:43:49.094Z",
-      "turn_running": true,
+      "turn_running": false,
       "retained_snapshot": false
     },
     {

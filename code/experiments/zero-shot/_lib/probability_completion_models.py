@@ -78,7 +78,7 @@ class Models:
  def __init__(self,progress):
   import torch
   from transformers import AutoProcessor,AutoModelForImageTextToText
-  torch.set_num_threads(2);self.torch=torch;self.models={};self.processors={};self.validated=set();self.batch_size=SETTINGS['batch_size'];loads={}
+  torch.set_num_threads(2);self.torch=torch;self.models={};self.processors={};self.validated=set();self.serial_kinds=set();self.batch_size=SETTINGS['batch_size'];loads={}
   for key,name in [('verifier',SETTINGS['verifier']),('instruct',SETTINGS['generator']),('embedding',SETTINGS['embedding'])]:
    progress(stage='loading_model',model=key);started=time.monotonic();path=BACKBONES/name;self.processors[key]=AutoProcessor.from_pretrained(path,local_files_only=True,do_resize=False,padding_side='left')
    if key=='embedding':
@@ -107,18 +107,23 @@ class Models:
    if not prepared:return
    batch=[x[1] for x in prepared];values,cost=self.forward(kind,batch);batches.append(cost)
    if kind not in self.validated and len(batch)>1:
-    # Real production inputs only: keep no separate smoke-test tree or viewer.
+    # Validate on the actual first production crop, without a separate smoke run.
     first,extra=self.forward(kind,[batch[0]]);validation_cost.append(extra)
-    if kind=='verifier':error=max(abs(a-b) for a,b in zip(first[0]['probabilities'],values[0]['probabilities']));assert error<.01,(kind,error)
+    if kind=='verifier':
+     error=max(abs(a-b) for a,b in zip(first[0]['probabilities'],values[0]['probabilities']));equivalent=error<.01
     else:
-     for key in first[0]:
-      if key!='cost':assert float(first[0][key]@values[0][key])>.999,(kind,key,float(first[0][key]@values[0][key]))
+     error=max(1-float(first[0][key]@values[0][key]) for key in first[0] if key!='cost');equivalent=error<.001
+    if not equivalent:
+     self.serial_kinds.add(kind);progress(stage='batch_equivalence_fallback',model=kind,error=error,execution='serial native forward')
+     values=[first[0]]
+     for item in batch[1:]:
+      one,extra=self.forward(kind,[item]);batches.append(extra);values.extend(one)
     self.validated.add(kind)
    for (spec,_),value in zip(prepared,values):out[spec['id']]=value
    progress(stage=kind,clips_done=len(out),clips_total=len(specs));prepared=[];tokens=0
   for spec in specs:
    start=time.monotonic();cpu=crops.cpu(processor,spec,kind);prep+=time.monotonic()-start;length=int(cpu.input_ids.shape[1])
-   if prepared and (len(prepared)>=self.batch_size or (max(tokens,length)*(len(prepared)+1)>SETTINGS['batch_tokens'])):flush()
+   if prepared and (len(prepared)>=(1 if kind in self.serial_kinds else self.batch_size) or (max(tokens,length)*(len(prepared)+1)>SETTINGS['batch_tokens'])):flush()
    prepared.append((spec,cpu));tokens=max(tokens,length)
   flush();return out,dict(batches=batches,validation=validation_cost,cpu_prepare_seconds=prep)
 

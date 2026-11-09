@@ -1,6 +1,6 @@
 # Probability budget · pilot300 · 실행 명세
 
-고정 cohort는 기존 nested pilot900의 정확한 prefix다. Pilot300 전체의 추론·보고서·viewer·원자료 검증을 마친 뒤 누적900으로 진행한다. 이 실행은 candidate proposal 비교이며 independent verifier의 최종 답 선택 실험이 아니다.
+고정 cohort는 기존 nested pilot900의 정확한 prefix다. Pilot300 후보 생성 단계의 추론·보고서·viewer·원자료 검증을 마친 뒤 후보 생성을 누적900으로 진행한다. 이 gate는 독립 crop 검증·semantic 측정·최종 재생성의 완료를 뜻하지 않는다. 이 실행은 candidate proposal 비교이며 independent verifier의 최종 답 선택 실험이 아니다.
 
 모델은 Qwen3-VL-8B-Instruct, native temperature1, sampling 없음, seed 반복 없음이다. 입력은 기존 deterministic의2 FPS·video_query·frame IDs·PTS·H×W·tensor hash를 그대로 대조한다. 영상 FPS·frame 수·해상도를 가속 목적으로 줄이지 않는다.
 
