@@ -201,18 +201,18 @@ Coverage는 초기 numeric fork의 subtree 중 유효 후보를 하나 이상 �
 
 초기 원자료에 실제 numeric fork의 분포만 남아 있어, 나머지 계산 위치의 native top30을 동일 입력 hash·동일 token prefix로 보충한다. 이후 query는 탐색 시 모든 계산 위치의 분포와 정책 이유를 직접 기록해 별도 재계산을 줄인다. 탐색에서 직접 저장한 분포와 기존 deterministic trace를 먼저 재사용하고 누락 prefix만 single-token KV 실행으로 재계산한다. 새 후보를 생성하거나 기존 탐색의 node·확률·예산 배분·정답을 바꾸지 않는다. 소수 자릿수의 token distribution 표시는 fractional branching 또는 branch entropy 측정이 아니다.
 
-현재 범위에서 보충을 마친 query 179 / 300개. 아직 분포가 없는 위치는 viewer에서 보충 대기로 표시한다. 보충 작업은 누적 원자료에만 저장하며 pilot별로 복제하지 않는다.
+현재 범위에서 보충을 마친 query 300 / 300개. 아직 분포가 없는 위치는 viewer에서 보충 대기로 표시한다. 보충 작업은 누적 원자료에만 저장하며 pilot별로 복제하지 않는다.
 
 | 항목 | 값 |
 |---|---:|
-| 탐색에서 직접 저장한 위치 | 10347 |
-| 기존 reference 재사용 위치 | 14284 |
+| 탐색에서 직접 저장한 위치 | 79308 |
+| 기존 reference 재사용 위치 | 20056 |
 | 다른 방법에서 관측한 동일 prefix 재사용 위치 | 0 |
-| 새로 재계산한 고유 prefix | 117952 |
-| 보충 prefill 입력 합 | 1240137 |
-| 보충 decoder inputs 합 (replay 포함) | 131934 |
-| 보충 작업 wall 합 s | 6286.180 |
-| 보충 CUDA decode 합 s | 5574.503 |
+| 새로 재계산한 고유 prefix | 175562 |
+| 보충 prefill 입력 합 | 2222657 |
+| 보충 decoder inputs 합 (replay 포함) | 197930 |
+| 보충 작업 wall 합 s | 9639.832 |
+| 보충 CUDA decode 합 s | 8518.412 |
 | 저장된 경로 확률과 최대 절대 차이 | 0.00000000 |
 
 보충 inputs와 wall은 위 search 예산·비용에 합산하지 않는 관측용 추가 비용이다. 고유 prefix 수는 같은 입력의 정확히 같은 token ID prefix를 한 번 센 값이다. 확률 차이는 각 prefix에서 원래 추적한 자식 token의 native 확률과 재계산 확률의 절대 차이이며 낮을수록 재현이 정확하다. Wall 합은 query별 실측 합이며 작업 전체 경과 시간이나 전용 GPU 성능을 뜻하지 않는다.
