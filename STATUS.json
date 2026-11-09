@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-09T11:30:51.211277+09:00",
+  "observed_at": "2026-11-09T12:00:00.002277+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -69,13 +69,13 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json",
-      "source_modified_at": "2026-11-09T11:30:42.099316+09:00",
-      "sha256": "7482cb20071db9b16412775ee31723c882c308bc77eca3d0ac777fa37c275367"
+      "source_modified_at": "2026-11-09T11:58:17.294258+09:00",
+      "sha256": "c693fef6a7982faed602e7e114331709340c9292b3bce4b74e984b1177477e07"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json",
-      "source_modified_at": "2026-11-09T11:30:49.018275+09:00",
-      "sha256": "8c778d5c428ddcb59fd04bb972b9acabe2a2c77cc3261b48e5d8c7fcf350394d"
+      "source_modified_at": "2026-11-09T11:59:49.180882+09:00",
+      "sha256": "55dcbb07dec9784748693b0a2ff90a1e54fcb1210b4fa72eb2cd6641eaa629d5"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/stochastic/pilot/300/metadata/status.json",
