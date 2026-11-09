@@ -11,7 +11,8 @@ from probability_budget_backend import Backend,BudgetBoundary
 from probability_budget_search import Search,eligible
 class Progress:
  def __init__(self):
-  self.lock=threading.RLock();self.start=time.monotonic();self.stop=threading.Event();self.state=dict(state='running',stage='starting',active_queries=300,completed=0,total=900,method_completed={m:0 for m in METHODS},eta_seconds=None,eta_scope='remaining proposal queries based on completed-prefix throughput; excludes report validation');threading.Thread(target=self.heartbeat,daemon=True).start()
+  clock=OUT/'metadata/experiment_clock.json';elapsed=max(0,time.time()-__import__('datetime').datetime.fromisoformat(read(clock)['started_at']).timestamp()) if clock.exists() else 0
+  self.lock=threading.RLock();self.start=time.monotonic()-elapsed;self.stop=threading.Event();self.state=dict(state='running',stage='starting',active_queries=300,completed=0,total=900,method_completed={m:0 for m in METHODS},eta_seconds=None,eta_scope='remaining proposal queries based on completed-prefix throughput; excludes report validation');threading.Thread(target=self.heartbeat,daemon=True).start()
  def __call__(self,**kw):
   with self.lock:
    if 'sample_key' in kw and kw['sample_key']!=self.state.get('sample_key'):
@@ -88,6 +89,7 @@ def run(smoke_only=False):
  write(OUT/'validation/cpu.json',cpu_check());progress=Progress();progress(stage='loading_model');model,processor,load_seconds=load_model()
  if smoke_only:smoke(model,processor,progress);progress(state='smoke_complete',stage='smoke_complete');progress.stop.set();return
  records=read(OUT/'metadata/model_loads.json') if (OUT/'metadata/model_loads.json').exists() else [];records.append(dict(seconds=load_seconds,purpose='production',timestamp=stamp()));write(OUT/'metadata/model_loads.json',records);rows=read(COHORT);completed_keys={r['sample_key'] for r in rows if (OUT/'queries'/f'{r["sample_key"]}.json').exists() and read(OUT/'queries'/f'{r["sample_key"]}.json').get('complete')};completed_counts=collections.Counter(r['dataset'] for r in rows if r['sample_key'] in completed_keys)
+ progress(stage='resuming' if completed_keys else 'inference',completed=len(completed_keys),completed_by_dataset=dict(completed_counts),method_completed={m:len(completed_keys) for m in METHODS})
  for scope in CONFIG['stages']:
   if (OUT/'validation'/f'pilot{scope}.json').exists():continue
   progress(stage='inference',active_queries=scope)

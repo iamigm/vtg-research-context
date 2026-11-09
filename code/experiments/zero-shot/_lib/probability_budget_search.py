@@ -80,9 +80,13 @@ class Search:
   finally:group['spent']+=self.backend.tokens-before
   import torch
   prob=torch.softmax(logits,dim=-1);raw=eligible(prob.numpy());text=self.prefix(ident);chosen,role=choose_edges(raw,self.tokenizer,text);retained=sum(e['p'] for e in raw);kept=sum(e['p'] for e in chosen);self.remove(ident);node.update(status='expanded' if chosen else 'dead',role=role,accepted_mass=kept);self.mass['filtered']+=mass*max(0.,1-retained);self.mass['policy']+=mass*max(0.,retained-kept)
+  # Observation only: the admitted edges and scheduler above are unchanged.
+  node['prefix_text']=text;values,ids=torch.topk(prob,min(30,prob.numel()));allowed={e['token'] for e in chosen};node['top30']=[dict(token=int(i),text=self.piece(int(i)),p=float(p),admitted=int(i) in allowed) for p,i in zip(values.tolist(),ids.tolist())]
+  node['probability_candidates']=len(raw)
+  node['decision_reason']=('numeric_fork' if len(chosen)>1 else 'no_admitted_token' if not chosen else 'fraction_greedy' if role.endswith('fraction') else 'format_greedy' if role=='format' else 'single_probability_candidate' if len(raw)==1 else 'numeric_policy_single_candidate')
   if len(chosen)>1:
    assert role.endswith('integer_or_decimal'),role
-   positive=prob[prob>0];node['entropy']=float(-(positive*positive.log2()).sum());node['prefix_text']=text;values,ids=torch.topk(prob,30);allowed={e['token'] for e in chosen};node['top30']=[dict(token=int(i),text=self.piece(int(i)),p=float(p),admitted=int(i) in allowed) for p,i in zip(values.tolist(),ids.tolist())]
+   positive=prob[prob>0];node['entropy']=float(-(positive*positive.log2()).sum())
   first_fork=not self.grouped and len(chosen)>1
   if first_fork:self.grouped=True
   children=[]

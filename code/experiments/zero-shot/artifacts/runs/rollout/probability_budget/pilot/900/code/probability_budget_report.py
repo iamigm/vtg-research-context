@@ -5,6 +5,22 @@ def metrics(vals):return [sum(vals)/len(vals)]+[sum(v>=t for v in vals)/len(vals
 def f(v,n=3):return '—' if v is None else f'{v:.{n}f}'
 def mean(vals):return sum(vals)/len(vals) if vals else None
 
+def observation_report(rows,records):
+ import datetime
+ observations=[]
+ for row in rows:
+  path=OUT/'token_distributions'/f'{row["sample_key"]}.json'
+  if path.exists():observations.append(read(path))
+ execution=OUT/'metadata/distribution_execution.json';sessions=read(execution).get('sessions',[]) if execution.exists() else []
+ overlap=0
+ for row,q in records:
+  if not q.get('timestamp'):continue
+  end=datetime.datetime.fromisoformat(q['timestamp']).timestamp();start=end-q.get('query_search_wall_seconds',0)-q['input'].get('prefill_wall_seconds',0)-q['greedy']['cost'].get('wall_seconds',0)
+  if any(start<=datetime.datetime.fromisoformat(s.get('finished_at') or stamp()).timestamp() and end>=datetime.datetime.fromisoformat(s['started_at']).timestamp() for s in sessions):overlap+=1
+ costs=[r['cost'] for r in observations];counts=collections.Counter()
+ for item in observations:counts.update(item['counts'])
+ return ['','## Viewer용 token distribution 보충','','초기 원자료에 실제 numeric fork의 분포만 남아 있어, 나머지 계산 위치의 native top30을 동일 입력 hash·동일 token prefix로 보충한다. 이후 query는 탐색 시 모든 계산 위치의 분포와 정책 이유를 직접 기록해 별도 재계산을 줄인다. 탐색에서 직접 저장한 분포와 기존 deterministic trace를 먼저 재사용하고 누락 prefix만 single-token KV 실행으로 재계산한다. 새 후보를 생성하거나 기존 탐색의 node·확률·예산 배분·정답을 바꾸지 않는다. 소수 자릿수의 token distribution 표시는 fractional branching 또는 branch entropy 측정이 아니다.','',f'현재 범위에서 보충을 마친 query {len(observations)} / {len(rows)}개. 아직 분포가 없는 위치는 viewer에서 보충 대기로 표시한다. 보충 작업은 누적 원자료에만 저장하며 pilot별로 복제하지 않는다.','','| 항목 | 값 |','|---|---:|',f'| 탐색에서 직접 저장한 위치 | {counts["native_search"]} |',f'| 기존 reference 재사용 위치 | {counts["existing_reference"]} |',f'| 다른 방법에서 관측한 동일 prefix 재사용 위치 | {counts["other_method"]} |',f'| 새로 재계산한 고유 prefix | {counts["supplemental_replay"]} |',f'| 보충 prefill 입력 합 | {sum(c.get("prefill_inputs",0) for c in costs)} |',f'| 보충 decoder inputs 합 (replay 포함) | {sum(c.get("decoder_inputs",0) for c in costs)} |',f'| 보충 작업 wall 합 s | {sum(c.get("wall_seconds",0) for c in costs):.3f} |',f'| 보충 CUDA decode 합 s | {sum(c.get("decode_cuda_seconds",0) for c in costs):.3f} |',f'| 저장된 경로 확률과 최대 절대 차이 | {max([r.get("max_edge_probability_error",0) for r in observations]+[0]):.8f} |','', '보충 inputs와 wall은 위 search 예산·비용에 합산하지 않는 관측용 추가 비용이다. 고유 prefix 수는 같은 입력의 정확히 같은 token ID prefix를 한 번 센 값이다. 확률 차이는 각 prefix에서 원래 추적한 자식 token의 native 확률과 재계산 확률의 절대 차이이며 낮을수록 재현이 정확하다. Wall 합은 query별 실측 합이며 작업 전체 경과 시간이나 전용 GPU 성능을 뜻하지 않는다.','',f'공통 완료 query 중 보충 프로세스와 실행 시간대가 겹친 query는 {overlap} / {len(records)}개다. Search wall·CUDA event 시간은 실제 실행값이므로 같은 GPU에서 보충 작업이 실행된 동안의 자원 경합을 포함할 수 있다. 해당 wall 수치를 보충 작업이 없는 전용 GPU의 search 비용으로 해석하지 않는다. 실행 시간대는 metadata/distribution_execution.json, 보충 작업별 비용은 token_distributions와 logs/distribution_capture.log에 남긴다.','']
+
 def spec(count):return f'''# Probability budget · pilot{count} · 실행 명세
 
 고정 cohort는 기존 nested pilot900의 정확한 prefix다. Pilot300 전체의 추론·보고서·viewer·원자료 검증을 마친 뒤 누적900으로 진행한다. 이 실행은 candidate proposal 비교이며 independent verifier의 최종 답 선택 실험이 아니다. 기존 3-query 시간 제한 진단과 별도 계열이다.
@@ -103,10 +119,23 @@ def report():
     lines.append(f'| {budget} | {method} | {f(mean(cs))} | {f(mean(ws))} | {f(mean(vs))} | {f(mean(ps))} |')
   scope_summaries.append(dict(scope=count,n=len(records),metrics={method:metrics([iou(q['greedy']['span'] if method=='greedy' else q['methods'][method]['snapshots']['1024']['selected_span'],r['span'][0]) for r,q in records]) for method in ['greedy']+METHODS}))
   lines+=stratified(records)
+  lines+=observation_report(rows[:count],records)
   lines+=['','## 해석 범위','','현재 얻은 interval entropy·variance는 관측 유효 분포에 조건부다. 종료 시 남은 질량·context limit·정책 제외 질량을 함께 확인한다. Candidate oracle 향상이 최대 native-mass 답의 성능 향상을 의미하지 않는다. Novelty는 시간적 차이이며 사건 semantic이나 정답 여부를 판별하지 않는다.','', '[실행 명세와 지표 정의](SPEC.md)']
   text='\n'.join(lines).replace('同じ','같은');(result/'REPORT.md').write_text(text+'\n');(result/'SPEC.md').write_text(spec(count))
   rawurl=os.path.relpath(OUT,result);caturl=os.path.relpath(artifact/'web/samples.json',result);theme=os.path.relpath(ROOT.parent/'_lib/experiment_theme.css',result);script=os.path.relpath(OUT/'web/viewer.js',result);rooturl=os.path.relpath(ROOT.parent,result)
-  (result/'detail.html').write_text(f'''<!doctype html><html lang="ko" {'data-family-default' if count==300 else ''}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Probability budget · pilot{count}</title><link rel="stylesheet" href="{theme}"><style>body{{padding:16px;margin:0}}.layout{{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px}}aside{{min-width:0}}#samples{{display:grid;gap:5px;max-height:75vh;overflow:auto}}button{{text-align:left}}video{{width:100%;max-height:330px}}.box{{padding:14px;border:1px solid #cbd5df;border-radius:9px;margin:12px 0}}.rows{{overflow:auto}}pre{{white-space:pre-wrap;overflow-wrap:anywhere}}select{{max-width:100%}}.branches{{display:flex;gap:5px;flex-wrap:wrap}}.branch-token{{background:#fff0c4;color:#6b4912;padding:2px 4px}}.prefix{{background:#f4f7fa;padding:10px;font-size:16px;line-height:1.8}}@media(max-width:780px){{.layout{{grid-template-columns:1fr}}#samples{{max-height:180px}}}}</style></head><body><h1>Probability budget · pilot{count}</h1><p id="status">상태 확인 중</p><main class="layout"><aside><input id="filter" aria-label="query 검색" placeholder="query 검색"><div id="samples"></div></aside><article><select id="method" aria-label="탐색 방법"><option value="levin">LevinTS</option><option value="native_mass">Native mass</option><option value="numeric_novelty">Numeric novelty</option></select><select id="budget" aria-label="연산 예산"><option>512</option><option selected>1024</option><option>2048</option></select><div id="content">Query를 선택하세요.</div></article></main><script>window.SEARCH={{store:{json.dumps(rawurl)},catalog:{json.dumps(caturl)},root:{json.dumps(rooturl)}}};</script><script src="{script}?sha={sha(OUT/'web/viewer.js')[:12]}"></script></body></html>''')
+  assets=Path(__file__).parent
+  for suffix in ('js','css'):
+   source=assets/f'probability_budget_viewer.{suffix}'
+   target=OUT/f'web/viewer.{suffix}'
+   if source.read_bytes()!=target.read_bytes() if target.exists() else True:
+    tmp=target.with_name(target.name+f'.{os.getpid()}.tmp');tmp.write_bytes(source.read_bytes());tmp.replace(target)
+  style=os.path.relpath(OUT/'web/viewer.css',result)
+  traces=os.path.relpath(SOURCE/'token_traces',result)
+  template=(assets/'probability_budget_viewer.html').read_text()
+  replacements={'__DEFAULT__':'data-family-default' if count==300 else '', '__COUNT__':str(count),'__THEME__':theme,'__STYLE__':style+'?sha='+sha(OUT/'web/viewer.css')[:12],'__SCRIPT__':script+'?sha='+sha(OUT/'web/viewer.js')[:12],'__CONFIG__':json.dumps(dict(store=rawurl,catalog=caturl,root=rooturl,traces=traces))}
+  for old,new in replacements.items():template=template.replace(old,new)
+  target=result/'detail.html';tmp=target.with_name(target.name+f'.{os.getpid()}.tmp');tmp.write_text(template);tmp.replace(target)
+
  if active>=900:
   overview=ROOT/'results/rollout/probability_budget/pilot/overview';overview.mkdir(parents=True,exist_ok=True);lines=['# Probability budget · pilot300 / pilot900 누적 비교','','같은 원자료의 중첩 cohort이며 두 범위를 독립 표본처럼 합산하지 않는다. 기본 예산1,024에서 최대 native-mass 후보를 평가한다. mIoU와R은 높을수록 좋고 괄호는 같은 범위의 greedy 대비Δpp다. 진행 중인 pilot900은 완료된 n만의 값이다.','', '| 범위 | 완료 n | 방법 | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |','|---|---:|---|---:|---:|---:|---:|']
   for item in scope_summaries:
@@ -118,4 +147,7 @@ def report():
   subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
  print('REPORT_UPDATED',len(records),active,flush=True)
 
-if __name__=='__main__':report()
+if __name__=='__main__':
+ import fcntl
+ with (OUT/'metadata/report.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX);report()

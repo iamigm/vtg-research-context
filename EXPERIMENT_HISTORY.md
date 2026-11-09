@@ -2760,3 +2760,34 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
 - evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
+
+## 2026-11-09T11:30:51.211277+09:00
+
+원본 파일 직접 관찰: 18개 실행, 740개 코드·의존성 파일. 이전 commit: 358f3d97d61e9288bee2c5490849b1d38802a951.
+
+추가 8 / 변경 16 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/probability_budget_capture.py
+- code/experiments/zero-shot/_lib/probability_budget_recording_handoff.py
+- code/experiments/zero-shot/_lib/probability_budget_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_capture.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_recording_handoff.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/validation/search_before_recording.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/web/viewer.css
+- code/experiments/zero-shot/_lib/probability_budget_report.py
+- code/experiments/zero-shot/_lib/probability_budget_runtime.py
+- code/experiments/zero-shot/_lib/probability_budget_search.py
+- code/experiments/zero-shot/_lib/probability_budget_view_check.py
+- code/experiments/zero-shot/_lib/probability_budget_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_search.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_view_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
