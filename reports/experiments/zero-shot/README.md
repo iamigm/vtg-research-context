@@ -70,7 +70,6 @@ GT를 활용한 프레임 배정은 정답 정보를 사용하는 진단이며 �
 ## Rollout
 
 - [Probability budget](results/rollout/probability_budget/viewer.html): LevinTS·native mass·numeric novelty 후보 생성 비교. Query×방법별512·1,024·2,048 decoder 입력 상한,미탐색 질량1% 조기 종료. Pilot300 검증 후 누적900으로 진행한다.
-- [Path mass constraints](results/rollout/path_mass_constraints/viewer.html): 정수부·소수점 기호만 분기하고 소수 자릿수는 greedy로 유지하는 pilot3 진단. 미탐색 질량10%·5%·1%와 문법 제약의 비용·후보 품질을 비교한다.
 - [Deterministic rollout](results/rollout/deterministic/viewer.html): 고정 pilot300·600·900을 같은900개 원자료에서 참조한다. token distribution과 branch search도 같은 뷰에 통합했다.
 - [Stochastic rollout](results/rollout/stochastic/viewer.html): pilot300.
 - [Conditional rollout budget](results/rollout/conditional_budget/viewer.html): pilot30.

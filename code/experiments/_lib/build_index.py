@@ -8,7 +8,7 @@ ROOT = Path(str(Path(__file__).resolve().parents[1]).replace('/home1/irteam/', '
 PROJECTS = {
     'dataset_metadata': 'Dataset metadata',
     'attention': 'Attention',
-    'zero-shot': 'greedy',
+    'zero-shot': 'Zero-shot',
     'similarity': 'Similarity',
     'analysis/failure_mode_timestamp/failure_cases': 'Failure analysis',
     'audio_caption_resources_20260930': 'Audio caption resources',

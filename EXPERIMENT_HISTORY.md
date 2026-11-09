@@ -2826,3 +2826,49 @@
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/REPORT.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/overview/REPORT.md
+
+## 2026-11-09T21:00:00.000876+09:00
+
+원본 파일 직접 관찰: 18개 실행, 730개 코드·의존성 파일. 이전 commit: fc331427a0788ab41bb8136fdb6e9805daa4f42c.
+
+추가 4 / 변경 17 / 현재 원본에서 사라짐 18. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/probability_completion_core.py
+- code/experiments/zero-shot/_lib/probability_completion_models.py
+- code/experiments/zero-shot/_lib/probability_completion_runtime.py
+- conversations/01a1b790-f2cb-7ce0-a157-efb9097a01e1.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/probability_budget_report.py
+- code/experiments/zero-shot/_lib/probability_budget_viewer.js
+- reports/experiments/zero-shot/artifacts/README.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/code/probability_budget_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/manifest.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/SPEC.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/SPEC.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/overview/REPORT.md
+- code/experiments/_lib/build_index.py
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_core.py
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_inputs.py
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_report.py
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_runtime.py
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_validate.py
+- 원본 부재: code/experiments/zero-shot/_lib/path_mass_viewer.js
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_core.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_inputs.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_validate.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/code/path_mass_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/manifest.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/metadata/status.json
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/path_mass_constraints/pilot/3/web/viewer.js
+- 원본 부재: reports/experiments/zero-shot/results/rollout/path_mass_constraints/pilot/3/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/path_mass_constraints/pilot/overview/REPORT.md

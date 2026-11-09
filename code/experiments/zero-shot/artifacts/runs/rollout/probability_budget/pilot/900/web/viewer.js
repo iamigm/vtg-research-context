@@ -29,7 +29,7 @@ function listing(keepPage=false){
 }
 function play(pair,autoplay=true){if(!pair)return;const v=$('video');playEnd=autoplay?pair[1]:null;v.currentTime=pair[0];$('video-status').textContent=`${span(pair)}${autoplay?' 재생 중':''}`;if(autoplay)v.play().catch(()=>{$('video-status').textContent='재생 버튼을 눌러 영상을 시작하세요.'})}
 function answers(){
- const r=row(),pairs=[['GT',r.gt,'var(--truth)',null],['Zero-shot greedy',query?.greedy?.span,'var(--greedy)',iou(query?.greedy?.span,r.gt)],['현재 후보',picked?.span,'var(--picked)',picked?iou(picked.span,r.gt):null]];
+ const r=row(),pairs=[['GT',r.gt,'var(--truth)',null],['greedy',query?.greedy?.span,'var(--greedy)',iou(query?.greedy?.span,r.gt)],['현재 후보',picked?.span,'var(--picked)',picked?iou(picked.span,r.gt):null]];
  $('answer-cards').innerHTML=pairs.map(([name,pair,color,score],i)=>`<div class="answer-card" style="--card:${color}"><small>${name}</small><strong>${span(pair)}</strong><span>${i===0?'사후 평가 기준':`IoU ${num(score)}`}</span><button data-play="${i}" ${pair?'':'disabled'}>▶ 구간 재생</button></div>`).join('');
  $('timeline').innerHTML=pairs.map(([name,pair,color],i)=>`<div class="timeline-row"><div class="timeline-label"><span style="color:${color}">${name} · ${span(pair)}</span></div><div class="track"><div class="bar" style="--bar:${color};left:${pair?100*pair[0]/r.duration:0}%;width:${pair?100*(pair[1]-pair[0])/r.duration:0}%"></div></div></div>`).join('')+`<div class="timeline-ticks"><span>0 s</span><span>${seconds(r.duration)} s</span></div>`;
  $('answer-cards').querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>play(pairs[Number(b.dataset.play)][1]));

@@ -2,15 +2,15 @@
 
 300 query 중 세 방법을 모두 완료한 query 300개. 고유 영상 292개. 조건 반복 수와 query 수를 구분한다. 완료 전 수치는 진행 중 공통 부분집합이며 전체 성능으로 해석하지 않는다.
 
-## 후보 품질과 zero-shot 대비 차이
+## 후보 품질과 greedy 대비 차이
 
-IoU=예측·GT 교집합 길이÷합집합 길이,mIoU=query별 IoU 평균,R@τ=IoU≥τ 비율이다. 높을수록 좋다. 괄호 안Δpp=100×(결과−같은 query의zero-shot greedy). Greedy는 동일 입력의 새 native generation이며 clipping·평가 정책도 같다. GT는 탐색 후 평가에만 사용한다.
+IoU=예측·GT 교집합 길이÷합집합 길이,mIoU=query별 IoU 평균,R@τ=IoU≥τ 비율이다. 높을수록 좋다. 괄호 안Δpp=100×(결과−같은 query의 greedy). greedy는 이 zero-shot 실험의 기준 답변을 뜻한다. 동일 입력의 native generation이며 clipping·평가 정책도 같다. GT는 탐색 후 평가에만 사용한다.
 
 최대 native-mass 후보는 관측된 sequence 질량을 exact interval별로 합친 뒤 가장 큰 interval을 고른 진단값이다. 독립 verifier가 선택한 final answer가 아니다. Candidate oracle은 생성 후보 중 사후 최고 GT IoU이며 실제 selector 성능이 아니다.
 
 | 예산 | 방법·평가 | 공통 n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |
 |---:|---|---:|---:|---:|---:|---:|
-| — | zero-shot greedy | 300 | 0.4875 (+0.00) | 0.6433 (+0.00) | 0.5133 (+0.00) | 0.3567 (+0.00) |
+| — | greedy | 300 | 0.4875 (+0.00) | 0.6433 (+0.00) | 0.5133 (+0.00) | 0.3567 (+0.00) |
 | 512 | levin · native_mass | 300 | 0.4985 (+1.10) | 0.6700 (+2.67) | 0.5333 (+2.00) | 0.3567 (+0.00) |
 | 512 | levin · candidate_oracle | 300 | 0.7515 (+26.40) | 0.8933 (+25.00) | 0.8167 (+30.33) | 0.6667 (+31.00) |
 | 512 | native_mass · native_mass | 300 | 0.4985 (+1.10) | 0.6700 (+2.67) | 0.5333 (+2.00) | 0.3567 (+0.00) |

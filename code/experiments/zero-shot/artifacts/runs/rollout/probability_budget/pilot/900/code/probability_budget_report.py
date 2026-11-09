@@ -23,7 +23,7 @@ def observation_report(rows,records):
 
 def spec(count):return f'''# Probability budget · pilot{count} · 실행 명세
 
-고정 cohort는 기존 nested pilot900의 정확한 prefix다. Pilot300 전체의 추론·보고서·viewer·원자료 검증을 마친 뒤 누적900으로 진행한다. 이 실행은 candidate proposal 비교이며 independent verifier의 최종 답 선택 실험이 아니다. 기존 3-query 시간 제한 진단과 별도 계열이다.
+고정 cohort는 기존 nested pilot900의 정확한 prefix다. Pilot300 전체의 추론·보고서·viewer·원자료 검증을 마친 뒤 누적900으로 진행한다. 이 실행은 candidate proposal 비교이며 independent verifier의 최종 답 선택 실험이 아니다.
 
 모델은 Qwen3-VL-8B-Instruct, native temperature1, sampling 없음, seed 반복 없음이다. 입력은 기존 deterministic의2 FPS·video_query·frame IDs·PTS·H×W·tensor hash를 그대로 대조한다. 영상 FPS·frame 수·해상도를 가속 목적으로 줄이지 않는다.
 
@@ -81,8 +81,8 @@ def report():
    if q and q['complete']:records.append((row,q))
   write(artifact/'web/samples.json',catalog);write(artifact/'metadata/source_records.json',dict(queries=count,cohort=str(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{count}/samples.json'),cohort_sha256=sha(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{count}/samples.json'),canonical=str(OUT),query_keys=[r['sample_key'] for r in rows[:count]]))
   if artifact!=OUT:write(artifact/'metadata/status.json',dict(state,state='complete' if len(records)==count else 'running',completed=len(records),total=count))
-  lines=[f'# Probability budget · pilot{count}','',f'{count} query 중 세 방법을 모두 완료한 query {len(records)}개. 고유 영상 {len({r["video_path"] for r in rows[:count]})}개. 조건 반복 수와 query 수를 구분한다. 완료 전 수치는 진행 중 공통 부분집합이며 전체 성능으로 해석하지 않는다.','', '## 후보 품질과 zero-shot 대비 차이','','IoU=예측·GT 교집합 길이÷합집합 길이,mIoU=query별 IoU 평균,R@τ=IoU≥τ 비율이다. 높을수록 좋다. 괄호 안Δpp=100×(결과−같은 query의zero-shot greedy). Greedy는 동일 입력의 새 native generation이며 clipping·평가 정책도 같다. GT는 탐색 후 평가에만 사용한다.','', '최대 native-mass 후보는 관측된 sequence 질량을 exact interval별로 합친 뒤 가장 큰 interval을 고른 진단값이다. 독립 verifier가 선택한 final answer가 아니다. Candidate oracle은 생성 후보 중 사후 최고 GT IoU이며 실제 selector 성능이 아니다.','', '| 예산 | 방법·평가 | 공통 n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |','|---:|---|---:|---:|---:|---:|---:|']
-  base=metrics([iou(q['greedy']['span'],r['span'][0]) for r,q in records]);lines.append('| — | zero-shot greedy | '+str(len(records))+' | '+' | '.join(f'{v:.4f} (+0.00)' if v is not None else '—' for v in base)+' |')
+  lines=[f'# Probability budget · pilot{count}','',f'{count} query 중 세 방법을 모두 완료한 query {len(records)}개. 고유 영상 {len({r["video_path"] for r in rows[:count]})}개. 조건 반복 수와 query 수를 구분한다. 완료 전 수치는 진행 중 공통 부분집합이며 전체 성능으로 해석하지 않는다.','', '## 후보 품질과 greedy 대비 차이','','IoU=예측·GT 교집합 길이÷합집합 길이,mIoU=query별 IoU 평균,R@τ=IoU≥τ 비율이다. 높을수록 좋다. 괄호 안Δpp=100×(결과−같은 query의 greedy). greedy는 이 zero-shot 실험의 기준 답변을 뜻한다. 동일 입력의 native generation이며 clipping·평가 정책도 같다. GT는 탐색 후 평가에만 사용한다.','', '최대 native-mass 후보는 관측된 sequence 질량을 exact interval별로 합친 뒤 가장 큰 interval을 고른 진단값이다. 독립 verifier가 선택한 final answer가 아니다. Candidate oracle은 생성 후보 중 사후 최고 GT IoU이며 실제 selector 성능이 아니다.','', '| 예산 | 방법·평가 | 공통 n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |','|---:|---|---:|---:|---:|---:|---:|']
+  base=metrics([iou(q['greedy']['span'],r['span'][0]) for r,q in records]);lines.append('| — | greedy | '+str(len(records))+' | '+' | '.join(f'{v:.4f} (+0.00)' if v is not None else '—' for v in base)+' |')
   # Search raw files only once, avoiding response copies and repeated JSON reads.
   oracles={}
   for row,q in records:

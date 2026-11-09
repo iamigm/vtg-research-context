@@ -1,1 +1,0 @@
-{"state": "complete", "completed": 3, "total": 3, "timestamp": "2026-11-09T04:53:47.062493+09:00", "stage": "complete", "sample_key": "qvhighlights-timelens_00014", "variant": "format_and_mass", "expanded_nodes": 766, "unique_intervals": 132, "native_forwards": 1405, "unseen_valid_mass_upper_bound": 0.0344781403131947, "variant_elapsed_seconds": 41.23687444999814}

@@ -14,12 +14,6 @@ KV suffix는 query·방법 단위의 임시 GPU cache이며 영구 vector·frame
 /home1/irteam/experiments/zero-shot/.venv/bin/python /home1/irteam/experiments/zero-shot/_lib/probability_budget_manage.py launch
 ```
 
-## Path mass constraints · pilot3
-
-`runs/rollout/path_mass_constraints/pilot/3/`에 원자료를 한 번 저장한다. `queries/`는 greedy 응답과 두 조건의 nested checkpoint·최종 후보·native 질량·실측 비용, `metadata/`는 세 query 선정·설정·frozen code hash, `validation/`은 문법·질량 보존·실제 분기 위치 감사다. `logs/runtime.log`와 `metadata/status.json`에서 실행·오류를 확인한다. 결과·보고서는 `../results/rollout/path_mass_constraints/`에서 연다.
-
-정수부와 소수점 기호 위치만 분기하며, 일반 문구와 소수 자릿수는 greedy로 이어간다. 소수 자릿수의 branch entropy는 저장하지 않는다. 조건별45초는 빠른 진단의 운영 제한이며 ε 목표 미도달은 완료로 처리하지 않는다. Vector·영상·frame cache를 복제하지 않고 기존 native 입력의 tensor hash와 공통 media를 참조한다. 재생성은 frozen `code/path_mass_report.py`로 수행한다.
-
 ## Temporal mode search · pilot600
 
 현재 활성 조건은 `runs/rollout/temporal_mode_search/pilot/600/capped_rollouts/`이다. Main/tail 각각16·32·64·128개의 rollout 시도 checkpoint를 한 번의 누적 stream으로 비교한다. 총 예산은32·64·128·256회이며 query당 최대1,536개의 탐색 시도와 별도 greedy baseline1개다. 중복 시도·unique sequence·mode를 구분하고,초기 공통 조사를최대8회로 제한한 뒤 방법별 적응 선택을 실행한다. Seed42·43와 GPU worker3개는 유지한다. 이전 token-budget 원자료·checkpoint는 상위600폴더에 보존하지만 새 조건의 집계에는 포함하지 않는다. 활성 상태와 로그는 capped_rollouts의 `metadata/status.json`과 `logs/progress.log`다.

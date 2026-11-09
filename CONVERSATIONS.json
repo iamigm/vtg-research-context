@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-09T18:00:00.001301+09:00",
+  "observed_at": "2026-11-09T21:00:00.000876+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -469,12 +469,29 @@
       "tracked": true,
       "source_available": true,
       "archive": "conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md",
-      "sha256": "723460654a8604ecc8ace39ed42d49fc4553bebd05544c290ac0875ff4ce0eb1",
-      "bytes": 188520,
+      "sha256": "05becb3f9609634729cf3a2a99379b851bcf07d25a6708db98b47018884ea9f9",
+      "bytes": 189482,
       "source_path": "/home1/irteam/.codex/sessions/2026/11/06/rollout-2026-11-06T14-55-24-01a1af6d-1894-79e1-9d9c-9a38a6397610.jsonl",
-      "source_modified_at": "2026-11-09T11:27:19.119118+09:00",
-      "messages": 132,
-      "last_user_message": "2026-11-09T02:00:51.210Z",
+      "source_modified_at": "2026-11-09T20:59:56.958902+09:00",
+      "messages": 136,
+      "last_user_message": "2026-11-09T11:43:49.094Z",
+      "turn_running": true,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1b790-f2cb-7ce0-a157-efb9097a01e1",
+      "title": "/home/irteam/experiments/zero-shot/results/rollout/temporal_mode_search\n\nview 수정하자. 기존 deterministic처럼 샘플을 필터링할 수 있는 특수 기준을 추가해. 그리고 좌측 샘플 셀에서 샘플이 어디까지 나열되는지 그 구분이 명확하지 않아. 그리고 내용은 긴데 샘플을 짧아서 뭔가 어색하거든? 그렇다고 샘플을 길게 나열할 필요는 없는데 너가 더 적절한 표현 방법을 찾아봐. 그리고 zero-shot 이라는 표현 쓰지말고 greedy로 표현 통일해. 모든 비교는 greedy와 비교할 거야. 그리고 각 후보가 어떤 mode로 통합됐는지와 그 mode 들 간의 구간을 한 눈에 비교하고 싶어. 쿼리와 동영상 메타 정보 바로 아래에 원본 동영상을 배치하도록 바꿔",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1b790-f2cb-7ce0-a157-efb9097a01e1.md",
+      "sha256": "deffccb38b2dc56eaaac2d3c6c810a7e002ad13433dbde43f1475cd2eac17439",
+      "bytes": 3015,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/08/rollout-2026-11-08T04-51-32-01a1b790-f2cb-7ce0-a157-efb9097a01e1.jsonl",
+      "source_modified_at": "2026-11-09T20:35:29.476789+09:00",
+      "messages": 4,
+      "last_user_message": "2026-11-07T20:10:57.625Z",
       "turn_running": false,
       "retained_snapshot": false
     }
