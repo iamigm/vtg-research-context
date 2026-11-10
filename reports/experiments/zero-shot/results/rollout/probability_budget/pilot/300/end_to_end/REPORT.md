@@ -74,6 +74,9 @@ Changed는 정확한 clipped span의 변화이며 개선률이 아니다. Invali
 | instruct | 7524 | 75726320 | 77572454 | 5856.566 | 6090.899 |
 | embedding | 7524 | 75762662 | 77608796 | 5818.958 | 6053.733 |
 
+완료 query의 후속 처리 wall 합은 35791.850s (9.942시간), query당 평균은 119.306s다. 이는 세 방법×세 예산과 semantic 진단을 공유 실행한 전체 작업량이며 단일 조건의 단독 latency가 아니다. 이 중 semantic 모델 forward wall 합은 12144.632s (3.374시간), 고유 final generation wall 합은 3599.357s (1.000시간)다. CPU 입력 준비·공유 prefill 등은 각각의 model forward wall과 구분한다. 중단 전에 저장되지 못한 작업의 비용은 아래 재개 기록의 제한을 따른다.
+
+
 ## 시간 그룹과 semantic 차이
 
 Cosine은 같은 모델의 벡터끼리 비교한다. 1에 가까울수록 유사하며, 높은 유사도가 같은 사건의 확정 근거는 아니다. 아래 within−between은 시간 그룹 내부 mean cosine에서 그룹 사이 mean cosine을 뺀 값이다. 양수는 이 embedding이 시간 그룹의 차이와 같은 방향으로 구분한다는 진단이며 GT 검증 점수가 아니다. 그룹이 하나뿐이면 between은 정의되지 않는다.
