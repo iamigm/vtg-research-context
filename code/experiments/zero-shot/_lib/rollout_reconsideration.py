@@ -266,7 +266,7 @@ def setup():
  for file in ('rollout_reconsideration.py','rollout_reconsideration_report.py','rollout_reconsideration_viewer.html','rollout_reconsideration_check.py'):
   source=Path(__file__).with_name(file)
   if source.exists():(OUT/'code'/file).write_bytes(source.read_bytes())
- write(OUT/'metadata/source_manifest.json',dict(files=[dict(path=str(Path(__file__).with_name(n)),sha256=sha(Path(__file__).with_name(n))) for n in ('rollout_reconsideration.py','rollout_reconsideration_report.py','rollout_reconsideration_viewer.html','rollout_reconsideration_check.py','fps_spatial_control.py','conditional_rollout_budget.py')]))
+ write(OUT/'metadata/source_manifest.json',dict(files=[dict(path=str(Path(__file__).with_name(n)),sha256=sha(Path(__file__).with_name(n))) for n in ('rollout_reconsideration.py','rollout_reconsideration_report.py','rollout_reconsideration_viewer.html','rollout_reconsideration_check.py','fps_spatial_control.py','rollout_cache.py')]))
  return cohort
 
 def worker(rank,world):

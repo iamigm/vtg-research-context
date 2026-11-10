@@ -19,7 +19,7 @@ ZERO_SHOT_GROUPS = {
     'baseline': ('기준 성능·입력 조건', '전체 집계 → 입력 순서·일관성 → Thinking/Instruct 비교'),
     'uncertainty': ('토큰 불확실성·오류 진단', 'Full-head 분포 → 엔트로피·최초 오류 → 자릿수별 정답 가능성'),
     'sampling': ('영상 샘플링·공간 통제', '공간 예산 비교 → 전체/경계 배정 → 고정 해상도 FPS 비교. GT 활용 조건은 진단 실험입니다.'),
-    'rollout': ('후보 탐색·Rollout', 'Stochastic · 조건부 예산 · 결정적 탐색과300/600/900 누적 비교'),
+    'rollout': ('후보 탐색·Rollout', 'Stochastic · 결정적 탐색과300/600/900 누적 비교'),
     'operations': ('운영·입력 검증', '캐시 이관, 영상 디코딩, 전체 추론 병목 조사'),
 }
 

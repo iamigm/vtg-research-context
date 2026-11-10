@@ -7,7 +7,7 @@ os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF','expandable_segments:True')
 import collections,concurrent.futures,fcntl,gzip,hashlib,json,math,struct,subprocess,threading,time,traceback
 from pathlib import Path
 from deterministic_rollout300 import ROOT,MODEL,read,write,stamp,sha
-from conditional_rollout_budget import Evaluator
+from rollout_cache import Evaluator
 
 OUT=relocate_path(ROOT/'artifacts/runs/deterministic_rollout_pilot900_v2')
 TRACES=OUT/'token_traces'
@@ -126,7 +126,7 @@ def main():
  with (OUT/'metadata'/lockname).open('a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);p=Progress(total=len(references),rank=rank)
   try:
-   for name in ['rollout_token_distributions.py','conditional_rollout_budget.py','fps_spatial_control.py']:
+   for name in ['rollout_token_distributions.py','rollout_cache.py','fps_spatial_control.py']:
     source=relocate_path(Path(__file__)).with_name(name);target=OUT/'code/distribution_capture'/name
     target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(source.read_bytes())
    while free_mib()<60*1024:p.update(state='waiting',stage='waiting_for_gpu',free_mib=free_mib());time.sleep(20)

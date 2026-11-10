@@ -72,7 +72,6 @@ GT를 활용한 프레임 배정은 정답 정보를 사용하는 진단이며 �
 - [Probability budget](results/rollout/probability_budget/viewer.html): LevinTS·native mass·numeric novelty 후보 생성 비교. Query×방법별512·1,024·2,048 decoder 입력 상한,미탐색 질량1% 조기 종료. 후보 생성의 pilot300 완료와 전체 후속 처리의 완료를 구분한다. 같은 viewer의 [End-to-end completion · pilot300](results/rollout/probability_budget/viewer.html?view=pilot%2F300%2Fend_to_end%2Fdetail.html)에서 모든 후보의 독립 crop 검증, 두 모델의 query-free semantic 측정, 검증 전·후 실제 최종 답변을 비교한다. 후속 계산은 pilot300의 보고서·viewer 검증 후 나머지600으로 진행한다.
 - [Deterministic rollout](results/rollout/deterministic/viewer.html): 고정 pilot300·600·900을 같은900개 원자료에서 참조한다. token distribution과 branch search도 같은 뷰에 통합했다.
 - [Stochastic rollout](results/rollout/stochastic/viewer.html): pilot300.
-- [Conditional rollout budget](results/rollout/conditional_budget/viewer.html): pilot30.
 
 확장 실행 부분의 별도 집계·보고서·출처는 제거했다. 실제 원본 응답900개는 `artifacts/runs/rollout/deterministic/pilot/900/rollouts/`에 한 번만 저장한다. HTML은 각 실험 계열의 대표 viewer에서 평가 범위와 분석을 전환한다.
 

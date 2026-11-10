@@ -6,7 +6,7 @@ os.environ['TOKENIZERS_PARALLELISM']='false'
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF','expandable_segments:True')
 import argparse,collections,datetime,fcntl,hashlib,heapq,json,math,re,subprocess,sys,threading,time,traceback
 from pathlib import Path
-from conditional_rollout_budget import Evaluator,validate_cache
+from rollout_cache import Evaluator,validate_cache
 
 ROOT=relocate_path(Path(__file__)).resolve().parents[1]
 RUN='deterministic_rollout_pilot300_v2'
@@ -107,7 +107,7 @@ def setup():
   if p.exists():assert read(p)==value
   else:write(p,value)
  manifest=[]
- for name in ['deterministic_rollout300.py','deterministic_rollout300_report.py','conditional_rollout_budget.py','fps_spatial_control.py']:
+ for name in ['deterministic_rollout300.py','deterministic_rollout300_report.py','rollout_cache.py','fps_spatial_control.py']:
   p=relocate_path(Path(__file__)).with_name(name);(OUT/'code'/name).write_bytes(p.read_bytes());manifest.append(dict(path=str(p),sha256=sha(p)))
  write(OUT/'metadata/provenance.json',dict(files=manifest,cohort_sha256=sha(COHORT),
   model_manifest_sha256=sha('/home/irteam/backbones/manifests/registry.json'),
@@ -213,10 +213,6 @@ def run(rows,p):
    write(OUT/'validation'/(row['dataset']+'_cache.json'),dict(passed=True,audits=audits))
    checked.add(row['dataset']);del ev;torch.cuda.empty_cache();ev=Evaluator(model,inputs,torch)
   result=infer(ev,proc.tokenizer,eos,p)
-  oldpath=relocate_path(ROOT/'artifacts/runs/conditional_rollout_budget_pilot30_v1/trees'/(row['sample_key']+'.json'))
-  if oldpath.exists():
-   old=read(oldpath);assert old['input_hashes']==detail['hashes']
-   assert old['greedy_ids']==result['candidates'][0]['ids'],'Greedy baseline changed'
   write(dest,dict(sample=row,input_hashes=detail['hashes'],result=result))
   done+=1;fresh+=1;counts[row['dataset']]+=1
   p.update(stage='generation',completed=done,counts=dict(counts),

@@ -9,15 +9,15 @@
 
 서로 다른 숫자 구간 수와 실제 고유 crop 수를 구분한다. Batch validation의 반복 비용도 아래 합계에 포함한다. 통계용 semantic 계산을 final 선택 비용으로 숨기지 않는다.
 
-구간 합 68342개, 고유 crop 합 65417개.
+구간 합 73450개, 고유 crop 합 70188개.
 
 | 단계 | 실제 forward 합 | 실제 입력 token 합 | Padded token 합 | CUDA 합 s | Model wall 합 s |
 |---|---:|---:|---:|---:|---:|
-| verifier | 65418 | 204241728 | 204242208 | 15493.574 | 15981.228 |
-| instruct | 15239 | 165271696 | 168749551 | 10570.773 | 11075.360 |
-| embedding | 15240 | 165337114 | 168814636 | 10519.353 | 11024.681 |
+| verifier | 70189 | 223403552 | 223404032 | 16683.458 | 17209.780 |
+| instruct | 16558 | 180881095 | 184570596 | 11371.092 | 11923.210 |
+| embedding | 16559 | 180951284 | 184640452 | 11319.324 | 11872.390 |
 
-완료 query의 후속 처리 wall 합은 68404.138s (19.001시간), query당 평균은 122.369s다. 이는 세 방법×세 예산과 semantic 진단을 공유 실행한 전체 작업량이며 단일 조건의 단독 latency가 아니다. 이 중 semantic 모델 forward wall 합은 22100.042s (6.139시간), 고유 final generation wall 합은 5476.124s (1.521시간)다. CPU 입력 준비·공유 prefill 등은 각각의 model forward wall과 구분한다. 중단 전에 저장되지 못한 작업의 비용은 아래 재개 기록의 제한을 따른다.
+완료 query의 후속 처리 wall 합은 73933.654s (20.537시간), query당 평균은 125.738s다. 이는 세 방법×세 예산과 semantic 진단을 공유 실행한 전체 작업량이며 단일 조건의 단독 latency가 아니다. 이 중 semantic 모델 forward wall 합은 23795.600s (6.610시간), 고유 final generation wall 합은 5781.615s (1.606시간)다. CPU 입력 준비·공유 prefill 등은 각각의 model forward wall과 구분한다. 중단 전에 저장되지 못한 작업의 비용은 아래 재개 기록의 제한을 따른다.
 
 
 <!-- report-part:3:end -->
@@ -28,33 +28,33 @@ Cosine은 같은 모델의 벡터끼리 비교한다. 1에 가까울수록 유�
 
 | 방법 | 예산 | Pooling | 관측 pair 수 합 | 평균 cosine (유효query n) | 평균 within−between (유효query n) | 평균 시간 그룹 수 |
 |---|---:|---|---:|---:|---:|---:|
-| levin | 512 | instruct_visual_mean | 397641 | 0.9832 (n=552) | 0.0395 (n=348) | 2.64 |
-| levin | 512 | instruct_last | 397641 | 0.9906 (n=552) | 0.0163 (n=348) | 2.64 |
-| levin | 512 | embedding_last | 397641 | 0.9064 (n=552) | 0.1921 (n=348) | 2.64 |
-| levin | 1024 | instruct_visual_mean | 1375332 | 0.9827 (n=556) | 0.0373 (n=366) | 3.32 |
-| levin | 1024 | instruct_last | 1375332 | 0.9902 (n=556) | 0.0156 (n=366) | 3.32 |
-| levin | 1024 | embedding_last | 1375332 | 0.9017 (n=556) | 0.1873 (n=366) | 3.32 |
-| levin | 2048 | instruct_visual_mean | 4365811 | 0.9825 (n=558) | 0.0362 (n=369) | 4.01 |
-| levin | 2048 | instruct_last | 4365811 | 0.9899 (n=558) | 0.0152 (n=369) | 4.01 |
-| levin | 2048 | embedding_last | 4365811 | 0.8988 (n=558) | 0.1848 (n=369) | 4.01 |
-| native_mass | 512 | instruct_visual_mean | 811665 | 0.9826 (n=559) | 0.0370 (n=381) | 4.17 |
-| native_mass | 512 | instruct_last | 811665 | 0.9902 (n=559) | 0.0154 (n=381) | 4.17 |
-| native_mass | 512 | embedding_last | 811665 | 0.9017 (n=559) | 0.1866 (n=381) | 4.17 |
-| native_mass | 1024 | instruct_visual_mean | 2557733 | 0.9824 (n=559) | 0.0364 (n=381) | 4.90 |
-| native_mass | 1024 | instruct_last | 2557733 | 0.9900 (n=559) | 0.0152 (n=381) | 4.90 |
-| native_mass | 1024 | embedding_last | 2557733 | 0.8995 (n=559) | 0.1854 (n=381) | 4.90 |
-| native_mass | 2048 | instruct_visual_mean | 7670439 | 0.9823 (n=559) | 0.0355 (n=381) | 5.74 |
-| native_mass | 2048 | instruct_last | 7670439 | 0.9899 (n=559) | 0.0149 (n=381) | 5.74 |
-| native_mass | 2048 | embedding_last | 7670439 | 0.8979 (n=559) | 0.1832 (n=381) | 5.74 |
-| numeric_novelty | 512 | instruct_visual_mean | 812002 | 0.9826 (n=559) | 0.0370 (n=381) | 4.17 |
-| numeric_novelty | 512 | instruct_last | 812002 | 0.9902 (n=559) | 0.0154 (n=381) | 4.17 |
-| numeric_novelty | 512 | embedding_last | 812002 | 0.9017 (n=559) | 0.1866 (n=381) | 4.17 |
-| numeric_novelty | 1024 | instruct_visual_mean | 2557418 | 0.9824 (n=559) | 0.0364 (n=381) | 4.89 |
-| numeric_novelty | 1024 | instruct_last | 2557418 | 0.9900 (n=559) | 0.0152 (n=381) | 4.89 |
-| numeric_novelty | 1024 | embedding_last | 2557418 | 0.8995 (n=559) | 0.1855 (n=381) | 4.89 |
-| numeric_novelty | 2048 | instruct_visual_mean | 7667302 | 0.9823 (n=559) | 0.0355 (n=381) | 5.75 |
-| numeric_novelty | 2048 | instruct_last | 7667302 | 0.9899 (n=559) | 0.0149 (n=381) | 5.75 |
-| numeric_novelty | 2048 | embedding_last | 7667302 | 0.8979 (n=559) | 0.1831 (n=381) | 5.75 |
+| levin | 512 | instruct_visual_mean | 420165 | 0.9830 (n=581) | 0.0396 (n=370) | 2.69 |
+| levin | 512 | instruct_last | 420165 | 0.9904 (n=581) | 0.0164 (n=370) | 2.69 |
+| levin | 512 | embedding_last | 420165 | 0.9060 (n=581) | 0.1934 (n=370) | 2.69 |
+| levin | 1024 | instruct_visual_mean | 1492959 | 0.9826 (n=585) | 0.0375 (n=388) | 3.40 |
+| levin | 1024 | instruct_last | 1492959 | 0.9900 (n=585) | 0.0157 (n=388) | 3.40 |
+| levin | 1024 | embedding_last | 1492959 | 0.9014 (n=585) | 0.1884 (n=388) | 3.40 |
+| levin | 2048 | instruct_visual_mean | 4741749 | 0.9823 (n=587) | 0.0364 (n=391) | 4.15 |
+| levin | 2048 | instruct_last | 4741749 | 0.9898 (n=587) | 0.0154 (n=391) | 4.15 |
+| levin | 2048 | embedding_last | 4741749 | 0.8985 (n=587) | 0.1858 (n=391) | 4.15 |
+| native_mass | 512 | instruct_visual_mean | 861586 | 0.9824 (n=588) | 0.0373 (n=403) | 4.24 |
+| native_mass | 512 | instruct_last | 861586 | 0.9901 (n=588) | 0.0156 (n=403) | 4.24 |
+| native_mass | 512 | embedding_last | 861586 | 0.9015 (n=588) | 0.1885 (n=403) | 4.24 |
+| native_mass | 1024 | instruct_visual_mean | 2776664 | 0.9823 (n=588) | 0.0366 (n=403) | 5.03 |
+| native_mass | 1024 | instruct_last | 2776664 | 0.9898 (n=588) | 0.0154 (n=403) | 5.03 |
+| native_mass | 1024 | embedding_last | 2776664 | 0.8993 (n=588) | 0.1867 (n=403) | 5.03 |
+| native_mass | 2048 | instruct_visual_mean | 8387572 | 0.9822 (n=588) | 0.0357 (n=403) | 5.95 |
+| native_mass | 2048 | instruct_last | 8387572 | 0.9897 (n=588) | 0.0151 (n=403) | 5.95 |
+| native_mass | 2048 | embedding_last | 8387572 | 0.8977 (n=588) | 0.1845 (n=403) | 5.95 |
+| numeric_novelty | 512 | instruct_visual_mean | 861861 | 0.9824 (n=588) | 0.0373 (n=403) | 4.24 |
+| numeric_novelty | 512 | instruct_last | 861861 | 0.9901 (n=588) | 0.0156 (n=403) | 4.24 |
+| numeric_novelty | 512 | embedding_last | 861861 | 0.9014 (n=588) | 0.1885 (n=403) | 4.24 |
+| numeric_novelty | 1024 | instruct_visual_mean | 2776430 | 0.9823 (n=588) | 0.0366 (n=403) | 5.02 |
+| numeric_novelty | 1024 | instruct_last | 2776430 | 0.9898 (n=588) | 0.0154 (n=403) | 5.02 |
+| numeric_novelty | 1024 | embedding_last | 2776430 | 0.8993 (n=588) | 0.1868 (n=403) | 5.02 |
+| numeric_novelty | 2048 | instruct_visual_mean | 8384740 | 0.9822 (n=588) | 0.0357 (n=403) | 5.96 |
+| numeric_novelty | 2048 | instruct_last | 8384740 | 0.9897 (n=588) | 0.0151 (n=403) | 5.96 |
+| numeric_novelty | 2048 | embedding_last | 8384740 | 0.8977 (n=588) | 0.1845 (n=403) | 5.96 |
 
 <!-- report-part:4:end -->
 <!-- report-part:5:begin -->

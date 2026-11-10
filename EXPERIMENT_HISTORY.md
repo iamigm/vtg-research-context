@@ -3102,3 +3102,41 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
+
+## 2026-11-10T19:41:58.329071+09:00
+
+원본 파일 직접 관찰: 18개 실행, 744개 코드·의존성 파일. 이전 commit: 1600526368cafe4f9f9e572a5eaab1810380642c.
+
+추가 1 / 변경 14 / 현재 원본에서 사라짐 16. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/rollout_cache.py
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/deterministic_rollout300.py
+- code/experiments/zero-shot/_lib/rollout_method_docs.py
+- code/experiments/zero-shot/_lib/rollout_reconsideration.py
+- code/experiments/zero-shot/_lib/rollout_token_distributions.py
+- reports/experiments/zero-shot/artifacts/README.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
+- code/experiments/_lib/build_index.py
+- code/experiments/_lib/family_catalog.py
+- code/experiments/_lib/organize_completed_rollouts.py
+- code/experiments/_lib/report_appendices.py
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+- 원본 부재: code/experiments/zero-shot/_lib/conditional_rollout_analysis.py
+- 원본 부재: code/experiments/zero-shot/_lib/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/_lib/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_analysis.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/conditional_rollout_budget.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/code/fps_spatial_control.py
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metadata/status.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/conditional_budget/pilot/30/metrics/budget.csv
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/ANALYSIS.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/APPENDIX.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/NEXT_EXPERIMENT.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/REPORT.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/SPEC.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/30/STRATA.md
+- 원본 부재: reports/experiments/zero-shot/results/rollout/conditional_budget/pilot/overview/REPORT.md

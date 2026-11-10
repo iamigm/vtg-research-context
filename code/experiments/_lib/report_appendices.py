@@ -43,7 +43,7 @@ def policy(path):
         return r'^예산 비교|^연산 비용과 성능 대비 비용|^Independent trace work|^실제 시도|^사례 탐색'
     if '/shared/design_principles/' in rel:
         return r'^1\.|^2\.|^10\.|^12\.|^실행 명세'
-    if '/rollout/stochastic/' in rel or '/rollout/conditional_budget/' in rel:
+    if '/rollout/stochastic/' in rel:
         return r'.*'  # Only the long method block moves out of these reports.
     return next((rule for prefix, rule in POLICIES if prefix in rel), None)
 

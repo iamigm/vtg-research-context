@@ -5,7 +5,6 @@ from result_layout import ROOT,relocate_path,rewrite_document,rewrite_reference,
 P=ROOT/'zero-shot';STATE=ROOT/'artifacts/maintenance/rollout_views_20261104'
 RUNS={
  'timelens_rollout':'rollout/stochastic/pilot/300',
- 'conditional_rollout_budget_pilot30_v1':'rollout/conditional_budget/pilot/30',
  'deterministic_rollout_pilot300_v2':'rollout/deterministic/v2/pilot/300',
  'deterministic_rollout_pilot600_v2':'rollout/deterministic/v2/pilot/600',
  'deterministic_rollout_pilot900_v2':'rollout/deterministic/v2/pilot/900',

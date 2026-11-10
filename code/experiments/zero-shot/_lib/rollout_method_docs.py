@@ -643,74 +643,8 @@ $$
 ''')])
 
 
-CONDITIONAL = r'''
-## Shared pipeline — start에 조건화된 end 탐색 비용 진단
-
-이 실험은 고정 pilot300에서 데이터셋별 앞선 10개, 총 30 query를 사용하는 **예산 진단**이다. 모델은 Qwen3-VL-8B-Instruct, 2 FPS, spatial target 100,352 pixels다. start와 end를 독립적인 두 분포로 다루지 않고, start·delimiter를 포함한 정확한 prefix마다 end distribution을 따로 계산했다.
-
-greedy로 생성한 답에서 첫 숫자 직전까지를 고정 anchor로 둔다. 이 절의 모든 probability는 그 anchor가 이미 주어졌다는 조건부 확률이다. anchor 자체를 생성할 확률은 곱하지 않는다.
-
-탐색 grammar는 `number - number seconds`다. number는 음수가 아닌 정수와 선택적인 소수 첫째 자리 1개이며, 숫자 자리 수 상한은 $\max(4,\operatorname{digits}(\lceil D\rceil))$다. `-` 전후 whitespace는 각 최대 2개, suffix는 최대 32 token이다. 이 diagnostic grammar는 seconds만 허용한다. 후속 일반 응답 실험의 `MM:SS` parsing 지원을 이 실행에 소급하지 않는다.
-
-각 prefix에서 원래 full-vocabulary softmax를 계산하고 grammar에 맞는 token을 child로 만든다. **grammar 안의 token들끼리 정규화하지 않는다.** grammar를 벗어난 probability는 별도 합계로 남긴다. terminal은 grammar의 `seconds`까지 완성된 prefix이며 EOS를 요구하지 않는다. 따라서 여기서 terminal probability는 EOS 포함 완성 assistant answer probability와 다르다.
-
-`-`가 처음 포함된 token까지의 정확한 token ID prefix를 start key로 저장한다. token 하나가 delimiter와 end의 일부까지 포함하면 그것도 별도 start key다. 같은 숫자 start라도 다른 whitespace·tokenization이면 end 조건이 달라질 수 있으므로 합치지 않는다. 숫자값으로 합치는 것은 사후 표시뿐이다.
-
-$\pi(u)$는 anchor 이후 prefix $u$의 확률 곱, $\mathcal F$는 아직 확장하지 않은 prefix, $\mathcal L$은 완성 terminal 집합이다. 매 node expansion은 다음-token distribution 하나를 조회하고 그 child들을 만든다. 예산은 $8,16,32,64,128,256,512$회 expansion이며 두 정책에 같은 checkpoint를 사용한다. decoder input token·forward call·시간은 별도로 측정한다.
-
-## Expansion policies — 어떤 prefix를 다음으로 열 것인가
-'''
 
 
-def conditional_methods():
-    return CONDITIONAL + '\n'.join([
-        toggle('joint-best-first', 'Best-first search — prefix probability 순으로 확장', r'''
-실험 식별자: `joint`.
-
-$$
-u^*=\operatorname*{arg\,max}_{u\in\mathcal F}\pi(u).
-$$
-
-확률이 큰 prefix부터 확장한다. start에 속한 end를 이미 많이 보았는지는 고려하지 않는다. joint start/end 경로의 probability가 높은 부분을 빠르게 보는 장점이 있지만, 높은 확률의 한 start 아래로 계산이 몰릴 수 있다. grammar와 길이 제한 밖으로는 탐색하지 않는다.
-'''),
-        toggle('balanced-priority', 'Visit-count penalty — 같은 start 아래 반복 확장에 penalty', r'''
-실험 식별자: `balanced`. $k(u)$는 prefix의 exact start key, $n_k$는 그 key 아래 이미 수행한 expansion 수다.
-
-$$
-u^*=\operatorname*{arg\,max}_{u\in\mathcal F}
-\begin{cases}\pi(u)&k(u)\text{ not yet defined},\\
-\pi(u)/(1+n_{k(u)})&\text{otherwise}.\end{cases}
-$$
-
-start가 아직 완성되지 않았으면 원래 prefix probability를 쓴다. start가 정해진 뒤에는 같은 조건 아래 end를 많이 확장할수록 우선순위를 낮춘다. 모든 start를 균등하게 탐색한다는 보장은 없고, 낮은 probability의 start는 여전히 보지 못할 수 있다. 이는 이번 실행의 우선순위 heuristic이며 별도의 표준 알고리즘 이름을 붙이지 않는다.
-'''),
-        toggle('probability-accounting', 'Probability accounting — 탐색하지 못한 부분까지 구분하는 방법', r'''
-중복되지 않는 prefix frontier를 유지하므로 다음 probability 보존 관계를 검사했다. $R_{\mathrm{grammar}}$는 grammar 밖으로 간 경로, $R_{\mathrm{length}}$는 32 token 제한에 걸린 경로의 확률 합이다.
-
-$$
-\sum_{l\in\mathcal L}\pi(l)+\sum_{u\in\mathcal F}\pi(u)+R_{\mathrm{grammar}}+R_{\mathrm{length}}=1.
-$$
-
-코드 필드 `start_mass`는 지금까지 delimiter에 도달한 exact start key들의 prefix probability 합 $S$, `joint_mass`는 start/end 모두 grammar 끝까지 완성한 terminal probability 합 $J$다. 이 숫자를 정답 비율로 해석하지 않는다.
-
-$$
-S=\sum_{k\in\mathcal K_{\mathrm{found}}}\pi(k),\qquad
-J=\sum_{l\in\mathcal L}\pi(l),\qquad
-1-J=(1-S)+(S-J).
-$$
-
-$1-S$는 아직 delimiter까지 찾지 못했거나 grammar 밖으로 간 쪽, $S-J$는 delimiter까지는 도달했지만 그 뒤 end 완성이 아직 안 됐거나 제한으로 버린 쪽의 probability다. 예를 들어 $S$만 높고 $J$가 낮으면 start 값을 몇 개 찾았다는 사실만으로 end까지 충분히 검토했다고 말할 수 없다. 서로 다른 start의 종료 분포를 계산하는 추가 비용이 여기서 드러난다.
-
-30 query의 terminal 성능은 $0\le s<e\le D$인 interval만 유효로 평가했다. 누적 probability 0.9에 도달할 후보 수 $K_{90}$은 발견한 terminal만으로는 계산이 안 될 수 있으며, 부족하면 미해결로 남긴다. 현재 찾은 후보 수를 전체 분포의 최소 필요 예산으로 확정하지 않는다.
-
-두 exact start key의 end distribution 차이는 total variation distance로 분석했다. 현재 관측한 확률들의 L1 차이가 $d$, 두 분포에서 아직 확인하지 못한 확률 합이 $R$이면 다음 범위만 보고한다.
-
-$$
-\max\{0,(d-R)/2\}\le\mathrm{TV}\le\min\{1,(d+R)/2\}.
-$$
-
-end의 미탐색 확률을 0으로 채워 서로 다른 분포라고 단정하지 않는다. 구현 근거는 `_lib/conditional_rollout_budget.py`의 `grammar`, `tree`, `Evaluator`이며, conditional distribution 진단은 `_lib/conditional_rollout_analysis.py`다.
-''')])
 
 
 STOCHASTIC = r'''
@@ -770,7 +704,6 @@ FAMILIES = {
     'event_tree_search': event_methods,
     'deterministic': deterministic_methods,
     'reconsideration': reconsideration_methods,
-    'conditional_budget': conditional_methods,
     'stochastic': stochastic_methods,
 }
 
@@ -789,7 +722,6 @@ def formalize(text, family, count=None, spec=False):
         title = {'event_tree_search': 'Event proposal and tree search',
                  'deterministic': 'Deterministic rollout',
                  'reconsideration': 'Rollout reconsideration',
-                 'conditional_budget': 'Conditional rollout budget',
                  'stochastic': 'Stochastic rollout'}[family]
         return f'# {title} · pilot{count} · Methods\n\n' + block
     pattern = re.compile(re.escape(BEGIN) + r'.*?' + re.escape(END) + r'\n?', re.S)
@@ -814,7 +746,7 @@ def refresh_existing():
     changed = []
     for family, counts in [('event_tree_search', [300, 600, 900]),
                            ('deterministic', [300, 600, 900]),
-                           ('conditional_budget', [30]), ('stochastic', [300])]:
+                           ('stochastic', [300])]:
         for count in counts:
             folder = ROOT / 'results/rollout' / family / 'pilot' / str(count)
             for name in ['REPORT.md', 'SPEC.md']:
