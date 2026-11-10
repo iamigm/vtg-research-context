@@ -3092,3 +3092,13 @@
 - code/experiments/_lib/family_catalog.py
 - code/experiments/_lib/family_view.js
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-10T18:00:00.004562+09:00
+
+원본 파일 직접 관찰: 18개 실행, 749개 코드·의존성 파일. 이전 commit: 0f5331fec5dd50b54da022ca1d9f74dcc37f33e2.
+
+추가 0 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
