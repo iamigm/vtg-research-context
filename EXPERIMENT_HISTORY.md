@@ -2944,3 +2944,18 @@
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/REPORT.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/overview/REPORT.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
+
+## 2026-11-10T09:00:00.004296+09:00
+
+원본 파일 직접 관찰: 18개 실행, 745개 코드·의존성 파일. 이전 commit: a7f8f22b13160d9c30f5dc98adec0a44ae3d0024.
+
+추가 2 / 변경 6 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/SPEC.md
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/end_to_end/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/overview/REPORT.md
