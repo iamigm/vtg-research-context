@@ -1,9 +1,13 @@
+<!-- report-appendix:APPENDIX.md parts=10 -->
+<!-- report-part:0:begin -->
 # Frame–query similarity: full 9,404 · 전체 full9404 (9,404질문)
 
 완료: 2026-10-30T10:20:49.509605+09:00
 
 [샘플별 interactive HTML](report.html) · [전체 샘플 지표](../../../../../artifacts/runs/frame_query/cosine_2fps/full/9404/sample_metrics.json) · [CSV](../../../../../artifacts/runs/frame_query/cosine_2fps/full/9404/sample_metrics.csv) · [요약 JSON](../../../../../artifacts/runs/frame_query/cosine_2fps/full/9404/summary.json)
 
+<!-- report-part:0:end -->
+<!-- report-part:1:begin -->
 ## 설정
 
 - 고정 manifest의 전체 9,404쌍을 사용했다. Dataset별 개수: {'charades-timelens': 3363, 'activitynet-timelens': 4500, 'qvhighlights-timelens': 1541}. 재추출하지 않았다.
@@ -20,6 +24,8 @@
 | openai/clip-vit-large-patch14 | `32bd64288804d66eefd0ccbe215aa642df71cc41` | `/home/irteam/backbones/models/clip-vit-large-patch14` |
 | Qwen/Qwen3-VL-Embedding-8B | `2c4565515e0f265c6511776e7193b22c0968ddc7` | `/home/irteam/backbones/models/Qwen3-VL-Embedding-8B` |
 
+<!-- report-part:1:end -->
+<!-- report-part:2:begin -->
 ## 지표 정의
 
 - Positive: frame PTS가 GT 구간 합집합 `[start,end)` 안에 있음. AP는 query 내부 frame 순위를 평가하고 sklearn average_precision_score로 계산한다. PR curve의 사다리꼴 면적과 다르다. 정확한 score tie는 AP에서 같은 threshold로 묶는다.
@@ -30,6 +36,8 @@
 - p_i = softmax(cosine_i / τ). GT mass = Σ_GT p_i. Uniform baseline = N_GT/N. Lift = mass/baseline. 보고되는 mean lift는 샘플별 lift의 평균이며 평균 mass를 평균 baseline으로 나눈 값이 아니다.
 - GT sampled frame이 0이면 AP/rank/lift는 정의되지 않아 집계에서 제외하고 개수를 명시한다. GT 질량 자체는 0으로 저장한다. 전체 manifest를 확인한다.
 
+<!-- report-part:2:end -->
+<!-- report-part:3:begin -->
 ## 순위 성능
 
 | Dataset | Model | N / valid | mAP ↑ | MRR ↑ | Median first GT rank ↓ | Mean first GT rank ↓ | Mean first GT percentile ↓ |
@@ -43,6 +51,8 @@
 | qvhighlights-timelens | clip | 1541 / 1541 | 0.6334 | 0.7367 | 1.0 | 5.81 | 0.0161 |
 | qvhighlights-timelens | qwen | 1541 / 1541 | 0.7058 | 0.8012 | 1.0 | 4.41 | 0.0114 |
 
+<!-- report-part:3:end -->
+<!-- report-part:4:begin -->
 ## GT mass·uniform baseline·lift
 
 Temperature는 calibration된 확률이 아니다. 같은 τ라도 모델별 score scale 차이가 남는다. 주 지표는 순위 기반 mAP이며, 아래 τ=.07은 시각화 기본값으로 사전 고정했다.
@@ -58,34 +68,8 @@ Temperature는 calibration된 확률이 아니다. 같은 τ라도 모델별 sco
 | qvhighlights-timelens | clip | 0.3087 | 0.2092 | 2.1409 |
 | qvhighlights-timelens | qwen | 0.5648 | 0.2092 | 7.4911 |
 
-### Temperature sensitivity (all 9,404)
-
-| τ | Model | Mean GT mass | Mean uniform baseline | Mean lift |
-|---:|---|---:|---:|---:|
-| 0.01 | clip | 0.4046 | 0.1890 | 5.7380 |
-| 0.01 | qwen | 0.5130 | 0.1890 | 9.0267 |
-| 0.03 | clip | 0.2949 | 0.1890 | 2.7920 |
-| 0.03 | qwen | 0.4604 | 0.1890 | 7.4101 |
-| 0.07 | clip | 0.2318 | 0.1890 | 1.5414 |
-| 0.07 | qwen | 0.3536 | 0.1890 | 4.2219 |
-| 0.1 | clip | 0.2178 | 0.1890 | 1.3394 |
-| 0.1 | qwen | 0.3059 | 0.1890 | 2.9760 |
-| 0.3 | clip | 0.1979 | 0.1890 | 1.0951 |
-| 0.3 | qwen | 0.2227 | 0.1890 | 1.4010 |
-| 1.0 | clip | 0.1916 | 0.1890 | 1.0269 |
-| 1.0 | qwen | 0.1982 | 0.1890 | 1.0979 |
-
-## GT 비율별 순위 성능
-
-| GT fraction | Model | N / valid | mAP | MRR |
-|---|---|---:|---:|---:|
-| GT<10% | clip | 5179 / 5179 | 0.3052 | 0.4113 |
-| GT<10% | qwen | 5179 / 5179 | 0.3813 | 0.5010 |
-| 10%<=GT<30% | clip | 2474 / 2474 | 0.4958 | 0.6399 |
-| 10%<=GT<30% | qwen | 2474 / 2474 | 0.5511 | 0.6938 |
-| GT>=30% | clip | 1751 / 1751 | 0.8179 | 0.8837 |
-| GT>=30% | qwen | 1751 / 1751 | 0.8341 | 0.8930 |
-
+<!-- report-part:4:end -->
+<!-- report-part:7:begin -->
 ## 검증 및 한계
 
 - [검증 결과](../../../../../artifacts/runs/frame_query/cosine_2fps/full/9404/validation.json): 9,404쌍 × 두 모델의 timestamps·score·embedding norm·독립 metric 재계산과 mass 합계 확인.
@@ -94,40 +78,7 @@ Temperature는 calibration된 확률이 아니다. 같은 τ라도 모델별 sco
 - CLIP과 Qwen은 모델 크기, 학습 데이터, 이미지 전처리와 text template가 다르다. 결과는 이 checkpoint와 입력 설정 사이의 비교다.
 - Softmax는 주어진 영상 안에서만 정규화되며 query relevance가 없는 영상에서도 합이 1이다. GT mass를 절대적인 정답 확률로 해석하지 않는다.
 
-## 재실행
+<!-- report-part:7:end -->
+## Appendix
 
-공유 Python: `/home/irteam/experiments/_shared/timelens/.venv/bin/python`
-
-```bash
-cd /home/irteam/experiments/similarity
-export SIMILARITY_RUN=full_9404_v1
-export SIMILARITY_MANIFEST=/home/irteam/experiments/zero-shot/artifacts/common/predictions/legacy/qwen3/samples.json
-PY=/home/irteam/experiments/_shared/timelens/.venv/bin/python
-$PY _lib/download_models.py
-$PY _lib/prepare.py
-$PY _lib/infer.py --model clip --batch-size 256
-$PY _lib/infer.py --model qwen --batch-size 128
-$PY _lib/report.py
-$PY _lib/validate.py
-```
-
-Embedding 캐시가 있으면 재사용한다. 입력·설정을 바꾸는 실험은 별도 output version으로 분리해야 한다.
-
-## 인접 frame embedding 유사도
-
-`a_i = cos(f_(i-1), f_i)` (i=1,…,N−1). Query와 무관한 frame–frame cosine이다. 저장된 이미지 embedding을 사용하며 모델 추론은 추가로 수행하지 않았다.
-
-그래프의 점은 두 frame 중 나중 timestamp t_i에 표시한다. Hover에는 이전·현재 timestamp와 시간 간격을 표시하고, 클릭하면 두 frame을 함께 보여준다. 첫 frame에는 이전 frame이 없어 점이 없다. 연결선은 인접 측정값을 이은 표시이며 사이 시점에서 계산한 값이 아니다.
-
-아래 평균은 각 video–query 샘플에서 인접 pair cosine을 평균한 뒤 샘플에 동일 가중치를 부여한다. 같은 영상의 다른 query는 동일한 frame–frame 곡선을 공유한다. FPS가 다르면 인접 pair의 시간 간격도 달라진다. 기존 frame–query 지표 및 시간·FLOPs 측정은 유지한다.
-
-| Dataset | Model | N | Mean adjacent cosine | Mean pair count |
-|---|---|---:|---:|---:|
-| all | clip | 9404 | 0.933985 | 203.4 |
-| all | qwen | 9404 | 0.893098 | 203.4 |
-| activitynet-timelens | clip | 4500 | 0.933011 | 278.5 |
-| activitynet-timelens | qwen | 4500 | 0.891741 | 278.5 |
-| charades-timelens | clip | 3363 | 0.944960 | 59.2 |
-| charades-timelens | qwen | 3363 | 0.903893 | 59.2 |
-| qvhighlights-timelens | clip | 1541 | 0.912877 | 298.4 |
-| qvhighlights-timelens | qwen | 1541 | 0.873503 | 298.4 |
+[상세 방법·조건별 결과·검증](APPENDIX.md)는 상단 `appendix` 메뉴에서도 열 수 있다.

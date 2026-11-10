@@ -20,8 +20,10 @@
 - `check_index_preferences.py`: 실제 포인터 드래그, 저장·복원, 상단 고정, 검색, 새 탭, 모바일, 저장 불가 시 동작, 전체 상세 페이지 테마 검증. 공용 브라우저 의존성에 맞춰 `/usr/bin/python3`로 실행한다.
 
 - `history_controls.js`: 실제 브라우저 뒤로/앞으로 이동, 홈, 화면별 새로고침. Chrome의 이동 기록에 따라 사용 가능한 화살표만 활성화한다. index는 목록 문서만, 계열 화면은 선택한 결과/보고서만, 비교 화면은 양쪽 결과만 갱신한다. 열린 다른 탭에 새로고침을 전파하지 않는다.
-- 계열 화면 상단은 이동·홈·새로고침, `실험` 패널 토글, `결과`/`보고서` 탭, 원본 MD와 새 탭 버튼으로 구성한다. `실험` 패널은 기본으로 접히는 전체 실험 북마크이며, 현재 계열의 범위·분석·참고 문서는 본문 상단에서 직접 선택한다. 같은 분석의 결과/보고서는 하나의 선택 항목으로 묶는다. iframe 로드는 별도 이동 기록을 추가하지 않는다.
+- 계열 화면 상단은 이동·홈·새로고침, `실험` 패널 토글, `결과`/`보고서` 탭, 원본 MD와 새 탭 버튼으로 구성한다. `실험` 패널은 기본으로 접히는 전체 실험 북마크이며, 현재 계열의 범위·분석·appendix 문서는 본문 상단에서 직접 선택한다. 같은 분석의 결과/보고서는 하나의 선택 항목으로 묶는다. iframe 로드는 별도 이동 기록을 추가하지 않는다.
 - `check_view_controls.py`: 결과/보고서 전환, 키보드 탭 조작, 페이지 안/밖 뒤로·앞으로 이동, 새 탭의 이동 기록 경계, 모바일 검증. 최신 기록은 `../artifacts/maintenance/view_controls_validation.json`이다.
 
 - `family_bookmarks.js`: 공통 family catalog를 참조하는 전체 프로젝트·계열 탐색. index의 프로젝트 고정·정렬을 공유하고 검색·현재 계열 표시·새 탭 열기를 제공한다.
-- `check_bookmark_refresh.py`: 전체 실험 접근성, 고정·정렬·검색, 범위·분석·참고 문서 전환, index/실험 새로고침 독립성, 선택 상태 유지와 모바일 검증. 최신 결과는 `../artifacts/maintenance/bookmark_refresh_validation.json`에 기록한다.
+- `check_bookmark_refresh.py`: 전체 실험 접근성, 고정·정렬·검색, 범위·분석·appendix 문서 전환, index/실험 새로고침 독립성, 선택 상태 유지와 모바일 검증. 최신 결과는 `../artifacts/maintenance/bookmark_refresh_validation.json`에 기록한다.
+
+- `report_appendices.py`: 의미별 section 선택으로 핵심 MD와 `APPENDIX.md`를 분리한다. `build_index.py`에서 실행하며 모든 원문 section·수치·링크를 순서 주석으로 보존한다. 기존 상세 MD도 대표 뷰의 `appendix` 메뉴에서 탐색한다.

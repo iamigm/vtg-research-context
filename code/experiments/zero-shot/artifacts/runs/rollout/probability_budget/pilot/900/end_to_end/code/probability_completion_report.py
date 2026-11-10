@@ -58,7 +58,7 @@ def report():
    proposal_gate=PARENT/'validation'/f'pilot{count}.json'
    if proposal_gate.exists():
     record=read(proposal_gate);record.update(verified_scope='candidate_proposal_only',full_pipeline_complete=True,end_to_end_validation=f'end_to_end/validation/pilot{count}.json');write(proposal_gate,record)
-  lines=[f'# End-to-end completion · pilot{count}','',f'후속 계산 완료 {len(data)} / {count} query. 보고서·viewer 최종 검증: '+('통과' if verified else '대기 중')+'. 후보 생성의 완료 수와 구분한다.','', '## 최종 답변의 실제 성능','','검증 모델이 고른 구간(verified_selection), 후보만 받은 최종 생성(proposal_only), 검증 점수까지 받은 최종 생성(reviewed)을 구분한다. mIoU와 R은 높을수록 좋으며 괄호는 같은 query의 greedy 대비Δpp다. Candidate oracle은 GT를 본 후보 품질 진단이며 final answer가 아니다.','', '| 방법 | 예산 | 결과 | n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |','|---|---:|---|---:|---:|---:|---:|---:|',f'| greedy | — | 기준 답변 | {len(data)} | '+mcell(base,base)+' |']
+  lines=[f'# End-to-end completion · pilot{count}','',f'후속 계산 완료 {len(data)} / {count} query. 보고서·viewer 최종 검증: '+('통과' if verified else '대기 중')+'. 후보 생성의 완료 수와 구분한다.','', '[방법·예산별 추가 연산](../APPENDIX_COMPUTE.md)', '', '## 최종 답변의 실제 성능','','검증 모델이 고른 구간(verified_selection), 후보만 받은 최종 생성(proposal_only), 검증 점수까지 받은 최종 생성(reviewed)을 구분한다. mIoU와 R은 높을수록 좋으며 괄호는 같은 query의 greedy 대비Δpp다. Candidate oracle은 GT를 본 후보 품질 진단이며 final answer가 아니다.','', '| 방법 | 예산 | 결과 | n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |','|---|---:|---|---:|---:|---:|---:|---:|',f'| greedy | — | 기준 답변 | {len(data)} | '+mcell(base,base)+' |']
   for method in METHODS:
    for budget in BUDGETS:
     key=f'{method}:{budget}'
@@ -93,14 +93,19 @@ def report():
   recovery=OUT/'metadata/recovery.json'
   if recovery.exists():
    event=read(recovery);lines+=['','## 중단·재개 기록','',f'완료된 {event["completed_before"]}개 query를 보존하고 {event["resume_key"]}부터 재개했다. 후보1개인 조건의 빈 pair mask 처리 오류를 수정했으며 과거 다중 후보 통계는 그대로다. 해당 query에서 저장되지 못했던 semantic 계산은 다시 실행했다. 위 비용 합은 checkpoint에 남은 계산 기준이며, 중단 전에 저장되지 못한 semantic 작업의 CUDA 비용까지 복원한 수치가 아니다. 전체 worker 경과 시간에는 중단 전 작업 시간도 포함한다. 이후부터 모델별 scalar checkpoint를 저장해 재개 시 완료된 모델을 반복하지 않는다.','']
-  lines+=['','## 해석 범위','','본 실험은 모든 후보의 독립 영상 검증과 실제 final generation을 수행한다. 후속 계산이 완료되지 않은 query를 최종 성능 평균에 넣지 않는다. Semantic은 진단 전용이며 pruning·후보 선정·score에 사용하지 않는다. 관측 interval entropy·variance·MI는 완성된 valid descendant에 조건부이며 미탐색 분포의 정확한 값이 아니다. 비용은 동시 실행 환경에서의 실제 측정이며 FLOPs 또는 전용 GPU latency와 동일시하지 않는다.','', '[실행 명세·지표 정의·공개 구현 출처](SPEC.md)']
+  lines+=['','## 해석 범위','','본 실험은 모든 후보의 독립 영상 검증과 실제 final generation을 수행한다. 후속 계산이 완료되지 않은 query를 최종 성능 평균에 넣지 않는다. Semantic은 진단 전용이며 pruning·후보 선정·score에 사용하지 않는다. 관측 interval entropy·variance·MI는 완성된 valid descendant에 조건부이며 미탐색 분포의 정확한 값이 아니다. 비용은 동시 실행 환경에서의 실제 측정이며 FLOPs 또는 전용 GPU latency와 동일시하지 않는다.','', '[실행 명세·지표 정의·공개 구현 출처](SPEC.md) · [방법·예산별 추가 연산](../APPENDIX_COMPUTE.md)']
   (result/'REPORT.md').write_text('\n'.join(lines)+'\n');(result/'SPEC.md').write_text(specs(count));web=OUT/'web';web.mkdir(exist_ok=True)
+  sys.path.insert(0,str(ROOT.parent/'_lib'))
+  from report_appendices import split_report
+  split_report(result/'REPORT.md')
   for suffix in ('js','css'):
    source=Path(__file__).with_name('probability_completion_viewer.'+suffix);target=web/('viewer.'+suffix);tmp=target.with_name(target.name+'.tmp');tmp.write_bytes(source.read_bytes());tmp.replace(target)
   template=Path(__file__).with_name('probability_completion_viewer.html').read_text();cfg=dict(store=os.path.relpath(OUT,result),parent=os.path.relpath(PARENT,result),catalog=os.path.relpath(artifact/'web/samples.json',result),root=os.path.relpath(ROOT.parent,result))
   replaces={'__COUNT__':str(count),'__THEME__':os.path.relpath(ROOT.parent/'_lib/experiment_theme.css',result),'__STYLE__':os.path.relpath(web/'viewer.css',result)+'?sha='+sha(web/'viewer.css')[:12],'__SCRIPT__':os.path.relpath(web/'viewer.js',result)+'?sha='+sha(web/'viewer.js')[:12],'__CONFIG__':json.dumps(cfg)}
   for old,new in replaces.items():template=template.replace(old,new)
   (result/'detail.html').write_text(template)
+ from probability_compute_appendix import build as build_compute_appendix
+ build_compute_appendix()
  print('END_TO_END_REPORT',active,len(data),flush=True)
 if __name__=='__main__':
  import fcntl

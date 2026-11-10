@@ -1,9 +1,13 @@
+<!-- report-appendix:APPENDIX.md parts=7 -->
+<!-- report-part:0:begin -->
 # 기존 zero-shot 전체 집계 · 전체 full9404 · pilot300 (질문 수)
 
 집계 시각: 2026-11-02T19:28:59.795752+09:00. GPU 추론 없이 기존 응답 39,116개를 재채점하고, 별도 sampling rollout 6,000개는 기존 검증된 통계를 통합했다.
 
 동일 실행의 response·top30 trace·attention 사본은 한 번만 집계했다. pilot은 full의 부분집합이며, 서로 다른 실행 버전과 rollout을 합쳐 하나의 성능으로 계산하지 않았다.
 
+<!-- report-part:0:end -->
+<!-- report-part:1:begin -->
 ## 전체 실행 목록
 
 | Run | 응답 수 | 근거 |
@@ -15,6 +19,8 @@
 | thinking_pilot_2fps | 600 | raw responses, re-scored |
 | stochastic_rollout | 6,000 | existing validated summary; 6000 response files counted, candidate traces not reloaded |
 
+<!-- report-part:1:end -->
+<!-- report-part:2:begin -->
 ## 전체 벤치마크
 
 모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
@@ -38,6 +44,8 @@
 | legacy_qwen3 | Qwen3-VL-8B-Instruct | 2 | video_query | charades-timelens | 3363/3363 | 48.17 | 69.58 | 50.67 | 27.21 |
 | legacy_qwen3 | Qwen3-VL-8B-Instruct | 2 | video_query | qvhighlights-timelens | 1541/1541 | 59.53 | 73.98 | 64.11 | 49.58 |
 
+<!-- report-part:2:end -->
+<!-- report-part:3:begin -->
 ## 동일 pilot 300개
 
 모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
@@ -75,40 +83,8 @@
 
 부분 완료 행은 선택된 일부 샘플의 결과이므로 완료된 300개 결과와 직접 비교하면 안 된다. Instruct greedy(max512)와 Thinking sampling(T=1,p=.95,k=20,seed42,max16384)은 생성 정책과 예산이 달라 checkpoint만의 효과가 아니다. 이 집계에 남은 실행의 요청 FPS는 2이며, 실제 프레임 sampling은 원본 fps 및 기존 최대 768프레임 제한을 따른다. min_tokens=64,total_tokens=14336을 유지한다.
 
-## 별도 비교군: 제한 head
-
-모든 성능은 %. 본문은 반올림 없는 동일 parser 재채점 값이다. 원래 반올림 규칙 및 저장 점수는 CSV·JSON에서 함께 제공한다. `all`은 query 수에 따른 가중 평균이다.
-
-| Run | 모델 | FPS | input order | Dataset | N / 목표 | mIoU | R@.3 | R@.5 | R@.7 |
-|---|---|---:|---|---|---:|---:|---:|---:|---:|
-| restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | activitynet-timelens | 100/100 | 34.94 | 47.00 | 35.00 | 20.00 |
-| restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | all | 300/300 | 39.81 | 56.33 | 39.00 | 22.33 |
-| restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | charades-timelens | 100/100 | 39.45 | 59.00 | 38.00 | 17.00 |
-| restricted_head_526 | Qwen2.5-VL-7B-Instruct | 2 | video_query | qvhighlights-timelens | 100/100 | 45.05 | 63.00 | 44.00 | 30.00 |
-| restricted_head_526 | Qwen3-VL-8B-Instruct | 2 | video_query | activitynet-timelens | 100/100 | 36.93 | 51.00 | 34.00 | 25.00 |
-| restricted_head_526 | Qwen3-VL-8B-Instruct | 2 | video_query | all | 300/300 | 43.24 | 59.00 | 42.67 | 29.67 |
-| restricted_head_526 | Qwen3-VL-8B-Instruct | 2 | video_query | charades-timelens | 100/100 | 37.25 | 55.00 | 36.00 | 24.00 |
-| restricted_head_526 | Qwen3-VL-8B-Instruct | 2 | video_query | qvhighlights-timelens | 100/100 | 55.54 | 71.00 | 58.00 | 40.00 |
-
-## 별도 비교군: stochastic rollout
-
-기존 검증된 ../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/summary.json과 ../../../../artifacts/runs/baseline/all_zeroshot/overview/validation/validation.json을 사용했다. 이 섹션은 원래 반올림 채점 값이며 raw 재채점이 아니다. 각 query 5회 생성, 벤치마크별 100 query / 500 rollout이다. Oracle any-of-5는 GT를 본 상한이며 실제 추론 성능이 아니다.
-
-| 모델 | 방식 | Dataset | Query | Rollout | mIoU % | R@.5 % | Oracle any5 R@.5 % |
-|---|---|---|---:|---:|---:|---:|---:|
-| qwen25 | top_k | charades-timelens | 100 | 500 | 32.98 | 30.00 | 56.00 |
-| qwen25 | top_k | activitynet-timelens | 100 | 500 | 20.98 | 17.40 | 38.00 |
-| qwen25 | top_k | qvhighlights-timelens | 100 | 500 | 23.88 | 16.40 | 43.00 |
-| qwen25 | top_p | charades-timelens | 100 | 500 | 32.98 | 30.00 | 56.00 |
-| qwen25 | top_p | activitynet-timelens | 100 | 500 | 20.98 | 17.40 | 38.00 |
-| qwen25 | top_p | qvhighlights-timelens | 100 | 500 | 23.88 | 16.40 | 43.00 |
-| qwen3 | top_k | charades-timelens | 100 | 500 | 43.63 | 47.80 | 63.00 |
-| qwen3 | top_k | activitynet-timelens | 100 | 500 | 38.72 | 40.40 | 57.00 |
-| qwen3 | top_k | qvhighlights-timelens | 100 | 500 | 53.24 | 57.40 | 73.00 |
-| qwen3 | top_p | charades-timelens | 100 | 500 | 44.49 | 49.00 | 59.00 |
-| qwen3 | top_p | activitynet-timelens | 100 | 500 | 39.42 | 40.40 | 51.00 |
-| qwen3 | top_p | qvhighlights-timelens | 100 | 500 | 54.92 | 59.60 | 71.00 |
-
+<!-- report-part:3:end -->
+<!-- report-part:6:begin -->
 ## 해석 및 중복 처리
 
 - Qwen2.5-VL-7B-Instruct: 기존 baseline과 full_benchmark_v1의 대응 300개 중 raw IoU가 달라진 응답은 0개다. 실행 버전을 분리해 보존했다. 동일 IoU는 동일 생성 토큰을 뜻하지 않는다.
@@ -119,3 +95,7 @@
 원본 예측과 파생 측정은 변경하지 않았다. smoke 검사·중단된 old cohort·성능과 무관한 entropy/attention 파생값은 별도 성능 실행으로 세지 않았다. top30 pilot은 full_benchmark_v1에서 재사용한 동일 응답이므로 중복 합산하지 않았다.
 
 [지표 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/metrics.csv) · [샘플별 재채점 CSV](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/sample_metrics.csv) · [전체 JSON](../../../../artifacts/runs/baseline/all_zeroshot/overview/metrics/summary.json) · [출처 SHA-256](../../../../artifacts/runs/baseline/all_zeroshot/overview/metadata/sources.json) · [검증](../../../../artifacts/runs/baseline/all_zeroshot/overview/validation/validation.json) · [rollout 원 보고서](../../../rollout/stochastic/pilot/300/REPORT.md)
+<!-- report-part:6:end -->
+## Appendix
+
+[상세 방법·조건별 결과·검증](APPENDIX.md)는 상단 `appendix` 메뉴에서도 열 수 있다.

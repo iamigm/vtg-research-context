@@ -110,8 +110,10 @@ def build():
     from pilot_catalog import build_pilot_catalog
     from project_pilot_catalog import build_project_pilot_catalogs
     from family_catalog import build_family_catalog
+    from report_appendices import build_report_appendices
     build_pilot_catalog()
     build_project_pilot_catalogs()
+    build_report_appendices(PROJECTS)
     families = build_family_catalog(PROJECTS)
     sections = []
     for project, label in PROJECTS.items():

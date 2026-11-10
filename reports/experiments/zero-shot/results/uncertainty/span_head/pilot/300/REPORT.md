@@ -1,9 +1,13 @@
+<!-- report-appendix:APPENDIX.md parts=7 -->
+<!-- report-part:0:begin -->
 # Span 전용 LM head와 zero-shot 비교 · pilot300 (300질문)
 
 **Qwen2.5는 QVHighlights에서 가장 크게 개선됐고, Qwen3는 Charades에서 뚜렷하게 악화됐다.** Qwen2.5의 ActivityNet도 평균 성능이 올랐지만, Charades에서는 지표별 방향이 달랐다. Qwen3는 세 벤치마크 모두 평균 성능이 낮아졌으며, ActivityNet·QVHighlights의 변화 구간은 0을 포함한다.
 
 완료 상태: **600/600 모델·query 쌍**. 모델 2종 × 벤치마크 3종 × 100 query이며 고유 query는 300개다. 아래 정량 결과는 저장된 예측으로 계산했고, 공식 TimeLens evaluator의 12개 평가군과 일치한다.
 
+<!-- report-part:0:end -->
+<!-- report-part:1:begin -->
 ## 비교 대상과 실험 조건
 
 **표본 선정:** 별도의 기존 TimeLens pilot manifest를 찾지 못해, 통합된 9,404개 zero-shot 결과에서 벤치마크별 `random.Random(42).sample(..., 100)`으로 추출했다. 각 벤치마크에서 seed를 다시 42로 설정했다. 기존 일반 벤치마크 300개 목록과는 다르다. 이 새 고정 목록을 모든 비교군에 동일하게 적용했다. [샘플 목록](../../../../../artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json)과 [선정 기록](../../../../../artifacts/common/predictions/legacy/cohorts/pilot_300/selection.json)에 정확한 ID·출처 해시를 남겼다.
@@ -31,6 +35,8 @@ Please find the visual event described by the sentence '{query}', determining it
 
 **평가:** 공식 `extract_time`으로 파싱한 뒤 Python `round`로 정수 초로 반올림하고 첫 구간을 평가한다. 파싱 실패에는 기존 코드와 같은 영상 길이 밖의 fallback 구간을 부여한다. GT나 예측을 보정하지 않는다. R@1@t는 첫 예측 구간의 IoU가 t 이상인 query 비율이며, mIoU는 평균 IoU다.
 
+<!-- report-part:1:end -->
+<!-- report-part:2:begin -->
 ## 정량 결과
 
 모든 성능 값은 %. 각 행은 100 query다. 기준선과 제한 head를 같은 샘플에서 비교했다.
@@ -52,6 +58,8 @@ Please find the visual event described by the sentence '{query}', determining it
 
 ![모델·벤치마크별 성능 비교](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/figures/comparison.png)
 
+<!-- report-part:2:end -->
+<!-- report-part:3:begin -->
 ## Paired 변화와 불확실성
 
 변화량은 제한 head − zero-shot이며 단위는 %p다. 95% 구간은 영상 단위 paired bootstrap 2,000회, seed 42로 계산했다. 같은 영상의 여러 query를 함께 재표집한다. 아래 구간은 각 비교의 탐색적 추정이며 다중비교 보정은 하지 않았다. 실패↔성공은 IoU 0.5 기준이다.
@@ -65,19 +73,8 @@ Please find the visual event described by the sentence '{query}', determining it
 | Qwen3-VL-8B | ActivityNet-TimeLens | -4.00 [-11.11, +3.03] | -4.07 [-9.07, +1.19] | 5 | 9 | 38/100 |
 | Qwen3-VL-8B | QVHighlights-TimeLens | -2.00 [-9.90, +5.05] | -1.84 [-7.46, +3.36] | 6 | 8 | 54/100 |
 
-## 출력 안정성
-
-각 값은 **zero-shot → 제한 head**다. 평균 토큰 수에는 EOS가 포함된다. 구간 오류는 반올림 후 시작 ≥ 끝인 경우이며, 범위 초과는 첫 구간을 annotation duration과 비교한 값이다. 범위 초과 집계에는 파싱 실패에 부여한 fallback도 포함된다. 512토큰 도달 자체를 점수 0으로 처리하지는 않으며, 파싱 가능한 첫 구간은 그대로 평가한다.
-
-| 모델 | 벤치마크 | 평균 출력 토큰 | 512토큰 도달 | 파싱 실패 | 구간 오류 | 다중 구간 | 범위 초과 |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Qwen2.5-VL-7B | Charades-TimeLens | 17.30 → 12.78 | 0 → 0 | 0 → 1 | 0 → 0 | 0 → 2 | 11 → 17 |
-| Qwen2.5-VL-7B | ActivityNet-TimeLens | 18.13 → 13.37 | 0 → 0 | 0 → 0 | 0 → 1 | 0 → 1 | 6 → 6 |
-| Qwen2.5-VL-7B | QVHighlights-TimeLens | 18.48 → 13.67 | 0 → 0 | 0 → 0 | 0 → 2 | 0 → 2 | 0 → 2 |
-| Qwen3-VL-8B | Charades-TimeLens | 17.14 → 184.30 | 0 → 33 | 0 → 0 | 0 → 0 | 0 → 0 | 16 → 13 |
-| Qwen3-VL-8B | ActivityNet-TimeLens | 18.22 → 109.33 | 0 → 18 | 0 → 0 | 0 → 0 | 0 → 0 | 9 → 10 |
-| Qwen3-VL-8B | QVHighlights-TimeLens | 18.48 → 43.97 | 0 → 5 | 0 → 0 | 0 → 1 | 0 → 0 | 0 → 1 |
-
+<!-- report-part:3:end -->
+<!-- report-part:5:begin -->
 ## 해석
 
 **Qwen2.5의 QVHighlights 개선이 가장 뚜렷하다.** R@1@0.5는 +22.00%p, mIoU는 +14.80%p다. 실패→성공 26개가 성공→실패 4개보다 많고 두 지표의 bootstrap 구간도 0보다 높다. R@1@0.7도 8%에서 32%로 올라 단순히 낮은 IoU 기준만 넘긴 개선은 아니다. 다만 전수평가 결과로 일반화하려면 추가 확인이 필요하다.
@@ -92,22 +89,7 @@ Please find the visual event described by the sentence '{query}', determining it
 
 후속 실험에서는 숫자 전용 출력 프롬프트 변경과 span 문법·종료 제약을 각각 별도 비교군으로 분리하는 것이 적절하다. 이번 보고서는 그런 추가 변경을 적용한 결과가 아니다.
 
-## 검증과 재현
+<!-- report-part:5:end -->
+## Appendix
 
-- Qwen3 기준선 재현 기록 17건에서 저장된 생성 토큰과의 일치를 확인했다. 재시작 및 smoke 검사를 포함하므로 고유 샘플 수는 아니다.
-- Qwen3의 저장된 입력 문자열·프레임 sampling metadata를 대조했고, Qwen2.5의 두 비교군은 같은 입력 텐서와 input-ID 해시를 사용했다.
-- 모든 생성 토큰이 허용 목록에 속하는지, sample ID 중복이 없는지, 원래 예측의 해시가 유지되는지 확인했다.
-- 공식 parser·반올림·첫 구간 IoU를 적용했고, 공식 evaluator CLI의 12개 평가군과 집계값이 일치했다.
-- GT는 평가에만 사용했다. 이전 경로의 잘못된 cohort로 중단한 실행은 `../../../../../artifacts/runs/uncertainty/span_head/pilot/300/provenance/aborted_old_cohort`에 보존했고 본 집계에서 제외했다.
-
-[정량 JSON](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/metrics/summary.json) · [샘플별 CSV](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/metrics/paired.csv) · [샘플별 JSON](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/metrics/paired.json) · [고정 샘플](../../../../../artifacts/common/predictions/legacy/cohorts/pilot_300/samples.json) · [그림 PDF](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/figures/comparison.pdf) · [완료 상태](../../../../../artifacts/runs/uncertainty/span_head/pilot/300/metadata/status.json)
-
-```bash
-cd /home1/irteam/experiments/zero-shot
-# 저장된 측정값으로 Markdown만 재생성; 추론·평가 재실행 없음
-.venv/bin/python _lib/timelens_span_report.py --render-only
-# 예측부터 집계·공식 평가 검증·그림·Markdown을 재생성
-.venv/bin/python run.py span-head report
-```
-
-정량 결과와 해석은 Markdown으로 제공한다. HTML은 실제 영상 재생 등 상호작용이 필요한 분석에만 사용한다.
+[상세 방법·조건별 결과·검증](APPENDIX.md)는 상단 `appendix` 메뉴에서도 열 수 있다.

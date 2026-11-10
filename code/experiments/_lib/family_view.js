@@ -68,6 +68,12 @@
    if(!line.trim()){i++;continue}
    if(line.startsWith('```')){const code=[];i++;while(i<lines.length&&!lines[i].startsWith('```'))code.push(lines[i++]);i++;out.push('<pre><code>'+escape(code.join('\n'))+'</code></pre>');continue}
    if(line.trim()==='$$'){const tex=[];i++;while(i<lines.length&&lines[i].trim()!=='$$')tex.push(lines[i++]);i++;const expression=tex.join('\n');out.push('<div class="math-block" data-math-tex="'+escape(expression)+'">'+escape(expression)+'</div>');continue}
+   if(/^\s*<(?:div\b[^>]*>\s*)?<table\b/i.test(line)){
+    const html=[];do{html.push(lines[i++]);}while(i<lines.length&&!html[html.length-1].includes('</table>'));
+    const table=new DOMParser().parseFromString(html.join('\n'),'text/html').querySelector('table');
+    if(table)out.push('<table>'+[...table.rows].map(row=>'<tr>'+[...row.cells].map(cell=>{const tag=cell.tagName==='TH'?'th':'td';return '<'+tag+'>'+inline(cell.textContent)+'</'+tag+'>'}).join('')+'</tr>').join('')+'</table>');
+    continue;
+   }
    const detail=line.trim().match(/^<details(?: id="([a-zA-Z][a-zA-Z0-9_-]*)")?( open)?>$/);
    if(detail){out.push('<details class="method-details"'+(detail[1]?' id="'+detail[1]+'"':'')+(detail[2]?' open':'')+'>');details++;i++;continue}
    if(line.trim()==='</details>'&&details){out.push('</details>');details--;i++;continue}
@@ -84,7 +90,7 @@
   }
   while(details--)out.push('</details>');return out.join('\n');
  }
- const documentLabels={SPEC:'실험 설계',STRATA:'조건별 결과',END_DECIMAL_CASES:'소수점 분기 사례',SCHEMA:'데이터 구조',SPATIAL_AUDIT:'공간 입력 검증',CACHE_REPORT:'캐시 분석',PIPELINE_REVIEW:'파이프라인 검토',NEXT_EXPERIMENT:'후속 실험',ANALYSIS:'상세 분석',REPORT:'추가 보고서'};
+ const documentLabels={SPEC:'실험 설계',STRATA:'조건별 결과',END_DECIMAL_CASES:'소수점 분기 사례',SCHEMA:'데이터 구조',SPATIAL_AUDIT:'공간 입력 검증',CACHE_REPORT:'캐시 분석',PIPELINE_REVIEW:'파이프라인 검토',NEXT_EXPERIMENT:'후속 실험',ANALYSIS:'상세 분석',REPORT:'추가 보고서',APPENDIX:'상세 방법·결과·검증',A_LOW:'A / low 상세 결과',A_HIGH:'A / high 상세 결과',B_LOW:'B / low 상세 결과',B_HIGH:'B / high 상세 결과'};
  function indexNavigation(){
   if(!config.navigation)throw Error('탐색 구조가 없습니다. 결과 목록을 다시 생성하세요.');
   function visit(node,scope,labels=[]){
@@ -144,9 +150,9 @@
   const {node,scope,labels}=context,tabs=$('analysis-tabs'),references=$('reference-list');tabs.replaceChildren();references.replaceChildren();
   const container=document.createElement('div');container.className='analysis-tab-group';container.dataset.analysis=e.analysis;
   const pair=document.createElement('div');pair.className='view-tabs';
-  for(const [mode,id,label] of [['result',node.result,'결과'],['report',e.kind==='md'?e.id:node.report,'보고서']]){
+  for(const [mode,id,label] of [['result',node.result,'결과'],['report',node.report,'보고서']]){
    const button=navigationButton(id,label,e);button.id='tab-'+mode;button.dataset.view=id||'';
-   const selected=id===e.id;button.setAttribute('role','tab');button.setAttribute('aria-selected',String(selected));button.setAttribute('aria-controls','view-panel');button.setAttribute('aria-label',node.label+' · '+label);button.tabIndex=selected?0:-1;pair.append(button);
+   const selected=id===e.id||(mode==='report'&&e.kind==='md');button.setAttribute('role','tab');button.setAttribute('aria-selected',String(selected));button.setAttribute('aria-controls','view-panel');button.setAttribute('aria-label',node.label+' · '+label);button.tabIndex=selected?0:-1;pair.append(button);
   }
   container.append(pair);tabs.append(container);
   $('view-location').textContent=scope.label+' › '+labels.join(' › ');
@@ -158,7 +164,7 @@
    link.onclick=event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();$('reference-menu').open=false;show(id);};references.append(link);
   }
   $('reference-menu').hidden=e.kind!=='md'||!node.documents.length;if(e.kind!=='md')$('reference-menu').open=false;
-  $('reference-menu').querySelector('summary').textContent=node.documents.includes(e.id)?(documentLabels[e.id.split('/').pop().replace(/\.md$/i,'').toUpperCase()]||'참고'):'참고';
+  $('reference-menu').querySelector('summary').textContent='appendix';
   $('view-panel').setAttribute('aria-labelledby',e.kind==='html'?'tab-result':'tab-report');renderTree(e);
  }
  function positionBrowser(){

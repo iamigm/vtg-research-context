@@ -1,9 +1,13 @@
+<!-- report-appendix:APPENDIX.md parts=9 -->
+<!-- report-part:0:begin -->
 # Pilot 300 · 16fps 유사도와 Instruct 생성 비용 비교 · pilot300 (300질문)
 
 완료: 2026-10-30T14:08:18.425470+09:00
 
 [샘플별 HTML](report.html) · [샘플별 비용 CSV](../../../../../artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/measurements/per_sample.csv) · [요약 JSON](../../../../../artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/measurements/summary.json) · [검증](../../../../../artifacts/runs/compute_cost/embedding_vs_generation_16fps/pilot/300/measurements/validation.json)
 
+<!-- report-part:0:end -->
+<!-- report-part:1:begin -->
 ## 비교 조건
 
 - 고정 pilot 300쌍: dataset별 100개, 고유 영상 292개. 세 모델은 같은 source frame index와 실제 PTS를 사용한다.
@@ -14,6 +18,8 @@
 - Instruct의 기존 min_tokens64·total_tokens14336 전처리 정책을 유지한다. total_tokens는 soft spatial budget이다. min_pixels가 우선하므로 긴 영상의 실제 visual token 수는14336을 넘을 수 있다. 실제 해상도·frame index·visual/input token 수를 샘플별 prediction에 보관했다.
 - 네이티브 전처리와 시간 결합 구조가 다르므로 같은 frame 수가 같은 model token 수나 spatial resolution를 뜻하지 않는다. 이 실험은 각 파이프라인의 비용 비교다.
 
+<!-- report-part:1:end -->
+<!-- report-part:2:begin -->
 ## 샘플당 시간과 연산량
 
 | Dataset | Model | N | Mean GPU forward s | Median s | P95 s | Cached-frame wall s | Estimated TFLOPs/sample | Mean frames | Mean input tokens | Mean output tokens |
@@ -31,16 +37,8 @@
 | qvhighlights-timelens | qwen | 100 | 21.2858 | 21.3284 | 21.5547 | 23.2738 | 6880.140 | 2396.5 | 396988.0 | 0.0 |
 | qvhighlights-timelens | instruct | 100 | 11.5056 | 11.5117 | 11.6835 | 20.4519 | 3461.724 | 2396.5 | 83097.5 | 18.8 |
 
-### 실제 실행 구간의 전체 경과 시간
-
-아래에는 모델별 마지막 실행 구간의 파일 저장·진행 기록을 포함한 wall time도 제시한다. Loading과 warmup은 별도다. 재개한 경우 측정 sample 수를 명시하므로 전체 300개 측정 시간과 혼동하지 않는다.
-
-| Model | Measured samples | Stage wall seconds | Stage wall / sample | Model loading seconds |
-|---|---:|---:|---:|---:|
-| clip | 300 | 2169.210 | 7.231 | 2.748 |
-| qwen | 300 | 5306.027 | 17.687 | 3.079 |
-| instruct | 300 | 4287.027 | 14.290 | 3.094 |
-
+<!-- report-part:2:end -->
+<!-- report-part:4:begin -->
 ## Instruct 대비 유사도 계산의 시간 차이
 
 동일 query 쌍에서 `Instruct − similarity`를 계산했다. 양수면 생성이 더 오래 걸린다. 비율은 `Instruct / similarity`다.
@@ -50,6 +48,8 @@
 | clip | 7.1062 | 7.1623 | 9.794 | 10.800 | 8.750 |
 | qwen | -7.2610 | -2.6007 | 0.473 | 0.519 | 0.477 |
 
+<!-- report-part:4:end -->
+<!-- report-part:5:begin -->
 ## 측정 정의
 
 - GPU forward seconds: CUDA synchronize 전후 perf_counter로 재는 model 호출 wall time. Similarity는 query와 모든 frame batch 호출의 합, generation은 prefill+전체 autoregressive decode다. H2D·CPU 전처리·cosine·파일 저장은 제외한다. 모델 loading과 warmup도 제외한다.
@@ -58,6 +58,8 @@
 - Raw 영상 decode·resize·JPEG 저장은 공통 준비 단계에서 영상당 한 번 측정하고 각 query에 해당 video의 값을 연결했다. 병렬 준비에서 측정한 비용이며 cached-frame wall과 별개다. Literal raw-video end-to-end latency로 오인하지 않는다.
 - 샘플당 입력 비용은 캐시 적중을 가정하지 않는다. 같은 영상에 다른 query가 있어도 매 query에서 frame embedding을 새로 계산했다. embedding 파일만 재사용 가능하게 영상당 한 벌 저장했다.
 
+<!-- report-part:5:end -->
+<!-- report-part:6:begin -->
 ## FLOPs 정의와 계산식
 
 - 추정 forward matmul/conv FLOPs다. Multiply-add=2 FLOPs, 1 TFLOP=10^12. 장치의 hardware counter로 측정한 명령 수가 아니다. Activation·normalization·softmax·embedding lookup·memory 이동·전처리 FLOPs는 제외했다.
@@ -66,6 +68,8 @@
 - Vision patch convolution, spatial merger, Qwen deepstack merger 3개, CLIP projection, Instruct 실제 생성 token별 LM head, similarity cosine 내적을 포함했다. Generation은 S개 prefill token과 G−1개 cached decode token을 계산했다.
 - Similarity input tokens는 독립된 query/frame 시퀀스의 합이다. 하나의 긴 시퀀스 길이가 아니다. Generation input tokens는 단일 video–query 시퀀스 길이다.
 
+<!-- report-part:6:end -->
+<!-- report-part:7:begin -->
 ## 정량 성능
 
 | Dataset | Model | mAP | MRR | Median first GT rank |
@@ -88,21 +92,7 @@ AP는 GT frame을 positive로 한 query 내부 retrieval AP, mAP는 query별 동
 | charades-timelens | 0.4062 | 0.4500 | 0 | 0 |
 | qvhighlights-timelens | 0.5488 | 0.5900 | 0 | 0 |
 
-## 인접 frame embedding 유사도
+<!-- report-part:7:end -->
+## Appendix
 
-`a_i = cos(f_(i-1), f_i)` (i=1,…,N−1). Query와 무관한 frame–frame cosine이다. 저장된 이미지 embedding을 사용하며 모델 추론은 추가로 수행하지 않았다.
-
-그래프의 점은 두 frame 중 나중 timestamp t_i에 표시한다. Hover에는 이전·현재 timestamp와 시간 간격을 표시하고, 클릭하면 두 frame을 함께 보여준다. 첫 frame에는 이전 frame이 없어 점이 없다. 연결선은 인접 측정값을 이은 표시이며 사이 시점에서 계산한 값이 아니다.
-
-아래 평균은 각 video–query 샘플에서 인접 pair cosine을 평균한 뒤 샘플에 동일 가중치를 부여한다. 같은 영상의 다른 query는 동일한 frame–frame 곡선을 공유한다. FPS가 다르면 인접 pair의 시간 간격도 달라진다. 기존 frame–query 지표 및 시간·FLOPs 측정은 유지한다.
-
-| Dataset | Model | N | Mean adjacent cosine | Mean pair count |
-|---|---|---:|---:|---:|
-| all | clip | 300 | 0.974351 | 1644.1 |
-| all | qwen | 300 | 0.956399 | 1644.1 |
-| activitynet-timelens | clip | 100 | 0.977384 | 2115.3 |
-| activitynet-timelens | qwen | 100 | 0.958761 | 2115.3 |
-| charades-timelens | clip | 100 | 0.977450 | 421.5 |
-| charades-timelens | qwen | 100 | 0.953684 | 421.5 |
-| qvhighlights-timelens | clip | 100 | 0.968218 | 2395.5 |
-| qvhighlights-timelens | qwen | 100 | 0.956753 | 2395.5 |
+[상세 방법·조건별 결과·검증](APPENDIX.md)는 상단 `appendix` 메뉴에서도 열 수 있다.
