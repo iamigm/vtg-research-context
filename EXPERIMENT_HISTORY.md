@@ -3182,3 +3182,11 @@
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/APPENDIX_COMPUTE.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
+
+## 2026-11-11T18:38:02.933370+09:00
+
+원본 파일 직접 관찰: 18개 실행, 744개 코드·의존성 파일. 이전 commit: 790425e476960b4e206d1f34aca8da88af7b0293.
+
+추가 0 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
