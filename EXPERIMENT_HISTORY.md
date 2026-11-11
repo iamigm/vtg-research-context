@@ -3160,3 +3160,13 @@
 - evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
 - reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
+
+## 2026-11-11T09:00:00.004628+09:00
+
+원본 파일 직접 관찰: 18개 실행, 744개 코드·의존성 파일. 이전 commit: e167228bb56f02cc3cde2d972bf19e5cf5e8349d.
+
+추가 0 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/900/end_to_end/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/end_to_end/REPORT.md
