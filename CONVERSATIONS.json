@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-11T20:21:11.660038+09:00",
+  "observed_at": "2026-11-11T22:18:17.083406+09:00",
   "scope": "VTG experimental context only",
   "conversations": [
     {
@@ -526,6 +526,57 @@
       "source_modified_at": "2026-11-11T19:31:14.250908+09:00",
       "messages": 4,
       "last_user_message": "2026-11-11T10:30:45.937Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1caa6-29cd-7a50-a0b6-863ac4bfaaf2",
+      "title": "zero-shot 공통 아티팩트 정리",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1caa6-29cd-7a50-a0b6-863ac4bfaaf2.md",
+      "sha256": "1735998307b1b1df8e17bd9f456bdd07e6b8bfd3c54433bc767d0e61d9812a1b",
+      "bytes": 943,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/11/rollout-2026-11-11T21-47-29-01a1caa6-29cd-7a50-a0b6-863ac4bfaaf2.jsonl",
+      "source_modified_at": "2026-11-11T22:00:09.003455+09:00",
+      "messages": 2,
+      "last_user_message": "2026-11-11T12:47:45.622Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1caa6-bf85-7fd1-86e6-49d6a7cb90d6",
+      "title": "/home/irteam/experiments/zero-shot/artifacts/common\n\n이거 용량이 너무 큰데 정리해보자",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1caa6-bf85-7fd1-86e6-49d6a7cb90d6.md",
+      "sha256": "e717e3f16e2633b400de5e5b5662d60eb25bb77f836c573e841e74007fa1d84f",
+      "bytes": 1742,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/11/rollout-2026-11-11T21-48-08-01a1caa6-bf85-7fd1-86e6-49d6a7cb90d6.jsonl",
+      "source_modified_at": "2026-11-11T21:53:24.155906+09:00",
+      "messages": 2,
+      "last_user_message": "2026-11-11T12:48:08.092Z",
+      "turn_running": false,
+      "retained_snapshot": false
+    },
+    {
+      "id": "01a1caa6-e004-7bc0-ba47-bfb591c282b5",
+      "title": "/home/irteam/experiments/zero-shot/artifacts/common\n\n이거 용량이 너무 큰데 정리해보자",
+      "group": "baseline-numeric",
+      "state": "active",
+      "tracked": true,
+      "source_available": true,
+      "archive": "conversations/01a1caa6-e004-7bc0-ba47-bfb591c282b5.md",
+      "sha256": "cc972efa0b0644bea088054d5f3332455c231a85de4b9328520af279d9259b62",
+      "bytes": 2949,
+      "source_path": "/home1/irteam/.codex/sessions/2026/11/11/rollout-2026-11-11T21-48-16-01a1caa6-e004-7bc0-ba47-bfb591c282b5.jsonl",
+      "source_modified_at": "2026-11-11T21:57:32.082052+09:00",
+      "messages": 3,
+      "last_user_message": "2026-11-11T12:48:16.406Z",
       "turn_running": false,
       "retained_snapshot": false
     }

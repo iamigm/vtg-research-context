@@ -17,6 +17,7 @@ def available_metadata(video,grid):
 
 def load_selected(cache,ids):
     """Return requested RGB; fill missing observations by the same increasing decoder path."""
+    ids=list(ids)
     mp=manifest_path(cache)
     if not mp.exists():
         loc={i:j for j,i in enumerate(cache['ids'])}
@@ -24,11 +25,35 @@ def load_selected(cache,ids):
     mp.parent.mkdir(parents=True,exist_ok=True)
     with mp.with_suffix('.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
-        m=read(mp);loc={i:j for j,i in enumerate(m['ids'])};missing=set(ids)-set(loc)
-        if missing:m=extend(cache,m,missing);loc={i:j for j,i in enumerate(m['ids'])}
-        selected=np.array(np.load(relocate_path(Path(m['path'])),mmap_mode='r')[[loc[i] for i in ids]])
-        need(all(hashlib.sha256(a.tobytes()).hexdigest()==m['rgb_hashes'][loc[i]] for a,i in zip(selected,ids)),'Selected shared RGB checksum mismatch')
-        return selected
+        m=read(mp)
+        if 'canonical_cache_key' in m:
+            key=m['canonical_cache_key']
+            need(isinstance(key,str) and len(key)==64 and all(c in '0123456789abcdef' for c in key),'Invalid canonical cache key')
+            need(key!=cache['cache_key'],'Shared RGB cache cannot alias itself')
+            canonical_cache=dict(cache,cache_key=key);cp=manifest_path(canonical_cache)
+            need(cp.exists(),'Canonical shared RGB manifest missing')
+            # Reject aliases before taking another lock, including A -> B -> A.
+            need('canonical_cache_key' not in read(cp),'Shared RGB alias chains are unsupported')
+            with cp.with_suffix('.lock').open('a') as canonical_lock:
+                fcntl.flock(canonical_lock,fcntl.LOCK_EX)
+                canonical=read(cp)
+                need(canonical.get('cache_key')==key,'Canonical shared RGB cache key mismatch')
+                need('canonical_cache_key' not in canonical,'Shared RGB alias chains are unsupported')
+                # Resolve current rows under the canonical lock. Extensions update
+                # only the canonical array and manifest, never an alias snapshot.
+                selected=_load_manifest_selected(canonical_cache,ids,canonical)
+            expected=dict(zip(m['ids'],m['rgb_hashes']))
+            need(all(i not in expected or hashlib.sha256(a.tobytes()).hexdigest()==expected[i] for a,i in zip(selected,ids)),'Aliased shared RGB checksum mismatch')
+            return selected
+        return _load_manifest_selected(cache,ids,m)
+
+def _load_manifest_selected(cache,ids,m):
+    """Read or extend a physical cache while its manifest lock is held."""
+    loc={i:j for j,i in enumerate(m['ids'])};missing=set(ids)-set(loc)
+    if missing:m=extend(cache,m,missing);loc={i:j for j,i in enumerate(m['ids'])}
+    selected=np.array(np.load(relocate_path(Path(m['path'])),mmap_mode='r')[[loc[i] for i in ids]])
+    need(all(hashlib.sha256(a.tobytes()).hexdigest()==m['rgb_hashes'][loc[i]] for a,i in zip(selected,ids)),'Selected shared RGB checksum mismatch')
+    return selected
 
 def extend(cache,m,missing):
     import torch,decord

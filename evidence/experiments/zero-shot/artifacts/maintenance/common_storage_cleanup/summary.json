@@ -1,0 +1,35 @@
+{
+  "state": "complete",
+  "timestamp": "2026-11-11T22:05:04.758408+09:00",
+  "common_allocated_bytes_before": 915293913088,
+  "common_allocated_bytes_after": 685150220288,
+  "net_common_bytes_freed": 230143692800,
+  "net_common_reduction_percent": 25.144239408688502,
+  "retired_frame_arrays": 1784,
+  "canonical_frame_arrays": 1784,
+  "retired_frame_array_bytes": 222009951232,
+  "preserved_frames_verified": 1050500,
+  "temporary_video_cache_files": 26,
+  "temporary_video_cache_bytes": 8304370714,
+  "original_metadata_hashes_verified": 3568,
+  "unchanged_reports_and_views": 16,
+  "public_reader_pairs_verified": 1784,
+  "alias_regression_checks": 8,
+  "canonical_whole_file_hash_recomputed": false,
+  "verification": "Original array SHA-256 and every retired frame pixel hash verified before retirement; retained canonical arrays unchanged; post-retirement public loader probes passed.",
+  "preserved": [
+    "model responses",
+    "token distributions",
+    "cohorts",
+    "input metadata",
+    "plans",
+    "reports",
+    "canonical RGB"
+  ],
+  "code_sha256": {
+    "deduplicate_selected_frames.py": "3c5e0168ffa92b80c59e1094ddac89cffce4c5e5a8c487fdc69a8b194463a7c2",
+    "shared_selected_frames.py": "22f12f824d0f53da0ace5c9cfd63aeb6b5f7fedc6291e0718fc005c0f4572ed5",
+    "check_shared_frame_alias.py": "3e7c9a3f651ad16030bb037ea70af4c3bd680cc9bf03388e89638d2d46a4a0ae",
+    "validate_common_storage_cleanup.py": "25a05c8cf071600282101450267db6b6e505b50acf452b17104a6ef7e62c0f99"
+  }
+}

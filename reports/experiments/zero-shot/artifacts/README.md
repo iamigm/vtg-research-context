@@ -112,9 +112,15 @@ python _lib/artifact_store.py register \
 Frozen samples and per-stage selection records: `common/cohorts/nested_pilot_v1/pilot_<N>/`.
 The original300 is preserved as the exact prefix of600 and900. The expansion balances available duration×GT-fraction cells without reading predictions. Hashes/source references/exclusions are in `common/cohorts/nested_pilot_v1/manifest.json`. Registry IDs: `nested_pilot_v1.300.cohort`, `.600.cohort`, `.900.cohort`. Selection policy and execution constraints are in project `AGENTS.md`; do not resample these fixed cohorts.
 
-### Selected-frame shared cache migration (scheduled after pilot900)
+### Shared selected frame cache
 
-`_lib/wait_for_cache_cleanup.py` waits until both pilot900 runs and the integrated report are complete. It then migrates referenced RGB observations into `common/selected_frames_v1/frames/`, indexed by cache_key. Full timestamp/pixel-hash metadata stays at its original path. Old array paths are resolved through `_lib/shared_selected_frames.py`, with a per-cache migration journal under `runs/operations/selected_frame_cache_migration/shared/metadata/`. Retired array hashes are preserved there; old array files are removed only after all required RGB hashes validate. Missing requested frames are decoded and verified on demand. Unknown/unreferenced cache groups are retained, not guessed safe to remove.
+공용 RGB는 `common/selected_frames_v1/frames/`에서 cache key로 찾는다. 전체 timestamp·pixel hash·계획·입력 metadata는 원래 실험 경로에 보존한다. 재실행은 현재 `_lib/shared_selected_frames.py::load_selected`를 사용하며, metadata의 과거 array path를 직접 `np.load`하지 않는다. 필요한 frame이 없으면 같은 원본·decoder로 준비하고 기존 pixel hash와 대조한다. 참조가 불명확한 cache는 보존한다.
+
+같은 원본 영상·spatial resolution의 cache가 다른 cache의 정확한 부분집합이면, manifest의 `canonical_cache_key`가 실제 RGB를 보관하는 cache를 가리킨다. Loader는 잠금 안에서 최신 canonical frame ID와 row를 resolve하고 pixel hash를 검증한다. 새 frame은 canonical에만 추가한다. Alias에 복사된 `path`·`ids`·`rgb_hashes`·`sha256`은 이관 시점의 snapshot이므로 이후 확장 시에는 현재 loader로 읽는다. Frozen code는 당시 실행 출처로 보존하며 현재 storage replay에 사용하지 않는다.
+
+부분집합 정리는 `_lib/deduplicate_selected_frames.py --plan artifacts/maintenance/common_storage_cleanup/frame_subset_plan.json --workers 4`로 실행·재개한다. 삭제 전에 원본 array SHA-256, 보존할 모든 frame의 실제 pixel hash, 공개 loader의 읽기를 검증한다. 원래 metadata와 array hash, canonical 연결, 검증·삭제 기록은 `maintenance/common_storage_cleanup/`에 남긴다. 이전 전체 cache 이관 기록은 `runs/operations/selected_frame_cache_migration/shared/metadata/`에 보존한다.
+
+`common/cache/timelens_video_v1/*.pt`는 `VideoCache`가 cache miss 때 다시 생성하는 임시 decode cache다. 사용하지 않을 때 `eviction.lock`을 잡고 `.pt`만 제거할 수 있으며, lock 파일은 잠금의 동일성을 위해 유지한다. 원본 응답·token distribution·cohort·입력 provenance는 이 임시 cache와 구분해 보존한다.
 
 ## 공간 통제 전체 sweep (2026-11-02)
 
@@ -180,3 +186,12 @@ Deterministic rollout의 reconsideration 응답·입력·token distribution·실
 600 완료 후 active capped_rollouts 원자료·로그·코드를 `runs/rollout/temporal_mode_search/pilot/900/capped_rollouts/`로 통합한다. `metadata/reuse.json`에 기존600 response의 byte hash와 원래 config/manifest를 보존하며 config 차이는 query scope뿐이다. pilot600의 MD·HTML·파생 지표는 유지하고 source_records 및 viewer가 canonical900의 같은 응답을 참조한다. 원래 config hash를 response에 덮어쓰거나 기존600을 재추론하지 않는다.
 
 통합 이후 실행 진입점은 canonical900 code의 `temporal_mode_cumulative_runtime.py`,보고서·view 갱신은 `temporal_mode_cumulative_report.py --all`,최종 검증은 `temporal_mode_cumulative_check.py`와 `temporal_mode_cumulative_view_check.py`다. 600·900의 zero-shot 대비 성능·계산 비용·GT 표시를 같은 대표 뷰에서 비교한다. 보고서 갱신은 별도 CPU process에서 진행해 GPU supervisor heartbeat를 막지 않는다. 완료 후 보고서·검증·통합 index를 자동 갱신한다.
+
+## Greedy attribution
+
+`runs/rollout/greedy_attribution/pilot/<N>/`에 누적 원자료를 한 번 저장한다. 실제 범위가 300→600→900으로 확장되면 queries·targets·arrays·logs·code·validation·metadata를 새 누적 범위로 이동하고, 앞선 pilot은 source_records.json으로 고정 부분집합을 참조한다. 현재 경로는 `common/registry/greedy_attribution.live.json`에서 확인한다.
+
+- `queries/`: 원래 sample·입력 hash·greedy token·고정 top-30·target metadata.
+- `targets/<sample>/`: target별 전체 입력·pixel patch gradient와 선택층 message를 gzip JSON으로 저장한다.
+- `arrays/`: 고정 top-30 ID·원래 probability·계측 probability·입력 group별 방향 선별값. Top-30 밖은 추적하지 않으며 확률을 재정규화하지 않는다.
+- 실행: `.venv/bin/python _lib/greedy_attribution_manage.py launch`. 보고서 재생성: `.venv/bin/python _lib/greedy_attribution_report.py --allow-partial`. 검증은 `_lib/greedy_attribution_check.py`를 사용한다. 원래 deterministic input·response·media를 참조하며 복제하지 않는다.

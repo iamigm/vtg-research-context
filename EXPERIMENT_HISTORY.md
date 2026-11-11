@@ -3208,3 +3208,47 @@
 - conversations/01a1ca28-fb9b-73d3-8293-5878047c938e.md
 - conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md
 - conversations/01a1ca09-315f-7fe3-a6a1-d5da9cceb03c.md
+
+## 2026-11-11T22:18:17.083406+09:00
+
+원본 파일 직접 관찰: 18개 실행, 769개 코드·의존성 파일. 이전 commit: a3c83b065b8c65892895a8ed2304573424b8dc26.
+
+추가 34 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/check_shared_frame_alias.py
+- code/experiments/zero-shot/_lib/deduplicate_selected_frames.py
+- code/experiments/zero-shot/_lib/greedy_attribution_cache.py
+- code/experiments/zero-shot/_lib/greedy_attribution_check.py
+- code/experiments/zero-shot/_lib/greedy_attribution_core.py
+- code/experiments/zero-shot/_lib/greedy_attribution_hooks.py
+- code/experiments/zero-shot/_lib/greedy_attribution_manage.py
+- code/experiments/zero-shot/_lib/greedy_attribution_messages.py
+- code/experiments/zero-shot/_lib/greedy_attribution_report.py
+- code/experiments/zero-shot/_lib/greedy_attribution_runtime.py
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.css
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.js
+- code/experiments/zero-shot/_lib/validate_common_storage_cleanup.py
+- evidence/experiments/zero-shot/artifacts/maintenance/common_storage_cleanup/summary.json
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_hooks.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_manage.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_messages.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/overview/REPORT.md
+- conversations/01a1caa6-29cd-7a50-a0b6-863ac4bfaaf2.md
+- conversations/01a1caa6-bf85-7fd1-86e6-49d6a7cb90d6.md
+- conversations/01a1caa6-e004-7bc0-ba47-bfb591c282b5.md
+- reports/experiments/zero-shot/README.md
+- code/experiments/zero-shot/_lib/shared_selected_frames.py
+- reports/experiments/zero-shot/artifacts/README.md

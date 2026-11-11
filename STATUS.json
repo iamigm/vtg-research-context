@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-11T20:21:11.660038+09:00",
+  "observed_at": "2026-11-11T22:18:17.083406+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -56,6 +56,11 @@
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/event_tree_search/pilot/900/metadata/status.json",
       "source_modified_at": "2026-11-05T13:22:50.493615+09:00",
       "sha256": "4386b6883eee34844daf3e7af9cabf956b67aa566b4822662ea87ae24871e53d"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json",
+      "source_modified_at": "2026-11-11T22:18:18.067189+09:00",
+      "sha256": "1a6cb5ed154ddaba99c12dbcb65411190fbff8e1c3605d0a040c88436a98becd"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json",

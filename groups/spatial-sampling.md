@@ -8,19 +8,19 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 
 [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/fps_spatial_control_pilot300_v1/SPEC.md)
 
-현재 관련 코드 125개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/spatial_budget_pilot900_v1
 
 [REPORT.md](../reports/experiments/zero-shot/artifacts/maintenance/grouping_20261104/source_backup/zero-shot/results/spatial_budget_pilot900_v1/REPORT.md)
 
-현재 관련 코드 125개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ### zero-shot/sampling
 
 [APPENDIX.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/APPENDIX.md) · [AXES.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/AXES.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/REPORT.md) · [SPATIAL_AUDIT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPATIAL_AUDIT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/300/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/fps_spatial_control/pilot/overview/REPORT.md) · [APPENDIX.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/APPENDIX.md) · [A_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_high.md) · [A_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/A_low.md) · [B_high.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_high.md) · [B_low.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/B_low.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/allocation_sweep/pilot/overview/REPORT.md) · [APPENDIX.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/300/APPENDIX.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/300/REPORT.md) · [APPENDIX.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/600/APPENDIX.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/600/REPORT.md) · [APPENDIX.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/APPENDIX.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/REPORT.md) · [SPEC.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/900/SPEC.md) · [REPORT.md](../reports/experiments/zero-shot/results/sampling/spatial_allocation/budget_comparison/pilot/overview/REPORT.md)
 
-현재 관련 코드 125개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
+현재 관련 코드 126개. 정확한 파일목록과 설정·상태 evidence는 [실행별 manifest](../EXPERIMENTS.json)에 연결했다.
 
 ## 관련 실험 대화
 
@@ -43,6 +43,7 @@ Nested300⊂600⊂900, 데이터셋별300 query. 공간통제v1은 두공간목�
 - [zero-shot/_lib/boundary_oracle_sampling.py](../code/experiments/zero-shot/_lib/boundary_oracle_sampling.py)
 - [zero-shot/_lib/build_nested_pilots.py](../code/experiments/zero-shot/_lib/build_nested_pilots.py)
 - [zero-shot/_lib/compact_selected_frames.py](../code/experiments/zero-shot/_lib/compact_selected_frames.py)
+- [zero-shot/_lib/deduplicate_selected_frames.py](../code/experiments/zero-shot/_lib/deduplicate_selected_frames.py)
 - [zero-shot/_lib/fps_spatial_control.py](../code/experiments/zero-shot/_lib/fps_spatial_control.py)
 - [zero-shot/_lib/fps_spatial_report.py](../code/experiments/zero-shot/_lib/fps_spatial_report.py)
 - [zero-shot/_lib/fps_spatial_smoke.py](../code/experiments/zero-shot/_lib/fps_spatial_smoke.py)
