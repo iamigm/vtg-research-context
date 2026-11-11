@@ -62,6 +62,7 @@
 - [/home/irteam/experiments/zero-shot/results/rollout/event_tree_search](../conversations/01a1af6d-1894-79e1-9d9c-9a38a6397610.md) — active
 - [/home/irteam/experiments/zero-shot/results/rollout/temporal_mode_search](../conversations/01a1b790-f2cb-7ce0-a157-efb9097a01e1.md) — active
 - [Rollout 기반 실험에서 다음 내용을 반영해보고 싶어.](../conversations/01a1ca09-315f-7fe3-a6a1-d5da9cceb03c.md) — active
+- [Rollout 기반 실험에서 다음 내용을 반영해보고 싶어.](../conversations/01a1ca28-fb9b-73d3-8293-5878047c938e.md) — active
 ## 코드 백업
 
 아래는 현재 구현의 연결이다. 역사적 실행 revision의 증명은 아니다. 공용 dependency는 [shared](shared.md)를 참조한다.
