@@ -140,6 +140,8 @@ class AttentionMessages:
                 return
             cos, sin = kwargs["position_embeddings"]
             with torch.no_grad():
+                if hidden.is_cuda and torch.backends.cuda.matmul.allow_tf32:
+                    raise RuntimeError('Attention message FP32 error bounds require TF32 matmul to be disabled')
                 positions = torch.tensor([pos-offset for pos in receivers], device=hidden.device, dtype=torch.long)
                 selected_hidden = hidden.index_select(1, positions)
                 head_dim = attention.head_dim
@@ -188,6 +190,8 @@ class AttentionMessages:
                     "offset": offset,
                     "weights": weights[0],
                     "value": value[0].detach(),
+                    "value_absolute_maximum": value[0].abs().amax(dim=(-2, -1)).float(),
+                    "weight_absolute_sum": weights[0].sum(dim=-1, dtype=torch.float64),
                     "reconstructed": reconstructed.detach(),
                     "heads": query.shape[1],
                     "kv_heads": kv_heads,
@@ -212,6 +216,8 @@ class AttentionMessages:
             with torch.no_grad():
                 actual = tensor.detach().index_select(1, positions).float()
                 delta = record["reconstructed"] - actual
+                record['actual_attention_input'] = actual
+                record['reconstruction_difference'] = delta
                 rms = actual.square().mean().sqrt()
                 self._reconstructions[record_key] = {
                     "layer": index,
@@ -240,6 +246,32 @@ class AttentionMessages:
                 direction = torch.einsum("bkgpd,ksd->bkgps", grouped, record["value"].float())
                 direction = direction.reshape(record["heads"], len(positions), record["sequence_length"])
                 scores = record["weights"] * direction
+                # Compare in the SAME pre-o_proj coordinates. The BF16 output
+                # projection and its backward matmul do not preserve an exact
+                # post-projection activation-dot-gradient identity.
+                selected_double = selected[0].double()
+                def as_heads(tensor):
+                    return tensor.reshape(1, len(positions), record['heads'], record['head_dim']).transpose(1, 2)[0].double()
+                actual_input = as_heads(record['actual_attention_input'])
+                reconstruction_difference = as_heads(record['reconstruction_difference'])
+                actual_dot = (selected_double * actual_input).sum(dim=-1)
+                reconstruction_bound = (selected_double.abs() * reconstruction_difference.abs()).sum(dim=-1)
+                maximum_value = record['value_absolute_maximum'].double().repeat_interleave(record['head_groups'])[:, None]
+                # Upper bound for sum_j,d |A_ij * value_jd * gradient_id|.
+                message_absolute_bound = selected_double.abs().sum(dim=-1) * maximum_value * record['weight_absolute_sum']
+                actual_absolute_dot = (selected_double.abs() * actual_input.abs()).sum(dim=-1)
+                unit_roundoff = 2.0 ** -24
+                operation_count = 4 * (record['sequence_length'] + record['head_dim'] + 8)
+                rounded_operations = operation_count * unit_roundoff
+                if rounded_operations >= 1:
+                    raise RuntimeError('Sequence too long for the stated FP32 roundoff bound')
+                gamma = rounded_operations / (1 - rounded_operations)
+                # Covers the two contraction orders, their reductions, and the
+                # stored FP32 reconstruction subtraction. Bound reductions use
+                # FP64; 1+1e-12 rounds that tiny calculation conservatively up.
+                roundoff_bound = gamma * (message_absolute_bound + actual_absolute_dot)
+                reconstruction_bound = reconstruction_bound * (1 + 1e-12)
+                roundoff_bound = roundoff_bound * (1 + 1e-12)
                 edge_count = min(self.top_edges, scores.shape[-1])
                 positive_scores, positive_indices = scores.topk(edge_count, dim=-1)
                 negative_scores, negative_indices = scores.topk(edge_count, dim=-1, largest=False)
@@ -278,6 +310,9 @@ class AttentionMessages:
                     "head_score_sum": scores.sum(dim=-1).detach().cpu().tolist(),
                     "head_positive_score_sum": scores.clamp_min(0).sum(dim=-1).detach().cpu().tolist(),
                     "head_negative_score_sum": scores.clamp_max(0).sum(dim=-1).detach().cpu().tolist(),
+                    "actual_attention_input_dot_gradient": actual_dot.detach().cpu().tolist(),
+                    "reconstruction_dot_error_bound": reconstruction_bound.detach().cpu().tolist(),
+                    "fp32_roundoff_error_bound": roundoff_bound.detach().cpu().tolist(),
                     "heads": record["heads"],
                     "sequence_length": record["sequence_length"],
                 }
@@ -296,7 +331,8 @@ class AttentionMessages:
             if chunks:
                 heads = chunks[0]['heads']
                 combined = dict(layer=index, edges=[], heads=heads, sequence_length=max(r['sequence_length'] for r in chunks))
-                fields = ('head_score_sum', 'head_positive_score_sum', 'head_negative_score_sum')
+                fields = ('head_score_sum', 'head_positive_score_sum', 'head_negative_score_sum',
+                          'actual_attention_input_dot_gradient', 'reconstruction_dot_error_bound', 'fp32_roundoff_error_bound')
                 for field in fields:
                     combined[field] = [[0.0] * len(self.predictor_positions) for _ in range(heads)]
                 for chunk in chunks:
@@ -328,6 +364,7 @@ class AttentionMessages:
             "reconstruction": reconstruction,
             "hook_calls": {f'{index}:{offset}': count for (index,offset), count in self._hook_calls.items()},
             "definition": "A_ij * dot(gradient of objective w.r.t. pre-o_proj head output at i, value_j); signed derivative under scaling that message with A and value fixed at the original forward",
+            "numerical_validation": "Compare head message sums to actual pre-o_proj input dot its gradient; bound by sum_d |gradient_d|*|reconstructed_output_d-actual_output_d| plus FP32 contraction/reduction roundoff. Post-o_proj activation-dot-gradient is diagnostic only under BF16.",
             "coverage": "selected decoder layers and prediction receivers only; visual-to-visual and other indirect receivers are not measured; only top positive/negative source edges are retained",
             "interpretation": "local message-scale derivative, not causal evidence or an additive cross-layer decomposition; reconstruction differences must be checked",
         }

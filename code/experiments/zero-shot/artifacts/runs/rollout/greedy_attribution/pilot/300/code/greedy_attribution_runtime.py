@@ -230,7 +230,7 @@ def pixel_maps(pixels,gradient,grid):
     return dict(gradient_norm=frame(square).sqrt().cpu().tolist(),activation_dot_gradient=frame(dot).cpu().tolist())
 
 def validate_messages(data,summary,expected_layers):
-    """Gate reconstructed message rows and their within-layer score identity."""
+    """Gate pre-projection message scores with reconstruction/roundoff bounds."""
     expected=set(int(layer) for layer in expected_layers)
     reconstructed={int(row['layer']):row for row in data['reconstruction']}
     measured={int(row['layer']):row for row in data['layers']}
@@ -243,21 +243,32 @@ def validate_messages(data,summary,expected_layers):
         assert np.isfinite(errors).all(),('nonfinite message reconstruction',layer)
         assert reconstruction['rms_relative_difference']<=.03,('message reconstruction RMS',layer,reconstruction)
         heads=np.asarray(measured[layer]['head_score_sum'],dtype=np.float64)
+        actual_heads=np.asarray(measured[layer]['actual_attention_input_dot_gradient'],dtype=np.float64)
+        reconstruction_bound=np.asarray(measured[layer]['reconstruction_dot_error_bound'],dtype=np.float64)
+        roundoff_bound=np.asarray(measured[layer]['fp32_roundoff_error_bound'],dtype=np.float64)
         block=np.asarray(attention[layer]['activation_dot_gradient'],dtype=np.float64)
         assert heads.ndim==2 and heads.shape[1]==len(block),('message score shape',layer,heads.shape,block.shape)
-        assert np.isfinite(heads).all() and np.isfinite(block).all(),('nonfinite message score',layer)
-        summed=heads.sum(axis=0);delta=np.abs(summed-block)
-        tolerance=1e-4+.05*np.maximum(np.abs(summed),np.abs(block))
-        assert np.all(delta<=tolerance),('message versus attention score identity',layer,float(delta.max()),float((delta/tolerance).max()))
+        assert actual_heads.shape==reconstruction_bound.shape==roundoff_bound.shape==heads.shape,('pre-projection bound shape',layer)
+        assert all(np.isfinite(value).all() for value in (heads,actual_heads,reconstruction_bound,roundoff_bound,block)),('nonfinite message score',layer)
+        assert (reconstruction_bound>=0).all() and (roundoff_bound>=0).all(),('negative message error bound',layer)
+        summed=heads.sum(axis=0);actual=actual_heads.sum(axis=0);delta=np.abs(summed-actual)
+        bound=(reconstruction_bound+roundoff_bound).sum(axis=0)
+        cpu_roundoff=np.finfo(np.float64).eps*(heads.shape[0]+2)*(np.abs(heads).sum(axis=0)+np.abs(actual_heads).sum(axis=0)+bound)
+        tolerance=np.nextafter(bound+cpu_roundoff,np.inf)
+        fraction=delta/tolerance
+        assert np.all(delta<=tolerance),('message versus pre-projection score bound',layer,float(delta.max()),float(fraction.max()))
+        after_projection_delta=np.abs(summed-block)
         for edge in measured[layer]['edges']:
             assert math.isfinite(edge['score']) and math.isfinite(edge['attention_weight']),('nonfinite message edge',layer)
             assert 0<=edge['source_position']<=edge['receiver_position'],('noncausal message edge',layer,edge)
         checks.append(dict(layer=layer,reconstruction_max_absolute_difference=float(errors[0]),
             reconstruction_rms_relative_difference=float(errors[3]),message_sum_max_absolute_difference=float(delta.max()),
-            message_sum_max_tolerance_fraction=float((delta/tolerance).max())))
-    return dict(passed=True,reconstruction_max_relative_rms=.03,message_sum_relative_tolerance=.05,
-        message_sum_absolute_tolerance=1e-4,layers=checks,
-        identity_scope='within each selected attention layer at prediction positions; no cross-layer evidence sum')
+            message_sum_max_error_bound=float(tolerance.max()),message_sum_max_tolerance_fraction=float(fraction.max()),
+            after_projection_max_absolute_difference=float(after_projection_delta.max())))
+    return dict(passed=True,method='pre_projection_reconstruction_bound',reconstruction_max_relative_rms=.03,
+        fp32_unit_roundoff=2.0**-24,layers=checks,after_projection_diagnostic_only=True,
+        error_bound='sum over heads and coordinates of |gradient|*|reconstructed pre-projection output-actual input| plus conservative FP32 contraction/reduction roundoff',
+        identity_scope='within each selected head before o_proj at prediction positions; no cross-layer evidence sum')
 
 def compact_floats(value):
     # JSON float formatting is compact already; preserve raw float32 values.
@@ -450,4 +461,9 @@ if __name__=='__main__':
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);run(args)
     except BaseException:
         if RUN_PROGRESS is not None:RUN_PROGRESS.stop.set()
-        write(storage()/'metadata/status.json',dict(state='failed',stage='failed',error=traceback.format_exc(),timestamp=stamp()));raise
+        state=dict(RUN_PROGRESS.state) if RUN_PROGRESS is not None else {}
+        state.update(state='failed',stage='failed',error=traceback.format_exc(),timestamp=stamp())
+        write(storage()/'metadata/status.json',state)
+        write(ROOT/'artifacts/common/registry/greedy_attribution.live.json',dict(canonical=str(storage()),
+            status=str(storage()/'metadata/status.json'),log=str(storage()/'logs/run.log'),**state))
+        raise

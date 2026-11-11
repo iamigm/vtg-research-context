@@ -109,8 +109,21 @@ def validate_target(target,payload,prompt,length,groups,grid,count):
         require(recon[layer]['rms_relative_difference']<=.03,f'{ident}: reconstructed attention RMS error')
         heads=array(measured[layer]['head_score_sum'],(32,count),f'{ident}.message_head_scores')
         summed=heads.sum(axis=0); block=np.asarray(layers['attention'][layer]['activation_dot_gradient'])
-        delta=np.abs(summed-block); tolerance=1e-4+.05*np.maximum(np.abs(summed),np.abs(block))
-        require(bool((delta<=tolerance).all()),f'{ident}: message sum does not match attention scaling derivative')
+        method=target['message_validation'].get('method')
+        if method=='pre_projection_reconstruction_bound':
+            actual_heads=array(measured[layer]['actual_attention_input_dot_gradient'],(32,count),f'{ident}.actual_pre_projection')
+            reconstruction_bound=array(measured[layer]['reconstruction_dot_error_bound'],(32,count),f'{ident}.reconstruction_bound',True)
+            roundoff_bound=array(measured[layer]['fp32_roundoff_error_bound'],(32,count),f'{ident}.roundoff_bound',True)
+            actual=actual_heads.sum(axis=0); delta=np.abs(summed-actual)
+            bound=(reconstruction_bound+roundoff_bound).sum(axis=0)
+            cpu_roundoff=np.finfo(np.float64).eps*(heads.shape[0]+2)*(np.abs(heads).sum(axis=0)+np.abs(actual_heads).sum(axis=0)+bound)
+            tolerance=np.nextafter(bound+cpu_roundoff,np.inf)
+            require(target['message_validation']['after_projection_diagnostic_only'] is True,f'{ident}: after-projection interpretation changed')
+            require(target['message_validation']['fp32_unit_roundoff']==2.**-24,f'{ident}: FP32 roundoff constant differs')
+        else:
+            require(method is None,f'{ident}: unknown message validation method {method}')
+            delta=np.abs(summed-block); tolerance=1e-4+.05*np.maximum(np.abs(summed),np.abs(block))
+        require(bool((delta<=tolerance).all()),f'{ident}: message sum exceeds its reconstruction/roundoff bound')
         for edge in measured[layer]['edges']:
             require(0<=edge['source_position']<=edge['receiver_position']<length,f'{ident}: noncausal message edge')
             require(edge['receiver_position'] in payload['predictor_positions'],f'{ident}: unexpected message receiver')
@@ -226,7 +239,7 @@ def validate_scope(scope,allow_partial=False):
     report=dict(passed=True,scope_queries=scope,complete=not missing,allow_partial=allow_partial,canonical=str(canonical),**counts,
                 missing_queries=missing,source_hashes_verified=True,input_hashes_verified=True,all_greedy_tokens_including_eos=True,
                 exclusive_context_groups=True,future_gradient_max=max((r['future_max'] for r in completed),default=None),timestamp=stamp())
-    write(BASE/str(scope)/'validation/integrity.json',report); return report
+    write(storage()/'validation'/f'integrity_pilot{scope}.json',report); return report
 
 def validate_catalog(scope):
     canonical=storage(); cohort=read(COHORT)[:scope]; catalog=read(BASE/str(scope)/'web/catalog.json')
@@ -318,7 +331,7 @@ def check_viewer(scope=300,allow_partial=False):
     report=dict(passed=True,scope_queries=scope,completed_queries=len(completed),allow_partial=allow_partial,real_sample=sample['key'],
                 token_navigation=True,context_positions=True,spatial_map=True,layer_table=True,deep_link=url,video_range=True,mobile_no_overflow=True,
                 family_scopes=family_scopes,result_report_switch=True,unified_index=True,page_errors=errors,timestamp=stamp())
-    write(BASE/str(scope)/'validation/viewer.json',report); return report
+    write(storage()/'validation'/f'viewer_pilot{scope}.json',report); return report
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(); p.add_argument('--scope',type=int,default=300); p.add_argument('--allow-partial',action='store_true'); p.add_argument('--viewer',action='store_true'); a=p.parse_args()
