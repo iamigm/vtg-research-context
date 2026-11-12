@@ -96,10 +96,10 @@ IoU=예측·GT 교집합 길이÷합집합 길이, mIoU=query별 IoU 평균, R@�
 
 이 결과는 source greedy token열을 고정한 계측 replay 계산점의 local sensitivity와 내부 신호 방향이다. 큰 gradient가 인과적 증거를 확정하지 않고, 작은 영상 gradient도 영상 근거가 없다는 증거가 아니다. 이전 생성 위치의 표현에 영상 정보가 들어 있을 수 있다. Layers의 점수를 합쳐 전체 증거량으로 해석하지 않는다. 잠재 경쟁 screening은 정한 변화 방향만 조사하므로 다른 방향의 급변을 배제하지 않는다. 실제 mode 전환은 변경 입력으로 이전 경로부터 다시 생성해야 확인할 수 있다.
 
-원자료: [300 query source references](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/source_records.json) · [동결 실행 설정](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/config.json) · [계측 상태](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/status.json)
+원자료: [300 query source references](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/source_records.json) · [동결 실행 설정](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/900/metadata/config.json) · [계측 상태](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/900/metadata/status.json)
 
 ## Backward 반복 감사에서 확인한 한계
 
 `activitynet-timelens_00261`의 `margin_12_20` 한 target에서 forward logits는 저장값과 일치했지만, 같은 graph의 backward 반복은 동일한 pixel gradient를 재현하지 못했다. 저장 pixel signed sum은 -0.050869, 원래 message hook을 포함한 두 반복값은 0.219944 · 0.105905였다. 두 반복의 gradient 상대 L2 차이 ‖g₂−g₁‖₂/‖g₁‖₂는 0.014233이며 낮을수록 잘 재현된다. 이 사례의 작게 상쇄된 pixel signed 방향을 안정적인 방향으로 해석하지 않는다. 원인을 특정 연산으로 확정하지 않았으며 다른 모든 target의 반복 안정성을 검사한 결과도 아니다.
 
-이 반복 차이는 한 계산 안의 FP32 합산 순서 차이와 별개다. 저장 원자료의 shape·hash·합산 오차 상한 검증이 통과해도 gradient 반복 재현성까지 통과했다는 뜻은 아니다. 원래 계측과 audit 결과를 함께 보존하며, 후속 pilot에도 같은 계측 조건을 유지한다. [반복 감사 수치와 provenance](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/validation/pixel_sum_audit.json)
+이 반복 차이는 한 계산 안의 FP32 합산 순서 차이와 별개다. 저장 원자료의 shape·hash·합산 오차 상한 검증이 통과해도 gradient 반복 재현성까지 통과했다는 뜻은 아니다. 원래 계측과 audit 결과를 함께 보존하며, 후속 pilot에도 같은 계측 조건을 유지한다. [반복 감사 수치와 provenance](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/900/validation/pixel_sum_audit.json)
