@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-12T18:00:00.001493+09:00",
+  "observed_at": "2026-11-12T21:00:00.000247+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -59,8 +59,8 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/status.json",
-      "source_modified_at": "2026-11-12T18:00:01.350075+09:00",
-      "sha256": "96105e5fac389feda4020d3ea3384c71415d72d767c2e02fcff4a0ab0b7d9498"
+      "source_modified_at": "2026-11-12T21:00:00.673175+09:00",
+      "sha256": "c881a63324335dd40595755105de27e536c3737d1ec96c02928a92100b334748"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/rollout/probability_budget/pilot/300/metadata/status.json",
