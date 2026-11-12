@@ -9,6 +9,36 @@ from pathlib import Path
 from greedy_attribution_core import BASE, COHORT, CONFIG, GROUPS, RESULTS, ROOT, SOURCE, iou, read, sha, stamp, storage, write
 
 
+def reading_guide():
+    return [
+        '## Viewer를 읽는 순서', '',
+        '먼저 한 query의 상세 계측 분기를 고른다. 기본 선택은 직접 conditional rollout에서 시간 구간이 달라진 분기, '
+        '그 외 직접 continuation이 있는 분기, 나머지 분기 순으로 정하고 같은 조건에서는 alternative의 source probability가 큰 것을 먼저 연다. '
+        '이는 읽기 순서이며 정답 여부나 gradient 크기에 따른 표본 선별이 아니다.', '',
+        '1. **어떤 선택인가**: 같은 prefix 다음의 greedy token과 alternative token을 비교한다. 표시 probability는 다음 token의 native probability이며 최종 시간 구간의 probability가 아니다.',
+        '2. **결과가 어디로 가는가**: alternative token 하나를 강제한 뒤 greedy로 이어간 direct conditional rollout만 직접 비교한다. '
+        '같은 prefix를 공유하지만 이후 추가 강제 분기를 거친 continuation은 참고로 구분한다. 미관측은 결과가 같다는 뜻이 아니다.',
+        '3. **어느 방향으로 변하는가**: margin m=z(greedy)−z(alternative)의 signed activation × gradient를 읽는다. '
+        '입력 group을 미소 배율 확대할 때 양수는 greedy 쪽으로, 음수는 alternative 쪽으로 격차를 움직인다. '
+        '입력의 자연스러운 수정 효과나 제거 효과를 뜻하지 않는다.',
+        '4. **어디를 자세히 볼 것인가**: 필요할 때 token distribution, 전체 입력 위치, frame 지도, attention·MLP·message 상세를 연다. '
+        '내부 layer 점수는 각 module 출력의 미소 배율 확대에 대한 목표 변화 방향이다. Attention과 MLP 모두 이미 섞인 영상·query·prefix 정보를 처리한다.', '',
+        '입력 group의 signed sum S=Σᵢ⟨xᵢ,∂m/∂xᵢ⟩와 absolute sum A=Σᵢ|⟨xᵢ,∂m/∂xᵢ⟩를 함께 본다. '
+        '|S|가 A에 비해 작으면 위치별 양·음 신호가 상쇄된 것이다. S가 작다는 이유만으로 입력 연결이 약하다고 판단하지 않는다. '
+        '상쇄 비율 C=1−|S|/A (A>0)이며 클수록 위치별 부호가 더 상쇄된다. A=0일 때는 정의하지 않는다. '
+        'A는 위치별 signed 값의 절댓값 합이며 gradient L2와 다른 값이다. Group별 단위·위치 수가 다르므로 '
+        'raw norm이나 signed sum을 전체 증거의 기여율로 환산하지 않는다.', '',
+        'Viewer의 입력 방향 막대는 ΔL̂=εS, ε=0.03125인 gradient 1차 예측이다. Margin target에서는 Δm̂이고, '
+        'chosen-token 또는 endpoint target에서는 해당 log probability 목표의 예측 변화량이다. '
+        '같은 차트의 최대 절댓값으로 막대 길이를 정하며 기여율로 정규화하지 않는다. 영상은 normalized pixels 전체의 signed sum을 사용해 '
+        'vision encoder와 DeepStack 경로를 포함한다. Visual embedding의 별도 값은 raw group 통계에서 확인한다. '
+        '원래 계산점의 gradient 예측과 유한차분 screening의 추정은 서로 다른 근사이며 실제 유한 변화의 결과와 다를 수 있다.', '',
+        'Screen gap은 지정한 ±3.125% group scaling 방향의 중앙 유한차분으로 추정한 두 token의 격차다. '
+        '실측 최소 gap은 같은 유한 변화에서 다시 계산한 두 token의 최소 logit 격차다. 음수이면 그 비교에서 alternative가 greedy보다 높지만, '
+        '다른 token까지 포함한 top1이나 전체 rollout의 mode 전환을 확인한 것은 아니다. Top30 밖은 미계측이다.', ''
+    ]
+
+
 def mean(values):
     values = [float(v) for v in values if v is not None and math.isfinite(float(v))]
     return sum(values) / len(values) if values else None
@@ -158,7 +188,9 @@ def definitions(config):
         f'Greedy 구간 대비 max(|Δstart|,|Δend|)>max({config["mode_endpoint_tolerance_seconds"]:g}s, '
         f'{config["mode_relative_tolerance"]:g}×영상 길이)이면 distinct mode candidate로 표시한다. '
         '이 기준은 구간의 시간적 분리를 판정하며 사건 의미의 차이를 확정하지 않는다. '
-        '기존 continuation이 없으면 unknown으로 유지한다. 한 분기의 관측 continuation이나 다음 token probability를 최종 mode probability로 해석하지 않는다.', '',
+        '기존 continuation이 없으면 unknown으로 유지한다. 기존 raw mode flag에는 이후 추가 강제 분기를 거친 descendant도 포함될 수 있다. '
+        'Viewer의 direct conditional rollout은 실제 prefix가 source greedy와 같고, 강제 prefix가 그 prefix와 alternative token으로 정확히 구성되며 마지막 강제 branch 위치가 같은 경우만 표시한다. Parent ID는 별도 provenance로 보존한다. '
+        '따라서 기존 broad mode 후보 수와 direct 구간 분리 수를 구분한다. 한 분기의 관측 continuation이나 다음 token probability를 최종 mode probability로 해석하지 않는다.', '',
         '## Source KV 재현과 gradient 계산', '',
         'Source KV probability는 기존 greedy 실행의 incremental decoding 기록이다. 계측 replay는 같은 원영상 prefill 이후 source token을 한 번에 하나씩 입력하는 계산 순서를 유지한다. '
         'KV는 immutable differentiable chunks로 연결해 prefill부터 모든 생성 step까지 gradient가 이어지도록 한다. 기존에 분리 저장한 inference KV를 가져와 gradient graph를 대체하지 않는다. '
@@ -202,6 +234,7 @@ def _video(row):
 
 
 def report(scope=None, allow_partial=False, canonical=None):
+    from greedy_attribution_interpretation import interpret_query
     canonical = Path(canonical) if canonical is not None else storage()
     config_path = canonical/'metadata/config.json'
     config = read(config_path) if config_path.exists() else CONFIG
@@ -222,7 +255,14 @@ def report(scope=None, allow_partial=False, canonical=None):
                          greedy_iou=iou(q.get('greedy', {}).get('span'), row['span'][0]) if q else None)
             catalog.append(entry)
             if complete:
-                records.append(record_summary(row, q))
+                source_record = read(q['source']['record'])
+                interpretation = interpret_query(q, source_record)
+                interpretation_path = canonical/'web/interpretations'/f'{row["sample_key"]}.json'
+                write(interpretation_path, interpretation)
+                entry['interpretation'] = relative(interpretation_path, ROOT.parent)
+                record_info = record_summary(row, q)
+                record_info['interpretation_counts'] = interpretation['counts']
+                records.append(record_info)
                 refs.append(dict(sample_key=row['sample_key'], path=str(path), sha256=sha(path)))
         if not records:
             continue
@@ -241,10 +281,14 @@ def report(scope=None, allow_partial=False, canonical=None):
                        potential_candidates=sum(r['potential_candidates'] for r in records),
                        potential_only_candidates=sum(r['potential_only_candidates'] for r in records),
                        distinct_mode_candidates=sum(r['distinct_mode_candidates'] for r in records),
+                       direct_continuation_branches=sum(r['interpretation_counts']['direct_confirmed'] for r in records),
+                       direct_distinct_branches=sum(r['interpretation_counts']['direct_distinct'] for r in records),
                        unknown_mode_candidates=sum(r['unknown_mode_candidates'] for r in records),
                        replay_passed=sum(r['replay_passed'] for r in records),
                        top30_mass=mean([r['top30_mass'] for r in records]), omitted_mass=mean([r['omitted_mass'] for r in records]),
-                       greedy_metrics=accuracy(records))
+                       greedy_metrics=accuracy(records),
+                       completed_by_dataset=dict(collections.Counter(r['dataset'] for r in records)),
+                       planned_by_dataset=dict(collections.Counter(r['dataset'] for r in scope_rows)))
         write(artifacts/'web/catalog.json', dict(scope=count, generated_at=stamp(), summary=summary,
               config=config, config_path=relative(config_path, ROOT.parent), samples=catalog))
         write(artifacts/'metadata/source_records.json', dict(queries=count, completed=len(records),
@@ -262,6 +306,10 @@ def report(scope=None, allow_partial=False, canonical=None):
                  'Source greedy token열을 고정한 계측 replay에서 모든 선행 입력의 gradient를 계산하고, 현재 경쟁 분기와 지정한 입력 변화에 민감한 잠재 분기를 함께 추적한다. '
                  '원영상 prefill 이후 one-token decoding을 재현하고 differentiable KV로 모든 선행 입력까지 gradient를 연결한다. Source KV와 계측 replay probability를 함께 기록한다. 새 답변을 생성하거나 성능을 개선하는 실험이 아니다. 기존 deterministic continuation은 mode 후보의 사후 참조로만 사용한다.', '',
                  '[계측 정의·실행 조건·층화 결과](APPENDIX.md)', '',
+                 '완료 query 구성: '+', '.join(f'{name}: {summary["completed_by_dataset"].get(name, 0)} / {number}'
+                    for name,number in sorted(summary['planned_by_dataset'].items()))+'. '
+                    '진행 순서에 따라 dataset 구성이 치우칠 수 있으므로 현재 평균을 pilot 전체로 일반화하지 않는다.', '',
+                 *reading_guide(),
                  '## 계측 coverage', '',
                  '| 항목 | 실제 수 | 분모·해석 |', '|---|---:|---|',
                  f'| 완료 query | {len(records)} / {count} | 같은 고정 cohort의 완료 query 수 |',
@@ -273,7 +321,9 @@ def report(scope=None, allow_partial=False, canonical=None):
                  f'| 현재 경쟁 candidate | {summary["current_candidates"]} | step×token 후보 수; query 수가 아님 |',
                  f'| 잠재 경쟁 candidate | {summary["potential_candidates"]} | 현재 경쟁과 중복 가능 |',
                  f'| 잠재 경쟁만 해당 | {summary["potential_only_candidates"]} | 현재 경쟁 기준을 통과하지 않은 잠재 후보 |',
-                 f'| 분리된 구간을 관측한 branch target | {summary["distinct_mode_candidates"]} / {summary["branch_targets"]} | 기존 continuation 기준 distinct mode candidate |',
+                 f'| 분리된 구간을 관측한 branch target | {summary["distinct_mode_candidates"]} / {summary["branch_targets"]} | 기존 continuation 기준; 이후 추가 강제 분기 포함 가능, direct 전환 수와 다름 |',
+                 f'| Direct conditional rollout이 있는 branch target | {summary["direct_continuation_branches"]} / {summary["branch_targets"]} | 해당 token까지 강제한 후 greedy로 완성한 기존 경로 |',
+                 f'| Direct 구간 분리 branch target | {summary["direct_distinct_branches"]} / {summary["branch_targets"]} | direct 경로에서 max endpoint 차이가 max(1 s, 영상 길이×0.02)를 초과; 사건 의미 차이를 확정하지 않음 |',
                  f'| 재현 오차에 민감한 branch target | {summary["source_drift_sensitive_targets"]} / {summary["branch_targets"]} | replay margin에 비해 source와의 차이가 큰 목표 |',
                  f'| 기존 continuation 미관측 branch target | {summary["unknown_mode_candidates"]} / {summary["branch_targets"]} | mode를 unknown으로 유지 |', '',
                  '현재 경쟁은 source KV의 고정 top30 안에서 계측 replay native probability≥1% 또는 greedy와 logit gap≤log(100)인 후보이며, 잠재 경쟁은 지정한 source-group 변화 방향의 screening에서 선택된 후보다. '

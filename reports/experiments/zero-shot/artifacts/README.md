@@ -191,6 +191,8 @@ Deterministic rollout의 reconsideration 응답·입력·token distribution·실
 
 `runs/rollout/greedy_attribution/pilot/<N>/`에 누적 원자료를 한 번 저장한다. 실제 범위가 300→600→900으로 확장되면 queries·targets·arrays·logs·code·validation·metadata를 새 누적 범위로 이동하고, 앞선 pilot은 source_records.json으로 고정 부분집합을 참조한다. 현재 경로는 `common/registry/greedy_attribution.live.json`에서 확인한다.
 
+Viewer는 상세 계측 분기 → direct conditional rollout의 구간 비교 → 입력 표현의 변화 방향 → 선택한 세부 계측 순으로 읽는다. `web/interpretations/<sample_key>.json`은 query와 기존 deterministic source를 참조해 다시 만들 수 있는 표시용 요약이다. `_lib/greedy_attribution_interpretation.py`가 실제 prefix와 마지막 강제 token을 검사하여 direct continuation과 이후 추가 강제 분기가 있는 descendant를 구분한다. 원래 mode flag·gradient 배열·응답은 수정하지 않는다. 보고서 재생성 시 이 요약과 MD 정의·viewer를 함께 갱신한다. 장시간 실행의 후처리는 report·browser 검사 모듈을 갱신해 최신 화면에도 동일 검증을 적용한다.
+
 - `queries/`: 원래 sample·입력 hash·greedy token·고정 top-30·target metadata.
 - `targets/<sample>/`: target별 전체 입력·pixel patch gradient와 선택층 message를 gzip JSON으로 저장한다.
 - `arrays/`: 고정 top-30 ID·원래 probability·계측 probability·입력 group별 방향 선별값. Top-30 밖은 추적하지 않으며 확률을 재정규화하지 않는다.

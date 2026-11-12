@@ -3271,3 +3271,28 @@
 - code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.css
 - reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/APPENDIX.md
 - reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md
+
+## 2026-11-12T09:00:00.007575+09:00
+
+원본 파일 직접 관찰: 18개 실행, 771개 코드·의존성 파일. 이전 commit: 4ede147dbd2307c953a62b422c0f1cca17f5acaf.
+
+추가 2 / 변경 16 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/greedy_attribution_interpretation.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_interpretation.py
+- code/experiments/zero-shot/_lib/greedy_attribution_check.py
+- code/experiments/zero-shot/_lib/greedy_attribution_report.py
+- code/experiments/zero-shot/_lib/greedy_attribution_runtime.py
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.css
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.js
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md

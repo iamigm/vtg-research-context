@@ -241,14 +241,18 @@ def validate_scope(scope,allow_partial=False):
                 exclusive_context_groups=True,future_gradient_max=max((r['future_max'] for r in completed),default=None),timestamp=stamp())
     write(storage()/'validation'/f'integrity_pilot{scope}.json',report); return report
 
-def validate_catalog(scope):
+def validate_catalog(scope,allow_partial=False):
     canonical=storage(); cohort=read(COHORT)[:scope]; catalog=read(BASE/str(scope)/'web/catalog.json')
     require(catalog['scope']==scope and [s['key'] for s in catalog['samples']]==[r['sample_key'] for r in cohort],'Catalog cohort coverage/order differs')
     completed=[]; step_count=target_count=0; videos=set()
     for sample,row in zip(catalog['samples'],cohort):
         path=canonical/'queries'/f'{sample["key"]}.json'; record=read(path) if path.exists() else None
-        actual=bool(record and record.get('complete')); require(sample['complete']==actual,'Catalog completion state differs')
-        if actual:
+        actual=bool(record and record.get('complete'))
+        # A running worker can finish another query after this catalog snapshot
+        # was published. Its pending row is valid until the next report update.
+        require(not sample['complete'] or actual,'Catalog advertises a missing/incomplete query')
+        if not allow_partial: require(sample['complete']==actual,'Catalog completion state differs')
+        if sample['complete']:
             completed.append(sample); step_count+=len(record['steps']); target_count+=len(record['targets']); videos.add(row['video_path'])
     expected=dict(completed=len(completed),steps=step_count,targets=target_count,
                   unique_videos=len({r['video_path'] for r in cohort}),completed_unique_videos=len(videos))
@@ -257,7 +261,7 @@ def validate_catalog(scope):
     return catalog,completed
 
 def check_viewer(scope=300,allow_partial=False):
-    catalog,completed=validate_catalog(scope); require(completed,'Browser validation requires a real completed query')
+    catalog,completed=validate_catalog(scope,allow_partial); require(completed,'Browser validation requires a real completed query')
     require(allow_partial or len(completed)==scope,'Complete scope required for browser check')
     shared=ROOT.parent/'_shared/timelens'; sys.path.insert(0,str(shared/'browser_deps'))
     os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(shared/'browser_cache')
@@ -265,40 +269,82 @@ def check_viewer(scope=300,allow_partial=False):
     os.environ['FONTCONFIG_FILE']=str(shared/'browser_libs/fonts.conf')
     from playwright.sync_api import sync_playwright
     sample=completed[0]; record=read(storage()/'queries'/f'{sample["key"]}.json'); errors=[]
+    margin_indices=[i for i,target in enumerate(record['targets']) if target['kind']=='logit_margin']
+    require(margin_indices,'Real query has no measured branch to exercise')
+    advanced=('group-details','position-details','token-details','layer-details','message-details')
     base='http://127.0.0.1:8780'; detail=f'{base}/zero-shot/results/rollout/greedy_attribution/pilot/{scope}/detail.html'
     with sync_playwright() as pw:
         browser=pw.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
         page=browser.new_page(viewport=dict(width=1600,height=1100)); page.on('pageerror',lambda e:errors.append(str(e)))
-        page.goto(detail+'?sample='+sample['key'],wait_until='networkidle'); page.wait_for_selector('#sentence button[data-step]',timeout=60000)
-        require(page.locator('#sentence button[data-step]').count()==len(record['steps']),'Viewer greedy token coverage differs')
+        def selected_state():
+            return page.evaluate("Object.fromEntries(new URLSearchParams(location.hash.slice(1)))")
+        def wait_target(index):
+            page.wait_for_function("""index => document.getElementById('target').value===String(index)
+                && !document.getElementById('frame-panel').hidden
+                && document.querySelectorAll('#spatial-map .spatial-cell').length>0
+                && new URLSearchParams(location.hash.slice(1)).get('target')===String(index)""",arg=index,timeout=60000)
+        def assert_target(index,key=sample['key'],target_record=record):
+            state=selected_state()
+            require(state.get('sample')==key and state.get('step')==str(target_record['targets'][index]['step'])
+                    and state.get('target')==str(index),'Sample/step/target state changed unexpectedly')
+            require(page.locator('#target').input_value()==str(index),'Selected target control differs from deep link')
+        def toggle_details(identifier,opened):
+            details=page.locator('#'+identifier)
+            if details.evaluate('element=>element.open')!=opened:
+                summary=page.locator('#'+identifier+' > summary'); summary.focus(); summary.press('Enter')
+            require(details.evaluate('element=>element.open')==opened,f'{identifier}: keyboard disclosure failed')
+
+        page.goto(detail+'?sample='+sample['key'],wait_until='networkidle')
+        page.wait_for_selector('#branch-cards button[data-branch-target]',timeout=60000)
+        initial=int(page.locator('#target').input_value()); require(initial in margin_indices,'Default view did not select a measured branch')
+        wait_target(initial)
+        require(page.locator('#branch-cards button[data-branch-target]').count()==len(margin_indices),'Branch overview coverage differs')
+        require(page.locator('#branch-cards button[aria-pressed="true"]').count()==1,'Branch selection lacks a unique accessible state')
+        require(page.locator('#input-directions .direction-row').count()==6,'Input-direction overview missing source groups')
+        legend=page.locator('#direction-legend').inner_text(); require('음수' in legend and '양수' in legend,'Signed direction legend relies on color alone')
+        require(page.locator('#branch-narrative').inner_text().strip(),'Selected branch explanation empty')
+        require(all(not page.locator('#'+identifier).evaluate('element=>element.open') for identifier in advanced),'Advanced details must begin collapsed')
         require(page.locator('#samples button[data-key]').count()<=10,'Query list not paginated')
-        page.locator('#sentence button[data-step]').last.click(); page.wait_for_selector('#positions .position',timeout=60000)
-        prefix=page.locator('#prefix').inner_text(); url=page.url
-        page.reload(wait_until='networkidle'); page.wait_for_selector('#positions .position',timeout=60000)
-        require(page.locator('#prefix').inner_text()==prefix,'Deep link lost selected token')
-        margin=next((t for t in record['targets'] if t['kind']=='logit_margin'),None)
-        if margin:
-            page.locator(f'#sentence [data-step="{margin["step"]}"]').click()
-            page.select_option('#target',str(record['targets'].index(margin)))
-            page.wait_for_selector('#positions .position',timeout=60000)
-            page.wait_for_function("document.getElementById('target-description').textContent.includes('logit_margin')")
+
+        chosen=next((index for index in reversed(margin_indices) if index!=initial),initial)
+        card=page.locator(f'#branch-cards button[data-branch-target="{chosen}"]'); card.focus(); card.press('Enter')
+        wait_target(chosen); assert_target(chosen)
+        require(page.locator(f'#branch-cards button[data-branch-target="{chosen}"]').get_attribute('aria-pressed')=='true','Keyboard branch selection not announced')
+        prefix=page.locator('#prefix').text_content(); url=page.url
+        page.reload(wait_until='networkidle'); wait_target(chosen); assert_target(chosen)
+        require(page.locator('#prefix').text_content()==prefix,'Deep link lost the selected prefix')
+
+        toggle_details('token-details',True)
+        require(page.locator('#sentence button[data-step]').count()==len(record['steps']),'Viewer greedy token coverage differs')
+        page.locator('#sentence button[data-step]').last.click()
+        eos_index=next(i for i,target in enumerate(record['targets']) if target['kind']=='chosen_log_probability' and target['step']==len(record['steps'])-1)
+        wait_target(eos_index); assert_target(eos_index)
+        require(page.locator('#branches tr').count()==30,'Fixed top30 detail coverage differs')
+        page.locator(f'#branch-cards button[data-branch-target="{chosen}"]').click(); wait_target(chosen); assert_target(chosen)
+        toggle_details('group-details',True); toggle_details('position-details',True)
+        page.wait_for_selector('#positions .position',timeout=60000)
         for metric in ('grad_l2','activation_gradient'):
-            page.select_option('#metric',metric); require(page.locator('#positions .position').count()>0,'Metric switch lost positions')
+            page.select_option('#metric',metric); wait_target(chosen); assert_target(chosen)
+            require(page.locator('#positions .position').count()>0,'Metric switch lost positions')
         page.select_option('#source-type','query')
         require(page.locator('#positions .position').count()>0,'Query-only context filter empty')
-        require(page.locator('#positions .position').evaluate_all("els=>els.every(e=>e.title.startsWith('Query'))"),'Context group filter mixed sources')
+        query_positions={i for i,group in enumerate(record['context']['groups']) if group=='query'}
+        shown=page.locator('#positions .position').evaluate_all("els=>els.map(element=>Number(element.dataset.position))")
+        require(set(shown)<=query_positions,'Context group filter mixed sources')
         page.select_option('#source-type','')
         require(page.locator('#spatial-map .spatial-cell').count()>0,'Spatial map empty')
-        require(page.locator('#layers .layer-row').count()==37,'Decoder layer table incomplete')
         for space in ('pixels','visual'):
-            page.select_option('#frame-space',space)
+            page.select_option('#frame-space',space); assert_target(chosen)
             require(page.locator('#spatial-map .spatial-cell').count()>0,f'{space} map empty')
+        toggle_details('layer-details',True)
+        require(page.locator('#layers .layer-row').count()==37,'Decoder layer table incomplete')
         receivers=page.locator('#receiver option')
         if receivers.count()>1:
             page.select_option('#receiver',receivers.first.get_attribute('value'))
-            require(page.locator('#layers .layer-row').count()==37,'Receiver switch lost layer table')
+            require(page.locator('#layers .layer-row').count()==37,'Receiver switch lost layer table'); assert_target(chosen)
             page.select_option('#receiver',receivers.last.get_attribute('value'))
-        require(page.locator('#message-panel').is_visible(),'Signed message panel missing')
+        toggle_details('message-details',True)
+        require(page.locator('#messages').is_visible(),'Signed message detail missing')
         video=page.locator('#video'); src=video.get_attribute('src'); require(src,'Video source missing')
         response=page.request.get(src,headers={'Range':'bytes=0-127'}); require(response.status==206 and len(response.body())==128,'Video Range failed')
         page.wait_for_function("document.getElementById('video').readyState>=1",timeout=30000)
@@ -307,9 +353,25 @@ def check_viewer(scope=300,allow_partial=False):
             page.select_option('#frame',options.nth(1).get_attribute('value'))
             expected_time=sum(record['input']['timestamps'][2:4])/2
             close(video.evaluate('v=>v.currentTime'),expected_time,'Temporal patch seek',atol=.15)
+            assert_target(chosen)
+
+        if len(completed)>1:
+            second=completed[1]; page.locator('#filter').fill(second['key'])
+            page.locator(f'#samples button[data-key="{second["key"]}"]').click()
+            page.wait_for_function("key=>document.getElementById('query-meta').textContent.includes(key)&&!document.getElementById('workspace').classList.contains('loading')",arg=second['key'])
+            second_record=read(storage()/'queries'/f'{second["key"]}.json'); second_target=int(page.locator('#target').input_value())
+            wait_target(second_target); assert_target(second_target,second['key'],second_record)
+            page.reload(wait_until='networkidle'); wait_target(second_target); assert_target(second_target,second['key'],second_record)
+        page.goto(url,wait_until='networkidle'); wait_target(chosen); assert_target(chosen)
+        page.locator('#filter').fill('')
+        page.locator(f'#branch-cards button[data-branch-target="{initial}"]').click()
+        wait_target(initial); assert_target(initial)
+        for identifier in advanced: toggle_details(identifier,False)
+        page.locator('#branch-panel').scroll_into_view_if_needed()
         result=RESULTS/'pilot'/str(scope); page.screenshot(path=str(result/'preview_desktop.png'),full_page=True)
         for width in (390,768,1100):
             page.set_viewport_size(dict(width=width,height=844)); require(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Overflow at {width}px')
+            require(page.locator('#branch-cards button[data-branch-target]').count()==len(margin_indices),'Responsive view lost branch cards')
         page.set_viewport_size(dict(width=390,height=844)); page.screenshot(path=str(result/'preview_mobile.png'),full_page=True)
         page.goto(f'{base}/zero-shot/results/rollout/greedy_attribution/viewer.html?view=pilot%2F{scope}%2Fdetail.html',wait_until='networkidle'); page.wait_for_selector('#analysis-tabs button')
         labels=page.locator('#analysis-tabs').inner_text(); require('결과' in labels and '보고서' in labels,'Common tabs missing')
@@ -319,22 +381,24 @@ def check_viewer(scope=300,allow_partial=False):
             family_scopes.append(n)
             page.locator('#view-browser > summary').click()
             page.locator(f'#view-tree-items button[data-view="pilot/{n}/detail.html"]').click()
-            page.frame_locator('#detail-frame').locator('#sentence button[data-step]').first.wait_for(timeout=60000)
+            page.frame_locator('#detail-frame').locator('#branch-cards button[data-branch-target]').first.wait_for(timeout=60000)
             require(f'pilot/{n}/detail.html' in page.url.replace('%2F','/'),'Scope did not switch')
             page.locator('#tab-report').click(); page.wait_for_selector('#report h1')
             require(str(n) in page.locator('#report h1').inner_text(),'MD report scope differs')
             require(page.locator('#source-md').is_visible(),'MD source link missing on report tab')
-            page.locator('#tab-result').click(); page.frame_locator('#detail-frame').locator('#sentence button[data-step]').first.wait_for(timeout=60000)
+            page.locator('#tab-result').click(); page.frame_locator('#detail-frame').locator('#branch-cards button[data-branch-target]').first.wait_for(timeout=60000)
             require(not page.locator('#source-md').is_visible(),'MD source link leaked into result tab')
         require(page.request.get(base+'/').status==200,'Unified index server did not respond')
         require(not errors,f'Browser errors: {errors}'); browser.close()
     report=dict(passed=True,scope_queries=scope,completed_queries=len(completed),allow_partial=allow_partial,real_sample=sample['key'],
-                token_navigation=True,context_positions=True,spatial_map=True,layer_table=True,deep_link=url,video_range=True,mobile_no_overflow=True,
+                branch_overview=True,branch_keyboard_selection=True,selected_target_preserved=True,advanced_details_collapsed=True,
+                keyboard_disclosures=True,sample_step_target_deep_link=True,token_navigation=True,context_positions=True,
+                spatial_map=True,layer_table=True,deep_link=url,video_range=True,mobile_no_overflow=True,
                 family_scopes=family_scopes,result_report_switch=True,unified_index=True,page_errors=errors,timestamp=stamp())
     write(storage()/'validation'/f'viewer_pilot{scope}.json',report); return report
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(); p.add_argument('--scope',type=int,default=300); p.add_argument('--allow-partial',action='store_true'); p.add_argument('--viewer',action='store_true'); a=p.parse_args()
-    result=validate_scope(a.scope,a.allow_partial)
-    if a.viewer: result['viewer']=check_viewer(a.scope,a.allow_partial)
+    p=argparse.ArgumentParser(); p.add_argument('--scope',type=int,default=300); p.add_argument('--allow-partial',action='store_true'); p.add_argument('--viewer',action='store_true'); p.add_argument('--viewer-only',action='store_true'); a=p.parse_args()
+    result=check_viewer(a.scope,a.allow_partial) if a.viewer_only else validate_scope(a.scope,a.allow_partial)
+    if a.viewer and not a.viewer_only: result['viewer']=check_viewer(a.scope,a.allow_partial)
     print(json.dumps(result,ensure_ascii=False))

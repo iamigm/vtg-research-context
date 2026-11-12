@@ -3,7 +3,7 @@ import os
 for name in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS'): os.environ[name]='1'
 os.environ['TOKENIZERS_PARALLELISM']='false'
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF','expandable_segments:True')
-import argparse, collections, concurrent.futures, contextlib, fcntl, gc, gzip, json, math, shutil, subprocess, sys, threading, time, traceback
+import argparse, collections, concurrent.futures, contextlib, fcntl, gc, gzip, importlib, json, math, shutil, subprocess, sys, threading, time, traceback
 from pathlib import Path
 import numpy as np
 from greedy_attribution_core import *
@@ -403,18 +403,23 @@ def promote(scope,progress):
             write(BASE/str(n)/'metadata/source_records.json',dict(canonical=str(new),cohort=str(ROOT/f'artifacts/common/cohorts/nested_pilot_v1/pilot_{n}/samples.json'),queries=n))
 
 def postprocess(scope,partial=False):
-    from greedy_attribution_report import report
-    from greedy_attribution_check import validate_scope
-    validate_scope(scope,allow_partial=partial)
-    report(scope,allow_partial=partial)
+    # Presentation and browser checks can evolve while a long run is active.
+    # Refresh these modules only; frozen inference/configuration stays loaded.
+    import greedy_attribution_check
+    check = importlib.reload(greedy_attribution_check)
+    check.validate_scope(scope,allow_partial=partial)
+    refresh_report(scope,allow_partial=partial)
     subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
     subprocess.run([sys.executable,str(ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
-    from greedy_attribution_check import check_viewer
-    check_viewer(scope,allow_partial=partial)
+    check.check_viewer(scope,allow_partial=partial)
     if not partial:
         write(storage()/'validation'/f'pilot{scope}.json',dict(passed=True,queries=scope,report_and_viewer_verified=True,timestamp=stamp()))
-        report(allow_partial=True)
+        refresh_report(allow_partial=True)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
+
+def refresh_report(scope=None,allow_partial=False):
+    import greedy_attribution_report
+    return importlib.reload(greedy_attribution_report).report(scope,allow_partial=allow_partial)
 
 def run(args):
     global RUN_PROGRESS
@@ -445,8 +450,7 @@ def run(args):
             # pilot gate is still required before proceeding to the next scope.
             if len(done)==1:postprocess(300,partial=True)
             elif len(done)%25==0 or previous_scope!=scope:
-                from greedy_attribution_report import report
-                report(allow_partial=True)
+                refresh_report(allow_partial=True)
         progress(stage='reporting_and_validating');postprocess(scope)
         progress(stage=f'pilot{scope}_complete',completed=scope,eta_seconds=0)
     from artifact_store import register
