@@ -3348,3 +3348,25 @@
 - 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.js
 - 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/config.json
 - 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json
+
+## 2026-11-12T18:00:00.001493+09:00
+
+원본 파일 직접 관찰: 18개 실행, 777개 코드·의존성 파일. 이전 commit: bf600dd7dfd9c5cfa35dbabaf303ccd4c165369f.
+
+추가 0 / 변경 15 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/greedy_attribution_check.py
+- code/experiments/zero-shot/_lib/greedy_attribution_report.py
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.css
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.js
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/600/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/overview/REPORT.md

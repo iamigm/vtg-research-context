@@ -1,6 +1,6 @@
 """Validate original sources, gradient causality, reports and real browser views."""
 from __future__ import annotations
-import argparse, collections, gzip, json, math, os, sys
+import argparse, collections, colorsys, gzip, json, math, os, sys
 from pathlib import Path
 import numpy as np
 from greedy_attribution_core import BASE, COHORT, CONFIG, GROUPS, MODEL, RESULTS, ROOT, SOURCE, digest, read, sha, stamp, storage, write
@@ -470,6 +470,19 @@ def check_viewer(scope=300,allow_partial=False):
                 return match && match.slice(1).every(channel=>Number(channel)>=0 && Number(channel)<=255);
             }));
         }""",color_function),'Zero-valued heatmap colors are not opaque RGB')
+        palette_samples=page.evaluate("""source=>{
+            const color=new Function('return ('+source+')')();
+            const rgb=value=>value.match(/\d+/g).map(Number);
+            return {norm:[0,.25,.5,.75,1].map(value=>rgb(color(value,1,false))),
+                    signed:[-1,-.5,0,.5,1].map(value=>rgb(color(value,1,true)))};
+        }""",color_function)
+        hues=[colorsys.rgb_to_hsv(*(channel/255 for channel in rgb))[0] for rgb in palette_samples['norm']]
+        require(len({tuple(rgb) for rgb in palette_samples['norm']})==5 and max(hues)-min(hues)>.35,
+                'Norm palette does not span distinct hues')
+        negative,_,neutral,_,positive=palette_samples['signed']
+        require(negative[0]>negative[2] and positive[2]>positive[0]
+                and min(neutral)>=220 and max(neutral)-min(neutral)<=8,
+                'Signed palette lacks red-negative, light-neutral-zero, blue-positive semantics')
         with gzip.open(within(storage(),record['targets'][chosen]['data_file']),'rt') as stream: overlay_payload=json.load(stream)
         timestamps=record['input']['timestamps']; t,h,w=record['input']['grid']
         for space,field,cells,frames in [('pixels','pixel_frames',h*w,2*t),('visual','frames',(h//2)*(w//2),t)]:
@@ -479,6 +492,23 @@ def check_viewer(scope=300,allow_partial=False):
             for metric,source_metric in [('grad_l2','gradient_norm'),('activation_gradient','activation_dot_gradient')]:
                 page.select_option('#metric',metric); wait_target(chosen)
                 maximum=float(np.max(np.abs(np.asarray(overlay_payload[field][source_metric],dtype=np.float64))))
+                signed_metric=metric!='grad_l2'
+                require(page.evaluate(r"""({source,maximum,signed})=>{
+                    const color=new Function('return ('+source+')')();
+                    const gradient=document.querySelector('#overlay-color-legend .overlay-color-scale').style.backgroundImage;
+                    const stops=[...gradient.matchAll(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)\s*([\d.]+)%/g)];
+                    return stops.length===9 && stops.every((stop,index)=>{
+                        const value=maximum*(signed ? index/4-1 : index/8);
+                        return Number(stop[4])===index*12.5 && color(value,maximum,signed)===`rgb(${stop[1]},${stop[2]},${stop[3]})`;
+                    });
+                }""",dict(source=color_function,maximum=maximum,signed=signed_metric)),
+                        'Legend color stops differ from heatmap colors or linear positions')
+                ticks=page.locator('#overlay-color-legend .overlay-color-ticks span')
+                require(ticks.count()==5 and ticks.nth(2).evaluate("e=>e.style.left==='50%'"),'Legend midpoint is missing or misplaced')
+                for index,label in enumerate(ticks.all_inner_texts()):
+                    expected=maximum*(index/2-1 if signed_metric else index/4)
+                    close(float(label),expected,'Legend numeric tick',atol=5.1e-5,rtol=.005 if abs(expected)<.0001 else 0.)
+                if signed_metric: require(float(ticks.nth(2).inner_text())==0.,'Signed legend midpoint is not zero')
                 for frame_index in (0,1,frames-1):
                     page.select_option('#frame',str(frame_index))
                     source_index=frame_index if space=='pixels' else 2*frame_index
@@ -586,6 +616,7 @@ def check_viewer(scope=300,allow_partial=False):
                 overlay_manual_input_slots=True,overlay_duplicate_timestamp_slots=any(a==b for a,b in zip(timestamps,timestamps[1:])),
                 overlay_actual_pair_source_seek=True,overlay_all_frame_color_scale=True,overlay_transparency_visibility=True,
                 overlay_all_cells_opaque=True,overlay_zero_color_boundary_opaque=True,frame_cards_actual_decimal_timestamps=True,
+                overlay_multihue_palette=True,overlay_legend_matches_palette=True,overlay_legend_zero_midpoint=True,
                 overlay_object_fit_alignment=True,
                 family_scopes=family_scopes,result_report_switch=True,unified_index=True,page_errors=errors,timestamp=stamp())
     write(storage()/'validation'/f'viewer_pilot{scope}.json',report); return report

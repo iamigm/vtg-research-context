@@ -480,10 +480,14 @@
     $('group-stat-table').innerHTML = `<table><thead><tr><th>입력 group</th><th>위치 수</th><th>Gradient L2</th><th>Net signed sum</th><th>Absolute sum</th></tr></thead><tbody>${groups.map(group => `<tr><td>${escape(sourceLabel(group.group))}</td><td>${group.count}</td><td>${scientific(group.grad_l2)}</td><td>${signed(group.signed_sum)}</td><td>${scientific(group.absolute_sum)}</td></tr>`).join('')}</tbody></table>`;
   }
 
-  function heatColor(value, maximum, signedMetric) {
-    const alpha = Math.max(0.04, Math.min(0.85, Math.abs(value) / (maximum || 1) * 0.85));
-    if (!signedMetric) return `rgba(43,111,145,${alpha})`;
-    return value < 0 ? `rgba(178,120,55,${alpha})` : `rgba(43,111,145,${alpha})`;
+  function heatStyle(value, maximum, signedMetric) {
+    const background = overlayColor(value, maximum, signedMetric);
+    const linear = background.match(/\d+/g).map(channel => {
+      const value = Number(channel) / 255;
+      return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+    return `background:${background};color:${luminance > 0.179 ? '#000' : '#fff'}`;
   }
 
   function renderPositions() {
@@ -497,7 +501,7 @@
     const signedMetric = $('metric').value !== 'grad_l2';
     $('position-summary').textContent = `${rows.length} / ${all.length} 선행 위치 · 색상은 전체 위치의 최대 절댓값 기준`;
     $('positions').innerHTML = rows.slice(positionPage * POSITION_PAGE_SIZE, (positionPage + 1) * POSITION_PAGE_SIZE).map(position => `
-      <button class="position" data-position="${position.index}" data-time="${position.timestamp ?? ''}" style="background:${heatColor(metricValue(position), maximum, signedMetric)}" title="${escape(sourceLabel(position.type))} · position ${position.index}">${escape(position.text)}<small>${position.index} · ${scientific(metricValue(position))}</small></button>
+      <button class="position" data-position="${position.index}" data-time="${position.timestamp ?? ''}" style="${heatStyle(metricValue(position), maximum, signedMetric)}" title="${escape(sourceLabel(position.type))} · position ${position.index}">${escape(position.text)}<small>${position.index} · ${scientific(metricValue(position))}</small></button>
     `).join('') || empty('이 조건의 선행 위치가 없습니다.');
     $('position-page').textContent = `${positionPage + 1} / ${Math.max(1, Math.ceil(rows.length / POSITION_PAGE_SIZE))}`;
     $('position-prev').disabled = positionPage === 0;
@@ -580,12 +584,15 @@
   }
 
   function overlayColor(value, maximum, signedMetric) {
-    const strength = maximum > 0 ? Math.min(1, Math.abs(value) / maximum) : 0;
-    const zero = signedMetric ? [32, 35, 40] : [9, 24, 44];
-    const end = signedMetric && value < 0 ? [255, 128, 25] : [25, 145, 255];
-    // Encode magnitude in solid RGB; the slider alone controls video blending.
-    // Zero-valued patches also fully cover the video at transparency zero.
-    const color = zero.map((channel, index) => Math.round(channel + strength * (end[index] - channel)));
+    // Sequential purple → blue → teal → green → yellow; diverging red → white → blue.
+    // All frames retain the same linear value scale. Only the slider changes alpha.
+    const palette = signedMetric
+      ? [[103,0,31],[178,24,43],[214,96,77],[244,165,130],[247,247,247],[146,197,222],[67,147,195],[33,102,172],[5,48,97]]
+      : [[68,1,84],[71,44,122],[59,82,139],[44,114,142],[33,145,140],[39,173,129],[94,201,98],[173,220,48],[253,231,37]];
+    const ratio = maximum > 0 ? Math.max(-1, Math.min(1, value / maximum)) : 0;
+    const position = (signedMetric ? (ratio + 1) / 2 : Math.abs(ratio)) * (palette.length - 1);
+    const index = Math.min(palette.length - 2, Math.floor(position)), fraction = position - index;
+    const color = palette[index].map((channel, i) => Math.round(channel + fraction * (palette[index + 1][i] - channel)));
     return `rgb(${color.join(',')})`;
   }
 
@@ -620,8 +627,10 @@
     map.innerHTML = frame.values.map((value, index) =>
       `<div class="spatial-cell" style="background:${overlayColor(value, frameColorMaximum, signedMetric)}" title="Patch ${index} · ${scientific(value)}"></div>`
     ).join('');
-    const colors = signedMetric ? '#ff8019, #202328, #1991ff' : '#09182c, #1991ff';
-    $('overlay-color-legend').innerHTML = `<span>${signedMetric ? '−' + scientific(frameColorMaximum) : '0'}</span><span class="overlay-color-scale" style="background:linear-gradient(to right,${colors})" title="어두운 색은 0, 파랑은 양수${signedMetric ? ', 주황은 음수' : ''}"></span><span>${scientific(frameColorMaximum)}</span>`;
+    const legendValue = fraction => frameColorMaximum * (signedMetric ? 2 * fraction - 1 : fraction);
+    const colors = Array.from({length: 9}, (_, i) => `${overlayColor(legendValue(i / 8), frameColorMaximum, signedMetric)} ${i * 12.5}%`).join(',');
+    const legendCaption = signedMetric ? '음수: 빨강·주황 ← 0: 밝은 회색 → 양수: 하늘색·파랑' : '작은 값: 보라 → 파랑 → 청록 → 초록 → 노랑: 큰 값';
+    $('overlay-color-legend').innerHTML = `<div class="overlay-color-caption">${legendCaption} · Linear scale</div><span class="overlay-color-scale" style="background:linear-gradient(to right,${colors})" title="${legendCaption}"></span><div class="overlay-color-ticks">${Array.from({length: 5}, (_, i) => `<span style="left:${i * 25}%">${scientific(legendValue(i / 4))}</span>`).join('')}</div>`;
     const isVisual = $('frame-space').value === 'visual';
     $('spatial-note').textContent = `${frame.values.length} spatial 위치 · 전체 ${activeFrames.length}개 ${isVisual ? 'pair' : 'frame'}에서 고정 patch 색상 범위: ${signedMetric ? '−' + scientific(frameColorMaximum) + ' … +' + scientific(frameColorMaximum) : '0–' + scientific(frameColorMaximum)}. 시간 보간 없이 가장 가까운 sampled frame의 지도를 표시합니다.`;
     const sourceTimes = frame.sourceTimes.map((time, index) => `<button type="button" data-source-time="${time}" data-source-index="${frame.sourceIndices[index]}">${index + 1}번째 source · ${number(time, 3)} s</button>`).join(' ');
@@ -654,12 +663,12 @@
     const maximum = activeFrames.reduce((value, frame) => Math.max(value, Math.abs(metricValue(frame))), 1e-20);
     $('frame-timeline').innerHTML = activeFrames.map((frame, index) => {
       const times = frame.sourceTimes.map(time => number(time, 3)).join(' / ') + ' s';
-      return `<button class="frame-cell${isVisual ? ' frame-pair' : ''}" data-frame="${index}" style="background:${heatColor(metricValue(frame), maximum, signedMetric)}" title="Index ${index} · ${times} · ${scientific(metricValue(frame))}" aria-label="${isVisual ? 'Visual pair' : 'Frame'} ${index}, 실제 시각 ${times}"><span class="frame-index">${index}</span><span class="frame-time">${times}</span></button>`;
+      return `<button class="frame-cell${isVisual ? ' frame-pair' : ''}" data-frame="${index}" style="${heatStyle(metricValue(frame), maximum, signedMetric)}" title="Index ${index} · ${times} · ${scientific(metricValue(frame))}" aria-label="${isVisual ? 'Visual pair' : 'Frame'} ${index}, 실제 시각 ${times}"><span class="frame-index">${index}</span><span class="frame-time">${times}</span></button>`;
     }).join('');
     $('frame-description').textContent = (isVisual
       ? '인접한 두 source frame이 공유하는 contextual visual embedding 지도입니다. DeepStack 추가 주입 이전의 language-model 입력을 측정합니다.'
       : '실제 source frame의 pixel patch 지도입니다. Vision encoder와 DeepStack 경로를 포함합니다.')
-      + (signedMetric ? ' 파랑은 목표를 높이는 방향, 황토색은 낮추는 방향입니다. 정답·오답 표시가 아닙니다.' : ' 색이 진할수록 gradient norm이 큽니다. 지지·억제의 부호는 포함하지 않습니다.')
+      + (signedMetric ? ' 파랑 계열은 목표를 높이는 방향, 빨강·주황 계열은 낮추는 방향이며 밝은 회색은 0입니다. 정답·오답 표시가 아닙니다.' : ' 보라 → 파랑 → 청록 → 초록 → 노랑 순서로 gradient norm이 커집니다. 지지·억제의 부호는 포함하지 않습니다.')
       + ' 시간 막대는 frame 전체의 집계값이며 영상 위 patch와 색상 scale이 다릅니다. Pixel과 visual embedding의 수치도 서로 다른 표현·단위입니다.';
     paintSelectedFrame(true);
     requestAnimationFrame(alignOverlay);

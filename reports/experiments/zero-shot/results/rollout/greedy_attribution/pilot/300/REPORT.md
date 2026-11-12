@@ -33,7 +33,7 @@ Screen gap은 지정한 ±3.125% group scaling 방향의 중앙 유한차분으�
 
 시간 버튼은 위에 frame 또는 pair index, 아래에 저장된 실제 source timestamp를 소수점 셋째 자리까지 초 단위로 표시한다. 2 FPS의 명목 간격으로 index를 나눠 시각을 만들지 않으며 visual pair는 두 실제 source timestamp를 함께 표시한다.
 
-Overlay의 색 농도는 선택한 target·표현·metric의 모든 frame에 공통인 최대 절댓값 M=maxₜ,ᵢ|vₜ,ᵢ|을 기준으로 한다. 색상 강도는 min(1,|v|/M)이며 M=0일 때는 0으로 둔다. 강도는 어두운 0 색상과 진한 파랑 사이의 RGB 선형 보간으로 표시한다. Signed activation × gradient의 음수는 어두운 0 색상과 진한 주황 사이로 표시한다. 모든 patch의 색 자체는 완전히 불투명하다. 투명도 T(%)에 따른 전체 overlay alpha는 1−T/100이다. T=0이면 0값 patch까지 heatmap이 영상을 완전히 가리고, T=100이면 원영상만 보인다. 투명도 조절은 화면 표시만 바꾸며 원래 수치를 바꾸지 않는다. 표현이나 target을 바꾸면 M도 다시 정해지므로 서로 다른 선택 간 색 농도만 비교하지 않는다. Visual embedding은 이미 다른 위치의 정보를 섞은 표현이며, overlay 영역만의 독립적 인과 효과는 아니다.
+Overlay의 color scale은 선택한 target·표현·metric의 모든 frame에 공통인 최대 절댓값 M=maxₜ,ᵢ|vₜ,ᵢ|을 기준으로 한다. Gradient norm은 u=min(1,|v|/M)을 보라 → 파랑 → 청록 → 초록 → 노랑의 sequential palette로 표시한다. Signed activation × gradient는 u=(clip(v/M,−1,1)+1)/2인 diverging palette를 사용한다. 음수는 빨강·주황, 0은 밝은 회색, 양수는 하늘색·파랑이며 양끝으로 갈수록 절댓값이 크다. 두 palette는 9개의 등간격 color stop 사이에서 RGB를 선형 보간한다. M=0이면 모든 patch를 해당 palette의 0 색상으로 표시한다. Legend는 같은 함수로 생성하며 norm은 0·M/4·M/2·3M/4·M, signed는 −M·−M/2·0·M/2·M의 실제 값을 표기한다. 시간 버튼과 선행 위치 heatmap에도 같은 palette를 사용하되, 각각 frame 집계값과 전체 선행 위치 값의 최대 절댓값을 기준으로 한다. 모든 patch의 색 자체는 완전히 불투명하다. 투명도 T(%)에 따른 전체 overlay alpha는 1−T/100이다. T=0이면 0값 patch까지 heatmap이 영상을 완전히 가리고, T=100이면 원영상만 보인다. 투명도 조절은 화면 표시만 바꾸며 원래 수치를 바꾸지 않는다. 표현이나 target을 바꾸면 M도 다시 정해지므로 서로 다른 선택 간 색만 비교하지 않는다. Visual embedding은 이미 다른 위치의 정보를 섞은 표현이며, overlay 영역만의 독립적 인과 효과는 아니다.
 
 ## 계측 coverage
 
