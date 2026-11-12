@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, collections, gzip, json, math, os, sys
 from pathlib import Path
 import numpy as np
-from greedy_attribution_core import BASE, COHORT, CONFIG, GROUPS, RESULTS, ROOT, SOURCE, digest, read, sha, stamp, storage, write
+from greedy_attribution_core import BASE, COHORT, CONFIG, GROUPS, MODEL, RESULTS, ROOT, SOURCE, digest, read, sha, stamp, storage, write
 
 COHORT_HASHES = {
     300:'b4232e420a9f9f1a5a4f07fc8f84dde2f372be29935f6dc1dc152a3a9e3d0fdf',
@@ -39,6 +39,78 @@ def within(root,relative):
     require(path.is_relative_to(root.resolve()),f'Artifact path escapes store: {relative}')
     return path
 
+# Both paths sum the same rounded FP32 products, in different reduction orders.
+# Bounds use the pinned CUDA Reduce.cuh rather than gamma_N (N can exceed 1/u).
+REDUCE_HEADER_SHA256='ce368277eee91fdf0ea30522949ad7094b914cae8a12aab78304095444013789'
+PIXEL_WIDTH=3*16*16
+
+def gamma(depth,unit=2.**-24):
+    require(0<=depth*unit<1,'Floating-point error depth is outside gamma domain')
+    return depth*unit/(1-depth*unit)
+
+def scalar_reduction_depth(size):
+    """Upper bound for a fresh contiguous float32 CUDA scalar sum in torch 2.6.
+
+    Input is 4-aligned and a multiple of 768. A 512-thread block has four
+    accumulators, three combines and nine tree additions. Global reduction
+    uses C CTAs in [ceil(v/256),ceil(v/16)], v=ceil(N/512), then ceil(C/512)
+    additions and another nine-level tree. Independent extrema over C are
+    conservative and require no assumption about the GPU's SM count.
+    """
+    require(size>0 and size%PIXEL_WIDTH==0 and size<2**31,'Unexpected pixel reduction size')
+    ceildiv=lambda a,b:(a+b-1)//b
+    if size<2048: return size-1
+    values=ceildiv(size,512)
+    if values<256: return ceildiv(size,4*512)+3+9
+    low=ceildiv(values,256); high=ceildiv(values,16)
+    return ceildiv(size,4*512*low)+3+9+ceildiv(high,512)+9
+
+def pixel_reduction_check(scalar,norms,dots,label):
+    """Compare summaries using a conservative forward-error bound, not equality.
+
+    Saved patch norms bound sum(abs(g*x)) by Cauchy with |normalized x|<=1.
+    Norm underestimation from FP32 square/sum/sqrt is reversed first. Patch
+    reductions use the arbitrary-order depth 767, independent of dispatch.
+    min-normal additive terms also cover subnormal flush-to-zero; host sums
+    use an FP64 bound. No per-pixel values are reconstructed or modified.
+    """
+    u=2.**-24; tiny=float(np.finfo(np.float32).tiny); eps64=float(np.finfo(np.float64).eps)
+    norms=np.asarray(norms,dtype=np.float64).ravel(); dots=np.asarray(dots,dtype=np.float64).ravel()
+    require(norms.size==dots.size and norms.size>0 and bool(np.isfinite(norms).all())
+            and bool(np.isfinite(dots).all()) and bool((norms>=0).all()) and math.isfinite(scalar),f'{label}: invalid pixel summaries')
+    size=int(norms.size)*PIXEL_WIDTH; depth=scalar_reduction_depth(size)
+    patch_depth=PIXEL_WIDTH-1; norm_gamma=gamma(PIXEL_WIDTH)
+    # There are at most 2M square/add operations, each with additive error tiny.
+    norm_underflow=2*PIXEL_WIDTH*tiny/(1-PIXEL_WIDTH*u)
+    norm_upper=np.sqrt((((norms+tiny)/(1-u))**2+norm_underflow)/(1-norm_gamma))
+    product_absolute_bound=(1+u)*math.sqrt(PIXEL_WIDTH)*math.fsum(norm_upper.tolist())+size*tiny
+    product_absolute_bound=float(np.nextafter(product_absolute_bound*(1+32*eps64),np.inf))
+    fp32_bound=(gamma(depth)+gamma(patch_depth))*product_absolute_bound
+    fp32_bound+=size*tiny*(1/(1-depth*u)+1/(1-patch_depth*u))
+    expected=math.fsum(dots.tolist()); absolute_patch_sum=math.fsum(np.abs(dots).tolist())
+    host_bound=gamma(len(dots)+2,2.**-53)*(absolute_patch_sum+abs(scalar))
+    bound=float(np.nextafter((fp32_bound+host_bound)*(1+32*eps64),np.inf))
+    observed=abs(float(scalar)-expected)
+    require(observed<=bound,f'{label}: pixel reduction difference {observed} exceeds FP32 bound {bound}')
+    return dict(observed_abs_error=observed,bound=bound,ratio=observed/bound if bound else 0.,
+                global_reduction_depth=depth,patch_reduction_depth=patch_depth,
+                absolute_product_bound=product_absolute_bound,
+                legacy_tolerance_exceeded=not math.isclose(float(scalar),expected,abs_tol=2e-5,rel_tol=2e-4))
+
+def pixel_reduction_contract():
+    header=ROOT/'.venv/lib/python3.10/site-packages/torch/include/ATen/native/cuda/Reduce.cuh'
+    require(sha(header)==REDUCE_HEADER_SHA256,'Pinned CUDA scalar-reduction implementation changed')
+    processor=MODEL/'video_preprocessor_config.json'; config=read(processor)
+    require(config['patch_size']==16 and config['temporal_patch_size']==2
+            and config['image_mean']==config['image_std']==[.5,.5,.5],'Normalized pixel bound assumptions changed')
+    return dict(method='fp32_reduction_forward_error_bound',fp32_unit_roundoff=2.**-24,
+        formula='abs(global_sum - fsum(patch_sums)) <= (gamma(global_depth)+gamma(767))*S_upper + underflow_bound + fp64_host_bound',
+        absolute_product_bound='S_upper=(1+u)*sqrt(768)*sum(patch_gradient_norm_upper)+N*tiny32; norms enlarged for FP32 square/sum/sqrt error',
+        patch_reduction_depth=767,normalized_pixel_absolute_bound=1,
+        scalar_reduction='torch 2.6 CUDA, contiguous aligned FP32 product; 512 threads, input vector 4, min/max values per thread 16/256',
+        reduce_header_sha256=REDUCE_HEADER_SHA256,processor_sha256=sha(processor),
+        limitation='Conservative summary-only Cauchy bound; passing is consistency within roundoff bounds, not exact equality. Per-pixel gradients were not saved, so the actual absolute product sum is unavailable.')
+
 def validate_context(context,original,ids):
     prompt=len(original['input_ids']); expected=original['input_ids']+ids[:-1]; length=len(expected)
     require(context['ids']==expected,'Context differs from original prompt plus greedy prefix')
@@ -58,7 +130,7 @@ def validate_context(context,original,ids):
         close(entry['timestamp'],sum(times)/len(times),'Visual timestamp')
     return prompt,length,groups
 
-def validate_target(target,payload,prompt,length,groups,grid,count):
+def validate_target(target,payload,prompt,length,groups,grid,count,pixel_audits=None):
     ident=target['id']; step=target['step']; require(isinstance(step,int) and 0<=step<count,f'{ident}: invalid step')
     for key in ('id','kind','step','alternative','score','groups','data_file'):
         require(payload[key]==target[key],f'{ident}: payload metadata differs: {key}')
@@ -90,7 +162,8 @@ def validate_target(target,payload,prompt,length,groups,grid,count):
     pixel_norm=np.asarray(payload['pixel_frames']['gradient_norm'],dtype=np.float64)
     pixel_dot=np.asarray(payload['pixel_frames']['activation_dot_gradient'],dtype=np.float64)
     close(target['pixel_gradient_l2'],float(np.linalg.norm(pixel_norm)),f'{ident}.pixel_l2',rtol=2e-4)
-    close(target['pixel_signed_sum'],float(pixel_dot.sum()),f'{ident}.pixel_signed_sum',atol=2e-5,rtol=2e-4)
+    pixel_audit=pixel_reduction_check(target['pixel_signed_sum'],pixel_norm,pixel_dot,f'{ident}.pixel_signed_sum')
+    if pixel_audits is not None: pixel_audits.append(dict(target=ident,**pixel_audit))
     require(payload['predictor_positions']==list(range(prompt-1,length)),f'{ident}: predictor position shift')
     layers=payload['layers']; require(set(layers)=={'attention','mlp','residual_input'},f'{ident}: decoder components missing')
     for kind,entries in layers.items():
@@ -193,7 +266,7 @@ def validate_record(record,original,saved_input,trace,canonical,reference):
     chosen={t['step']:t for t in targets if t['kind']=='chosen_log_probability'}
     require(len(chosen)==count and sum(t['kind']=='chosen_log_probability' for t in targets)==count and sorted(chosen)==list(range(count)),f'{key}: chosen target coverage including EOS differs')
     require(sum(t['kind']=='logit_margin' for t in targets)<=CONFIG['detailed_branch_targets'],f'{key}: detailed margin budget exceeded')
-    future=0.
+    future=0.; pixel_audits=[]
     for target in targets:
         kind=target['kind']; require(kind in {'chosen_log_probability','start_log_probability','end_log_probability','logit_margin'},f'{key}: unknown objective')
         if kind=='logit_margin':
@@ -205,13 +278,14 @@ def validate_record(record,original,saved_input,trace,canonical,reference):
             close(target['score'],math.fsum(chosen[i]['score'] for i in selected),f'{key}.endpoint',atol=2e-4)
         data_path=within(canonical,target['data_file']); require(sha(data_path)==target['sha256'] and data_path.stat().st_size==target['bytes'],f'{key}: target checksum differs')
         with gzip.open(data_path,'rt') as stream: payload=json.load(stream)
-        future=max(future,validate_target(target,payload,prompt,length,groups,inp['grid'],count)); del payload
+        future=max(future,validate_target(target,payload,prompt,length,groups,inp['grid'],count,pixel_audits)); del payload
     if greedy.get('parsed'):
         require(all(sum(t['kind']==kind for t in targets)==1 for kind in ('start_log_probability','end_log_probability')),f'{key}: endpoint aggregate missing')
-    return dict(sample_key=key,steps=count,targets=len(targets),future_max=future)
+    return dict(sample_key=key,steps=count,targets=len(targets),future_max=future,pixel_reductions=pixel_audits)
 
 def validate_scope(scope,allow_partial=False):
     require(scope in CONFIG['stages'],'Unsupported scope'); canonical=storage(); cohort=read(COHORT)
+    pixel_contract=pixel_reduction_contract()
     require(read(canonical/'metadata/config.json')==CONFIG,'Frozen config differs')
     require(read(canonical/'metadata/cohort.json')==cohort[:int(canonical.name)],'Active cohort changed')
     for n,expected in COHORT_HASHES.items():
@@ -233,12 +307,22 @@ def validate_scope(scope,allow_partial=False):
         if not record.get('complete'): missing.append(key); continue
         original=read(path); require(original['sample']==row,f'{key}: sample/cohort differs')
         completed.append(validate_record(record,original,read(SOURCE/'inputs'/f'{key}.json'),read(SOURCE/'token_traces'/key/'index.json'),canonical,ref))
+        if len(completed)%25==0:
+            print(json.dumps(dict(integrity_progress=len(completed),scope=scope,sample_key=key,timestamp=stamp())),file=sys.stderr,flush=True)
     require(allow_partial or not missing,f'pilot{scope}: {len(missing)} incomplete queries')
     counts=dict(completed=len(completed),steps=sum(r['steps'] for r in completed),targets=sum(r['targets'] for r in completed),
                 unique_videos=len({r['video_path'] for r in cohort[:scope] if r['sample_key'] not in missing}))
+    pixel_audits=[dict(sample_key=row['sample_key'],**audit) for row in completed for audit in row['pixel_reductions']]
+    pixel_contract.update(checked_targets=len(pixel_audits),nonzero_difference_count=sum(r['observed_abs_error']>0 for r in pixel_audits),
+        legacy_tolerance_exceeded_count=sum(r['legacy_tolerance_exceeded'] for r in pixel_audits),
+        max_observed_abs_error=max(pixel_audits,key=lambda r:r['observed_abs_error'],default=None),
+        max_bound=max(pixel_audits,key=lambda r:r['bound'],default=None),
+        max_ratio=max(pixel_audits,key=lambda r:r['ratio'],default=None),
+        legacy_tolerance_exceeded=[r for r in pixel_audits if r['legacy_tolerance_exceeded']])
     report=dict(passed=True,scope_queries=scope,complete=not missing,allow_partial=allow_partial,canonical=str(canonical),**counts,
                 missing_queries=missing,source_hashes_verified=True,input_hashes_verified=True,all_greedy_tokens_including_eos=True,
-                exclusive_context_groups=True,future_gradient_max=max((r['future_max'] for r in completed),default=None),timestamp=stamp())
+                exclusive_context_groups=True,future_gradient_max=max((r['future_max'] for r in completed),default=None),
+                pixel_signed_sum_validation=pixel_contract,timestamp=stamp())
     write(storage()/'validation'/f'integrity_pilot{scope}.json',report); return report
 
 def validate_catalog(scope,allow_partial=False):
@@ -280,6 +364,7 @@ def check_viewer(scope=300,allow_partial=False):
             return page.evaluate("Object.fromEntries(new URLSearchParams(location.hash.slice(1)))")
         def wait_target(index):
             page.wait_for_function("""index => document.getElementById('target').value===String(index)
+                && document.getElementById('attribution-panel').dataset.targetReady==='true'
                 && !document.getElementById('frame-panel').hidden
                 && document.querySelectorAll('#spatial-map .spatial-cell').length>0
                 && new URLSearchParams(location.hash.slice(1)).get('target')===String(index)""",arg=index,timeout=60000)
@@ -288,11 +373,25 @@ def check_viewer(scope=300,allow_partial=False):
             require(state.get('sample')==key and state.get('step')==str(target_record['targets'][index]['step'])
                     and state.get('target')==str(index),'Sample/step/target state changed unexpectedly')
             require(page.locator('#target').input_value()==str(index),'Selected target control differs from deep link')
+            require(page.locator('#attribution-panel').get_attribute('data-target-id')==target_record['targets'][index]['id'],
+                    'Displayed payload differs from selected target')
         def toggle_details(identifier,opened):
             details=page.locator('#'+identifier)
             if details.evaluate('element=>element.open')!=opened:
                 summary=page.locator('#'+identifier+' > summary'); summary.focus(); summary.press('Enter')
             require(details.evaluate('element=>element.open')==opened,f'{identifier}: keyboard disclosure failed')
+        def assert_overlay_alignment():
+            page.wait_for_function("""() => {
+                const v=document.getElementById('overlay-video'),m=document.getElementById('spatial-map');
+                const vr=v.getBoundingClientRect(),mr=m.getBoundingClientRect();
+                if (!v.videoWidth || !vr.width || !mr.width) return false;
+                const s=Math.min(vr.width/v.videoWidth,vr.height/v.videoHeight);
+                const w=v.videoWidth*s,h=v.videoHeight*s;
+                return Math.max(Math.abs(mr.width-w),Math.abs(mr.height-h),
+                    Math.abs(mr.left-vr.left-(vr.width-w)/2),Math.abs(mr.top-vr.top-(vr.height-h)/2))<1.5;
+            }""",timeout=10000)
+            require(page.locator('#spatial-map').evaluate("m=>getComputedStyle(m).pointerEvents==='none'"),
+                    'Heatmap blocks native video controls')
 
         page.goto(detail+'?sample='+sample['key'],wait_until='networkidle')
         page.wait_for_selector('#branch-cards button[data-branch-target]',timeout=60000)
@@ -348,12 +447,100 @@ def check_viewer(scope=300,allow_partial=False):
         video=page.locator('#video'); src=video.get_attribute('src'); require(src,'Video source missing')
         response=page.request.get(src,headers={'Range':'bytes=0-127'}); require(response.status==206 and len(response.body())==128,'Video Range failed')
         page.wait_for_function("document.getElementById('video').readyState>=1",timeout=30000)
-        options=page.locator('#frame option')
-        if options.count()>1:
-            page.select_option('#frame',options.nth(1).get_attribute('value'))
-            expected_time=sum(record['input']['timestamps'][2:4])/2
-            close(video.evaluate('v=>v.currentTime'),expected_time,'Temporal patch seek',atol=.15)
-            assert_target(chosen)
+        overlay=page.locator('#overlay-video')
+        require(overlay.get_attribute('src')==src and overlay.evaluate('v=>v.controls && v.muted'),
+                'Overlay does not show the same video with native controls')
+        page.wait_for_function("document.getElementById('overlay-video').readyState>=2",timeout=30000)
+        assert_overlay_alignment()
+        require(page.locator('#overlay-transparency').input_value()=='40','Heatmap default transparency differs')
+        close(float(page.locator('#spatial-map').evaluate('m=>getComputedStyle(m).opacity')),.6,'Heatmap default opacity')
+        require('투명도' in page.locator('label[for="overlay-transparency"]').inner_text(),'Heatmap transparency label differs')
+        # The selected real payload need not contain an exact zero. Exercise
+        # that boundary using the served pure color function, without changing
+        # records or exposing a production-only testing hook.
+        script_url=page.locator('script[src]').last.evaluate('script=>script.src')
+        served_script=page.request.get(script_url).text()
+        color_body=served_script.partition('  function overlayColor(')[2].partition('\n  }\n')[0]
+        require(bool(color_body),'Served opaque color function missing')
+        color_function='function overlayColor('+color_body+'\n  }'
+        require(page.evaluate(r"""source=>{
+            const color=new Function('return ('+source+')')();
+            return [false,true].every(signed=>[0,1].every(maximum=>{
+                const match=color(0,maximum,signed).match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/);
+                return match && match.slice(1).every(channel=>Number(channel)>=0 && Number(channel)<=255);
+            }));
+        }""",color_function),'Zero-valued heatmap colors are not opaque RGB')
+        with gzip.open(within(storage(),record['targets'][chosen]['data_file']),'rt') as stream: overlay_payload=json.load(stream)
+        timestamps=record['input']['timestamps']; t,h,w=record['input']['grid']
+        for space,field,cells,frames in [('pixels','pixel_frames',h*w,2*t),('visual','frames',(h//2)*(w//2),t)]:
+            page.select_option('#frame-space',space); assert_target(chosen)
+            require(page.locator('#frame option').count()==frames,'Overlay frame coverage differs')
+            require(page.locator('#spatial-map .spatial-cell').count()==cells,'Overlay spatial geometry differs')
+            for metric,source_metric in [('grad_l2','gradient_norm'),('activation_gradient','activation_dot_gradient')]:
+                page.select_option('#metric',metric); wait_target(chosen)
+                maximum=float(np.max(np.abs(np.asarray(overlay_payload[field][source_metric],dtype=np.float64))))
+                for frame_index in (0,1,frames-1):
+                    page.select_option('#frame',str(frame_index))
+                    source_index=frame_index if space=='pixels' else 2*frame_index
+                    card=page.locator(f'#frame-timeline button[data-frame="{frame_index}"]')
+                    require(card.locator('.frame-index').inner_text()==str(frame_index),'Frame card index differs')
+                    actual_times=timestamps[source_index:source_index+(1 if space=='pixels' else 2)]
+                    require(card.locator('.frame-time').inner_text()==' / '.join(f'{value:.3f}' for value in actual_times)+' s',
+                            f'{space}: frame card does not show actual source timestamps to three decimals')
+                    index_box=card.locator('.frame-index').bounding_box(); time_box=card.locator('.frame-time').bounding_box()
+                    require(index_box and time_box and index_box['y']+index_box['height']<=time_box['y']+.5,
+                            'Frame card timestamp is not below its index')
+                    page.wait_for_function("i=>Number(document.getElementById('overlay-stage').dataset.frameIndex)===i",arg=frame_index)
+                    page.wait_for_function("time=>['video','overlay-video'].every(id=>Math.abs(document.getElementById(id).currentTime-time)<.05 && !document.getElementById(id).seeking)",arg=timestamps[source_index],timeout=30000)
+                    require(int(page.locator('#overlay-stage').get_attribute('data-sample-index'))==source_index,
+                            'Manual frame selection lost its original input slot (including repeated PTS)')
+                    close(float(page.locator('#spatial-map').get_attribute('data-color-maximum')),maximum,
+                          'All-frame fixed color maximum',atol=1e-12,rtol=1e-12)
+                    require(page.locator('#spatial-map .spatial-cell').evaluate_all("""cells=>cells.length>0 && cells.every(cell=>{
+                        const style=getComputedStyle(cell),match=style.backgroundColor.match(/^rgba?\((.*)\)$/);
+                        if (!match || Number(style.opacity)!==1) return false;
+                        const channels=match[1].split(',').map(Number);
+                        return channels.length===3 || (channels.length===4 && channels[3]===1);
+                    })"""),f'{space}/{metric}: heatmap cell color is not fully opaque')
+                    require(video.evaluate('v=>v.paused') and overlay.evaluate('v=>v.paused'),'Manual frame seek did not pause both players')
+                if space=='visual':
+                    second_source=2*(frames-1)+1
+                    page.locator(f'#frame-details button[data-source-index="{second_source}"]').click()
+                    page.wait_for_function("i=>Number(document.getElementById('overlay-stage').dataset.sampleIndex)===i",arg=second_source)
+                    page.wait_for_function("time=>Math.abs(document.getElementById('overlay-video').currentTime-time)<.05 && !document.getElementById('overlay-video').seeking",arg=timestamps[second_source])
+                    require(int(page.locator('#overlay-stage').get_attribute('data-frame-index'))==frames-1,
+                            'Second source button changed its visual pair')
+            # Exercise real media playback and natural timeupdate events.
+            page.select_option('#frame','0')
+            page.wait_for_function("document.getElementById('overlay-video').currentTime<.05 && !document.getElementById('overlay-video').seeking")
+            overlay.evaluate('async v=>{v.playbackRate=1;await v.play()}')
+            page.wait_for_function("time=>document.getElementById('overlay-video').currentTime>time",arg=timestamps[min(2,len(timestamps)-1)]+.08,timeout=15000)
+            overlay.evaluate('v=>v.pause()')
+            page.wait_for_function("""({times,space})=>{
+                const v=document.getElementById('overlay-video'),stage=document.getElementById('overlay-stage');
+                let k=0; for(let i=1;i<times.length;i++) if(Math.abs(times[i]-v.currentTime)<Math.abs(times[k]-v.currentTime)) k=i;
+                return Number(stage.dataset.sampleIndex)===k && Number(stage.dataset.frameIndex)===(space==='pixels'?k:Math.floor(k/2));
+            }""",arg=dict(times=timestamps,space=space),timeout=10000)
+            require(video.evaluate('v=>v.paused'),'Overlay playback left the overview player playing')
+            assert_target(chosen); assert_overlay_alignment()
+        del overlay_payload
+        page.locator('#overlay-visible').uncheck(); require(page.locator('#spatial-map').is_hidden(),'Heatmap visibility toggle failed')
+        page.locator('#overlay-visible').check(); require(page.locator('#spatial-map').is_visible(),'Heatmap visibility restore failed')
+        transparency=page.locator('#overlay-transparency'); transparency.focus(); transparency.press('Home')
+        close(float(page.locator('#spatial-map').evaluate('m=>getComputedStyle(m).opacity')),1.,'Heatmap zero transparency')
+        transparency.press('End')
+        close(float(page.locator('#spatial-map').evaluate('m=>getComputedStyle(m).opacity')),0.,'Heatmap full transparency')
+        transparency.evaluate("e=>{e.value='40';e.dispatchEvent(new Event('input',{bubbles:true}))}")
+        close(float(page.locator('#spatial-map').evaluate('m=>getComputedStyle(m).opacity')),.6,'Heatmap restored default transparency')
+        require(page.locator('#overlay-transparency-value').inner_text()=='40%','Heatmap transparency label differs')
+        # The overview player must also advance the same cached overlay map.
+        page.select_option('#frame-space','pixels'); page.select_option('#frame','0')
+        page.wait_for_function("document.getElementById('video').currentTime<.05 && !document.getElementById('video').seeking")
+        video.evaluate('async v=>{v.muted=true;await v.play()}')
+        page.wait_for_function("document.getElementById('video').currentTime>.6",timeout=15000)
+        video.evaluate('v=>v.pause()')
+        page.wait_for_function("Math.abs(document.getElementById('video').currentTime-document.getElementById('overlay-video').currentTime)<.05")
+        require(overlay.evaluate('v=>v.paused'),'Overview playback left the overlay player playing')
 
         if len(completed)>1:
             second=completed[1]; page.locator('#filter').fill(second['key'])
@@ -372,6 +559,7 @@ def check_viewer(scope=300,allow_partial=False):
         for width in (390,768,1100):
             page.set_viewport_size(dict(width=width,height=844)); require(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Overflow at {width}px')
             require(page.locator('#branch-cards button[data-branch-target]').count()==len(margin_indices),'Responsive view lost branch cards')
+            assert_overlay_alignment()
         page.set_viewport_size(dict(width=390,height=844)); page.screenshot(path=str(result/'preview_mobile.png'),full_page=True)
         page.goto(f'{base}/zero-shot/results/rollout/greedy_attribution/viewer.html?view=pilot%2F{scope}%2Fdetail.html',wait_until='networkidle'); page.wait_for_selector('#analysis-tabs button')
         labels=page.locator('#analysis-tabs').inner_text(); require('결과' in labels and '보고서' in labels,'Common tabs missing')
@@ -394,6 +582,11 @@ def check_viewer(scope=300,allow_partial=False):
                 branch_overview=True,branch_keyboard_selection=True,selected_target_preserved=True,advanced_details_collapsed=True,
                 keyboard_disclosures=True,sample_step_target_deep_link=True,token_navigation=True,context_positions=True,
                 spatial_map=True,layer_table=True,deep_link=url,video_range=True,mobile_no_overflow=True,
+                video_heatmap_overlay=True,overlay_real_playback_both_players=True,overlay_pixel_visual_sync=True,
+                overlay_manual_input_slots=True,overlay_duplicate_timestamp_slots=any(a==b for a,b in zip(timestamps,timestamps[1:])),
+                overlay_actual_pair_source_seek=True,overlay_all_frame_color_scale=True,overlay_transparency_visibility=True,
+                overlay_all_cells_opaque=True,overlay_zero_color_boundary_opaque=True,frame_cards_actual_decimal_timestamps=True,
+                overlay_object_fit_alignment=True,
                 family_scopes=family_scopes,result_report_switch=True,unified_index=True,page_errors=errors,timestamp=stamp())
     write(storage()/'validation'/f'viewer_pilot{scope}.json',report); return report
 

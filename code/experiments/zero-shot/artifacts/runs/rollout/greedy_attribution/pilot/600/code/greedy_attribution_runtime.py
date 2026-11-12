@@ -413,7 +413,11 @@ def postprocess(scope,partial=False):
     subprocess.run([sys.executable,str(ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
     check.check_viewer(scope,allow_partial=partial)
     if not partial:
-        write(storage()/'validation'/f'pilot{scope}.json',dict(passed=True,queries=scope,report_and_viewer_verified=True,timestamp=stamp()))
+        audit_path=storage()/'validation/pixel_sum_audit.json'
+        audit=read(audit_path) if audit_path.exists() else None
+        write(storage()/'validation'/f'pilot{scope}.json',dict(passed=True,queries=scope,report_and_viewer_verified=True,timestamp=stamp(),
+            gradient_repeatability_verified=False,known_backward_audit=dict(path=str(audit_path),sample_key=audit.get('sample_key'),
+            target_id=audit.get('target_id'),passed=audit.get('passed')) if audit else None))
         refresh_report(allow_partial=True)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
 

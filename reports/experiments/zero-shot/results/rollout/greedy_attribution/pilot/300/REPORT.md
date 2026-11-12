@@ -25,6 +25,16 @@ Viewer의 입력 방향 막대는 ΔL̂=εS, ε=0.03125인 gradient 1차 예측�
 
 Screen gap은 지정한 ±3.125% group scaling 방향의 중앙 유한차분으로 추정한 두 token의 격차다. 실측 최소 gap은 같은 유한 변화에서 다시 계산한 두 token의 최소 logit 격차다. 음수이면 그 비교에서 alternative가 greedy보다 높지만, 다른 token까지 포함한 top1이나 전체 rollout의 mode 전환을 확인한 것은 아니다. Top30 밖은 미계측이다.
 
+## 영상 overlay 읽기
+
+영상 위치 화면은 원래 영상 위에 저장된 spatial gradient 지도를 겹쳐 표시한다. Pixel 지도는 실제 sampled frame 하나의 16×16 입력 pixel patch별 집계이며, visual embedding 지도는 두 sampled frame과 공간상 2×2 patch를 합친 위치별 값이다. 크기는 모델용 resize 이후 입력 기준이다. 원래 영상은 입력 전체 영역으로 resize되었고 crop·spatial padding을 사용하지 않았으므로 지도는 원본 영상의 가시 영역 전체에 대응시키며 player의 letterbox 영역에는 표시하지 않는다. Resize 과정에서 입력과 원본의 종횡비가 달라질 수 있으므로 원본 전체의 정규화 좌표에 대응시키며 입력 H×W를 함께 표시한다.
+
+재생 시 현재 영상 시각과 source timestamp 차이가 가장 작은 sampled frame을 고른다. Pixel 지도는 그 frame, visual embedding 지도는 그 frame이 속한 두-frame pair의 값을 사용한다. 시간 사이의 새 gradient를 계산하거나 보간하지 않는다. Visual pair를 직접 선택하면 첫 sampled frame으로 이동하며, pair의 첫째·둘째 실제 시각을 따로 확인할 수 있다. Pair 평균 시각이 실제 sampled frame이라고 가정하지 않는다. Temporal packing을 위해 같은 source frame이 두 input slot에 반복될 수 있다. 반복 slot의 gradient는 다를 수 있으므로 수동 선택에서 각각 유지하며, 영상의 같은 frame에 표시한다. 재생 중 timestamp가 같으면 먼저 나온 slot을 선택한다.
+
+시간 버튼은 위에 frame 또는 pair index, 아래에 저장된 실제 source timestamp를 소수점 셋째 자리까지 초 단위로 표시한다. 2 FPS의 명목 간격으로 index를 나눠 시각을 만들지 않으며 visual pair는 두 실제 source timestamp를 함께 표시한다.
+
+Overlay의 색 농도는 선택한 target·표현·metric의 모든 frame에 공통인 최대 절댓값 M=maxₜ,ᵢ|vₜ,ᵢ|을 기준으로 한다. 색상 강도는 min(1,|v|/M)이며 M=0일 때는 0으로 둔다. 강도는 어두운 0 색상과 진한 파랑 사이의 RGB 선형 보간으로 표시한다. Signed activation × gradient의 음수는 어두운 0 색상과 진한 주황 사이로 표시한다. 모든 patch의 색 자체는 완전히 불투명하다. 투명도 T(%)에 따른 전체 overlay alpha는 1−T/100이다. T=0이면 0값 patch까지 heatmap이 영상을 완전히 가리고, T=100이면 원영상만 보인다. 투명도 조절은 화면 표시만 바꾸며 원래 수치를 바꾸지 않는다. 표현이나 target을 바꾸면 M도 다시 정해지므로 서로 다른 선택 간 색 농도만 비교하지 않는다. Visual embedding은 이미 다른 위치의 정보를 섞은 표현이며, overlay 영역만의 독립적 인과 효과는 아니다.
+
 ## 계측 coverage
 
 | 항목 | 실제 수 | 분모·해석 |
@@ -78,7 +88,7 @@ IoU=예측·GT 교집합 길이÷합집합 길이, mIoU=query별 IoU 평균, R@�
 | 평균 query wall s | 105.579 | 계측 query별 실측 평균; 대기·전체 작업 경과 시간과 구분 |
 | Query wall 합 s | 31673.609 | 완료 query의 wall 실측 합 |
 | 최대 GPU allocated GiB | 83.663 | query별 peak allocated 중 최댓값 |
-| Scope·viewer 검증 | 완료 기록 대기 | 계측 완료와 후처리 검증 완료를 구분 |
+| Scope·viewer 검증 | 통과 | 계측 완료와 후처리 검증 완료를 구분 |
 
 각 query의 정확한 입력 hash·source KV와 계측 replay probability drift·future-position gradient 검증과 비용은 원자료에 남긴다. Source greedy argmax는 모든 step에서 정확히 일치해야 한다. Top30 probability 최대 절대 오차는 0.001 이하여야 하며, 허용 범위의 실제 차이도 그대로 기록한다.
 
@@ -86,4 +96,10 @@ IoU=예측·GT 교집합 길이÷합집합 길이, mIoU=query별 IoU 평균, R@�
 
 이 결과는 source greedy token열을 고정한 계측 replay 계산점의 local sensitivity와 내부 신호 방향이다. 큰 gradient가 인과적 증거를 확정하지 않고, 작은 영상 gradient도 영상 근거가 없다는 증거가 아니다. 이전 생성 위치의 표현에 영상 정보가 들어 있을 수 있다. Layers의 점수를 합쳐 전체 증거량으로 해석하지 않는다. 잠재 경쟁 screening은 정한 변화 방향만 조사하므로 다른 방향의 급변을 배제하지 않는다. 실제 mode 전환은 변경 입력으로 이전 경로부터 다시 생성해야 확인할 수 있다.
 
-원자료: [300 query source references](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/source_records.json) · [동결 실행 설정](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/config.json) · [계측 상태](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json)
+원자료: [300 query source references](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/source_records.json) · [동결 실행 설정](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/config.json) · [계측 상태](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/status.json)
+
+## Backward 반복 감사에서 확인한 한계
+
+`activitynet-timelens_00261`의 `margin_12_20` 한 target에서 forward logits는 저장값과 일치했지만, 같은 graph의 backward 반복은 동일한 pixel gradient를 재현하지 못했다. 저장 pixel signed sum은 -0.050869, 원래 message hook을 포함한 두 반복값은 0.219944 · 0.105905였다. 두 반복의 gradient 상대 L2 차이 ‖g₂−g₁‖₂/‖g₁‖₂는 0.014233이며 낮을수록 잘 재현된다. 이 사례의 작게 상쇄된 pixel signed 방향을 안정적인 방향으로 해석하지 않는다. 원인을 특정 연산으로 확정하지 않았으며 다른 모든 target의 반복 안정성을 검사한 결과도 아니다.
+
+이 반복 차이는 한 계산 안의 FP32 합산 순서 차이와 별개다. 저장 원자료의 shape·hash·합산 오차 상한 검증이 통과해도 gradient 반복 재현성까지 통과했다는 뜻은 아니다. 원래 계측과 audit 결과를 함께 보존하며, 후속 pilot에도 같은 계측 조건을 유지한다. [반복 감사 수치와 provenance](../../../../../artifacts/runs/rollout/greedy_attribution/pilot/600/validation/pixel_sum_audit.json)

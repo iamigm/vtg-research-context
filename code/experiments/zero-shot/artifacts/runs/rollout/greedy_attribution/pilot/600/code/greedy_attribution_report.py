@@ -35,7 +35,26 @@ def reading_guide():
         '원래 계산점의 gradient 예측과 유한차분 screening의 추정은 서로 다른 근사이며 실제 유한 변화의 결과와 다를 수 있다.', '',
         'Screen gap은 지정한 ±3.125% group scaling 방향의 중앙 유한차분으로 추정한 두 token의 격차다. '
         '실측 최소 gap은 같은 유한 변화에서 다시 계산한 두 token의 최소 logit 격차다. 음수이면 그 비교에서 alternative가 greedy보다 높지만, '
-        '다른 token까지 포함한 top1이나 전체 rollout의 mode 전환을 확인한 것은 아니다. Top30 밖은 미계측이다.', ''
+        '다른 token까지 포함한 top1이나 전체 rollout의 mode 전환을 확인한 것은 아니다. Top30 밖은 미계측이다.', '',
+        '## 영상 overlay 읽기', '',
+        '영상 위치 화면은 원래 영상 위에 저장된 spatial gradient 지도를 겹쳐 표시한다. Pixel 지도는 실제 sampled frame 하나의 '
+        '16×16 입력 pixel patch별 집계이며, visual embedding 지도는 두 sampled frame과 공간상 2×2 patch를 합친 위치별 값이다. '
+        '크기는 모델용 resize 이후 입력 기준이다. 원래 영상은 입력 전체 영역으로 resize되었고 crop·spatial padding을 사용하지 않았으므로 '
+        '지도는 원본 영상의 가시 영역 전체에 대응시키며 player의 letterbox 영역에는 표시하지 않는다. '
+        'Resize 과정에서 입력과 원본의 종횡비가 달라질 수 있으므로 원본 전체의 정규화 좌표에 대응시키며 입력 H×W를 함께 표시한다.', '',
+        '재생 시 현재 영상 시각과 source timestamp 차이가 가장 작은 sampled frame을 고른다. Pixel 지도는 그 frame, '
+        'visual embedding 지도는 그 frame이 속한 두-frame pair의 값을 사용한다. 시간 사이의 새 gradient를 계산하거나 보간하지 않는다. '
+        'Visual pair를 직접 선택하면 첫 sampled frame으로 이동하며, pair의 첫째·둘째 실제 시각을 따로 확인할 수 있다. '
+        'Pair 평균 시각이 실제 sampled frame이라고 가정하지 않는다. Temporal packing을 위해 같은 source frame이 두 input slot에 반복될 수 있다. '
+        '반복 slot의 gradient는 다를 수 있으므로 수동 선택에서 각각 유지하며, 영상의 같은 frame에 표시한다. 재생 중 timestamp가 같으면 먼저 나온 slot을 선택한다.', '',
+        '시간 버튼은 위에 frame 또는 pair index, 아래에 저장된 실제 source timestamp를 소수점 셋째 자리까지 초 단위로 표시한다. '
+        '2 FPS의 명목 간격으로 index를 나눠 시각을 만들지 않으며 visual pair는 두 실제 source timestamp를 함께 표시한다.', '',
+        'Overlay의 색 농도는 선택한 target·표현·metric의 모든 frame에 공통인 최대 절댓값 M=maxₜ,ᵢ|vₜ,ᵢ|을 기준으로 한다. '
+        '색상 강도는 min(1,|v|/M)이며 M=0일 때는 0으로 둔다. 강도는 어두운 0 색상과 진한 파랑 사이의 RGB 선형 보간으로 표시한다. '
+        'Signed activation × gradient의 음수는 어두운 0 색상과 진한 주황 사이로 표시한다. 모든 patch의 색 자체는 완전히 불투명하다. '
+        '투명도 T(%)에 따른 전체 overlay alpha는 1−T/100이다. T=0이면 0값 patch까지 heatmap이 영상을 완전히 가리고, '
+        'T=100이면 원영상만 보인다. 투명도 조절은 화면 표시만 바꾸며 원래 수치를 바꾸지 않는다. 표현이나 target을 바꾸면 M도 다시 정해지므로 서로 다른 선택 간 '
+        '색 농도만 비교하지 않는다. Visual embedding은 이미 다른 위치의 정보를 섞은 표현이며, overlay 영역만의 독립적 인과 효과는 아니다.', ''
     ]
 
 
@@ -207,6 +226,13 @@ def definitions(config):
         'Visual-to-visual 및 그 외 간접 receiver의 edge는 미계측이다. Attention row 재구성 오차를 원자료에 남긴다. '
         'Visual embedding gradient는 visual replacement 이후, DeepStack 추가 주입 이전의 language-model 입력에서 측정한다. '
         'Video pixel gradient는 vision encoder와 DeepStack 경로를 포함하므로 두 지도를 구분한다.', '',
+        'Pixel signed sum은 전체 FP32 product의 CUDA 합과 patch별 FP32 합을 FP64로 더한 값 사이에 합산 순서 차이가 있다. '
+        '검증은 D=|전체 합−patch 합|을 고정 상대 오차로만 비교하지 않고, D≤B인 forward-error bound를 사용한다. '
+        'B=(γ(d)+γ(767))×S_upper+underflow 및 FP64 합산 오차 항이며, γ(k)=ku/(1−ku), u=2⁻²⁴다. '
+        'd는 고정 PyTorch CUDA reduction 구현의 합산 경로 길이 상한이고, S_upper는 normalized pixel의 |x|≤1과 '
+        '저장된 patch gradient norm으로 얻은 Σ|g×x|의 Cauchy 상한이다. Norm의 FP32 square·sum·sqrt 오차도 상한에 포함한다. '
+        '작은 D와 D/B는 두 집계의 일치 정도를 나타내지만, 저장 요약만으로 계산한 B는 보수적이므로 통과를 bit-exact 일치나 '
+        '정확한 부호 보존의 증명으로 해석하지 않는다. 검증 기록에 실제 D·B·D/B와 CUDA header·processor hash를 보존한다.', '',
         '## 해석과 재현 범위', '',
         '선행 입력 변화 이후에도 원래 prefix를 teacher-force하므로 현재 step에 대한 conditional 분석이다. '
         '실제 입력 변화가 더 앞선 생성부터 바꾸는 효과는 이 기록으로 확정할 수 없다. '
@@ -238,6 +264,8 @@ def report(scope=None, allow_partial=False, canonical=None):
     canonical = Path(canonical) if canonical is not None else storage()
     config_path = canonical/'metadata/config.json'
     config = read(config_path) if config_path.exists() else CONFIG
+    audit_path = canonical/'validation/pixel_sum_audit.json'
+    numerical_audit = read(audit_path) if audit_path.exists() else None
     rows = read(COHORT)
     scopes = [int(scope)] if scope is not None else [n for n in CONFIG['stages'] if n <= int(canonical.name)]
     published = []
@@ -257,6 +285,14 @@ def report(scope=None, allow_partial=False, canonical=None):
             if complete:
                 source_record = read(q['source']['record'])
                 interpretation = interpret_query(q, source_record)
+                if numerical_audit and numerical_audit.get('sample_key') == row['sample_key']:
+                    repeats = numerical_audit.get('repeated_audit', [])
+                    interpretation['numerical_audit'] = dict(
+                        target_id=numerical_audit.get('target_id'), repeatability_passed=numerical_audit.get('passed'),
+                        stored_pixel_signed_sum=numerical_audit.get('stored', {}).get('pixel_signed_sum'),
+                        repeated_pixel_signed_sums=[r.get('global_fp32') for r in repeats],
+                        relative_l2_difference=repeats[-1].get('same_graph_backward_repeat_gradient_relative_l2_difference') if repeats else None,
+                        source=relative(audit_path, ROOT.parent))
                 interpretation_path = canonical/'web/interpretations'/f'{row["sample_key"]}.json'
                 write(interpretation_path, interpretation)
                 entry['interpretation'] = relative(interpretation_path, ROOT.parent)
@@ -368,6 +404,21 @@ def report(scope=None, allow_partial=False, canonical=None):
                   f'원자료: [{count} query source references]({relative(artifacts/"metadata/source_records.json",result)}) · '
                   f'[동결 실행 설정]({relative(config_path,result)}) · '
                   f'[계측 상태]({relative(canonical/"metadata/status.json",result)})', '']
+        if numerical_audit and numerical_audit.get('audit_completed') and not numerical_audit.get('passed'):
+            repeats = numerical_audit.get('repeated_audit', [])
+            repeated_values = ' · '.join(fmt(r.get('global_fp32'), 6) for r in repeats)
+            relative_difference = repeats[-1].get('same_graph_backward_repeat_gradient_relative_l2_difference') if repeats else None
+            lines += ['## Backward 반복 감사에서 확인한 한계', '',
+                      f'`{numerical_audit.get("sample_key")}`의 `{numerical_audit.get("target_id")}` 한 target에서 forward logits는 저장값과 일치했지만, '
+                      '같은 graph의 backward 반복은 동일한 pixel gradient를 재현하지 못했다. '
+                      f'저장 pixel signed sum은 {fmt(numerical_audit.get("stored", {}).get("pixel_signed_sum"),6)}, '
+                      f'원래 message hook을 포함한 두 반복값은 {repeated_values}였다. '
+                      f'두 반복의 gradient 상대 L2 차이 ‖g₂−g₁‖₂/‖g₁‖₂는 {fmt(relative_difference,6)}이며 낮을수록 잘 재현된다. '
+                      '이 사례의 작게 상쇄된 pixel signed 방향을 안정적인 방향으로 해석하지 않는다. '
+                      '원인을 특정 연산으로 확정하지 않았으며 다른 모든 target의 반복 안정성을 검사한 결과도 아니다.', '',
+                      '이 반복 차이는 한 계산 안의 FP32 합산 순서 차이와 별개다. 저장 원자료의 shape·hash·합산 오차 상한 검증이 통과해도 '
+                      'gradient 반복 재현성까지 통과했다는 뜻은 아니다. 원래 계측과 audit 결과를 함께 보존하며, 후속 pilot에도 같은 계측 조건을 유지한다. '
+                      f'[반복 감사 수치와 provenance]({relative(audit_path,result)})', '']
         atomic_text(result/'REPORT.md','\n'.join(lines))
         appendix = strata_appendix(records)+definitions(config)
         atomic_text(result/'APPENDIX.md','\n'.join(appendix)+'\n')

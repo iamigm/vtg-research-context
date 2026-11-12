@@ -33,6 +33,12 @@
   let record = null, interpretation = null, selected = null;
   let step = 0, targetIndex = -1, positionPage = 0, frameIndex = 0, loadSerial = 0;
   const payloadPromises = new WeakMap();
+  const frameCache = new WeakMap();
+  const pendingMediaSeeks = new WeakMap();
+  let activeFrames = [], frameColorMaximum = 0;
+  let currentVideoTime = 0, activeVideo = null, paintedFrameIndex = -1;
+  let explicitFrameIndex = null, explicitSourceIndex = null, frameRepresentation = null;
+
 
   if (window.self !== window.top) document.body.classList.add('embedded');
 
@@ -204,6 +210,17 @@
     const serial = ++loadSerial;
     positionPage = 0;
     frameIndex = 0;
+    currentVideoTime = 0;
+    explicitFrameIndex = null;
+    explicitSourceIndex = null;
+    frameRepresentation = null;
+    activeFrames = [];
+    paintedFrameIndex = -1;
+    activeVideo = null;
+    for (const video of [$('video'), $('overlay-video')]) {
+      video.pause();
+      pendingMediaSeeks.delete(video);
+    }
     step = 0;
     targetIndex = -1;
     $('workspace').classList.add('loading');
@@ -215,10 +232,10 @@
     for (const id of ['group-details', 'position-details', 'token-details', 'layer-details', 'message-details']) $(id).open = false;
     $('receiver').replaceChildren();
     if (sample.video) {
-      $('video').src = resolve(sample.video, rootURL);
+      for (const video of [$('video'), $('overlay-video')]) video.src = resolve(sample.video, rootURL);
       $('video-status').textContent = '원본 시간축 · 구간 막대와 frame을 눌러 영상 위치를 이동할 수 있습니다.';
     } else {
-      $('video').removeAttribute('src');
+      for (const video of [$('video'), $('overlay-video')]) {video.removeAttribute('src'); video.load();}
       $('video-status').textContent = '영상 연결 없음';
     }
     $('answer-cards').innerHTML = `<div><span>GT · 사후 참조</span><b>${spanText(sample.gt)}</b></div><div><span>Source greedy</span><b>${spanText(sample.greedy_span)}</b></div>`;
@@ -379,6 +396,8 @@
 
   function renderInputDirections(target) {
     const words = directionWords(target), scale = epsilon();
+    const audit = interpretation?.numerical_audit;
+    const unstablePixel = audit?.target_id === target.id && audit.repeatability_passed === false;
     const groups = new Map((target.groups || []).map(group => [group.group, group]));
     const rows = [{group: 'video_pixels', signed: target.pixel_signed_sum, absolute: null, count: null}];
     for (const group of ['timestamp', 'query', 'instruction', 'special', 'generated']) {
@@ -393,11 +412,13 @@
     $('input-directions').innerHTML = rows.map(row => {
       const delta = finite(row.signed) ? row.signed * scale : null;
       const width = finite(delta) ? Math.abs(delta) / maximum * 50 : 0;
-      const toward = !finite(delta) ? '미계측' : delta === 0 ? '1차 변화 0' : delta > 0 ? words.positive : words.negative;
+      const toward = unstablePixel && row.group === 'video_pixels' ? '반복 backward에서 부호 불안정'
+        : !finite(delta) ? '미계측' : delta === 0 ? '1차 변화 0' : delta > 0 ? words.positive : words.negative;
       const absolute = finite(row.absolute) ? `Net ${signed(row.signed)} · absolute sum ${scientific(row.absolute)}` : `전체 pixel signed sum ${signed(row.signed)}`;
       return `<div class="direction-row"><div class="direction-source"><b>${escape(sourceLabel(row.group))}</b><small>${row.group === 'video_pixels' ? 'Normalized pixel 표현' : `${row.count}개 입력 위치`}</small></div><div><div class="diverging-track"><span class="zero-line"></span><span class="diverging-bar ${delta < 0 ? 'negative' : 'positive'}" style="${delta < 0 ? 'right:50%' : 'left:50%'};width:${width}%"></span></div><small class="net-note">${absolute}</small></div><div class="direction-value ${delta < 0 ? 'alternative-color' : 'greedy-color'}"><b>${signed(delta)}</b><small>${escape(toward)}</small></div></div>`;
     }).join('');
     $('direction-note').textContent = `표시값은 ε×〈입력 표현, 목표 gradient〉입니다(ε=${scale}). 막대는 같은 차트의 최대 절댓값에 맞춘 크기이며 evidence 비중이 아닙니다. 배율 확대가 정보나 의미를 강화한다는 뜻은 아닙니다. Net이 작아도 위치별 양수·음수가 상쇄될 수 있어 absolute sum을 함께 표시합니다. 실제 ±배율 재계산의 screening과 이 원래 계산점의 gradient 예측은 다를 수 있습니다.`;
+    if (unstablePixel) $('direction-note').textContent = `이 target의 pixel signed sum은 저장값 ${signed(audit.stored_pixel_signed_sum)}, backward 반복값 ${(audit.repeated_pixel_signed_sums || []).map(signed).join(' / ')}로 부호가 바뀌었습니다. 현재 pixel 막대를 안정적인 변화 방향으로 해석하지 마세요. ` + $('direction-note').textContent;
   }
 
   function metricValue(value) {
@@ -483,54 +504,192 @@
     $('position-next').disabled = (positionPage + 1) * POSITION_PAGE_SIZE >= rows.length;
   }
 
-  function framesFor(target, positions) {
-    if ($('frame-space').value === 'pixels' && target.pixel_frames?.gradient_norm) {
-      return target.pixel_frames.gradient_norm.map((norm, index) => {
-        const dots = target.pixel_frames.activation_dot_gradient[index];
-        return {index, timestamp: record.input.timestamps?.[index], grid_h: norm.length, grid_w: norm[0]?.length,
-          values: ($('metric').value === 'grad_l2' ? norm : dots).flat(),
-          grad_l2: Math.sqrt(norm.flat().reduce((sum, value) => sum + value * value, 0)),
-          activation_gradient: dots.flat().reduce((sum, value) => sum + value, 0)};
-      });
-    }
-    const grouped = new Map();
-    for (const position of positions) {
-      if (position.frame_pair === undefined) continue;
-      const frame = grouped.get(position.frame_pair) || {index: position.frame_pair, timestamp: position.timestamp, positions: []};
-      frame.positions.push(position);
-      grouped.set(position.frame_pair, frame);
-    }
-    return [...grouped.values()].sort((a, b) => a.index - b.index).map(frame => {
-      const norm = target.frames?.gradient_norm?.[frame.index], dots = target.frames?.activation_dot_gradient?.[frame.index];
-      return {...frame, grid_h: norm?.length, grid_w: norm?.[0]?.length,
-        values: ($('metric').value === 'grad_l2' ? norm : dots)?.flat() || [],
-        grad_l2: norm ? Math.sqrt(norm.flat().reduce((sum, value) => sum + value * value, 0)) : 0,
-        activation_gradient: dots?.flat().reduce((sum, value) => sum + value, 0) || 0};
+  // Cache scalar summaries and flattened maps once per target/representation/metric.
+  // Playback only chooses among these saved frames; it never rebuilds token positions.
+  function framesFor(target) {
+    const space = $('frame-space').value, metric = $('metric').value;
+    const key = `${space}:${metric}`;
+    if (!frameCache.has(target)) frameCache.set(target, new Map());
+    const cache = frameCache.get(target);
+    if (cache.has(key)) return cache.get(key);
+    const maps = space === 'pixels' ? target.pixel_frames : target.frames;
+    const frames = (maps?.gradient_norm || []).map((norm, index) => {
+      const dots = maps.activation_dot_gradient?.[index] || [];
+      const sourceIndices = space === 'pixels' ? [index] : [2 * index, 2 * index + 1];
+      const sourceTimes = sourceIndices.map(source => record.input.timestamps?.[source]).filter(finite);
+      const flatNorm = norm.flat(), flatDots = dots.flat();
+      const values = metric === 'grad_l2' ? flatNorm : flatDots;
+      return {
+        index, sourceIndices, sourceTimes, timestamp: sourceTimes[0],
+        pairMean: sourceTimes.length ? sourceTimes.reduce((sum, time) => sum + time, 0) / sourceTimes.length : null,
+        grid_h: norm.length, grid_w: norm[0]?.length, values,
+        maximum: values.reduce((maximum, value) => Math.max(maximum, Math.abs(value)), 0),
+        grad_l2: Math.sqrt(flatNorm.reduce((sum, value) => sum + value * value, 0)),
+        activation_gradient: flatDots.reduce((sum, value) => sum + value, 0)
+      };
     });
+    cache.set(key, frames);
+    return frames;
   }
 
-  function renderFrames(target, positions) {
-    $('frame-title').textContent = $('metric').value === 'grad_l2' ? '언제, 어디에 민감한가' : '어느 위치의 확대가 선택을 기울이는가';
-    const frames = framesFor(target, positions);
-    $('frame-panel').hidden = !frames.length;
-    if (!frames.length) return;
-    frameIndex = Math.max(0, Math.min(frameIndex, frames.length - 1));
-    $('frame').innerHTML = frames.map((frame, index) => `<option value="${index}">${index} · ${number(frame.timestamp, 2)} s</option>`).join('');
+  function nearestInputIndex(time) {
+    const timestamps = record?.input?.timestamps || [];
+    if (!timestamps.length) return 0;
+    let low = 0, high = timestamps.length;
+    while (low < high) {
+      const middle = (low + high) >>> 1;
+      if (timestamps[middle] < time) low = middle + 1;
+      else high = middle;
+    }
+    if (low === 0) return 0;
+    if (low === timestamps.length) return low - 1;
+    return time - timestamps[low - 1] <= timestamps[low] - time ? low - 1 : low;
+  }
+
+  function frameAtTime(time) {
+    const source = nearestInputIndex(time);
+    return Math.max(0, Math.min(activeFrames.length - 1,
+      $('frame-space').value === 'pixels' ? source : Math.floor(source / 2)));
+  }
+
+  function alignOverlay() {
+    const video = $('overlay-video'), stage = $('overlay-stage'), map = $('spatial-map');
+    const videoRect = video.getBoundingClientRect(), stageRect = stage.getBoundingClientRect();
+    const width = videoRect.width, height = videoRect.height;
+    if (!width || !height || !video.videoWidth || !video.videoHeight) {
+      map.style.visibility = 'hidden';
+      return;
+    }
+    // The processor resizes the complete image. Exclude object-fit contain bars.
+    const scale = Math.min(width / video.videoWidth, height / video.videoHeight);
+    const contentWidth = video.videoWidth * scale, contentHeight = video.videoHeight * scale;
+    map.style.left = `${videoRect.left - stageRect.left + (width - contentWidth) / 2}px`;
+    map.style.top = `${videoRect.top - stageRect.top + (height - contentHeight) / 2}px`;
+    map.style.width = `${contentWidth}px`;
+    map.style.height = `${contentHeight}px`;
+    map.style.visibility = 'visible';
+    stage.dataset.videoWidth = String(video.videoWidth);
+    stage.dataset.videoHeight = String(video.videoHeight);
+  }
+
+  function updateOverlayAppearance() {
+    $('spatial-map').hidden = !$('overlay-visible').checked;
+    $('spatial-map').style.opacity = String(Number($('overlay-opacity').value) / 100);
+    $('overlay-opacity-value').value = `${$('overlay-opacity').value}%`;
+  }
+
+  function updatePlaybackLabel() {
+    if (!activeFrames.length) return;
+    const frame = activeFrames[frameIndex], source = explicitSourceIndex ?? nearestInputIndex(currentVideoTime);
+    const sampledTime = record.input.timestamps?.[source];
+    $('overlay-time').textContent = `재생 ${number(currentVideoTime, 2)} s · ${explicitSourceIndex === null ? "가장 가까운 sampled frame" : "선택한 입력 slot"} ${source}: ${number(sampledTime, 2)} s`
+      + ($('frame-space').value === 'visual' ? ` · Visual pair ${frame.index}` : '');
+    $('overlay-stage').dataset.frameIndex = String(frameIndex);
+    $('overlay-stage').dataset.sampleIndex = String(source);
+    $('overlay-stage').dataset.sampleTime = String(sampledTime ?? '');
+  }
+
+  function paintSelectedFrame(force = false) {
+    if (!activeFrames.length) return;
+    frameIndex = explicitFrameIndex === null ? frameAtTime(currentVideoTime) : Math.min(explicitFrameIndex, activeFrames.length - 1);
+    updatePlaybackLabel();
+    if (!force && frameIndex === paintedFrameIndex) return;
+    paintedFrameIndex = frameIndex;
+    const frame = activeFrames[frameIndex], signedMetric = $('metric').value !== 'grad_l2';
     $('frame').value = String(frameIndex);
-    const maximum = Math.max(...frames.map(frame => Math.abs(metricValue(frame))), 1e-20);
-    const signedMetric = $('metric').value !== 'grad_l2';
-    $('frame-timeline').innerHTML = frames.map((frame, index) => `<button class="frame-cell ${index === frameIndex ? 'selected' : ''}" data-frame="${index}" style="background:${heatColor(metricValue(frame), maximum, signedMetric)}" title="${number(frame.timestamp, 2)} s · ${scientific(metricValue(frame))}">${index}</button>`).join('');
-    $('frame-description').textContent = ($('frame-space').value === 'pixels'
-      ? 'Source frame의 pixel patch 지도입니다. Vision encoder와 DeepStack 경로를 포함합니다.'
-      : '두 frame을 묶은 visual embedding 지도입니다. DeepStack 추가 주입 이전의 language-model 입력을 측정합니다.')
-      + (signedMetric ? ' 파랑은 목표를 높이는 방향, 황토색은 낮추는 방향입니다. 정답·오답 표시가 아닙니다.' : ' 색이 진할수록 gradient norm이 큽니다. 지지·억제의 부호는 포함하지 않습니다.');
-    const frame = frames[frameIndex], values = frame.values || [];
-    const localMaximum = Math.max(...values.map(Math.abs), 1e-20);
-    $('spatial-map').style.gridTemplateColumns = `repeat(${frame.grid_w || 1},1fr)`;
-    $('spatial-map').style.aspectRatio = `${frame.grid_w || 16}/${frame.grid_h || 9}`;
-    $('spatial-map').innerHTML = values.map((value, index) => `<div class="spatial-cell" style="background:${heatColor(value, localMaximum, signedMetric)}" title="Patch ${index} · ${scientific(value)}"></div>`).join('');
-    $('spatial-note').textContent = `${values.length} spatial 위치 · 현재 frame 내 최대 절댓값으로 색상 표시`;
-    $('frame-details').innerHTML = `<table class="record-table"><tbody><tr><th>원본 timestamp</th><td>${number(frame.timestamp, 3)} s</td></tr><tr><th>Spatial grid</th><td>${frame.grid_h} × ${frame.grid_w}</td></tr><tr><th>표시값</th><td>${scientific(metricValue(frame))}</td></tr><tr><th>지도 읽기</th><td>${signedMetric ? 'Signed activation × gradient' : 'Gradient L2 norm'}</td></tr></tbody></table><p class="small">Frame 버튼을 누르면 영상도 같은 시각으로 이동합니다. 같은 계산에서의 민감도이며 프레임을 독립적으로 제거한 효과가 아닙니다.</p>`;
+    for (const button of $('frame-timeline').querySelectorAll('[data-frame]')) {
+      const selectedFrame = Number(button.dataset.frame) === frameIndex;
+      button.classList.toggle('selected', selectedFrame);
+      button.setAttribute('aria-pressed', String(selectedFrame));
+    }
+    const map = $('spatial-map');
+    map.style.gridTemplateColumns = `repeat(${frame.grid_w || 1},1fr)`;
+    map.style.gridTemplateRows = `repeat(${frame.grid_h || 1},1fr)`;
+    map.dataset.colorMaximum = String(frameColorMaximum);
+    map.innerHTML = frame.values.map((value, index) => {
+      const alpha = frameColorMaximum > 0 ? 0.85 * Math.abs(value) / frameColorMaximum : 0;
+      const color = signedMetric && value < 0 ? '178,120,55' : '43,111,145';
+      return `<div class="spatial-cell" style="background:rgba(${color},${alpha})" title="Patch ${index} · ${scientific(value)}"></div>`;
+    }).join('');
+    const isVisual = $('frame-space').value === 'visual';
+    $('spatial-note').textContent = `${frame.values.length} spatial 위치 · 전체 ${activeFrames.length}개 ${isVisual ? 'pair' : 'frame'}에서 고정 patch 색상 범위: ${signedMetric ? '−' + scientific(frameColorMaximum) + ' … +' + scientific(frameColorMaximum) : '0–' + scientific(frameColorMaximum)}. 시간 보간 없이 가장 가까운 sampled frame의 지도를 표시합니다.`;
+    const sourceTimes = frame.sourceTimes.map((time, index) => `<button type="button" data-source-time="${time}" data-source-index="${frame.sourceIndices[index]}">${index + 1}번째 source · ${number(time, 3)} s</button>`).join(' ');
+    $('frame-details').innerHTML = `<table class="record-table"><tbody>
+      <tr><th>${isVisual ? '공동 source timestamps' : '원본 timestamp'}</th><td>${frame.sourceTimes.map(time => `${number(time, 3)} s`).join(' / ')}</td></tr>
+      ${isVisual ? `<tr><th>Pair 평균 timestamp</th><td>${number(frame.pairMean, 3)} s · 시간 참조용</td></tr>` : ''}
+      <tr><th>Spatial grid</th><td>${frame.grid_h} × ${frame.grid_w}</td></tr>
+      <tr><th>Frame 표시값</th><td>${scientific(metricValue(frame))}</td></tr>
+      <tr><th>지도 읽기</th><td>${signedMetric ? 'Signed activation × gradient' : 'Gradient L2 norm'}</td></tr>
+      </tbody></table>${isVisual ? `<div class="source-frame-buttons">${sourceTimes}</div><p class="small">두 source frame이 공유하는 contextual visual embedding 지도입니다. 한 frame만의 pixel 영향으로 해석하지 않습니다. Pair 선택은 첫 실제 source frame으로 이동합니다.</p>` : ''}
+      <p class="small">입력 ${record.input.hw?.join(" × ") || "—"} (H×W)의 전체 grid 좌표를 원본 영상의 가시 영역에 맞췄습니다. Resize로 종횡비가 달라질 수 있습니다. 재생 중 새 gradient를 계산하거나 sampled frame 사이를 보간하지 않습니다.</p>`;
+    updateOverlayAppearance();
+    alignOverlay();
+  }
+
+  function renderFrames(target) {
+    $('frame-title').textContent = $('metric').value === 'grad_l2' ? '언제, 어디에 민감한가' : '어느 위치의 확대가 선택을 기울이는가';
+    if (frameRepresentation !== $('frame-space').value) {
+      explicitFrameIndex = null;
+      explicitSourceIndex = null;
+      frameRepresentation = $('frame-space').value;
+    }
+    activeFrames = framesFor(target);
+    $('frame-panel').hidden = !activeFrames.length;
+    if (!activeFrames.length) return;
+    paintedFrameIndex = -1;
+    frameColorMaximum = activeFrames.reduce((maximum, frame) => Math.max(maximum, frame.maximum), 0);
+    const isVisual = $('frame-space').value === 'visual', signedMetric = $('metric').value !== 'grad_l2';
+    $('frame').innerHTML = activeFrames.map((frame, index) => `<option value="${index}">${index} · ${frame.sourceTimes.map(time => number(time, 2)).join(' / ')} s${frame.sourceIndices.some(source => source > 0 && record.input.timestamps[source] === record.input.timestamps[source - 1]) ? ' · 반복 PTS 입력 slot' : ''}</option>`).join('');
+    const maximum = activeFrames.reduce((value, frame) => Math.max(value, Math.abs(metricValue(frame))), 1e-20);
+    $('frame-timeline').innerHTML = activeFrames.map((frame, index) => `<button class="frame-cell" data-frame="${index}" style="background:${heatColor(metricValue(frame), maximum, signedMetric)}" title="${frame.sourceTimes.map(time => number(time, 2)).join(' / ')} s · ${scientific(metricValue(frame))}">${index}</button>`).join('');
+    $('frame-description').textContent = (isVisual
+      ? '인접한 두 source frame이 공유하는 contextual visual embedding 지도입니다. DeepStack 추가 주입 이전의 language-model 입력을 측정합니다.'
+      : '실제 source frame의 pixel patch 지도입니다. Vision encoder와 DeepStack 경로를 포함합니다.')
+      + (signedMetric ? ' 파랑은 목표를 높이는 방향, 황토색은 낮추는 방향입니다. 정답·오답 표시가 아닙니다.' : ' 색이 진할수록 gradient norm이 큽니다. 지지·억제의 부호는 포함하지 않습니다.')
+      + ' 시간 막대는 frame 전체의 집계값이며 영상 위 patch와 색상 scale이 다릅니다. Pixel과 visual embedding의 수치도 서로 다른 표현·단위입니다.';
+    paintSelectedFrame(true);
+    requestAnimationFrame(alignOverlay);
+  }
+
+  function seekVideo(video, time) {
+    if (!video.getAttribute('src')) return;
+    const bounded = Math.max(0, Number.isFinite(video.duration) ? Math.min(time, video.duration) : time);
+    if (Math.abs(video.currentTime - bounded) < 0.005) return;
+    pendingMediaSeeks.set(video, bounded);
+    if (video.readyState > 0) video.currentTime = bounded;
+  }
+
+  function seekBothVideos(time, preserveFrame = false) {
+    if (!finite(time)) return;
+    if (!preserveFrame) {explicitFrameIndex = null; explicitSourceIndex = null;}
+    currentVideoTime = Math.max(0, Number(time));
+    for (const video of [$('video'), $('overlay-video')]) {
+      video.pause();
+      seekVideo(video, currentVideoTime);
+    }
+    activeVideo = null;
+    paintSelectedFrame();
+  }
+
+  function onMediaTime(video, eventType) {
+    const expected = pendingMediaSeeks.get(video);
+    if (finite(expected)) {
+      if (Math.abs(video.currentTime - expected) < 0.05) {pendingMediaSeeks.delete(video); return;}
+      if (eventType === 'seeking' && video.readyState > 0) pendingMediaSeeks.delete(video);
+      else return;
+    }
+    if (eventType === 'seeking') {
+      explicitFrameIndex = null;
+      explicitSourceIndex = null;
+      activeVideo = video;
+      const other = video === $('video') ? $('overlay-video') : $('video');
+      other.pause();
+    }
+    if (activeVideo && activeVideo !== video && !activeVideo.paused) return;
+    currentVideoTime = video.currentTime;
+    const other = video === $('video') ? $('overlay-video') : $('video');
+    if (other.paused) seekVideo(other, currentVideoTime);
+    paintSelectedFrame();
   }
 
   function renderLayers(target) {
@@ -584,12 +743,12 @@
   }
 
   function seekFrame(index) {
-    const target = targets()[targetIndex];
-    if (!target) return;
-    frameIndex = index;
-    const frames = framesFor(target, positionRows(target));
-    if (finite(frames[index]?.timestamp)) $('video').currentTime = Number(frames[index].timestamp);
-    renderFrames(target, positionRows(target));
+    const frame = activeFrames[index];
+    if (frame && finite(frame.timestamp)) {
+      explicitFrameIndex = index;
+      explicitSourceIndex = frame.sourceIndices[0];
+      seekBothVideos(frame.timestamp, true);
+    }
   }
 
   $('samples').addEventListener('click', event => {
@@ -628,11 +787,11 @@
   $('position-next').onclick = () => {positionPage++; renderPositions();};
   $('positions').onclick = event => {
     const button = event.target.closest('[data-time]');
-    if (button && button.dataset.time !== '' && finite(button.dataset.time)) $('video').currentTime = Number(button.dataset.time);
+    if (button && button.dataset.time !== '' && finite(button.dataset.time)) seekBothVideos(Number(button.dataset.time));
   };
   $('receiver').onchange = () => {const target = targets()[targetIndex]; renderLayers(target); renderMessages(target);};
   $('message-sign').onchange = () => renderMessages(targets()[targetIndex]);
-  $('frame-space').onchange = () => {frameIndex = 0; const target = targets()[targetIndex]; renderFrames(target, positionRows(target));};
+  $('frame-space').onchange = () => {const target = targets()[targetIndex]; if (target?._loaded) renderFrames(target);};
   $('frame').onchange = () => seekFrame(Number($('frame').value));
   $('frame-timeline').onclick = event => {
     const button = event.target.closest('[data-frame]');
@@ -640,9 +799,43 @@
   };
   $('timeline').onclick = event => {
     const button = event.target.closest('[data-seek]');
-    if (button) $('video').currentTime = Number(button.dataset.seek);
+    if (button) seekBothVideos(Number(button.dataset.seek));
   };
-  $('video').addEventListener('error', () => {$('video-status').textContent = '영상 재생 오류 · 원자료 경로를 확인하세요.';});
+  $('overlay-visible').onchange = updateOverlayAppearance;
+  $('overlay-opacity').oninput = updateOverlayAppearance;
+  $('frame-details').onclick = event => {
+    const button = event.target.closest('[data-source-time]');
+    if (button) {
+      explicitFrameIndex = frameIndex;
+      explicitSourceIndex = Number(button.dataset.sourceIndex);
+      seekBothVideos(Number(button.dataset.sourceTime), true);
+    }
+  };
+  for (const video of [$('video'), $('overlay-video')]) {
+    video.addEventListener('loadedmetadata', () => {
+      if (video.id === 'overlay-video' && video.videoWidth && video.videoHeight) {
+        $('overlay-stage').style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+      }
+      const pending = pendingMediaSeeks.get(video);
+      if (finite(pending)) video.currentTime = pending;
+      else seekVideo(video, currentVideoTime);
+      alignOverlay();
+    });
+    for (const name of ['timeupdate', 'seeking', 'seeked']) video.addEventListener(name, () => onMediaTime(video, name));
+    video.addEventListener('play', () => {
+      explicitFrameIndex = null;
+      explicitSourceIndex = null;
+      pendingMediaSeeks.delete(video);
+      activeVideo = video;
+      (video === $('video') ? $('overlay-video') : $('video')).pause();
+      onMediaTime(video, 'play');
+    });
+    video.addEventListener('error', () => {
+      $(video.id === 'video' ? 'video-status' : 'overlay-time').textContent = '영상 재생 오류 · 원자료 경로를 확인하세요.';
+    });
+  }
+  new ResizeObserver(alignOverlay).observe($('overlay-stage'));
+  updateOverlayAppearance();
 
   // External links and browser history may change only the hash, without
   // reloading this document. Restore the full query/step/target state then.

@@ -193,6 +193,8 @@ Deterministic rollout의 reconsideration 응답·입력·token distribution·실
 
 Viewer는 상세 계측 분기 → direct conditional rollout의 구간 비교 → 입력 표현의 변화 방향 → 선택한 세부 계측 순으로 읽는다. `web/interpretations/<sample_key>.json`은 query와 기존 deterministic source를 참조해 다시 만들 수 있는 표시용 요약이다. `_lib/greedy_attribution_interpretation.py`가 실제 prefix와 마지막 강제 token을 검사하여 direct continuation과 이후 추가 강제 분기가 있는 descendant를 구분한다. 원래 mode flag·gradient 배열·응답은 수정하지 않는다. 보고서 재생성 시 이 요약과 MD 정의·viewer를 함께 갱신한다. 장시간 실행의 후처리는 report·browser 검사 모듈을 갱신해 최신 화면에도 동일 검증을 적용한다.
 
+영상 overlay는 기존 영상 URL과 저장된 pixel/visual map을 재사용한다. 재생 시 가장 가까운 실제 source timestamp를 사용하고, visual pair의 두 실제 frame 및 temporal packing의 중복 input slot을 따로 확인할 수 있다. 수치·색상·시간 대응의 정의는 생성되는 MD 보고서를 따른다. `validation/pixel_sum_audit.json`이 있으면 해당 target의 backward 반복 한계를 보고서와 분기 설명에 함께 표시한다. 저장 원자료의 수치 일관성과 backward 반복 재현성을 구분한다. CPU integrity 검사가 별도로 실행 중일 때는 `_lib/greedy_attribution_resume.py --validator-pid <PID> --scope <N>`를 detached로 실행해 통과 후 보고서·viewer gate와 다음 pilot을 자동으로 이어갈 수 있다.
+
 - `queries/`: 원래 sample·입력 hash·greedy token·고정 top-30·target metadata.
 - `targets/<sample>/`: target별 전체 입력·pixel patch gradient와 선택층 message를 gzip JSON으로 저장한다.
 - `arrays/`: 고정 top-30 ID·원래 probability·계측 probability·입력 group별 방향 선별값. Top-30 밖은 추적하지 않으며 확률을 재정규화하지 않는다.

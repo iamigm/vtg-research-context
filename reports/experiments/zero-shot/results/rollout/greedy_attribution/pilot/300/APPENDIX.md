@@ -109,6 +109,8 @@ Source KV probability는 기존 greedy 실행의 incremental decoding 기록이�
 
 Layers 표는 각 decoder layer의 attention output, MLP output, residual input에서 선택한 prediction receiver의 signed activation × gradient다. Message score=Aᵢⱼ〈∂L/∂oᵢ,vⱼ〉는 o_proj 이전 head 좌표에서 메시지를 미소 강화하는 방향이다. Message 계측은 decoder layer 0·17·35의 prediction receivers에 한정하고 head·receiver·부호별 상위 source edge를 보존한다. Visual-to-visual 및 그 외 간접 receiver의 edge는 미계측이다. Attention row 재구성 오차를 원자료에 남긴다. Visual embedding gradient는 visual replacement 이후, DeepStack 추가 주입 이전의 language-model 입력에서 측정한다. Video pixel gradient는 vision encoder와 DeepStack 경로를 포함하므로 두 지도를 구분한다.
 
+Pixel signed sum은 전체 FP32 product의 CUDA 합과 patch별 FP32 합을 FP64로 더한 값 사이에 합산 순서 차이가 있다. 검증은 D=|전체 합−patch 합|을 고정 상대 오차로만 비교하지 않고, D≤B인 forward-error bound를 사용한다. B=(γ(d)+γ(767))×S_upper+underflow 및 FP64 합산 오차 항이며, γ(k)=ku/(1−ku), u=2⁻²⁴다. d는 고정 PyTorch CUDA reduction 구현의 합산 경로 길이 상한이고, S_upper는 normalized pixel의 |x|≤1과 저장된 patch gradient norm으로 얻은 Σ|g×x|의 Cauchy 상한이다. Norm의 FP32 square·sum·sqrt 오차도 상한에 포함한다. 작은 D와 D/B는 두 집계의 일치 정도를 나타내지만, 저장 요약만으로 계산한 B는 보수적이므로 통과를 bit-exact 일치나 정확한 부호 보존의 증명으로 해석하지 않는다. 검증 기록에 실제 D·B·D/B와 CUDA header·processor hash를 보존한다.
+
 ## 해석과 재현 범위
 
 선행 입력 변화 이후에도 원래 prefix를 teacher-force하므로 현재 step에 대한 conditional 분석이다. 실제 입력 변화가 더 앞선 생성부터 바꾸는 효과는 이 기록으로 확정할 수 없다. Gradient가 작다고 영상 근거가 없다고 판단하지 않는다. 이전 생성 위치의 표현에도 영상·query 정보가 들어 있을 수 있고, MLP를 곧바로 language prior로 이름 붙이지 않는다. 층별·경로별 signed 점수를 모두 합쳐 전체 증거량을 만들지 않는다.

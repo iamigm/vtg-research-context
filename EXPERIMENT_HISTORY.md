@@ -3296,3 +3296,55 @@
 - code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.js
 - reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/APPENDIX.md
 - reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md
+
+## 2026-11-12T15:00:00.000355+09:00
+
+원본 파일 직접 관찰: 18개 실행, 777개 코드·의존성 파일. 이전 commit: 1050e23e9244ff004890e50c0827e87fc58ad4c8.
+
+추가 21 / 변경 11 / 현재 원본에서 사라짐 13. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/greedy_attribution_pixel_audit.py
+- code/experiments/zero-shot/_lib/greedy_attribution_resume.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_hooks.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_interpretation.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_manage.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_messages.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_pixel_audit.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_resume.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/code/greedy_attribution_viewer.js
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/600/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/600/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/600/REPORT.md
+- code/experiments/zero-shot/_lib/greedy_attribution_check.py
+- code/experiments/zero-shot/_lib/greedy_attribution_report.py
+- code/experiments/zero-shot/_lib/greedy_attribution_runtime.py
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.css
+- code/experiments/zero-shot/_lib/greedy_attribution_viewer.js
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.css
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/web/viewer.js
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/APPENDIX.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/overview/REPORT.md
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_cache.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_check.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_core.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_hooks.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_interpretation.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_manage.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_messages.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_report.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_runtime.py
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.css
+- 원본 부재: code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/code/greedy_attribution_viewer.js
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/config.json
+- 원본 부재: evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/300/metadata/status.json

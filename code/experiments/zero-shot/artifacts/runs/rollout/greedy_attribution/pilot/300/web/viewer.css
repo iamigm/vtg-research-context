@@ -201,3 +201,70 @@ button, select, input { max-width: 100%; }
   #frame-panel .inline-label select { width: 100%; }
   .layer-row { overflow-wrap: anywhere; }
 }
+
+/* Place the saved patch grid over the displayed video content, excluding letterbox bars. */
+#frame-panel .frame-grid {
+  grid-template-columns: minmax(0, 1.8fr) minmax(210px, 1fr);
+  align-items: start;
+}
+.overlay-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.overlay-controls label { display: flex; align-items: center; gap: 7px; }
+.overlay-controls input[type=checkbox] { margin: 0; }
+#overlay-opacity { width: 120px; min-width: 70px; }
+#overlay-opacity-value { min-width: 32px; font-variant-numeric: tabular-nums; }
+.overlay-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #14221d;
+}
+#overlay-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 0;
+}
+#overlay-stage #spatial-map {
+  position: absolute;
+  display: grid;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  max-height: none;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  pointer-events: none;
+}
+#overlay-stage .spatial-cell { pointer-events: none; }
+#overlay-time { margin: 9px 0 5px; font-variant-numeric: tabular-nums; line-height: 1.7; }
+#spatial-note { line-height: 1.7; }
+.source-frame-buttons { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0; }
+.source-frame-buttons button { font-size: 11px; padding: 6px 9px; }
+@media (max-width: 1100px) {
+  #frame-panel .frame-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (max-width: 720px) {
+  .overlay-controls { gap: 10px; }
+  .overlay-controls label { font-size: 11px; }
+  #overlay-opacity { width: 90px; }
+}
+
+#overlay-stage #spatial-map[hidden] { display: none !important; }
+
+#overlay-video::-webkit-media-controls-fullscreen-button { display: none; }
+#overlay-video::-webkit-media-controls-picture-in-picture-button { display: none; }
