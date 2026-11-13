@@ -1,6 +1,6 @@
 # Greedy attribution · pilot900
 
-고정 pilot **900 query** 중 **601 query**의 계측을 완료했다. 전체 범위의 고유 영상은 892개이며 완료 query에 포함된 고유 영상은 593개다. Query 수·영상 수·backward target 수를 구분한다. 진행 중 부분집합의 수치이며 pilot 전체 결과로 해석하지 않는다.
+고정 pilot **900 query** 중 **900 query**의 계측을 완료했다. 전체 범위의 고유 영상은 892개이며 완료 query에 포함된 고유 영상은 892개다. Query 수·영상 수·backward target 수를 구분한다. 이 범위의 원자료 계측이 완료되었다. Viewer 검증의 완료 여부는 아래 검증 기록을 따른다.
 
 ## 목적과 현재 범위
 
@@ -8,7 +8,7 @@ Source greedy token열을 고정한 계측 replay에서 모든 선행 입력의 
 
 [계측 정의·실행 조건·층화 결과](APPENDIX.md)
 
-완료 query 구성: activitynet-timelens: 201 / 300, charades-timelens: 200 / 300, qvhighlights-timelens: 200 / 300. 진행 순서에 따라 dataset 구성이 치우칠 수 있으므로 현재 평균을 pilot 전체로 일반화하지 않는다.
+완료 query 구성: activitynet-timelens: 300 / 300, charades-timelens: 300 / 300, qvhighlights-timelens: 300 / 300. 진행 순서에 따라 dataset 구성이 치우칠 수 있으므로 현재 평균을 pilot 전체로 일반화하지 않는다.
 
 ## Viewer를 읽는 순서
 
@@ -39,20 +39,20 @@ Overlay의 color scale은 선택한 target·표현·metric의 모든 frame에 �
 
 | 항목 | 실제 수 | 분모·해석 |
 |---|---:|---|
-| 완료 query | 601 / 900 | 같은 고정 cohort의 완료 query 수 |
-| Greedy step | 10717 | 완료 query의 출력 token 위치 합계 |
-| Backward target | 14323 | Chosen token·endpoint 합계·선별 margin 목표의 합계 |
+| 완료 query | 900 / 900 | 같은 고정 cohort의 완료 query 수 |
+| Greedy step | 16026 | 완료 query의 출력 token 위치 합계 |
+| Backward target | 21426 | Chosen token·endpoint 합계·선별 margin 목표의 합계 |
 | 평균 계측 replay top30 mass | 1.000000 | step 내 합계를 query 평균 후 query 간 평균; 재정규화 없음 |
-| 평균 계측 replay omitted mass | 1.161e-08 | 1−top30 mass; top30 밖 개별 분기는 미계측 |
-| 상세 branch target | 2404 | 다른 token과의 margin을 계측한 목표 수 |
-| 현재 경쟁 candidate | 17108 | step×token 후보 수; query 수가 아님 |
-| 잠재 경쟁 candidate | 7330 | 현재 경쟁과 중복 가능 |
+| 평균 계측 replay omitted mass | 1.142e-08 | 1−top30 mass; top30 밖 개별 분기는 미계측 |
+| 상세 branch target | 3600 | 다른 token과의 margin을 계측한 목표 수 |
+| 현재 경쟁 candidate | 25704 | step×token 후보 수; query 수가 아님 |
+| 잠재 경쟁 candidate | 11270 | 현재 경쟁과 중복 가능 |
 | 잠재 경쟁만 해당 | 0 | 현재 경쟁 기준을 통과하지 않은 잠재 후보 |
-| 분리된 구간을 관측한 branch target | 938 / 2404 | 기존 continuation 기준; 이후 추가 강제 분기 포함 가능, direct 전환 수와 다름 |
-| Direct conditional rollout이 있는 branch target | 1619 / 2404 | 해당 token까지 강제한 후 greedy로 완성한 기존 경로 |
-| Direct 구간 분리 branch target | 572 / 2404 | direct 경로에서 max endpoint 차이가 max(1 s, 영상 길이×0.02)를 초과; 사건 의미 차이를 확정하지 않음 |
-| 재현 오차에 민감한 branch target | 0 / 2404 | replay margin에 비해 source와의 차이가 큰 목표 |
-| 기존 continuation 미관측 branch target | 785 / 2404 | mode를 unknown으로 유지 |
+| 분리된 구간을 관측한 branch target | 1434 / 3600 | 기존 continuation 기준; 이후 추가 강제 분기 포함 가능, direct 전환 수와 다름 |
+| Direct conditional rollout이 있는 branch target | 2432 / 3600 | 해당 token까지 강제한 후 greedy로 완성한 기존 경로 |
+| Direct 구간 분리 branch target | 879 / 3600 | direct 경로에서 max endpoint 차이가 max(1 s, 영상 길이×0.02)를 초과; 사건 의미 차이를 확정하지 않음 |
+| 재현 오차에 민감한 branch target | 0 / 3600 | replay margin에 비해 source와의 차이가 큰 목표 |
+| 기존 continuation 미관측 branch target | 1168 / 3600 | mode를 unknown으로 유지 |
 
 현재 경쟁은 source KV의 고정 top30 안에서 계측 replay native probability≥1% 또는 greedy와 logit gap≤log(100)인 후보이며, 잠재 경쟁은 지정한 source-group 변화 방향의 screening에서 선택된 후보다. 세부 threshold·후보 상한·source와 replay probability는 appendix와 실행 설정에 기록한다. Top30 밖은 미계측이며 이 수치는 full mode probability나 전체 입력 방향에 대한 coverage가 아니다.
 
@@ -62,7 +62,7 @@ IoU=예측·GT 교집합 길이÷합집합 길이, mIoU=query별 IoU 평균, R@�
 
 | 조건 | n | mIoU (Δpp) | R@.3 (Δpp) | R@.5 (Δpp) | R@.7 (Δpp) |
 |---|---:|---:|---:|---:|---:|
-| Source greedy · 답변 고정 | 601 | 0.5156 (+0.00) | 0.6789 (+0.00) | 0.5441 (+0.00) | 0.3810 (+0.00) |
+| Source greedy · 답변 고정 | 900 | 0.5193 (+0.00) | 0.6767 (+0.00) | 0.5456 (+0.00) | 0.3967 (+0.00) |
 
 ## 입력 종류별 계측
 
@@ -70,25 +70,25 @@ IoU=예측·GT 교집합 길이÷합집합 길이, mIoU=query별 IoU 평균, R@�
 
 | 입력 group | 계측 query n | 평균 gradient L2 | 평균 signed sum | 평균 absolute sum |
 |---|---:|---:|---:|---:|
-| visual | 601 | 0.495172 | -0.001057 | 2.040237 |
-| timestamp | 601 | 0.511332 | 0.013024 | 0.387065 |
-| query | 601 | 0.239247 | -0.000281 | 0.017124 |
-| instruction | 601 | 0.564955 | 0.004526 | 0.094443 |
-| special | 601 | 1.102712 | 0.000453 | 0.044096 |
-| generated | 601 | 0.271087 | 0.001599 | 0.041023 |
+| visual | 900 | 0.477942 | -0.001946 | 2.005488 |
+| timestamp | 900 | 0.478804 | 0.012200 | 0.368196 |
+| query | 900 | 0.240256 | 0.000003 | 0.017325 |
+| instruction | 900 | 0.554474 | 0.005002 | 0.092850 |
+| special | 900 | 1.045378 | 0.000548 | 0.042245 |
+| generated | 900 | 0.262626 | 0.002296 | 0.040262 |
 
 ## 재현 검증과 실제 비용
 
 | 항목 | 값 | 정의 |
 |---|---:|---|
-| 계측 실행 기준 통과 query | 601 / 601 | 입력 hash·causality·source argmax 일치·probability 오차·gradient forward 일치 |
+| 계측 실행 기준 통과 query | 900 / 900 | 입력 hash·causality·source argmax 일치·probability 오차·gradient forward 일치 |
 | 최대 top30 absolute Δp | 8.643e-07 | 모든 완료 query·step·고정 top30의 max absolute(p_replay−p_source); 낮을수록 일치 |
 | 동일 계측 replay gradient/no-grad 최대 logit 차이 | 0.000000 | Source KV와의 비교와 별도; 0을 요구 |
-| Strict greedy argmax 일치 query | 601 / 601 | 모든 step의 argmax가 source greedy와 일치 |
-| 평균 query wall s | 102.538 | 계측 query별 실측 평균; 대기·전체 작업 경과 시간과 구분 |
-| Query wall 합 s | 61625.118 | 완료 query의 wall 실측 합 |
+| Strict greedy argmax 일치 query | 900 / 900 | 모든 step의 argmax가 source greedy와 일치 |
+| 평균 query wall s | 101.588 | 계측 query별 실측 평균; 대기·전체 작업 경과 시간과 구분 |
+| Query wall 합 s | 91429.074 | 완료 query의 wall 실측 합 |
 | 최대 GPU allocated GiB | 83.706 | query별 peak allocated 중 최댓값 |
-| Scope·viewer 검증 | 완료 기록 대기 | 계측 완료와 후처리 검증 완료를 구분 |
+| Scope·viewer 검증 | 통과 | 계측 완료와 후처리 검증 완료를 구분 |
 
 각 query의 정확한 입력 hash·source KV와 계측 replay probability drift·future-position gradient 검증과 비용은 원자료에 남긴다. Source greedy argmax는 모든 step에서 정확히 일치해야 한다. Top30 probability 최대 절대 오차는 0.001 이하여야 하며, 허용 범위의 실제 차이도 그대로 기록한다.
 
