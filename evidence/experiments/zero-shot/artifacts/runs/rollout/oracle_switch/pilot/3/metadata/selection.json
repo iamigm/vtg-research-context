@@ -1,0 +1,628 @@
+{
+  "scope": "pilot",
+  "scope_queries": 3,
+  "source_queries": 900,
+  "samples": [
+    {
+      "sample_key": "qvhighlights-timelens_00229",
+      "dataset": "qvhighlights-timelens",
+      "source_cohort_index": 218,
+      "source_global_rank": 5,
+      "source_dataset_rank": 1,
+      "row": {
+        "source": "QVHighlights-TimeLens",
+        "data_type": "grounding",
+        "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/qvhighlights/tlQPRLVDyH4_60.0_210.0.mp4",
+        "duration": 150.0,
+        "query": "A blonde woman in beige suite and white blouse is talking in front of a camera",
+        "span": [
+          [
+            5,
+            10
+          ]
+        ],
+        "dataset": "qvhighlights-timelens",
+        "sample_key": "qvhighlights-timelens_00229"
+      },
+      "greedy": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          19,
+          20,
+          13,
+          15,
+          481,
+          220,
+          20,
+          20,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          45.0,
+          55.0
+        ],
+        "iou": 0.0
+      },
+      "oracle": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          20,
+          13,
+          15,
+          481,
+          220,
+          16,
+          15,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          5.0,
+          10.0
+        ],
+        "iou": 1.0,
+        "index": 8,
+        "chain": [
+          {
+            "parent": 1,
+            "child": 8,
+            "roles": [
+              "start.seconds.10^1"
+            ],
+            "raw_token_probability": 0.043614007414188825,
+            "parent_overlaps_oracle": false,
+            "child_overlaps_oracle": true,
+            "parent_child_relation": "disjoint"
+          }
+        ]
+      },
+      "delta_iou": 1.0,
+      "branch": {
+        "step": 5,
+        "step_indexing": "zero_based",
+        "prefix_ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220
+        ],
+        "prefix": "The event happens in ",
+        "greedy_token": 19,
+        "oracle_token": 20,
+        "greedy_token_text": "4",
+        "oracle_token_text": "5",
+        "source_rank": 4,
+        "source_rank_indexing": "one_based_saved_top30_order",
+        "top_ids": [
+          19,
+          15,
+          21,
+          20,
+          18,
+          16,
+          22,
+          17,
+          23,
+          24,
+          220,
+          149,
+          26062,
+          151,
+          26927,
+          45602,
+          41873,
+          8158,
+          48312,
+          26022,
+          12619,
+          197,
+          59496,
+          70467,
+          6824,
+          56252,
+          67396,
+          43497,
+          378,
+          52133
+        ],
+        "greedy_source_probability": 0.5313273668289185,
+        "oracle_source_probability": 0.04361400753259659,
+        "source_greedy_minus_oracle_logit_margin": 2.49999996887227,
+        "source_trace_node": "9fe5e0af9f101da4160628a7"
+      },
+      "source": {
+        "rollout": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/rollouts/qvhighlights-timelens_00229.json",
+        "attribution": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/queries/qvhighlights-timelens_00229.json",
+        "input": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/inputs/qvhighlights-timelens_00229.json",
+        "arrays": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/arrays/qvhighlights-timelens_00229.npz"
+      },
+      "source_hashes": {
+        "rollout": "dc0a98f2bc579904ca5de4e983a6583f8a9901b495d67e2b294fdbd54b5f2f9a",
+        "attribution": "fac3b6989781e053645b788903a7da26f489f37165e5162697dfc45ebe283ddc",
+        "input": "2b42a9115bc5fecb1d91afb3d5410b828dfa684330254ee80b4b9a6784f19669",
+        "arrays": "425229cad17e60bfb5482b83d4a6d6631fade5b1d0c0320d9ee0fd13c5ef0e8c"
+      },
+      "source_trace": {
+        "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/token_traces/qvhighlights-timelens_00229/index.json",
+        "sha256": "675d1c23f31fda0aa0ace4189c2931dcc6edf3f014e2377c7dfe1461b1293b0a"
+      },
+      "input_hashes": {
+        "input_ids": "b6934f20c7a9c7e9a5917f6b65cea107381f866602cb55296fcdd4e476b04cd1",
+        "attention_mask": "4c002adbc42dce4c3688d81ab9d4074c7514567b683d5a07d1c877fadbe9d339",
+        "pixel_values_videos": "b9d8d971dd12fa2b7c277b45d6a0c694cc4aae125b2e36b2633aef4fb906af49",
+        "video_grid_thw": "981586bbb0c40251fd53c6fd7d0d4465d120c909d8a3d50ac96f2d93994ebc4b"
+      },
+      "root_branch_continuation": {
+        "index": 8,
+        "span": [
+          5.0,
+          10.0
+        ],
+        "iou": 1.0,
+        "equals_selected_oracle": true
+      },
+      "video_url": "/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/3cf41bc41e04d4e0e43f.mp4",
+      "video_path": "/home/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/3cf41bc41e04d4e0e43f.mp4",
+      "matched_attribution_target": null
+    },
+    {
+      "sample_key": "activitynet-timelens_00812",
+      "dataset": "activitynet-timelens",
+      "source_cohort_index": 390,
+      "source_global_rank": 1,
+      "source_dataset_rank": 1,
+      "row": {
+        "source": "ActivityNet-TimeLens",
+        "data_type": "grounding",
+        "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/activitynet/v_AeOUzM7nl5w.mp4",
+        "duration": 79.6,
+        "query": "She shows off the contact in her eye",
+        "span": [
+          [
+            75,
+            79
+          ]
+        ],
+        "dataset": "activitynet-timelens",
+        "sample_key": "activitynet-timelens_00812"
+      },
+      "greedy": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          16,
+          13,
+          15,
+          481,
+          220,
+          16,
+          15,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          1.0,
+          10.0
+        ],
+        "iou": 0.0
+      },
+      "oracle": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          22,
+          20,
+          13,
+          15,
+          481,
+          220,
+          22,
+          24,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          75.0,
+          79.0
+        ],
+        "iou": 1.0,
+        "index": 2,
+        "chain": [
+          {
+            "parent": 1,
+            "child": 2,
+            "roles": [
+              "start.seconds.10^0"
+            ],
+            "raw_token_probability": 0.2498806990233377,
+            "parent_overlaps_oracle": false,
+            "child_overlaps_oracle": true,
+            "parent_child_relation": "disjoint"
+          }
+        ]
+      },
+      "delta_iou": 1.0,
+      "branch": {
+        "step": 5,
+        "step_indexing": "zero_based",
+        "prefix_ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220
+        ],
+        "prefix": "The event happens in ",
+        "greedy_token": 16,
+        "oracle_token": 22,
+        "greedy_token_text": "1",
+        "oracle_token_text": "7",
+        "source_rank": 2,
+        "source_rank_indexing": "one_based_saved_top30_order",
+        "top_ids": [
+          16,
+          22,
+          21,
+          20,
+          15,
+          18,
+          19,
+          17,
+          23,
+          24,
+          220,
+          20109,
+          149,
+          8158,
+          26062,
+          151,
+          12619,
+          26927,
+          59496,
+          65124,
+          67396,
+          56252,
+          197,
+          198,
+          70467,
+          110473,
+          271,
+          41873,
+          43497,
+          59497
+        ],
+        "greedy_source_probability": 0.4668385982513428,
+        "oracle_source_probability": 0.24988070130348206,
+        "source_greedy_minus_oracle_logit_margin": 0.6249999747252774,
+        "source_trace_node": "9fe5e0af9f101da4160628a7"
+      },
+      "source": {
+        "rollout": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/rollouts/activitynet-timelens_00812.json",
+        "attribution": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/queries/activitynet-timelens_00812.json",
+        "input": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/inputs/activitynet-timelens_00812.json",
+        "arrays": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/arrays/activitynet-timelens_00812.npz"
+      },
+      "source_hashes": {
+        "rollout": "bcaba84e836799fdddaf5c535afd5d098a94dceebf90928a04b4c3cc16ea31ae",
+        "attribution": "58fef89f5e21eb5166bf556631109407ddd7bd34d169b79cc529e01dd8474112",
+        "input": "feb491cd19b7ce100efa065e158ac1429ec54424f6670a691ae66d5095e04ed2",
+        "arrays": "3701d421cf28b8305a115aa476cd1a1047641b87dec00e01b032d6e8a35cf28a"
+      },
+      "source_trace": {
+        "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/token_traces/activitynet-timelens_00812/index.json",
+        "sha256": "57926e3fbcbd17269e7d60adc06a5a74d7d5d153c9f11aa30bb007bf121d4d04"
+      },
+      "input_hashes": {
+        "input_ids": "03282a70c864d25b1f53dc0f1ec828e57af29a2e08cf01495d3d03cfd6bb4fd0",
+        "attention_mask": "dc8e8c61235e4d647cd55b26e720050079f5c412d29cd42cec8f5301e4dc58b6",
+        "pixel_values_videos": "c09a70221c6ecff6f5fcc1dae4de2b5c57489b248bab99fe784e3363e09e4c40",
+        "video_grid_thw": "9800b34b9f5df37b63eb849756154342a12a40d9fe3cad398dc1927edb5098b0"
+      },
+      "root_branch_continuation": {
+        "index": 2,
+        "span": [
+          75.0,
+          79.0
+        ],
+        "iou": 1.0,
+        "equals_selected_oracle": true
+      },
+      "video_url": "/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/3d8c6f71a5a88b1bbd6d.mp4",
+      "video_path": "/home/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/3d8c6f71a5a88b1bbd6d.mp4",
+      "matched_attribution_target": {
+        "id": "margin_5_22",
+        "data_file": "targets/activitynet-timelens_00812/margin_5_22.json.gz",
+        "sha256": "3ecd36ec4dd7abc2618bf92d36d94800168606b989b1bcde42e64bab505d0f44",
+        "pixel_signed_sum": -17.588260650634766,
+        "pixel_gradient_l2": 179.10935974121094,
+        "step": 5,
+        "alternative": 22,
+        "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/targets/activitynet-timelens_00812/margin_5_22.json.gz",
+        "objective": "greedy_logit_minus_oracle_logit"
+      }
+    },
+    {
+      "sample_key": "charades-timelens_00810",
+      "dataset": "charades-timelens",
+      "source_cohort_index": 774,
+      "source_global_rank": 4,
+      "source_dataset_rank": 1,
+      "row": {
+        "source": "Charades-TimeLens",
+        "data_type": "grounding",
+        "video_path": "/data/video/MR/TimeLens/TimeLens-Bench/videos/charades/AFCDN.mp4",
+        "duration": 29.496133333333333,
+        "query": "A person is standing and eating some food",
+        "span": [
+          [
+            21,
+            29
+          ]
+        ],
+        "dataset": "charades-timelens",
+        "sample_key": "charades-timelens_00810"
+      },
+      "greedy": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          15,
+          13,
+          15,
+          481,
+          220,
+          21,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          0.0,
+          6.0
+        ],
+        "iou": 0.0
+      },
+      "oracle": {
+        "ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220,
+          17,
+          16,
+          13,
+          15,
+          481,
+          220,
+          17,
+          24,
+          13,
+          15,
+          6486,
+          13,
+          151645
+        ],
+        "span": [
+          21.0,
+          29.0
+        ],
+        "iou": 1.0,
+        "index": 4,
+        "chain": [
+          {
+            "parent": 1,
+            "child": 2,
+            "roles": [
+              "start.seconds.10^0"
+            ],
+            "raw_token_probability": 0.32257871488683926,
+            "parent_overlaps_oracle": false,
+            "child_overlaps_oracle": true,
+            "parent_child_relation": "disjoint"
+          },
+          {
+            "parent": 2,
+            "child": 4,
+            "roles": [
+              "start.seconds.10^0"
+            ],
+            "raw_token_probability": 0.26912273539276027,
+            "parent_overlaps_oracle": true,
+            "child_overlaps_oracle": true,
+            "parent_child_relation": "overlapping"
+          }
+        ]
+      },
+      "delta_iou": 1.0,
+      "branch": {
+        "step": 5,
+        "step_indexing": "zero_based",
+        "prefix_ids": [
+          785,
+          1538,
+          8573,
+          304,
+          220
+        ],
+        "prefix": "The event happens in ",
+        "greedy_token": 15,
+        "oracle_token": 17,
+        "greedy_token_text": "0",
+        "oracle_token_text": "2",
+        "source_rank": 2,
+        "source_rank_indexing": "one_based_saved_top30_order",
+        "top_ids": [
+          15,
+          17,
+          16,
+          20,
+          18,
+          21,
+          19,
+          22,
+          23,
+          24,
+          220,
+          26022,
+          24918,
+          149,
+          151,
+          26927,
+          12619,
+          197,
+          20109,
+          8158,
+          26062,
+          70467,
+          27,
+          56252,
+          378,
+          6824,
+          198,
+          43497,
+          33372,
+          481
+        ],
+        "greedy_source_probability": 0.602656364440918,
+        "oracle_source_probability": 0.3225787281990051,
+        "source_greedy_minus_oracle_logit_margin": 0.6249999328464744,
+        "source_trace_node": "9fe5e0af9f101da4160628a7"
+      },
+      "source": {
+        "rollout": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/rollouts/charades-timelens_00810.json",
+        "attribution": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/queries/charades-timelens_00810.json",
+        "input": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/inputs/charades-timelens_00810.json",
+        "arrays": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/arrays/charades-timelens_00810.npz"
+      },
+      "source_hashes": {
+        "rollout": "266327e38d1fcc58a16ae45350bca2a6edee00998b00470d46f6e4115d3e5c80",
+        "attribution": "dee0d08a176f23b2a018e77c87266f7e886f15cb7ee66c171029a8beea552b0d",
+        "input": "e93e88e4e44b469303c948f4a8568d0da6393dfb2403fa040ddeb4e059960bae",
+        "arrays": "2e98cc5540967114915c822f94339ea08d0471adb7e8f3542244eab5d4e18dbe"
+      },
+      "source_trace": {
+        "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/token_traces/charades-timelens_00810/index.json",
+        "sha256": "7fcdaf26fdbf5a7f98b5f8c519c596b2c84d8594f61d4ab611fb7658c97c0449"
+      },
+      "input_hashes": {
+        "input_ids": "162be14efff0a6c71c1fdb58c482c974e481eed4463e828c505cb792d0b35f2c",
+        "attention_mask": "ddd50c6069d88f3be65f167f259ee1ae368e862a92cc4a51cc8e4470d59298ad",
+        "pixel_values_videos": "3311b0c92f24cb582f7abacbb541b3859d6c9bbd6668865567ac020ac486455e",
+        "video_grid_thw": "463f9710cdea60c1ea37f7cea9eb5290bdc6efb90f33667da6cfdefb27d107ab"
+      },
+      "root_branch_continuation": {
+        "index": 2,
+        "span": [
+          22.0,
+          29.0
+        ],
+        "iou": 0.875,
+        "equals_selected_oracle": false
+      },
+      "video_url": "/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/be5634fe6219b7085111.mp4",
+      "video_path": "/home/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/media/be5634fe6219b7085111.mp4",
+      "matched_attribution_target": {
+        "id": "margin_5_17",
+        "data_file": "targets/charades-timelens_00810/margin_5_17.json.gz",
+        "sha256": "57080574a8e07aab202922cb5e69164d9785325a16e3b38c7a5fcf514e7f3acc",
+        "pixel_signed_sum": 412.5210266113281,
+        "pixel_gradient_l2": 7968.96435546875,
+        "step": 5,
+        "alternative": 17,
+        "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/targets/charades-timelens_00810/margin_5_17.json.gz",
+        "objective": "greedy_logit_minus_oracle_logit"
+      }
+    }
+  ],
+  "policy": {
+    "oracle": "Maximum raw GT IoU among up to 32 completed positive-interval candidates including greedy; exact ties choose lowest candidate index.",
+    "cohort": "One maximum-delta eligible query per dataset from fixed source pilot900; a GT-selected extreme diagnostic, not a representative or independent test cohort.",
+    "eligibility": "Valid greedy and oracle intervals with EOS, positive delta IoU, first divergent oracle token inside original greedy top30.",
+    "ranking": [
+      "delta_iou descending",
+      "oracle_iou descending",
+      "sample_key ascending"
+    ],
+    "source_cohort_indexing": "zero_based",
+    "prediction_clipping": false,
+    "disjointness_filter": false,
+    "lineage_filter": false,
+    "perturbation_scope": "visual input only; text input and generated-prefix perturbations excluded",
+    "branch_success": "First oracle token switch is distinct from completing the full oracle path, especially for nested oracle lineages."
+  },
+  "counts": {
+    "source_queries": 900,
+    "selected_queries": 3,
+    "selected_unique_videos": 3,
+    "eligible_queries": 808,
+    "excluded_by_reason": {
+      "no_positive_iou_gain": 92
+    },
+    "selected_by_dataset": {
+      "qvhighlights-timelens": 1,
+      "activitynet-timelens": 1,
+      "charades-timelens": 1
+    }
+  },
+  "source_refs": {
+    "cohort": {
+      "path": "/home/irteam/experiments/zero-shot/artifacts/common/cohorts/nested_pilot_v1/pilot_900/samples.json",
+      "sha256": "e92620e9b56da0ca62af58b2da07ab2fb3fa5bac58ab20aa880b709426124db7"
+    },
+    "oracle_analysis": {
+      "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/deterministic/pilot/900/oracle_diversity/metrics/per_query.json",
+      "sha256": "a4c07f23c4599fe52006a3fb2cf7ebaa6d5f6664174943760ec9f9a4350f3534"
+    },
+    "attribution_config": {
+      "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/metadata/config.json",
+      "sha256": "7a912b59fbede0dfc1b1f4382e35bc3a417d222491473ee9ad245f18103f226e"
+    },
+    "media_catalog": {
+      "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/900/web/catalog.json",
+      "sha256": "fd3153311e04e45e1ac8017bad49f45ccf2e48ef40387b865e48440623b68671"
+    }
+  },
+  "rankings_ref": {
+    "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/metadata/rankings.json",
+    "sha256": "2da110d5248acbabab8d57b1d0386cb901398b196d9f8badf37c7fe604bbea0c"
+  },
+  "screening_ref": {
+    "path": "/home/irteam/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/analyses/initial_screening.json",
+    "sha256": "e994faf8b2da954b0d9b44d0f862126d542578e6cac036b81d1814bab5c6de51"
+  },
+  "source_outputs_copied": false
+}
