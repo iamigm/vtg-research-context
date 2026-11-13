@@ -17,6 +17,11 @@ import traceback
 from pathlib import Path
 from oracle_switch_core import *
 
+class BaselineReplayError(RuntimeError):
+    def __init__(self,message,data):
+        super().__init__(message)
+        self.data=data
+
 
 class Progress:
     def __init__(self):
@@ -65,9 +70,46 @@ def setup():
         config_hash=digest(CONFIG),selection_sha256=sha(OUT/'metadata/selection.json'),
         model_manifest_sha256=sha('/home/irteam/backbones/manifests/registry.json'),
         processor_sha256=sha(MODEL/'preprocessor_config.json'),
+        video_processor_sha256=sha(MODEL/'video_preprocessor_config.json'),
         cpu_max=Path('/sys/fs/cgroup/cpu.max').read_text().strip(),
         memory_max=Path('/sys/fs/cgroup/memory.max').read_text().strip()))
     return selection
+
+
+def cpu_preflight(selection):
+    """Verify real processor packing against source RGB without allocating a GPU."""
+    import torch
+    from transformers import AutoProcessor
+    from probability_budget_runtime import prepare
+    from probability_budget_inputs import source_frames
+    from oracle_switch_visual import unpack_pixels,pack_pixels,make_directions,apply
+    processor=AutoProcessor.from_pretrained(MODEL,local_files_only=True,do_resize=False)
+    video=processor.video_processor
+    assert (video.patch_size,video.temporal_patch_size,video.merge_size)==(16,2,2)
+    mean=[float(v) for v in video.image_mean];std=[float(v) for v in video.image_std]
+    records=[]
+    for sample in selection['samples']:
+        cpu,info=prepare(sample['row'],processor);assert info['hashes']==sample['input_hashes']
+        grid=cpu.video_grid_thw[0].tolist();pixels=cpu.pixel_values_videos
+        frames=unpack_pixels(pixels,grid)
+        assert torch.equal(pack_pixels(frames,grid),pixels)
+        _,_,source=source_frames(sample['row'])
+        raw=torch.from_numpy(source).float()
+        if len(raw)<len(frames):raw=torch.cat((raw,raw[-1:].expand(len(frames)-len(raw),-1,-1,-1)))
+        reconstructed=(frames.float()*torch.tensor(std).view(1,3,1,1)+torch.tensor(mean).view(1,3,1,1))*255
+        error=float((reconstructed-raw).abs().max());assert error<.001,(sample['sample_key'],error)
+        # Real baseline inversion and bounded intervention; this synthetic
+        # gradient validates mechanics only and never selects experiment regions.
+        ids=list(info['frame_ids']);times=list(info['timestamps'])
+        ids+=ids[-1:]*(len(frames)-len(ids));times+=times[-1:]*(len(frames)-len(times))
+        bundle=make_directions(pixels,torch.zeros_like(pixels),grid,ids,times,mean,std)
+        no_change,stats=apply(pixels,bundle['sign'],grid,bundle['supports'][0],32/255,mean,std)
+        assert torch.equal(no_change,pixels)
+        records.append(dict(sample_key=sample['sample_key'],exact_input_hashes=True,grid=grid,
+                            unpacked_rgb_max_abs_error_255=error,zero_direction_bitwise_identity=True))
+        del cpu,pixels,frames,source,raw,reconstructed,bundle,no_change;gc.collect()
+    result=dict(passed=True,records=records,model_loaded=False,gpu_allocated=False,timestamp=stamp())
+    write(OUT/'validation/cpu_preflight.json',result);return result
 
 
 def gpu_state():
@@ -153,11 +195,12 @@ def preview(pixels,changed,grid,support,mean,std,key,direction_id):
         path=folder/f'{direction_id}_{label}.png'
         image=Image.fromarray((value.permute(1,2,0).cpu().numpy()*255).round().astype(np.uint8))
         image.save(path);paths[label]=str(path)
-    paths.update(slot=slot,difference_gain=1/maximum if maximum else 1.,difference_label='Absolute RGB difference, independently amplified to fill [0,1]; PNG only is rounded to uint8')
+    paths.update(slot=slot,timestamp=support['timestamps'][0],
+        difference_gain=1/maximum if maximum else 1.,difference_label='Absolute RGB difference, independently amplified to fill [0,1]; PNG only is rounded to uint8')
     return paths
 
 
-def process(sample,model,processor,progress):
+def process(sample,model,processor,progress,gradient_observer=None):
     import numpy as np
     import torch
     import greedy_attribution_runtime as original
@@ -188,13 +231,17 @@ def process(sample,model,processor,progress):
         return result
     baseline=evaluate(pixels)
     expected=np.load(sample['source']['arrays'])
+    assert expected['token_ids'][step].tolist()==sample['branch']['top_ids']
     probability_error=max(abs(point['probability']-float(expected['probabilities'][step,i])) for i,point in enumerate(baseline['top30']))
     expected.close()
-    assert baseline['prefix_argmax_match'] and baseline['top1_id']==sample['branch']['greedy_token']
-    assert probability_error<=original.CONFIG['replay_probability_tolerance'],(key,probability_error)
+    if not baseline['prefix_argmax_match'] or baseline['top1_id']!=sample['branch']['greedy_token'] or probability_error>original.CONFIG['replay_probability_tolerance']:
+        raise BaselineReplayError('Unmodified branch replay differs from source',dict(
+            input=info,baseline=baseline,baseline_probability_error=probability_error))
     progress(stage='baseline_free_decode')
     baseline_free=decode(model,processor,prompt_gpu,sample,pixels)
-    assert baseline_free['ids']==sample['greedy']['ids'],(key,'unmodified full greedy replay differs')
+    if baseline_free['ids']!=sample['greedy']['ids']:
+        raise BaselineReplayError('Unmodified full greedy replay differs from source',dict(
+            input=info,baseline=baseline,baseline_free=baseline_free,baseline_probability_error=probability_error))
     result=dict(sample_key=key,complete=False,config_hash=digest(CONFIG),input=info,baseline=baseline,
         baseline_free=baseline_free,baseline_probability_error=probability_error,directions=[],timestamp=stamp())
     write(dest,result)
@@ -217,6 +264,9 @@ def process(sample,model,processor,progress):
     array_path=OUT/'arrays'/f'{key}.npz'
     np.savez_compressed(array_path,direction_sign=sign.cpu().numpy())
     result['gradient'].update(direction_file=str(array_path),direction_sha256=sha(array_path))
+    if gradient_observer is not None:
+        result['gradient'].update(gradient_observer(
+            sample,pixels,second,grid,frame_ids,times,mean,std,bundle))
     write(dest,result)
     del full,objective,first,second,a,b;teacher['pixel_values_videos']=pixels;gc.collect();torch.cuda.empty_cache()
     for support in supports:
@@ -225,10 +275,17 @@ def process(sample,model,processor,progress):
         result['directions'].append(direction);write(dest,result)
         cache={0.:dict(baseline,epsilon=0.,epsilon_255=0.,phase='baseline',perturbation=dict(rgb_linf=0.,rgb_rms=0.,changed_fraction=0.))}
         direction['trials'].append(cache[0.])
+        def perturb(epsilon):
+            changed,stats=apply(pixels,sign,grid,support,epsilon,mean,std)
+            stats.update(rgb_linf=stats['actual_rgb_linf'],rgb_rms=stats['actual_rgb_rms_full'])
+            return changed,stats
+        def make_preview(changed):
+            view_support=support if support['id']!='all_video' else supports[1]
+            return preview(pixels,changed,grid,view_support,mean,std,key,support['id'])
         def probe(epsilon,phase='scan',repeat=False):
             if not repeat and epsilon in cache:return cache[epsilon]
             progress(stage=phase,direction=support['id'],epsilon_255=epsilon*255)
-            changed,stats=apply(pixels,sign,grid,support,epsilon,mean,std)
+            changed,stats=perturb(epsilon)
             trial=dict(evaluate(changed),epsilon=epsilon,epsilon_255=epsilon*255,phase=phase,perturbation=stats)
             del changed
             if not repeat:cache[epsilon]=trial
@@ -252,17 +309,17 @@ def process(sample,model,processor,progress):
             direction['control_opposite']=probe(-high,'opposite_control',repeat=True)
             for label,epsilon in [('free_low',low),('free_high',high)]:
                 progress(stage=label,direction=support['id'],epsilon_255=epsilon*255)
-                changed,stats=apply(pixels,sign,grid,support,epsilon,mean,std)
+                changed,stats=perturb(epsilon)
                 direction[label]=dict(decode(model,processor,prompt_gpu,sample,changed),epsilon=epsilon,epsilon_255=epsilon*255,perturbation=stats)
-                if label=='free_high':direction['media']=preview(pixels,changed,grid,support,mean,std,key,support['id'])
+                if label=='free_high':direction['media']=make_preview(changed)
                 del changed;write(dest,result)
             direction['boundary']['verified']=bool(repeated['branch_reached'] and direction['free_high']['oracle_branch_reached'] and not direction['free_low']['oracle_branch_reached'])
         else:
             limit=CONFIG['epsilon_255'][-1]/255
             progress(stage='free_limit',direction=support['id'],epsilon_255=limit*255)
-            changed,stats=apply(pixels,sign,grid,support,limit,mean,std)
+            changed,stats=perturb(limit)
             direction['free_limit']=dict(decode(model,processor,prompt_gpu,sample,changed),epsilon=limit,epsilon_255=limit*255,perturbation=stats)
-            direction['media']=preview(pixels,changed,grid,support,mean,std,key,support['id'])
+            direction['media']=make_preview(changed)
             direction['evaluated_limit_255']=CONFIG['epsilon_255'][-1]
             del changed
         direction['complete']=True;write(dest,result)
@@ -303,9 +360,15 @@ def worker():
         with (OUT/'metadata/run.lock').open('a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             wait_gpu(progress)
+            for source in read(OUT/'metadata/provenance.json')['files']:
+                if Path(source['path']).name not in ('oracle_switch_report.py','oracle_switch_check.py'):
+                    assert sha(source['path'])==source['sha256'],('scientific source changed while queued',source['path'])
             from oracle_switch_visual import selftest
             write(OUT/'validation/visual_helpers.json',selftest())
             import greedy_attribution_runtime as original
+            import torch
+            torch.manual_seed(CONFIG['seed'])
+            torch.cuda.manual_seed_all(CONFIG['seed'])
             progress(state='running',stage='loading_model',eta_scope='remaining selected queries; excludes postprocessing')
             model,processor,seconds=original.load()
             write(OUT/'metadata/model_load.json',dict(seconds=seconds,timestamp=stamp()))
@@ -319,11 +382,13 @@ def worker():
             del model,processor;gc.collect()
             progress(stage='validating');check=validate();assert check['complete']
             from oracle_switch_check import check as check_view
-            progress(state='complete',stage='complete',completed=3,eta_seconds=0)
+            progress(stage='checking_viewer',completed=3,eta_seconds=0)
             publish();check_view()
             from artifact_store import register
             register('oracle_switch.pilot3','analyses',OUT/'queries','Visual pixel interventions for three extreme greedy-to-oracle branches',
                      'oracle_switch_runtime.py',str(OUT/'metadata/selection.json'),'complete')
+            progress(state='complete',stage='complete',completed=3,eta_seconds=0)
+            publish()
     except BaseException:
         progress(state='failed',stage='failed',error=traceback.format_exc())
         try:publish()
@@ -340,9 +405,10 @@ def launch():
             if b'oracle_switch_runtime.py' in Path(f'/proc/{pid}/cmdline').read_bytes():
                 raise RuntimeError(f'Already queued/running: {pid}')
         except FileNotFoundError:pass
-    setup()
+    selection=setup()
     from oracle_switch_visual import selftest
     write(OUT/'validation/visual_helpers.json',selftest())
+    cpu_preflight(selection)
     write(OUT/'metadata/status.json',dict(state='queued',stage='waiting_gpu',completed=0,total=3,timestamp=stamp()))
     publish()
     with (OUT/'logs/run.log').open('ab',buffering=0) as log:

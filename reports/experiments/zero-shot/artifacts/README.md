@@ -199,3 +199,21 @@ Viewer는 상세 계측 분기 → direct conditional rollout의 구간 비교 �
 - `targets/<sample>/`: target별 전체 입력·pixel patch gradient와 선택층 message를 gzip JSON으로 저장한다.
 - `arrays/`: 고정 top-30 ID·원래 probability·계측 probability·입력 group별 방향 선별값. Top-30 밖은 추적하지 않으며 확률을 재정규화하지 않는다.
 - 실행: `.venv/bin/python _lib/greedy_attribution_manage.py launch`. 보고서 재생성: `.venv/bin/python _lib/greedy_attribution_report.py --allow-partial`. 검증은 `_lib/greedy_attribution_check.py`를 사용한다. 원래 deterministic input·response·media를 참조하며 복제하지 않는다.
+
+## Visual oracle switch · pilot3
+
+`runs/rollout/oracle_switch/pilot/3/`는 기존 pilot900에서 dataset별 oracle@32−greedy IoU 개선량이 최대인 query 한 개씩을 선택한 별도 진단 실험이다. 원래 nested cohort의 prefix가 아니다. `metadata/selection.json`과 `rankings.json`에 선택 기준·900개 순위·source hash를 기록하고, 원본 영상·응답·입력 배열은 참조로 재사용한다.
+
+`queries/`에는 visual-only RGB perturbation의 fixed-prefix probe, 원래 top30의 probability/logit, native argmax 검증 scalar, free decoding 결과를 저장한다. `arrays/`의 packed sign direction과 source input hash·support·epsilon·processor mean/std로 입력을 재구성한다. `media/`의 PNG는 선택 frame의 원본·변형·확대한 차이 표시용이며 추론은 반올림하지 않은 float RGB를 사용한다. 같은 source frame의 중복 slot에는 동일한 변경을 적용한다.
+
+실행은 `.venv/bin/python _lib/oracle_switch_runtime.py launch`다. 다른 GPU 작업이 끝나고 여유 메모리를 확인한 뒤 detached로 시작하며, GPU를 기다리는 상태도 `metadata/status.json`과 `logs/run.log`에 기록한다. 완료 후 MD·HTML 생성, 수치와 browser 검증, 공통 index 갱신까지 자동 수행한다. 최신 상태는 `common/registry/oracle_switch.live.json`에서 확인한다. 보고서만 재생성할 때는 `_lib/oracle_switch_report.py`, viewer 검증은 `_lib/oracle_switch_check.py`를 사용한다.
+
+표시용 PNG는 `_lib/oracle_switch_previews.py`로 저장된 방향·변경량과 exact input을 CPU에서 재구성한다. `analyses/preview_manifest.json`은 원본 ×1·실제 변경 ×1·표시용 차이 확대를 연결하고 확대 배율·8-bit PNG 일치 여부를 기록한다. 원래 query JSON과 방향 배열은 수정하지 않는다. 화면의 변경 범위와 입력 변경 조건은 모두 같은 greedy decoding을 쓰며 입력 범위·변경량만 다르다.
+
+## Oracle switch controls · pilot60
+
+`runs/rollout/oracle_switch_controls/pilot/60/`는 원인 비교 조건을 추가한 별도 실험이다. 원래 극단 사례3개와 중복되지 않는 조건부 모집단805개에서 dataset별 고정 hash 순서로20개씩 선택한다. `metadata/selection.json`의60개 query와20개씩의 순서를 고정하며, 원래 극단 사례의 결과와 합쳐 일반화 비율을 계산하지 않는다. 모집단·선정 기준·제외 대상·source hash·사전 지정 precision subset은 이 파일을 따른다.
+
+`queries/`에는 기존과 같은 visual 변경 범위별 탐색, `analyses/controls/`에는 공통 변경량에서 gradient·반대 방향·무작위3 seed·반복 backward 방향·실제8-bit round trip의 비교를 저장한다. `arrays/`의 첫 번째·두 번째 sign 방향은 원래 입력을 참조한다. Precision control은 첫 영상 projection만 FP32로 계산하고 원래 BF16 가중치를 upcast하여 사용하며, 이후 모델은 BF16으로 유지한다. 전체 모델의 FP32 결과로 해석하지 않는다.
+
+실행은 `.venv/bin/python _lib/oracle_switch_controls_runtime.py launch`, 상태는 `metadata/status.json`, 로그는 `logs/run.log`이며 `common/registry/oracle_switch_controls.live.json`에서도 확인한다. 실행 중 query를 추가·대체하지 않고 baseline replay 실패도 원인과 함께 남긴다. 후처리에서 `oracle_switch_controls_report.py`와 `oracle_switch_controls_check.py`가 보고서·viewer·수치·링크·모바일 검증을 자동 수행한다.

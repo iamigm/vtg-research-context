@@ -1,0 +1,26 @@
+"""Frozen scope for visual input interventions on three extreme oracle cases."""
+from pathlib import Path
+from greedy_attribution_core import ROOT, MODEL, read, write, sha, stamp, digest, iou
+
+FAMILY = 'rollout/oracle_switch'
+OUT = ROOT / 'artifacts/runs' / FAMILY / 'pilot/3'
+RESULTS = ROOT / 'results' / FAMILY / 'pilot/3'
+CONFIG = dict(
+    family=FAMILY, scope='pilot', queries=3, source_queries=900, model=str(MODEL),
+    selection='maximum oracle@32 IoU gain in each dataset; original first-divergence token must be in original greedy top30',
+    candidate_top_k=30, input_order='video_query', frame_sampling_fps=2,
+    perturbation_domain='floating RGB [0,1] after original model resize; clip to [0,1]; no integer rounding during inference',
+    unchanged='text tokens, text embeddings, frame sampling/IDs/PTS, resolution, weights and greedy decoding',
+    objective='m = logit(greedy token) - logit(oracle token) at the first divergent step under the original common prefix',
+    direction='negative sign of one fresh baseline RGB gradient; fixed ray, no iterative optimization',
+    supports=['all_video','top_frame_pair','top_spatial_cell'],
+    support_selection='largest L1 raw-RGB gradient after summing duplicate-frame gradients; pair then 32x32 cell within that pair',
+    duplicate_frames='identical source frame IDs share the same perturbation; include all alias input slots',
+    epsilon_255=[.25,.5,1,2,4,8,16,32], refinement_steps=6,
+    boundary_predicate='oracle is native argmax at target AND all preceding argmax tokens match original prefix',
+    boundary_interpretation='first observed transition bracket along one fixed ray; not a globally minimal perturbation; narrow/nonmonotone intervals may be missed',
+    gradients='two backward evaluations of the same graph; use first gradient and report repeat variation',
+    verification='fresh repeated high-boundary forward, opposite-direction control, unforced greedy decoding at both boundary endpoints',
+    max_new_tokens=512, seed=42,
+    gpu_min_free_mib=98304, gpu_gate='no other compute process; two idle checks 20 seconds apart',
+)

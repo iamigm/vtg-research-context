@@ -3450,3 +3450,60 @@
 - code/experiments/zero-shot/_lib/oracle_switch_select.py
 - code/experiments/zero-shot/_lib/oracle_switch_visual.py
 - evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/metadata/selection.json
+
+## 2026-11-13T21:00:00.002428+09:00
+
+원본 파일 직접 관찰: 18개 실행, 822개 코드·의존성 파일. 이전 commit: 1a760e195e67e26c9803420a9f38fab7227e66c9.
+
+추가 47 / 변경 3 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/oracle_switch_check.py
+- code/experiments/zero-shot/_lib/oracle_switch_controls_check.py
+- code/experiments/zero-shot/_lib/oracle_switch_controls_core.py
+- code/experiments/zero-shot/_lib/oracle_switch_controls_report.py
+- code/experiments/zero-shot/_lib/oracle_switch_controls_runtime.py
+- code/experiments/zero-shot/_lib/oracle_switch_controls_select.py
+- code/experiments/zero-shot/_lib/oracle_switch_precision.py
+- code/experiments/zero-shot/_lib/oracle_switch_previews.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/greedy_attribution_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/greedy_attribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_previews.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_select.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/oracle_switch_visual.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/probability_budget_inputs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/code/probability_budget_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch/pilot/3/metadata/status.json
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/greedy_attribution_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/greedy_attribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_controls_check.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_controls_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_controls_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_controls_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_controls_select.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_precision.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_previews.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_select.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/oracle_switch_visual.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/probability_budget_inputs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/code/probability_budget_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/metadata/selection.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/oracle_switch_controls/pilot/60/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/oracle_switch/pilot/3/REPORT.md
+- reports/experiments/zero-shot/results/rollout/oracle_switch/pilot/overview/REPORT.md
+- reports/experiments/zero-shot/results/rollout/oracle_switch_controls/pilot/60/REPORT.md
+- reports/experiments/zero-shot/results/rollout/oracle_switch_controls/pilot/overview/REPORT.md
+- code/experiments/zero-shot/_lib/oracle_switch_report.py
+- code/experiments/zero-shot/_lib/oracle_switch_runtime.py
+- reports/experiments/zero-shot/artifacts/README.md
