@@ -1,0 +1,17 @@
+{
+  "state": "complete",
+  "scopes": [
+    {
+      "scope": "pilot",
+      "queries": 300,
+      "responses": 600,
+      "report": "/home/irteam/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/top30_renormalized/REPORT.md"
+    },
+    {
+      "scope": "full",
+      "queries": 9404,
+      "responses": 18808,
+      "report": "/home/irteam/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/top30_renormalized/REPORT.md"
+    }
+  ]
+}

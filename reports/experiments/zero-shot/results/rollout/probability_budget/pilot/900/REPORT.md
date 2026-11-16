@@ -4,7 +4,7 @@
 
 900 query 중 후보 생성 세 방법을 모두 완료한 query 900개. 고유 영상 892개. 이 수치는 후보 생성 단계의 완료 수다. 독립 crop 검증·semantic 측정·최종 답변 생성의 완료 여부는 End-to-end completion 하위 분석에서 확인한다. 조건 반복 수와 query 수를 구분한다. 완료 전 수치는 진행 중 공통 부분집합이며 전체 성능으로 해석하지 않는다.
 
-[방법·예산별 추가 연산](APPENDIX_COMPUTE.md)
+[방법·예산별 추가 연산](APPENDIX_COMPUTE.md) · [후보 구간의 중복 시각화](APPENDIX_OVERLAP.md)
 
 <!-- report-part:0:end -->
 <!-- report-part:1:begin -->

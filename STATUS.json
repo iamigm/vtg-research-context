@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-16T18:00:00.001470+09:00",
+  "observed_at": "2026-11-16T21:00:00.000466+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -161,6 +161,11 @@
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/metadata/status.json",
       "source_modified_at": "2026-10-23T23:59:41.971480+09:00",
       "sha256": "1f51a59e65de9c071657636cfa9e962802ef8a6639462b74665edc70c425d16b"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/top30_renormalized/metadata/status.json",
+      "source_modified_at": "2026-11-16T20:59:22.140017+09:00",
+      "sha256": "cbd6b62b317a1d08d4ec0e6484ebbd5308a393a13107fed7854cc6bcba663c71"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metadata/status.json",

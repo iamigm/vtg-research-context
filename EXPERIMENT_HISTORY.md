@@ -3539,3 +3539,24 @@
 - code/experiments/_shared/transformer_explainability/baselines/ViT/ViT_explanation_generator.py
 - code/experiments/_shared/transformer_explainability/modules/layers_ours.py
 - reports/experiments/zero-shot/artifacts/README.md
+
+## 2026-11-16T21:00:00.000466+09:00
+
+원본 파일 직접 관찰: 18개 실행, 843개 코드·의존성 파일. 이전 commit: d693f6c5e25f174efb55b33f25bc0298ea7d31ee.
+
+추가 10 / 변경 4 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/probability_budget_overlap.py
+- code/experiments/zero-shot/_lib/timelens_top30_renormalized.py
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/top30_renormalized/metadata/status.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/top30_renormalized/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/top30_renormalized/metrics/per_query.csv
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/top30_renormalized/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/APPENDIX_OVERLAP.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/APPENDIX_OVERLAP.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/top30_renormalized/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/top30_renormalized/REPORT.md
+- code/experiments/zero-shot/_lib/probability_budget_report.py
+- reports/experiments/zero-shot/artifacts/README.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/rollout/probability_budget/pilot/900/REPORT.md

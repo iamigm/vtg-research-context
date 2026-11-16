@@ -1,5 +1,11 @@
 # 실험 산출물 저장소
 
+## Token uncertainty · top-30 renormalized entropy
+
+`runs/uncertainty/token_analysis/{pilot/300,full/9404}/top30_renormalized/`에 저장된 raw·processed top-30을 재정규화한 파생 지표를 둔다. 각 step에서 `M = sum(top30 probability)`, `q = p/M`, `H30 = -sum(q ln q)`를 계산하며 기존 전체 vocabulary entropy와 응답·IoU는 유지한다. `metrics/per_step.csv.gz`와 `per_query.csv`는 파생 scalar이며 원래 token ID·확률은 복제하지 않는다. `metadata/sources.json`의 원본 경로·SHA-256으로 확률과 재정규화된 q를 재구성한다. 수치 검증은 `validation/numerical.json`, 결과 보고서는 같은 상대 경로의 `results/`에 있다.
+
+재생성은 `python3 _lib/timelens_top30_renormalized.py launch`로 detached 실행한다. full 범위의 `logs/run.log`와 `metadata/status.json`에 두 범위의 진행·오류를 기록하며, 완료 후 보고서·공통 index·대표 viewer 갱신과 링크 검증을 자동 실행한다. GPU 추론은 필요하지 않다.
+
 ## Probability budget · pilot300 → pilot900
 
 `runs/rollout/probability_budget/pilot/900/`이 단일 canonical 원자료다. `queries/`는 입력 provenance·greedy baseline·방법별 scalar checkpoint, `search/<query>/<method>.json`은 해당 방법의 token tree·완성 경로를 한 번 저장한다. Budget512·1,024·2,048과 pilot300은 같은 원자료의 prefix 및 checkpoint를 참조한다. `metadata/source_records.json`은 scope별 query 순서·cohort hash를 보존한다.
@@ -225,3 +231,7 @@ Viewer는 상세 계측 분기 → direct conditional rollout의 구간 비교 �
 `arrays/`에는 전체 context에서 predictor row의 두 최종 vector와 visual token 위치를 저장한다. `maps/`는 이 vector의 visual token 부분을 원래 temporal/spatial grid로 reshape한 viewer용 gzip JSON이다. 전체 attention 행을 계산하되 행렬곱의 필요한 row를 정확한 vector contraction으로 계산한다. 별도 relevance overlay는 만들지 않는다. Decoder visual-token map이며 vision encoder와 원본 pixel까지의 LRP라고 해석하지 않는다.
 
 실행은 `.venv/bin/python _lib/chefer_maps_runtime.py launch`다. 다른 GPU 작업·GPU 여유·회수 불가능한 host memory·disk 공간을 확인한 후 detached worker가 시작한다. 최초 실제 입력에서 native replay와 수치 검증을 통과해야 결과를 게시한다. `metadata/status.json`, `logs/run.log`, `common/registry/chefer_maps.live.json`에 상태·오류를 기록한다. `chefer_maps_report.py`로 viewer·보고서를 만들고 완료 후 browser 검증·공통 index·registry를 자동 갱신한다. `temporary/`의 activation capture는 query 성공 시 삭제하고 재현에 필요한 결과 vector·설정·source hash·로그만 보존한다.
+
+## Probability budget · interval overlap appendix
+
+`_lib/probability_budget_overlap.py`는 canonical pilot900 search의 각 budget checkpoint까지 완성된 유효 leaves에서 exact clipped interval을 중복 제거하고, 같은 query 안의 unordered interval pair IoU를 계산한다. `runs/rollout/probability_budget/pilot/900/analyses/interval_overlap.json`은 query별 지표·분모를 한 번 보존하며 pilot300은 고정 prefix를 참조한다. 출처 hash·검증은 같은 범위의 `validation/interval_overlap.json`, 그림은 각 범위의 `media/interval_overlap_*.svg`다. 결과 MD는 `APPENDIX_OVERLAP.md`이며 main report와 appendix 메뉴에서 연결한다. 재생성은 기존 shared plotting dependency를 재사용하는 zero-shot Python으로 실행하며 모델 추론을 하지 않는다.
