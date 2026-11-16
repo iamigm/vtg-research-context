@@ -217,3 +217,11 @@ Viewer는 상세 계측 분기 → direct conditional rollout의 구간 비교 �
 `queries/`에는 기존과 같은 visual 변경 범위별 탐색, `analyses/controls/`에는 공통 변경량에서 gradient·반대 방향·무작위3 seed·반복 backward 방향·실제8-bit round trip의 비교를 저장한다. `arrays/`의 첫 번째·두 번째 sign 방향은 원래 입력을 참조한다. Precision control은 첫 영상 projection만 FP32로 계산하고 원래 BF16 가중치를 upcast하여 사용하며, 이후 모델은 BF16으로 유지한다. 전체 모델의 FP32 결과로 해석하지 않는다.
 
 실행은 `.venv/bin/python _lib/oracle_switch_controls_runtime.py launch`, 상태는 `metadata/status.json`, 로그는 `logs/run.log`이며 `common/registry/oracle_switch_controls.live.json`에서도 확인한다. 실행 중 query를 추가·대체하지 않고 baseline replay 실패도 원인과 함께 남긴다. 후처리에서 `oracle_switch_controls_report.py`와 `oracle_switch_controls_check.py`가 보고서·viewer·수치·링크·모바일 검증을 자동 수행한다.
+
+## Greedy attribution · Chefer maps · pilot3
+
+`runs/rollout/greedy_attribution/pilot/3/chefer_maps/`는 기존 극단 사례3개의 동일 greedy 분기 token logit을 대상으로 attention rollout과 Chefer CVPR2021 final C를 비교한다. 원래 pilot900 입력·영상·prefix를 참조하며 일반화 표본으로 집계하지 않는다. 공식 구현의 고정 revision과 연산별 Qwen 이식 규칙은 `metadata/config.json`, `metadata/provenance.json`에 기록한다. 외부 공식 코드는 `experiments/_shared/transformer_explainability/`에서 재사용한다.
+
+`arrays/`에는 전체 context에서 predictor row의 두 최종 vector와 visual token 위치를 저장한다. `maps/`는 이 vector의 visual token 부분을 원래 temporal/spatial grid로 reshape한 viewer용 gzip JSON이다. 전체 attention 행을 계산하되 행렬곱의 필요한 row를 정확한 vector contraction으로 계산한다. 별도 relevance overlay는 만들지 않는다. Decoder visual-token map이며 vision encoder와 원본 pixel까지의 LRP라고 해석하지 않는다.
+
+실행은 `.venv/bin/python _lib/chefer_maps_runtime.py launch`다. 다른 GPU 작업·GPU 여유·회수 불가능한 host memory·disk 공간을 확인한 후 detached worker가 시작한다. 최초 실제 입력에서 native replay와 수치 검증을 통과해야 결과를 게시한다. `metadata/status.json`, `logs/run.log`, `common/registry/chefer_maps.live.json`에 상태·오류를 기록한다. `chefer_maps_report.py`로 viewer·보고서를 만들고 완료 후 browser 검증·공통 index·registry를 자동 갱신한다. `temporary/`의 activation capture는 query 성공 시 삭제하고 재현에 필요한 결과 vector·설정·source hash·로그만 보존한다.

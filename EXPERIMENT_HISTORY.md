@@ -3507,3 +3507,35 @@
 - code/experiments/zero-shot/_lib/oracle_switch_report.py
 - code/experiments/zero-shot/_lib/oracle_switch_runtime.py
 - reports/experiments/zero-shot/artifacts/README.md
+
+## 2026-11-16T18:00:00.001470+09:00
+
+원본 파일 직접 관찰: 18개 실행, 841개 코드·의존성 파일. 이전 commit: c72e2f138f18ddb0d678692e36f7edfc64a62b89.
+
+추가 24 / 변경 1 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/chefer_lrp_engine.py
+- code/experiments/zero-shot/_lib/chefer_lrp_rules.py
+- code/experiments/zero-shot/_lib/chefer_maps_core.py
+- code/experiments/zero-shot/_lib/chefer_maps_report.py
+- code/experiments/zero-shot/_lib/chefer_maps_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/chefer_lrp_engine.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/chefer_lrp_rules.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/chefer_maps_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/chefer_maps_report.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/chefer_maps_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/greedy_attribution_cache.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/greedy_attribution_core.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/greedy_attribution_runtime.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/probability_budget_inputs.py
+- code/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/code/probability_budget_runtime.py
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/metadata/config.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/metadata/selection.json
+- evidence/experiments/zero-shot/artifacts/runs/rollout/greedy_attribution/pilot/3/chefer_maps/metadata/status.json
+- reports/experiments/zero-shot/results/rollout/greedy_attribution/pilot/3/chefer_maps/REPORT.md
+- code/experiments/_shared/transformer_explainability/LICENSE
+- evidence/experiments/_shared/transformer_explainability/manifest.json
+- code/experiments/_shared/transformer_explainability/baselines/ViT/ViT_LRP.py
+- code/experiments/_shared/transformer_explainability/baselines/ViT/ViT_explanation_generator.py
+- code/experiments/_shared/transformer_explainability/modules/layers_ours.py
+- reports/experiments/zero-shot/artifacts/README.md
