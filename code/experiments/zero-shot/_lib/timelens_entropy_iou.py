@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Query-level exploratory association of saved full-head entropy with grounding IoU."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json,re,csv,time
 import numpy as np
@@ -42,7 +44,7 @@ def main():
                 for t in steps:
                     if integer_positions.intersection(range(pos,pos+len(t['token']))):ints.append(t)
                     pos+=len(t['token'])
-                item=dict(model=model,dataset=ds,sample_key=sample['sample_key'],iou=r['iou'],numeric_entropy=avg([t['raw']['entropy_nats'] for t in num]),integer_entropy=avg([t['raw']['entropy_nats'] for t in ints]),first_numeric_entropy=num[0]['raw']['entropy_nats'],all_entropy=avg([t['raw']['entropy_nats'] for t in steps]),numeric_steps=len(num),all_steps=len(steps),processed_numeric_entropy=avg([t['processed']['entropy_nats'] for t in num]))
+                item=dict(model=model,dataset=ds,sample_key=sample['sample_key'],iou=r['iou'],numeric_entropy=avg([entropy_top30(t['raw']) for t in num]),integer_entropy=avg([entropy_top30(t['raw']) for t in ints]),first_numeric_entropy=entropy_top30(num[0]['raw']),all_entropy=avg([entropy_top30(t['raw']) for t in steps]),numeric_steps=len(num),all_steps=len(steps),processed_numeric_entropy=avg([entropy_top30(t['processed']) for t in num]))
                 masses.extend(t['raw']['top30_mass'] for t in steps);rs.append(item);records.append(item)
             x=[r['iou'] for r in rs];y=[r['numeric_entropy'] for r in rs];rho,ci=corr_ci(x,y)
             good=[r['numeric_entropy'] for r in rs if r['iou']>=.5];bad=[r['numeric_entropy'] for r in rs if r['iou']<.5]
@@ -59,13 +61,13 @@ def main():
             done=len(groups);elapsed=time.time()-start
             state=dict(state='running',completed=done,total=6,percent=100*done/6,elapsed_seconds=elapsed,eta_seconds=elapsed*(6-done)/done)
             write_result_text((relocate_path(OUT/'status.json')), json.dumps(state,indent=2)+'\n');print(json.dumps(state),flush=True)
-    fig.suptitle('Saved greedy trajectories: full-vocabulary raw entropy vs. IoU\nBlue: queries; red: IoU-bin mean with query-bootstrap 95% CI')
+    fig.suptitle('Saved greedy trajectories: top-30 renormalized raw entropy vs. IoU\nBlue: queries; red: IoU-bin mean with query-bootstrap 95% CI')
     fig.tight_layout(rect=(0,0,1,.93));fig.savefig(relocate_path(OUT/'entropy_vs_iou.png'),dpi=160);fig.savefig(relocate_path(OUT/'entropy_vs_iou.svg'));plt.close(fig)
     with (relocate_path(OUT/'per_query.csv')).open('w') as f:
         w=csv.DictWriter(f,fieldnames=list(records[0]));w.writeheader();w.writerows(records)
     write_result_text((relocate_path(OUT/'summary.json')), json.dumps(dict(groups=groups,bins=bins,bootstrap_seed=42,correlation_bootstraps=1000,mean_bootstraps=2000),indent=2)+'\n')
     lines=['# Zero-shot entropy와 IoU의 관계','',
-        '기존 top-30 실험의 600개 full-head greedy 응답을 재집계했다. GPU 추론을 다시 실행하지 않았다. 각 step의 `raw.entropy_nats`는 top-30 내부 재정규화가 아니라 **전체 어휘 softmax**로 이미 계산·저장된 엔트로피다. H = −Σ p(v) ln p(v), 단위는 nat.','',
+        '기존 top-30 실험의 600개 full-head greedy 응답을 재집계했다. GPU 추론을 다시 실행하지 않았다. 각 step의 저장된 raw top-30 확률을 재정규화하여 H₃₀를 계산했다. 단위는 nat.','',
         '분석 단위는 query다. 주 분석값은 **실제로 숫자 토큰을 생성한 단계들의 엔트로피 평균**이다. 숫자 토큰은 공백을 제외한 문자열이 숫자/소수와 일치하는 경우이며 소수부도 포함한다. 정형 문구 및 EOS를 포함한 전체 단계 평균은 별도 민감도 분석으로 둔다. 각 query에 같은 가중치를 부여해 긴 응답이 표본 수를 늘리지 않게 했다. 모델·벤치마크를 섞지 않고 각 100개씩 비교한다.','',
         '![IoU와 숫자 단계 엔트로피](entropy_vs_iou.png)','',
         '| 모델 | 벤치마크 | Spearman ρ [95% bootstrap CI] | IoU < .5: n / 평균 H | IoU ≥ .5: n / 평균 H | 성공−실패 ΔH [95% CI] |','|---|---|---|---|---|---|']
@@ -80,9 +82,9 @@ def main():
         q=g['sensitivity_spearman'];lines.append(f"| {g['model']} | {g['dataset']} | {q['all_entropy']:+.3f} | {q['integer_entropy']:+.3f} | {q['first_numeric_entropy']:+.3f} | {q['processed_numeric_entropy']:+.3f} | {q['numeric_steps']:+.3f} |")
     lines+=['','정수부 step은 답변에서 처음 두 숫자의 정수부 문자 위치와 겹치는 토큰으로 정했다. 첫 숫자 step은 두 시각 전체의 불확실성을 대표하지 않지만, 생성 길이 및 후속 숫자 선택의 영향을 줄여 확인하는 보조값이다. 소수부 자리와 토큰 길이가 평균 H에 영향을 줄 수 있어 주 분석과 같이 본다.','',
         '확률분포는 각 greedy 응답의 실제 이전 토큰열에 조건화되어 있다. 이 값은 영상 자체의 불확실성만을 측정하거나, 모든 가능한 rollout의 분포를 적분한 값이 아니다. 특히 확신 있게 틀린 답은 낮은 H·낮은 IoU로 나타날 수 있다. 정확도 calibration이나 인과관계를 주장하지 않는다.','',
-        'Qwen2.5 기본 repetition penalty의 영향은 raw와 processed를 구분했다. 주 분석에는 processor 이전 raw 분포를 사용한다. GPU 수치 오차로 top-30 질량 합이 1을 미세하게 넘는 기록이 있을 수 있으나, 엔트로피를 top-30에서 재계산하지 않았다. 기존 Decord 디코딩 품질 한계도 그대로 유지된다.','',
-        '만약 top-30 확률만 있었다면 −Σ(top30) p ln p는 전체 H의 일부일 뿐이며, top-30 안에서 재정규화한 H는 다른 양이다. 이 데이터에는 전체 H가 저장되어 있어 그런 근사 없이 비교할 수 있다.','',
+        'Qwen2.5 기본 repetition penalty의 영향은 raw와 processed를 구분했다. 주 분석에는 processor 이전 raw 분포를 사용한다. GPU 수치 오차로 top-30 질량 합이 1을 미세하게 넘는 기록이 있을 수 있으나, 실제 top-30 확률 합으로 나눠 entropy를 재계산했다. 기존 Decord 디코딩 품질 한계도 그대로 유지된다.','',
+        '재정규화 전 −Σ(top30) p ln p와 재정규화 후 H₃₀는 서로 다른 양이다. 이 보고서는 H₃₀를 사용한다.','',
         '[query별 CSV](per_query.csv) · [집계 및 IoU 구간별 결과 JSON](summary.json) · [벡터 그래프 SVG](entropy_vs_iou.svg)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n')
     write_result_text((relocate_path(OUT/'status.json')), json.dumps(dict(state='complete',completed=6,total=6,percent=100,queries=600,elapsed_seconds=time.time()-start),indent=2)+'\n')
 if __name__=='__main__':main()

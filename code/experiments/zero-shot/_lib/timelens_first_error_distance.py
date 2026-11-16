@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Join existing first-loss entropy with independent endpoint absolute error."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import csv,json,time
 import numpy as np
@@ -67,9 +69,9 @@ for ep in ['start','end']:
  fig.text(.5,.012,'점 1개 = 오답인 시각 1개 · 가로축: 1초 이하는 선형, 그 위는 로그 · 패널별 가로축 범위가 다름 · [ ]: Spearman ρ의 bootstrap 95% 신뢰구간',ha='center',fontsize=9)
  fig.tight_layout(rect=(0,.035,1,.95));fig.savefig(relocate_path(OUT/f'{ep}_entropy_vs_distance.png'),dpi=170);plt.close(fig)
 save('group_statistics.csv',groups);save('role_statistics.csv',strata)
-lines=['# 최초 오류의 엔트로피와 GT 거리','',f'전체 벤치마크의 지원 응답 {len(eps)//2:,}개에서 오답인 시작·종료 시각 {len(rows):,}개를 분석했다. 끝까지 정답 가능성이 유지된 시각은 최초 오류가 없으므로 제외한다. 지원하지 않는 출력 형식 217개 응답은 기존 분석과 동일하게 제외한다.','', '- 세로축: 정답으로 완성할 가능성을 처음 잃은 생성 단계 직전의 **raw 전체 어휘 엔트로피**(nat). 기존 반올림 가능성 판정을 그대로 사용한다.','- 가로축: **최종 출력 시각과 GT 시각의 절대 차이**(초). 시작과 종료는 독립 비교하며 반대쪽 시각은 계산에 관여하지 않는다. 반올림 후 오차도 CSV에 별도로 저장했다.','- 미완성 숫자 prefix 자체와 GT를 뺀 거리가 아니다. 최초 오류 뒤에 생성된 숫자도 최종 오차에 영향을 준다.','- 점은 시각별 관측값. 빨간 선은 엔트로피 5분위별 오차 중앙값, 음영은 해당 오차의 25–75백분위다. 음영은 신뢰구간이 아니다.','- 숫자 오류는 파랑, 소수점·종료 등 서식 오류는 갈색. 가로축은 1초까지 선형, 그 위는 로그이며 패널별 범위가 다르다.','', '![시작 시각](start_entropy_vs_distance.png)','', '![종료 시각](end_entropy_vs_distance.png)','', '| 모델 | 벤치마크 | 시각 | 관측 수 | 오차 중앙값(초) | Spearman ρ | 95% CI |','|---|---|---|---:|---:|---:|---|']
+lines=['# 최초 오류의 엔트로피와 GT 거리','',f'전체 벤치마크의 지원 응답 {len(eps)//2:,}개에서 오답인 시작·종료 시각 {len(rows):,}개를 분석했다. 끝까지 정답 가능성이 유지된 시각은 최초 오류가 없으므로 제외한다. 지원하지 않는 출력 형식 217개 응답은 기존 분석과 동일하게 제외한다.','', '- 세로축: 정답으로 완성할 가능성을 처음 잃은 생성 단계 직전의 **raw top-30 재정규화 엔트로피**(nat). 기존 반올림 가능성 판정을 그대로 사용한다.','- 가로축: **최종 출력 시각과 GT 시각의 절대 차이**(초). 시작과 종료는 독립 비교하며 반대쪽 시각은 계산에 관여하지 않는다. 반올림 후 오차도 CSV에 별도로 저장했다.','- 미완성 숫자 prefix 자체와 GT를 뺀 거리가 아니다. 최초 오류 뒤에 생성된 숫자도 최종 오차에 영향을 준다.','- 점은 시각별 관측값. 빨간 선은 엔트로피 5분위별 오차 중앙값, 음영은 해당 오차의 25–75백분위다. 음영은 신뢰구간이 아니다.','- 숫자 오류는 파랑, 소수점·종료 등 서식 오류는 갈색. 가로축은 1초까지 선형, 그 위는 로그이며 패널별 범위가 다르다.','', '![시작 시각](start_entropy_vs_distance.png)','', '![종료 시각](end_entropy_vs_distance.png)','', '| 모델 | 벤치마크 | 시각 | 관측 수 | 오차 중앙값(초) | Spearman ρ | 95% CI |','|---|---|---|---:|---:|---:|---|']
 for g in groups:lines.append(f"| {g['model']} | {g['dataset']} | {g['endpoint']} | {g['n']} | {g['median_error_seconds']:.2f} | {g['rho']:.3f} | [{g['ci95_low']:.3f}, {g['ci95_high']:.3f}] |")
 lines+=['','## 해석','', '12개 그룹 모두 음의 상관을 보였다(ρ 약 −0.18~−0.52). 오답인 시각들 안에서는 최초 오류 단계의 엔트로피가 낮은 사례가 더 큰 최종 시간 오차를 보이는 경향이다. 오류 자릿수를 섞은 효과인지 후속 검토가 필요하다.','', 'ρ가 양수이면 최초 오류 때 불확실성이 높은 사례에서 최종 시간 오차도 큰 경향, 음수이면 반대 경향을 뜻한다. 모델·벤치마크·시작·종료를 섞지 않고 해석한다. 신뢰구간은 각 패널의 시각 관측을 500회 복원추출한 percentile bootstrap이다.','', '오답 사례만 조건부로 분석하므로 오류 발생 여부를 예측하는 결과는 아니다. 최초 오류의 자릿수와 영상 길이, GT 시각 등의 교란이 있을 수 있다. 자릿수별 상관은 role_statistics.csv에 함께 저장했으며, 본 그림의 관계를 인과관계로 해석하지 않는다.','', '[관측값 CSV](per_first_error.csv) · [그룹 통계](group_statistics.csv) · [최초 오류 자릿수별 통계](role_statistics.csv)']
-write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n');write_result_text((relocate_path(OUT/'status.json')), json.dumps(dict(state='complete',observations=len(rows),panels=len(groups)),indent=2))
+write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n');write_result_text((relocate_path(OUT/'status.json')), json.dumps(dict(state='complete',observations=len(rows),panels=len(groups)),indent=2))
 register('analysis.full.first_error_distance','analyses',relocate_path(OUT/'REPORT.md'),'최초 오류 엔트로피와 시작·종료 GT 절대 오차','timelens_first_error_distance.py','full_benchmark_v1','complete')
 log('complete');print(json.dumps(groups),flush=True)

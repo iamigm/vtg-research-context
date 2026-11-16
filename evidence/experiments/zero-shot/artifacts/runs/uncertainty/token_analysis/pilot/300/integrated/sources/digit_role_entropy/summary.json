@@ -278,9 +278,9 @@
       "n_retained": 3,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 2.0925355752309165,
-      "first_loss_mean": 2.0173373222351074,
-      "difference": -0.07519825299580907,
+      "retained_mean": 2.0923640870176663,
+      "first_loss_mean": 2.017210632381679,
+      "difference": -0.07515345463598733,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -294,7 +294,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.4993555545806885,
+      "first_loss_mean": 1.4992710296807177,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -309,7 +309,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.023486051708459854,
+      "first_loss_mean": 0.023480868615261767,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -324,7 +324,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.9457736015319824,
+      "first_loss_mean": 0.9450184252471869,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -338,9 +338,9 @@
       "n_retained": 34,
       "n_first_loss": 1,
       "n_after_loss": 31,
-      "retained_mean": 0.0005147215436050554,
-      "first_loss_mean": 0.00024228803522419184,
-      "difference": -0.00027243350838086354,
+      "retained_mean": 0.0004983057747025868,
+      "first_loss_mean": 0.0002102062678878571,
+      "difference": -0.0002880995068147297,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -353,9 +353,9 @@
       "n_retained": 35,
       "n_first_loss": 19,
       "n_after_loss": 12,
-      "retained_mean": 1.4283679141529968,
-      "first_loss_mean": 1.2883175479150133,
-      "difference": -0.1400503662379835,
+      "retained_mean": 1.4280952832991387,
+      "first_loss_mean": 1.2881629784283697,
+      "difference": -0.13993230487076902,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -368,9 +368,9 @@
       "n_retained": 54,
       "n_first_loss": 12,
       "n_after_loss": 0,
-      "retained_mean": 0.5739744516257714,
-      "first_loss_mean": 0.3603379296170412,
-      "difference": -0.21363652200873023,
+      "retained_mean": 0.5738351729814766,
+      "first_loss_mean": 0.36025919556702063,
+      "difference": -0.21357597741445594,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -383,9 +383,9 @@
       "n_retained": 32,
       "n_first_loss": 2,
       "n_after_loss": 32,
-      "retained_mean": 2.0133493610701407,
-      "first_loss_mean": 2.249291181564331,
-      "difference": 0.23594182049419032,
+      "retained_mean": 2.013129274902178,
+      "first_loss_mean": 2.2489219527381463,
+      "difference": 0.23579267783596825,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -399,7 +399,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.00018249674758408219,
+      "first_loss_mean": 0.00018254328619278078,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -414,7 +414,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.9842547178268433,
+      "first_loss_mean": 1.9831177507388744,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -429,7 +429,7 @@
       "n_first_loss": 2,
       "n_after_loss": 6,
       "retained_mean": null,
-      "first_loss_mean": 1.6849192380905151,
+      "first_loss_mean": 1.6848524589753562,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -443,9 +443,9 @@
       "n_retained": 2,
       "n_first_loss": 6,
       "n_after_loss": 0,
-      "retained_mean": 0.07070006057620049,
-      "first_loss_mean": 0.5626110310355822,
-      "difference": 0.4919109704593817,
+      "retained_mean": 0.07065768764230539,
+      "first_loss_mean": 0.5624718364990693,
+      "difference": 0.4918141488567639,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -458,9 +458,9 @@
       "n_retained": 8,
       "n_first_loss": 5,
       "n_after_loss": 4,
-      "retained_mean": 1.2472640089690685,
-      "first_loss_mean": 1.4920751333236695,
-      "difference": 0.24481112435460095,
+      "retained_mean": 1.2471028385205098,
+      "first_loss_mean": 1.4920258790285146,
+      "difference": 0.24492304050800473,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -473,9 +473,9 @@
       "n_retained": 13,
       "n_first_loss": 4,
       "n_after_loss": 0,
-      "retained_mean": 0.3117625276563733,
-      "first_loss_mean": 0.29471681639552116,
-      "difference": -0.017045711260852137,
+      "retained_mean": 0.31167939129089395,
+      "first_loss_mean": 0.29469871611845666,
+      "difference": -0.016980675172437287,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -488,9 +488,9 @@
       "n_retained": 15,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.2416399856408438,
-      "first_loss_mean": 2.1236168146133423,
-      "difference": 0.8819768289724985,
+      "retained_mean": 1.2403425444614908,
+      "first_loss_mean": 2.1222895806626534,
+      "difference": 0.8819470362011625,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -503,9 +503,9 @@
       "n_retained": 4,
       "n_first_loss": 4,
       "n_after_loss": 2,
-      "retained_mean": 2.1939992904663086,
-      "first_loss_mean": 2.3228156566619873,
-      "difference": 0.1288163661956787,
+      "retained_mean": 2.192864433452259,
+      "first_loss_mean": 2.321039577114606,
+      "difference": 0.12817514366234706,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -518,9 +518,9 @@
       "n_retained": 8,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 2.0170588344335556,
-      "first_loss_mean": 1.755295991897583,
-      "difference": -0.2617628425359726,
+      "retained_mean": 2.015697672662778,
+      "first_loss_mean": 1.7545363939320922,
+      "difference": -0.26116127873068606,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -534,7 +534,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.9812521934509277,
+      "first_loss_mean": 1.980012089368554,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -548,9 +548,9 @@
       "n_retained": 39,
       "n_first_loss": 4,
       "n_after_loss": 8,
-      "retained_mean": 2.0616795221964517,
-      "first_loss_mean": 2.191965878009796,
-      "difference": 0.13028635581334447,
+      "retained_mean": 2.0608346921660803,
+      "first_loss_mean": 2.190992370052852,
+      "difference": 0.13015767788677168,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -563,9 +563,9 @@
       "n_retained": 43,
       "n_first_loss": 8,
       "n_after_loss": 0,
-      "retained_mean": 1.304623992983685,
-      "first_loss_mean": 1.7076727002859116,
-      "difference": 0.40304870730222664,
+      "retained_mean": 1.3039855656427184,
+      "first_loss_mean": 1.7069176435686115,
+      "difference": 0.40293207792589314,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -578,9 +578,9 @@
       "n_retained": 36,
       "n_first_loss": 3,
       "n_after_loss": 12,
-      "retained_mean": 2.2145701249440513,
-      "first_loss_mean": 1.5108155561611056,
-      "difference": -0.7037545687829456,
+      "retained_mean": 2.2136506072685758,
+      "first_loss_mean": 1.5105509303226008,
+      "difference": -0.703099676945975,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -593,9 +593,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 1.999535083770752,
-      "first_loss_mean": 1.3320891857147217,
-      "difference": -0.6674458980560303,
+      "retained_mean": 1.9983665155110146,
+      "first_loss_mean": 1.3314993218160975,
+      "difference": -0.6668671936949171,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -608,9 +608,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 1,
-      "retained_mean": 2.1017813682556152,
-      "first_loss_mean": 2.2054219245910645,
-      "difference": 0.10364055633544922,
+      "retained_mean": 2.101071985347294,
+      "first_loss_mean": 2.204270843641515,
+      "difference": 0.10319885829422093,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -624,7 +624,7 @@
       "n_first_loss": 1,
       "n_after_loss": 2,
       "retained_mean": null,
-      "first_loss_mean": 2.257814884185791,
+      "first_loss_mean": 2.2546982895520506,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -638,9 +638,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 2.208653688430786,
-      "first_loss_mean": 1.4998157620429993,
-      "difference": -0.7088379263877869,
+      "retained_mean": 2.207596858587001,
+      "first_loss_mean": 1.4991401091252592,
+      "difference": -0.708456749461742,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -653,9 +653,9 @@
       "n_retained": 11,
       "n_first_loss": 1,
       "n_after_loss": 2,
-      "retained_mean": 2.140243790366433,
-      "first_loss_mean": 2.1281256675720215,
-      "difference": -0.012118122794411601,
+      "retained_mean": 2.139623219973149,
+      "first_loss_mean": 2.1279091639094654,
+      "difference": -0.011714056063683476,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -668,9 +668,9 @@
       "n_retained": 12,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.4236463258663814,
-      "first_loss_mean": 1.3244984447956085,
-      "difference": -0.09914788107077288,
+      "retained_mean": 1.4226602112587223,
+      "first_loss_mean": 1.3226059688538108,
+      "difference": -0.10005424240491156,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -683,9 +683,9 @@
       "n_retained": 10,
       "n_first_loss": 1,
       "n_after_loss": 3,
-      "retained_mean": 2.3007153272628784,
-      "first_loss_mean": 2.2964444160461426,
-      "difference": -0.00427091121673584,
+      "retained_mean": 2.299022684549303,
+      "first_loss_mean": 2.2961741003300484,
+      "difference": -0.002848584219254491,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -698,9 +698,9 @@
       "n_retained": 13,
       "n_first_loss": 4,
       "n_after_loss": 0,
-      "retained_mean": 1.5625632038483253,
-      "first_loss_mean": 1.6645121574401855,
-      "difference": 0.10194895359186029,
+      "retained_mean": 1.562163497228786,
+      "first_loss_mean": 1.6639917393746184,
+      "difference": 0.10182824214583253,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -713,9 +713,9 @@
       "n_retained": 5,
       "n_first_loss": 2,
       "n_after_loss": 8,
-      "retained_mean": 1.6345858097076416,
-      "first_loss_mean": 2.1308990716934204,
-      "difference": 0.49631326198577885,
+      "retained_mean": 1.634261550959307,
+      "first_loss_mean": 2.1301849992626005,
+      "difference": 0.4959234483032935,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -728,9 +728,9 @@
       "n_retained": 7,
       "n_first_loss": 8,
       "n_after_loss": 0,
-      "retained_mean": 1.1752854074750627,
-      "first_loss_mean": 0.9556453262921423,
-      "difference": -0.21964008118292044,
+      "retained_mean": 1.174936878256101,
+      "first_loss_mean": 0.9554054989482786,
+      "difference": -0.2195313793078223,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -744,7 +744,7 @@
       "n_first_loss": 1,
       "n_after_loss": 3,
       "retained_mean": null,
-      "first_loss_mean": 1.8831415218301117e-05,
+      "first_loss_mean": 1.4751083420649831e-05,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -758,9 +758,9 @@
       "n_retained": 1,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 2.0737884044647217,
-      "first_loss_mean": 1.5310058792432149,
-      "difference": -0.5427825252215068,
+      "retained_mean": 2.0724895304565187,
+      "first_loss_mean": 1.5305174315747774,
+      "difference": -0.5419720988817414,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -773,9 +773,9 @@
       "n_retained": 42,
       "n_first_loss": 16,
       "n_after_loss": 6,
-      "retained_mean": 1.5048000206838228,
-      "first_loss_mean": 1.5520252007991076,
-      "difference": 0.04722518011528476,
+      "retained_mean": 1.504500873559021,
+      "first_loss_mean": 1.5517058699273565,
+      "difference": 0.04720499636833542,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -788,9 +788,9 @@
       "n_retained": 58,
       "n_first_loss": 6,
       "n_after_loss": 0,
-      "retained_mean": 0.6060330409652971,
-      "first_loss_mean": 0.4570711875955264,
-      "difference": -0.1489618533697707,
+      "retained_mean": 0.605840302445857,
+      "first_loss_mean": 0.4569642016126001,
+      "difference": -0.14887610083325686,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -803,9 +803,9 @@
       "n_retained": 38,
       "n_first_loss": 4,
       "n_after_loss": 22,
-      "retained_mean": 1.725970969461885,
-      "first_loss_mean": 2.2649540305137634,
-      "difference": 0.5389830610518784,
+      "retained_mean": 1.7257485156416292,
+      "first_loss_mean": 2.2647908114473276,
+      "difference": 0.5390422958056984,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -818,9 +818,9 @@
       "n_retained": 45,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.2718232439623938,
-      "first_loss_mean": 0.7528514564037323,
-      "difference": -0.5189717875586615,
+      "retained_mean": 1.2709993194090594,
+      "first_loss_mean": 0.7524308593327853,
+      "difference": -0.5185684600762741,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -833,9 +833,9 @@
       "n_retained": 40,
       "n_first_loss": 5,
       "n_after_loss": 2,
-      "retained_mean": 1.3770873233675958,
-      "first_loss_mean": 1.7873871564865111,
-      "difference": 0.4102998331189154,
+      "retained_mean": 1.3765251173842918,
+      "first_loss_mean": 1.7868518202169454,
+      "difference": 0.4103267028326536,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -849,7 +849,7 @@
       "n_first_loss": 2,
       "n_after_loss": 2,
       "retained_mean": null,
-      "first_loss_mean": 2.0343422293663025,
+      "first_loss_mean": 2.032739553149324,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -863,9 +863,9 @@
       "n_retained": 2,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.0728953778743744,
-      "first_loss_mean": 2.1019877791404724,
-      "difference": 1.029092401266098,
+      "retained_mean": 1.0718556712367593,
+      "first_loss_mean": 2.100507609382253,
+      "difference": 1.0286519381454937,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -879,7 +879,7 @@
       "n_first_loss": 2,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.096759170293808,
+      "first_loss_mean": 1.0961490303767196,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -893,9 +893,9 @@
       "n_retained": 34,
       "n_first_loss": 12,
       "n_after_loss": 1,
-      "retained_mean": 1.9904039221651413,
-      "first_loss_mean": 2.1466021140416465,
-      "difference": 0.1561981918765052,
+      "retained_mean": 1.9891874796329712,
+      "first_loss_mean": 2.1457300690938244,
+      "difference": 0.1565425894608532,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -908,9 +908,9 @@
       "n_retained": 46,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 0.7989562242899252,
-      "first_loss_mean": 0.7018032670021057,
-      "difference": -0.09715295728781947,
+      "retained_mean": 0.7984067500591157,
+      "first_loss_mean": 0.7017258541543175,
+      "difference": -0.09668089590479811,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -923,9 +923,9 @@
       "n_retained": 33,
       "n_first_loss": 1,
       "n_after_loss": 13,
-      "retained_mean": 2.1971187363519813,
-      "first_loss_mean": 2.299208164215088,
-      "difference": 0.1020894278631066,
+      "retained_mean": 2.196595679465353,
+      "first_loss_mean": 2.2987568377619585,
+      "difference": 0.10216115829660533,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -939,7 +939,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.6031897664070129,
+      "first_loss_mean": 0.6031569689796873,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -954,7 +954,7 @@
       "n_first_loss": 2,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.9290661215782166,
+      "first_loss_mean": 1.9284499004781046,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -968,9 +968,9 @@
       "n_retained": 30,
       "n_first_loss": 6,
       "n_after_loss": 11,
-      "retained_mean": 1.5466724296410879,
-      "first_loss_mean": 1.7552817066510518,
-      "difference": 0.2086092770099639,
+      "retained_mean": 1.546007126632127,
+      "first_loss_mean": 1.7550858721126603,
+      "difference": 0.2090787454805334,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -983,9 +983,9 @@
       "n_retained": 36,
       "n_first_loss": 11,
       "n_after_loss": 0,
-      "retained_mean": 0.5736846476065693,
-      "first_loss_mean": 0.41242581126491795,
-      "difference": -0.1612588363416514,
+      "retained_mean": 0.5735370921763048,
+      "first_loss_mean": 0.4123194387578794,
+      "difference": -0.16121765341842537,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -998,9 +998,9 @@
       "n_retained": 27,
       "n_first_loss": 3,
       "n_after_loss": 17,
-      "retained_mean": 2.276727049439042,
-      "first_loss_mean": 2.263258457183838,
-      "difference": -0.013468592255204026,
+      "retained_mean": 2.2764386052866383,
+      "first_loss_mean": 2.2628481020633004,
+      "difference": -0.01359050322333788,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1013,9 +1013,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.6063809394836426,
-      "first_loss_mean": 0.0002088724637587802,
-      "difference": -0.6061720670198838,
+      "retained_mean": 0.6063151518100326,
+      "first_loss_mean": 0.00020864573537418286,
+      "difference": -0.6061065060746584,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1029,7 +1029,7 @@
       "n_first_loss": 2,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.7921713590621948,
+      "first_loss_mean": 1.7910337698976506,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1044,7 +1044,7 @@
       "n_first_loss": 1,
       "n_after_loss": 8,
       "retained_mean": null,
-      "first_loss_mean": 1.4401855878531933e-05,
+      "first_loss_mean": 6.737604575692108e-06,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1058,9 +1058,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 7,
-      "retained_mean": 1.3766989707946777,
-      "first_loss_mean": 1.2138879299163818,
-      "difference": -0.1628110408782959,
+      "retained_mean": 1.3765527999695186,
+      "first_loss_mean": 1.2137911488701767,
+      "difference": -0.16276165109934193,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1073,9 +1073,9 @@
       "n_retained": 2,
       "n_first_loss": 7,
       "n_after_loss": 0,
-      "retained_mean": 0.06644809432327747,
-      "first_loss_mean": 0.40667795203626156,
-      "difference": 0.3402298577129841,
+      "retained_mean": 0.06642364523497948,
+      "first_loss_mean": 0.40663671140519525,
+      "difference": 0.34021306617021574,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1088,9 +1088,9 @@
       "n_retained": 14,
       "n_first_loss": 11,
       "n_after_loss": 8,
-      "retained_mean": 1.5413796773978643,
-      "first_loss_mean": 1.6782654848965732,
-      "difference": 0.13688580749870893,
+      "retained_mean": 1.5412921539435078,
+      "first_loss_mean": 1.6781936583444683,
+      "difference": 0.1369015044009605,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1103,9 +1103,9 @@
       "n_retained": 25,
       "n_first_loss": 8,
       "n_after_loss": 0,
-      "retained_mean": 0.3083137895725667,
-      "first_loss_mean": 0.3139119050465524,
-      "difference": 0.005598115473985699,
+      "retained_mean": 0.30830064675713226,
+      "first_loss_mean": 0.31389371121236764,
+      "difference": 0.005593064455235386,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1118,9 +1118,9 @@
       "n_retained": 14,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 0.6593423836997577,
-      "first_loss_mean": 2.2978148460388184,
-      "difference": 1.6384724623390605,
+      "retained_mean": 0.6592751016634673,
+      "first_loss_mean": 2.297666925981295,
+      "difference": 1.638391824317828,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1133,9 +1133,9 @@
       "n_retained": 1,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 1.8870362043380737,
-      "first_loss_mean": 2.0608482360839844,
-      "difference": 0.17381203174591064,
+      "retained_mean": 1.8836527995065162,
+      "first_loss_mean": 2.0580259646355645,
+      "difference": 0.17437316512904832,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1149,7 +1149,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 2.11730694770813,
+      "first_loss_mean": 2.1162997878747998,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1163,9 +1163,9 @@
       "n_retained": 39,
       "n_first_loss": 1,
       "n_after_loss": 5,
-      "retained_mean": 1.8706705233989618,
-      "first_loss_mean": 2.1462345123291016,
-      "difference": 0.2755639889301398,
+      "retained_mean": 1.8700234679157783,
+      "first_loss_mean": 2.14605432804399,
+      "difference": 0.27603086012821176,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1178,9 +1178,9 @@
       "n_retained": 40,
       "n_first_loss": 5,
       "n_after_loss": 0,
-      "retained_mean": 0.8276031287387013,
-      "first_loss_mean": 1.4622138023376465,
-      "difference": 0.6346106735989452,
+      "retained_mean": 0.8272562027011137,
+      "first_loss_mean": 1.4611512155921893,
+      "difference": 0.6338950128910756,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1193,9 +1193,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 1.097612202167511,
-      "first_loss_mean": 1.5340771675109863,
-      "difference": 0.43646496534347534,
+      "retained_mean": 1.0970469744613325,
+      "first_loss_mean": 1.5335350903205895,
+      "difference": 0.43648811585925706,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1209,7 +1209,7 @@
       "n_first_loss": 1,
       "n_after_loss": 2,
       "retained_mean": null,
-      "first_loss_mean": 2.0007472038269043,
+      "first_loss_mean": 2.000473422222303,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1223,9 +1223,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 1,
-      "retained_mean": 1.0508650541305542,
-      "first_loss_mean": 1.381840467453003,
-      "difference": 0.33097541332244873,
+      "retained_mean": 1.0504993422014461,
+      "first_loss_mean": 1.3816096266288374,
+      "difference": 0.3311102844273912,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1238,9 +1238,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 1.1227672100067139,
-      "first_loss_mean": 1.3670517206192017,
-      "difference": 0.2442845106124878,
+      "retained_mean": 1.1223496351085582,
+      "first_loss_mean": 1.3664737203719481,
+      "difference": 0.2441240852633899,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1253,9 +1253,9 @@
       "n_retained": 27,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 0.821639912823836,
-      "first_loss_mean": 1.4083501895268757,
-      "difference": 0.5867102767030398,
+      "retained_mean": 0.8209390902288127,
+      "first_loss_mean": 1.406998557508847,
+      "difference": 0.5860594672800343,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1268,9 +1268,9 @@
       "n_retained": 2,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 2.2296040058135986,
-      "first_loss_mean": 2.2607381343841553,
-      "difference": 0.03113412857055664,
+      "retained_mean": 2.2296022255655275,
+      "first_loss_mean": 2.2607307975780846,
+      "difference": 0.031128572012557143,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1284,7 +1284,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.5639699697494507,
+      "first_loss_mean": 1.5639699423861033,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1299,7 +1299,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.828728437423706,
+      "first_loss_mean": 0.8287283615504323,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1313,9 +1313,9 @@
       "n_retained": 36,
       "n_first_loss": 1,
       "n_after_loss": 22,
-      "retained_mean": 8.353171709958761e-08,
-      "first_loss_mean": 0.013188084587454796,
-      "difference": 0.013188001055737697,
+      "retained_mean": 8.487473329818538e-08,
+      "first_loss_mean": 0.013188168697080956,
+      "difference": 0.013188083822347657,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1328,9 +1328,9 @@
       "n_retained": 38,
       "n_first_loss": 13,
       "n_after_loss": 9,
-      "retained_mean": 1.2320245661356144,
-      "first_loss_mean": 1.6649391605303838,
-      "difference": 0.4329145943947694,
+      "retained_mean": 1.232023307182517,
+      "first_loss_mean": 1.6649383920180791,
+      "difference": 0.43291508483556207,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1343,9 +1343,9 @@
       "n_retained": 51,
       "n_first_loss": 9,
       "n_after_loss": 0,
-      "retained_mean": 0.4346247406527825,
-      "first_loss_mean": 0.49791640374395585,
-      "difference": 0.06329166309117334,
+      "retained_mean": 0.4346243923755616,
+      "first_loss_mean": 0.4979160283635544,
+      "difference": 0.06329163598799281,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1358,9 +1358,9 @@
       "n_retained": 3,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 0.9692929838007937,
-      "first_loss_mean": 0.0002797693033850616,
-      "difference": -0.9690132144974086,
+      "retained_mean": 0.9692921186929947,
+      "first_loss_mean": 0.0002797528379413454,
+      "difference": -0.9690123658550533,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1373,9 +1373,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 4,
-      "retained_mean": 1.544365644454956,
-      "first_loss_mean": 1.9623005390167236,
-      "difference": 0.4179348945617676,
+      "retained_mean": 1.544362985463014,
+      "first_loss_mean": 1.9622889356733701,
+      "difference": 0.41792595021035606,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1388,9 +1388,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 3,
-      "retained_mean": 1.704621136188507,
-      "first_loss_mean": 0.39990243315696716,
-      "difference": -1.30471870303154,
+      "retained_mean": 1.7046202827407688,
+      "first_loss_mean": 0.39990225711445954,
+      "difference": -1.3047180256263093,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1404,7 +1404,7 @@
       "n_first_loss": 1,
       "n_after_loss": 4,
       "retained_mean": null,
-      "first_loss_mean": 1.9351680258239412e-09,
+      "first_loss_mean": 2.0102673270851915e-09,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1418,9 +1418,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 3,
-      "retained_mean": 1.7025562524795532,
-      "first_loss_mean": 1.9376155138015747,
-      "difference": 0.23505926132202148,
+      "retained_mean": 1.7025558941149743,
+      "first_loss_mean": 1.9376147430873911,
+      "difference": 0.2350588489724168,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1433,9 +1433,9 @@
       "n_retained": 2,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 0.5781468600034714,
-      "first_loss_mean": 0.7040776833891869,
-      "difference": 0.12593082338571548,
+      "retained_mean": 0.578146473338821,
+      "first_loss_mean": 0.7040762120022119,
+      "difference": 0.12592973866339097,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1448,9 +1448,9 @@
       "n_retained": 17,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.2804035635061369,
-      "first_loss_mean": 0.06107208505272865,
-      "difference": -0.21933147845340822,
+      "retained_mean": 0.28040349588560853,
+      "first_loss_mean": 0.061072074651475336,
+      "difference": -0.21933142123413318,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1463,9 +1463,9 @@
       "n_retained": 13,
       "n_first_loss": 2,
       "n_after_loss": 4,
-      "retained_mean": 1.2874160546522875,
-      "first_loss_mean": 1.672919750213623,
-      "difference": 0.38550369556133557,
+      "retained_mean": 1.2874157059752538,
+      "first_loss_mean": 1.6729196400190822,
+      "difference": 0.38550393404382843,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1478,9 +1478,9 @@
       "n_retained": 15,
       "n_first_loss": 2,
       "n_after_loss": 2,
-      "retained_mean": 0.5847492714722952,
-      "first_loss_mean": 1.2483873069286346,
-      "difference": 0.6636380354563395,
+      "retained_mean": 0.5847490882901779,
+      "first_loss_mean": 1.2483869611175695,
+      "difference": 0.6636378728273916,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1493,9 +1493,9 @@
       "n_retained": 19,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.6903272403011981,
-      "first_loss_mean": 1.4307371377944946,
-      "difference": 0.7404098974932966,
+      "retained_mean": 0.6903269756158593,
+      "first_loss_mean": 1.4307366299816962,
+      "difference": 0.7404096543658368,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1508,9 +1508,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 3,
-      "retained_mean": 2.11834979057312,
-      "first_loss_mean": 2.2130987644195557,
-      "difference": 0.09474897384643555,
+      "retained_mean": 2.118348260410626,
+      "first_loss_mean": 2.213087070446384,
+      "difference": 0.09473881003575801,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1523,9 +1523,9 @@
       "n_retained": 3,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 1.4795998533566792,
-      "first_loss_mean": 0.9996349811553955,
-      "difference": -0.4799648722012837,
+      "retained_mean": 1.4795986403888257,
+      "first_loss_mean": 0.9996349546573239,
+      "difference": -0.47996368573150183,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1539,7 +1539,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.4268479347229004,
+      "first_loss_mean": 1.4268471895637422,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1553,9 +1553,9 @@
       "n_retained": 1,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 1.6354708671569824,
-      "first_loss_mean": 0.9586790204048157,
-      "difference": -0.6767918467521667,
+      "retained_mean": 1.6354691975851903,
+      "first_loss_mean": 0.9586790018030178,
+      "difference": -0.6767901957821725,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1568,9 +1568,9 @@
       "n_retained": 39,
       "n_first_loss": 2,
       "n_after_loss": 5,
-      "retained_mean": 1.2293835740823011,
-      "first_loss_mean": 2.041609227657318,
-      "difference": 0.812225653575017,
+      "retained_mean": 1.2293820976566998,
+      "first_loss_mean": 2.0416070139735636,
+      "difference": 0.8122249163168638,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1583,9 +1583,9 @@
       "n_retained": 41,
       "n_first_loss": 5,
       "n_after_loss": 0,
-      "retained_mean": 0.5546467654639855,
-      "first_loss_mean": 0.753768515586853,
-      "difference": 0.19912175012286748,
+      "retained_mean": 0.554646602376436,
+      "first_loss_mean": 0.7537683162851977,
+      "difference": 0.19912171390876165,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1598,9 +1598,9 @@
       "n_retained": 3,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.279526948928833,
-      "first_loss_mean": 1.430834174156189,
-      "difference": 0.15130722522735596,
+      "retained_mean": 1.2795264812443827,
+      "first_loss_mean": 1.4308335143044557,
+      "difference": 0.15130703306007298,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1614,7 +1614,7 @@
       "n_first_loss": 2,
       "n_after_loss": 3,
       "retained_mean": null,
-      "first_loss_mean": 2.1260887384414673,
+      "first_loss_mean": 2.1260857403440907,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1628,9 +1628,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 2,
-      "retained_mean": 1.7512608766555786,
-      "first_loss_mean": 1.269257664680481,
-      "difference": -0.48200321197509766,
+      "retained_mean": 1.7512590648965691,
+      "first_loss_mean": 1.2692538437068206,
+      "difference": -0.48200522118974853,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1644,7 +1644,7 @@
       "n_first_loss": 1,
       "n_after_loss": 2,
       "retained_mean": null,
-      "first_loss_mean": 1.5136131048202515,
+      "first_loss_mean": 1.5136126722604648,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1658,9 +1658,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.8511252403259277,
-      "first_loss_mean": 0.6371551603078842,
-      "difference": -1.2139700800180435,
+      "retained_mean": 1.851125027155886,
+      "first_loss_mean": 0.6371550298247406,
+      "difference": -1.2139699973311453,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1673,9 +1673,9 @@
       "n_retained": 10,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.4714893303345889,
-      "first_loss_mean": 0.46085962653160095,
-      "difference": -0.010629703802987944,
+      "retained_mean": 0.4714892397303849,
+      "first_loss_mean": 0.4608596808793469,
+      "difference": -0.010629558851038001,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1688,9 +1688,9 @@
       "n_retained": 7,
       "n_first_loss": 1,
       "n_after_loss": 4,
-      "retained_mean": 1.4348177909851074,
-      "first_loss_mean": 1.256771206855774,
-      "difference": -0.1780465841293335,
+      "retained_mean": 1.4348172264412098,
+      "first_loss_mean": 1.2567706923962039,
+      "difference": -0.17804653404500592,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1703,9 +1703,9 @@
       "n_retained": 8,
       "n_first_loss": 2,
       "n_after_loss": 2,
-      "retained_mean": 0.6501774969510734,
-      "first_loss_mean": 0.20347153395414352,
-      "difference": -0.4467059629969299,
+      "retained_mean": 0.6501746376079786,
+      "first_loss_mean": 0.2034708903740678,
+      "difference": -0.44670374723391076,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1718,9 +1718,9 @@
       "n_retained": 6,
       "n_first_loss": 1,
       "n_after_loss": 5,
-      "retained_mean": 2.2228848139444985,
-      "first_loss_mean": 2.272829532623291,
-      "difference": 0.049944718678792466,
+      "retained_mean": 2.2228849531824593,
+      "first_loss_mean": 2.2728298180670667,
+      "difference": 0.049944864884607476,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1733,9 +1733,9 @@
       "n_retained": 20,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 1.3955100983381272,
-      "first_loss_mean": 1.2471708953380585,
-      "difference": -0.14833920300006875,
+      "retained_mean": 1.3955093496398598,
+      "first_loss_mean": 1.2471700934978782,
+      "difference": -0.14833925614198162,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1748,9 +1748,9 @@
       "n_retained": 2,
       "n_first_loss": 3,
       "n_after_loss": 5,
-      "retained_mean": 1.6913776993751526,
-      "first_loss_mean": 1.804999589920044,
-      "difference": 0.11362189054489136,
+      "retained_mean": 1.6913745156214914,
+      "first_loss_mean": 1.8049956733060653,
+      "difference": 0.11362115768457381,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1763,9 +1763,9 @@
       "n_retained": 5,
       "n_first_loss": 5,
       "n_after_loss": 0,
-      "retained_mean": 0.8146283984184265,
-      "first_loss_mean": 0.688416279386729,
-      "difference": -0.1262121190316975,
+      "retained_mean": 0.8146278075694585,
+      "first_loss_mean": 0.6884159775871755,
+      "difference": -0.12621182998228297,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1779,7 +1779,7 @@
       "n_first_loss": 3,
       "n_after_loss": 7,
       "retained_mean": null,
-      "first_loss_mean": 0.8446805483351151,
+      "first_loss_mean": 0.8446785060467837,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1793,9 +1793,9 @@
       "n_retained": 3,
       "n_first_loss": 7,
       "n_after_loss": 0,
-      "retained_mean": 1.662335713704427,
-      "first_loss_mean": 1.5641168185642786,
-      "difference": -0.09821889514014837,
+      "retained_mean": 1.6623349003629329,
+      "first_loss_mean": 1.5641157949127285,
+      "difference": -0.0982191054502044,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1808,9 +1808,9 @@
       "n_retained": 42,
       "n_first_loss": 14,
       "n_after_loss": 2,
-      "retained_mean": 1.252116770971389,
-      "first_loss_mean": 1.4932710868971688,
-      "difference": 0.24115431592577985,
+      "retained_mean": 1.2521161845683368,
+      "first_loss_mean": 1.4932710149626487,
+      "difference": 0.24115483039431185,
       "enough_for_descriptive_comparison": true
     },
     {
@@ -1823,9 +1823,9 @@
       "n_retained": 56,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.2182265545107904,
-      "first_loss_mean": 0.32563842833042145,
-      "difference": 0.10741187381963105,
+      "retained_mean": 0.21822642020519428,
+      "first_loss_mean": 0.3256381738233365,
+      "difference": 0.1074117536181422,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1838,9 +1838,9 @@
       "n_retained": 41,
       "n_first_loss": 1,
       "n_after_loss": 16,
-      "retained_mean": 1.4534800523244662,
-      "first_loss_mean": 2.2961840629577637,
-      "difference": 0.8427040106332975,
+      "retained_mean": 1.4534788582957257,
+      "first_loss_mean": 2.2961787463616825,
+      "difference": 0.8426998880659569,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1853,9 +1853,9 @@
       "n_retained": 48,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.8165144552118969,
-      "first_loss_mean": 1.9810286164283752,
-      "difference": 1.1645141612164784,
+      "retained_mean": 0.8165142295330344,
+      "first_loss_mean": 1.981027635531459,
+      "difference": 1.1645134059984246,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1868,9 +1868,9 @@
       "n_retained": 45,
       "n_first_loss": 3,
       "n_after_loss": 2,
-      "retained_mean": 1.0658266538598886,
-      "first_loss_mean": 0.06608853364984195,
-      "difference": -0.9997381202100467,
+      "retained_mean": 1.065826506721731,
+      "first_loss_mean": 0.06608848039343694,
+      "difference": -0.999738026328294,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1884,7 +1884,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 2.00065016746521,
+      "first_loss_mean": 2.0006486642287964,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1899,7 +1899,7 @@
       "n_first_loss": 5,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.8463702499866486,
+      "first_loss_mean": 0.8463698880522352,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1913,9 +1913,9 @@
       "n_retained": 40,
       "n_first_loss": 4,
       "n_after_loss": 0,
-      "retained_mean": 1.4234778426587582,
-      "first_loss_mean": 1.6308413445949554,
-      "difference": 0.20736350193619724,
+      "retained_mean": 1.4234768120401249,
+      "first_loss_mean": 1.6308388629352841,
+      "difference": 0.20736205089515924,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1928,9 +1928,9 @@
       "n_retained": 37,
       "n_first_loss": 3,
       "n_after_loss": 4,
-      "retained_mean": 2.280508975724916,
-      "first_loss_mean": 2.2906211217244468,
-      "difference": 0.010112145999530586,
+      "retained_mean": 2.280508728495177,
+      "first_loss_mean": 2.2906211449815257,
+      "difference": 0.010112416486348863,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1943,9 +1943,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 0.5116538852453232,
-      "first_loss_mean": 0.7153530716896057,
-      "difference": 0.20369918644428253,
+      "retained_mean": 0.5116536582033921,
+      "first_loss_mean": 0.7153520449021176,
+      "difference": 0.20369838669872542,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1959,7 +1959,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.5809214115142822,
+      "first_loss_mean": 1.5809206375446048,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -1973,9 +1973,9 @@
       "n_retained": 41,
       "n_first_loss": 1,
       "n_after_loss": 3,
-      "retained_mean": 1.253256850853199,
-      "first_loss_mean": 1.3015339374542236,
-      "difference": 0.0482770866010247,
+      "retained_mean": 1.253255852870985,
+      "first_loss_mean": 1.30153392599766,
+      "difference": 0.04827807312667498,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -1988,9 +1988,9 @@
       "n_retained": 42,
       "n_first_loss": 3,
       "n_after_loss": 0,
-      "retained_mean": 0.4607301862588862,
-      "first_loss_mean": 0.25678903857866925,
-      "difference": -0.20394114768021693,
+      "retained_mean": 0.46072995434748343,
+      "first_loss_mean": 0.25678856967579616,
+      "difference": -0.20394138467168726,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2003,9 +2003,9 @@
       "n_retained": 3,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.43526816243926686,
-      "first_loss_mean": 0.0009185367798636435,
-      "difference": -0.4343496256594032,
+      "retained_mean": 0.4352678973080841,
+      "first_loss_mean": 0.0009185132047006062,
+      "difference": -0.4343493841033835,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2018,9 +2018,9 @@
       "n_retained": 2,
       "n_first_loss": 1,
       "n_after_loss": 2,
-      "retained_mean": 1.1366057395935059,
-      "first_loss_mean": 1.2187671661376953,
-      "difference": 0.08216142654418945,
+      "retained_mean": 1.1366055283574439,
+      "first_loss_mean": 1.2187658872302423,
+      "difference": 0.08216035887279838,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2034,7 +2034,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.9629114866256714,
+      "first_loss_mean": 0.9629095398427218,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2049,7 +2049,7 @@
       "n_first_loss": 2,
       "n_after_loss": 4,
       "retained_mean": null,
-      "first_loss_mean": 0.3115166686475277,
+      "first_loss_mean": 0.31151664427581727,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2063,9 +2063,9 @@
       "n_retained": 2,
       "n_first_loss": 2,
       "n_after_loss": 2,
-      "retained_mean": 2.0355231165885925,
-      "first_loss_mean": 1.448949158191681,
-      "difference": -0.5865739583969116,
+      "retained_mean": 2.035522716161036,
+      "first_loss_mean": 1.4489483315251208,
+      "difference": -0.5865743846359153,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2078,9 +2078,9 @@
       "n_retained": 4,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.8913594707846642,
-      "first_loss_mean": 0.6360769271850586,
-      "difference": -0.25528254359960556,
+      "retained_mean": 0.8913588520586182,
+      "first_loss_mean": 0.6360767271419892,
+      "difference": -0.25528212491662905,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2093,9 +2093,9 @@
       "n_retained": 31,
       "n_first_loss": 3,
       "n_after_loss": 2,
-      "retained_mean": 0.9256977318605829,
-      "first_loss_mean": 1.3084541757901509,
-      "difference": 0.382756443929568,
+      "retained_mean": 0.9256976312736696,
+      "first_loss_mean": 1.3084541840878645,
+      "difference": 0.38275655281419496,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2108,9 +2108,9 @@
       "n_retained": 34,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.560960812631118,
-      "first_loss_mean": 0.7383354604244232,
-      "difference": 0.17737464779330525,
+      "retained_mean": 0.5609606241935077,
+      "first_loss_mean": 0.7383354223271819,
+      "difference": 0.17737479813367418,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2123,9 +2123,9 @@
       "n_retained": 30,
       "n_first_loss": 1,
       "n_after_loss": 5,
-      "retained_mean": 1.3943434476852417,
-      "first_loss_mean": 1.9532204866409302,
-      "difference": 0.5588770389556885,
+      "retained_mean": 1.394343319923549,
+      "first_loss_mean": 1.9532203456385604,
+      "difference": 0.5588770257150113,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2138,9 +2138,9 @@
       "n_retained": 15,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 0.44308507242240014,
-      "first_loss_mean": 1.2288589477539062,
-      "difference": 0.7857738753315061,
+      "retained_mean": 0.4430850241672847,
+      "first_loss_mean": 1.228859087355979,
+      "difference": 0.7857740631886944,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2153,9 +2153,9 @@
       "n_retained": 14,
       "n_first_loss": 1,
       "n_after_loss": 1,
-      "retained_mean": 0.6424553155416756,
-      "first_loss_mean": 0.03445953503251076,
-      "difference": -0.6079957805091648,
+      "retained_mean": 0.6424553537030919,
+      "first_loss_mean": 0.03445950981073653,
+      "difference": -0.6079958438923554,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2168,9 +2168,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.7214508652687073,
-      "first_loss_mean": 1.3809778690338135,
-      "difference": 0.6595270037651062,
+      "retained_mean": 0.721450789907767,
+      "first_loss_mean": 1.3809659030557437,
+      "difference": 0.6595151131479767,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2184,7 +2184,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 0.7363714575767517,
+      "first_loss_mean": 0.736370953600957,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2198,9 +2198,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 1,
-      "retained_mean": 3.8855083062117046e-07,
-      "first_loss_mean": 1.214986264705658,
-      "difference": 1.2149858761548273,
+      "retained_mean": 4.0929971640833046e-07,
+      "first_loss_mean": 1.2149851181534734,
+      "difference": 1.214984708853757,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2213,9 +2213,9 @@
       "n_retained": 3,
       "n_first_loss": 1,
       "n_after_loss": 0,
-      "retained_mean": 1.22024401028951,
-      "first_loss_mean": 0.8264481425285339,
-      "difference": -0.3937958677609761,
+      "retained_mean": 1.2202432741202447,
+      "first_loss_mean": 0.8264479533581923,
+      "difference": -0.39379532076205237,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2228,9 +2228,9 @@
       "n_retained": 35,
       "n_first_loss": 1,
       "n_after_loss": 2,
-      "retained_mean": 0.9973089260714395,
-      "first_loss_mean": 0.6923026442527771,
-      "difference": -0.3050062818186624,
+      "retained_mean": 0.9973084489509842,
+      "first_loss_mean": 0.6923017596421667,
+      "difference": -0.3050066893088176,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2243,9 +2243,9 @@
       "n_retained": 36,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.2987777685177409,
-      "first_loss_mean": 0.8421565443277359,
-      "difference": 0.543378775809995,
+      "retained_mean": 0.29877774330056917,
+      "first_loss_mean": 0.8421564155434444,
+      "difference": 0.5433786722428753,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2258,9 +2258,9 @@
       "n_retained": 3,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.6876761118570963,
-      "first_loss_mean": 0.9044962525367737,
-      "difference": 0.21682014067967736,
+      "retained_mean": 0.687676030548143,
+      "first_loss_mean": 0.9044962464735893,
+      "difference": 0.2168202159254463,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2274,7 +2274,7 @@
       "n_first_loss": 1,
       "n_after_loss": 4,
       "retained_mean": null,
-      "first_loss_mean": 1.0982404947280884,
+      "first_loss_mean": 1.0982387554308601,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2288,9 +2288,9 @@
       "n_retained": 1,
       "n_first_loss": 2,
       "n_after_loss": 2,
-      "retained_mean": 0.16314679384231567,
-      "first_loss_mean": 0.16419468075037003,
-      "difference": 0.0010478869080543518,
+      "retained_mean": 0.16314572578412398,
+      "first_loss_mean": 0.16419445431044433,
+      "difference": 0.0010487285263203472,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2304,7 +2304,7 @@
       "n_first_loss": 2,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.1047130227088928,
+      "first_loss_mean": 1.104712462711198,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2319,7 +2319,7 @@
       "n_first_loss": 1,
       "n_after_loss": 0,
       "retained_mean": null,
-      "first_loss_mean": 1.087335467338562,
+      "first_loss_mean": 1.0873354278985223,
       "difference": null,
       "enough_for_descriptive_comparison": false
     },
@@ -2333,9 +2333,9 @@
       "n_retained": 24,
       "n_first_loss": 2,
       "n_after_loss": 2,
-      "retained_mean": 1.2671057904760044,
-      "first_loss_mean": 1.231612741947174,
-      "difference": -0.035493048528830284,
+      "retained_mean": 1.267105299099289,
+      "first_loss_mean": 1.2316123318530208,
+      "difference": -0.03549296724626827,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2348,9 +2348,9 @@
       "n_retained": 26,
       "n_first_loss": 2,
       "n_after_loss": 0,
-      "retained_mean": 0.40830831387295174,
-      "first_loss_mean": 0.1366521678864956,
-      "difference": -0.27165614598645615,
+      "retained_mean": 0.4083071523520822,
+      "first_loss_mean": 0.13665195979793127,
+      "difference": -0.27165519255415094,
       "enough_for_descriptive_comparison": false
     },
     {
@@ -2363,9 +2363,9 @@
       "n_retained": 22,
       "n_first_loss": 2,
       "n_after_loss": 4,
-      "retained_mean": 2.1727105135267433,
-      "first_loss_mean": 2.258223056793213,
-      "difference": 0.08551254326646962,
+      "retained_mean": 2.1727104813780724,
+      "first_loss_mean": 2.258223045024737,
+      "difference": 0.08551256364666449,
       "enough_for_descriptive_comparison": false
     }
   ],
@@ -2373,6 +2373,6 @@
     "role_examples_checked": true,
     "one_step_per_single_role_per_endpoint": true,
     "prefix_reconstruction": true,
-    "original_entropy_and_endpoint_labels_reused": true
+    "top30_entropy_and_endpoint_labels_reused": true
   }
 }

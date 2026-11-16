@@ -1,0 +1,1347 @@
+{
+  "scope": "full/9404",
+  "queries": 9404,
+  "source_responses": 18591,
+  "paired": [
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 4500,
+      "paired_paths": 1824,
+      "no_error_paths": 1137,
+      "format_error_paths": 6,
+      "numeric_error_without_predecessor": 1533,
+      "delta_previous": {
+        "mean": 0.6923137117631254,
+        "ci95": [
+          0.6636856092970062,
+          0.7220649295468977
+        ],
+        "queries": 1824
+      },
+      "delta_prior_mean": {
+        "mean": 0.8468752811319106,
+        "ci95": [
+          0.8164699287544669,
+          0.8750732799996597
+        ],
+        "queries": 1824
+      },
+      "processed_delta_previous": {
+        "mean": 0.6814908404128954,
+        "ci95": [
+          0.6520229658218876,
+          0.7096729753444323
+        ],
+        "queries": 1824
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9262609649122807,
+        "ci95": [
+          0.9146564327485379,
+          0.9381396198830408
+        ],
+        "queries": 1824
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 4500,
+      "paired_paths": 2031,
+      "no_error_paths": 360,
+      "format_error_paths": 45,
+      "numeric_error_without_predecessor": 2064,
+      "delta_previous": {
+        "mean": 0.8070578649466527,
+        "ci95": [
+          0.7808460569253663,
+          0.8329794249430651
+        ],
+        "queries": 2031
+      },
+      "delta_prior_mean": {
+        "mean": 0.8992331980834092,
+        "ci95": [
+          0.8740831326344659,
+          0.9248845742298167
+        ],
+        "queries": 2031
+      },
+      "processed_delta_previous": {
+        "mean": 0.7762572134185695,
+        "ci95": [
+          0.7514767387651289,
+          0.8015685174595784
+        ],
+        "queries": 2031
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9318890530116527,
+        "ci95": [
+          0.920890776300673,
+          0.9423929098966026
+        ],
+        "queries": 2031
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 9000,
+      "paired_paths": 3855,
+      "no_error_paths": 1497,
+      "format_error_paths": 51,
+      "numeric_error_without_predecessor": 3597,
+      "delta_previous": {
+        "mean": 0.7374443091064441,
+        "ci95": [
+          0.7163772763450862,
+          0.7582105457568122
+        ],
+        "queries": 2739
+      },
+      "delta_prior_mean": {
+        "mean": 0.8519185831077427,
+        "ci95": [
+          0.830731506483489,
+          0.8736845602740447
+        ],
+        "queries": 2739
+      },
+      "processed_delta_previous": {
+        "mean": 0.7180391252450421,
+        "ci95": [
+          0.6975479995298911,
+          0.7385806876594103
+        ],
+        "queries": 2739
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9248509188268224,
+        "ci95": [
+          0.9157235000608493,
+          0.9339479128635754
+        ],
+        "queries": 2739
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 3363,
+      "paired_paths": 1262,
+      "no_error_paths": 810,
+      "format_error_paths": 2,
+      "numeric_error_without_predecessor": 1289,
+      "delta_previous": {
+        "mean": 0.7046455019665577,
+        "ci95": [
+          0.6685039148777727,
+          0.7408320254136351
+        ],
+        "queries": 1262
+      },
+      "delta_prior_mean": {
+        "mean": 0.8075151591013576,
+        "ci95": [
+          0.77291677431894,
+          0.8400073455633189
+        ],
+        "queries": 1262
+      },
+      "processed_delta_previous": {
+        "mean": 0.7540544470229373,
+        "ci95": [
+          0.7202426818179531,
+          0.7866975568254547
+        ],
+        "queries": 1262
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.893026941362916,
+        "ci95": [
+          0.8771790808240888,
+          0.909270998415214
+        ],
+        "queries": 1262
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 3363,
+      "paired_paths": 1435,
+      "no_error_paths": 361,
+      "format_error_paths": 2,
+      "numeric_error_without_predecessor": 1565,
+      "delta_previous": {
+        "mean": 0.9402406618516749,
+        "ci95": [
+          0.9094805034033285,
+          0.9724926857218035
+        ],
+        "queries": 1435
+      },
+      "delta_prior_mean": {
+        "mean": 1.0140431498618743,
+        "ci95": [
+          0.9848287645243753,
+          1.0452511531599193
+        ],
+        "queries": 1435
+      },
+      "processed_delta_previous": {
+        "mean": 0.9216179040320638,
+        "ci95": [
+          0.8888105130893339,
+          0.9521802450817868
+        ],
+        "queries": 1435
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9177700348432056,
+        "ci95": [
+          0.9031358885017422,
+          0.9317073170731708
+        ],
+        "queries": 1435
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 6726,
+      "paired_paths": 2697,
+      "no_error_paths": 1171,
+      "format_error_paths": 4,
+      "numeric_error_without_predecessor": 2854,
+      "delta_previous": {
+        "mean": 0.8157623588027779,
+        "ci95": [
+          0.7897865567857865,
+          0.8403287910298103
+        ],
+        "queries": 2073
+      },
+      "delta_prior_mean": {
+        "mean": 0.9021632525658967,
+        "ci95": [
+          0.876757327496382,
+          0.9257505899841642
+        ],
+        "queries": 2073
+      },
+      "processed_delta_previous": {
+        "mean": 0.8374725419613818,
+        "ci95": [
+          0.8129063973063942,
+          0.8607989508153848
+        ],
+        "queries": 2073
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9027978774722624,
+        "ci95": [
+          0.8903732513265799,
+          0.9149782923299565
+        ],
+        "queries": 2073
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 1541,
+      "paired_paths": 692,
+      "no_error_paths": 463,
+      "format_error_paths": 2,
+      "numeric_error_without_predecessor": 384,
+      "delta_previous": {
+        "mean": 0.8645380488886809,
+        "ci95": [
+          0.824363074753194,
+          0.9066923575818564
+        ],
+        "queries": 692
+      },
+      "delta_prior_mean": {
+        "mean": 1.0775158861471752,
+        "ci95": [
+          1.0382337025889776,
+          1.1153323824833659
+        ],
+        "queries": 692
+      },
+      "processed_delta_previous": {
+        "mean": 0.85520491564521,
+        "ci95": [
+          0.8147297529164158,
+          0.8956227877934254
+        ],
+        "queries": 692
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9713391136801542,
+        "ci95": [
+          0.9585681599229285,
+          0.9833815028901735
+        ],
+        "queries": 692
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 1541,
+      "paired_paths": 720,
+      "no_error_paths": 105,
+      "format_error_paths": 20,
+      "numeric_error_without_predecessor": 696,
+      "delta_previous": {
+        "mean": 0.8066596375941003,
+        "ci95": [
+          0.7680421752290629,
+          0.8455698825599779
+        ],
+        "queries": 720
+      },
+      "delta_prior_mean": {
+        "mean": 0.8878887109441403,
+        "ci95": [
+          0.8430200780564361,
+          0.9309543054363343
+        ],
+        "queries": 720
+      },
+      "processed_delta_previous": {
+        "mean": 0.7734954838365004,
+        "ci95": [
+          0.7351489244027666,
+          0.812280250245358
+        ],
+        "queries": 720
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9645833333333333,
+        "ci95": [
+          0.9506944444444444,
+          0.9763888888888889
+        ],
+        "queries": 720
+      }
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 3082,
+      "paired_paths": 1412,
+      "no_error_paths": 568,
+      "format_error_paths": 22,
+      "numeric_error_without_predecessor": 1080,
+      "delta_previous": {
+        "mean": 0.8137110483500707,
+        "ci95": [
+          0.7844364543345504,
+          0.8459049517364561
+        ],
+        "queries": 989
+      },
+      "delta_prior_mean": {
+        "mean": 0.9449510236880454,
+        "ci95": [
+          0.9135138850252532,
+          0.9775678102290065
+        ],
+        "queries": 989
+      },
+      "processed_delta_previous": {
+        "mean": 0.7949132239846192,
+        "ci95": [
+          0.7657568982125459,
+          0.8259222033382277
+        ],
+        "queries": 989
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9598921469497809,
+        "ci95": [
+          0.9486012807549713,
+          0.9710144927536231
+        ],
+        "queries": 989
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 4334,
+      "paired_paths": 1444,
+      "no_error_paths": 1520,
+      "format_error_paths": 18,
+      "numeric_error_without_predecessor": 1352,
+      "delta_previous": {
+        "mean": 0.818349908622645,
+        "ci95": [
+          0.7883510648917013,
+          0.8475869652649781
+        ],
+        "queries": 1444
+      },
+      "delta_prior_mean": {
+        "mean": 0.9172856599186009,
+        "ci95": [
+          0.8852698634600218,
+          0.9499867011617645
+        ],
+        "queries": 1444
+      },
+      "processed_delta_previous": {
+        "mean": 0.818349908622645,
+        "ci95": [
+          0.7874270498321944,
+          0.8478272547801096
+        ],
+        "queries": 1444
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.903624192059095,
+        "ci95": [
+          0.8881578947368421,
+          0.9180517082179132
+        ],
+        "queries": 1444
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 4334,
+      "paired_paths": 2052,
+      "no_error_paths": 648,
+      "format_error_paths": 29,
+      "numeric_error_without_predecessor": 1605,
+      "delta_previous": {
+        "mean": 0.8661586784179828,
+        "ci95": [
+          0.8415586800083334,
+          0.8910081912264798
+        ],
+        "queries": 2052
+      },
+      "delta_prior_mean": {
+        "mean": 0.9205655780610413,
+        "ci95": [
+          0.8968482155691281,
+          0.9448511334391527
+        ],
+        "queries": 2052
+      },
+      "processed_delta_previous": {
+        "mean": 0.8661586784179828,
+        "ci95": [
+          0.8426531939986706,
+          0.8900198992419083
+        ],
+        "queries": 2052
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.944769330734243,
+        "ci95": [
+          0.9348562378167642,
+          0.9535432910981156
+        ],
+        "queries": 2052
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 8668,
+      "paired_paths": 3496,
+      "no_error_paths": 2168,
+      "format_error_paths": 47,
+      "numeric_error_without_predecessor": 2957,
+      "delta_previous": {
+        "mean": 0.8382184957305114,
+        "ci95": [
+          0.8178871400505949,
+          0.857257956963076
+        ],
+        "queries": 2586
+      },
+      "delta_prior_mean": {
+        "mean": 0.9049008781023854,
+        "ci95": [
+          0.8830257211895574,
+          0.9269913272683251
+        ],
+        "queries": 2586
+      },
+      "processed_delta_previous": {
+        "mean": 0.8382184957305114,
+        "ci95": [
+          0.8174749663953237,
+          0.8593119434947349
+        ],
+        "queries": 2586
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9229182779066771,
+        "ci95": [
+          0.9137317929878834,
+          0.9320701211652487
+        ],
+        "queries": 2586
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 3363,
+      "paired_paths": 1250,
+      "no_error_paths": 1228,
+      "format_error_paths": 9,
+      "numeric_error_without_predecessor": 876,
+      "delta_previous": {
+        "mean": 0.8983883779209278,
+        "ci95": [
+          0.8661084616499792,
+          0.9289981565622573
+        ],
+        "queries": 1250
+      },
+      "delta_prior_mean": {
+        "mean": 1.0433080149232556,
+        "ci95": [
+          1.0076386749258042,
+          1.078413673055089
+        ],
+        "queries": 1250
+      },
+      "processed_delta_previous": {
+        "mean": 0.8983883779209278,
+        "ci95": [
+          0.8656014529422048,
+          0.9302283151708415
+        ],
+        "queries": 1250
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.894,
+        "ci95": [
+          0.87719,
+          0.91
+        ],
+        "queries": 1250
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 3363,
+      "paired_paths": 1540,
+      "no_error_paths": 429,
+      "format_error_paths": 28,
+      "numeric_error_without_predecessor": 1366,
+      "delta_previous": {
+        "mean": 1.0180523288028642,
+        "ci95": [
+          0.9971283038918318,
+          1.0395312758597337
+        ],
+        "queries": 1540
+      },
+      "delta_prior_mean": {
+        "mean": 1.058000755428229,
+        "ci95": [
+          1.036761729297999,
+          1.0803055009538047
+        ],
+        "queries": 1540
+      },
+      "processed_delta_previous": {
+        "mean": 1.0180523288028642,
+        "ci95": [
+          0.9962333920079179,
+          1.0394596561895706
+        ],
+        "queries": 1540
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9808441558441559,
+        "ci95": [
+          0.9737012987012987,
+          0.987012987012987
+        ],
+        "queries": 1540
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 6726,
+      "paired_paths": 2790,
+      "no_error_paths": 1657,
+      "format_error_paths": 37,
+      "numeric_error_without_predecessor": 2242,
+      "delta_previous": {
+        "mean": 0.9504920562311965,
+        "ci95": [
+          0.9285225258233238,
+          0.9735105782866638
+        ],
+        "queries": 2105
+      },
+      "delta_prior_mean": {
+        "mean": 1.0284955297746743,
+        "ci95": [
+          1.0060764928440629,
+          1.0507860685664665
+        ],
+        "queries": 2105
+      },
+      "processed_delta_previous": {
+        "mean": 0.9504920562311965,
+        "ci95": [
+          0.9292307998795646,
+          0.9712313938661664
+        ],
+        "queries": 2105
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9331353919239905,
+        "ci95": [
+          0.9226840855106888,
+          0.9426365795724465
+        ],
+        "queries": 2105
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "start",
+      "endpoint_paths": 1490,
+      "paired_paths": 444,
+      "no_error_paths": 665,
+      "format_error_paths": 5,
+      "numeric_error_without_predecessor": 376,
+      "delta_previous": {
+        "mean": 0.8107502197315729,
+        "ci95": [
+          0.7596640708141325,
+          0.861518971998814
+        ],
+        "queries": 444
+      },
+      "delta_prior_mean": {
+        "mean": 0.9269675576803189,
+        "ci95": [
+          0.8671097084459519,
+          0.9873964616579709
+        ],
+        "queries": 444
+      },
+      "processed_delta_previous": {
+        "mean": 0.8107502197315729,
+        "ci95": [
+          0.760769084441462,
+          0.860808784255578
+        ],
+        "queries": 444
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9087837837837838,
+        "ci95": [
+          0.8817567567567568,
+          0.9346846846846847
+        ],
+        "queries": 444
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "end",
+      "endpoint_paths": 1490,
+      "paired_paths": 754,
+      "no_error_paths": 332,
+      "format_error_paths": 12,
+      "numeric_error_without_predecessor": 392,
+      "delta_previous": {
+        "mean": 0.8538317741532462,
+        "ci95": [
+          0.8153216749690456,
+          0.8910150106177424
+        ],
+        "queries": 754
+      },
+      "delta_prior_mean": {
+        "mean": 0.9447983828415858,
+        "ci95": [
+          0.9054679089982641,
+          0.982688520074409
+        ],
+        "queries": 754
+      },
+      "processed_delta_previous": {
+        "mean": 0.8538317741532462,
+        "ci95": [
+          0.8176169203918169,
+          0.8937337511621193
+        ],
+        "queries": 754
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9509283819628647,
+        "ci95": [
+          0.9367760831122899,
+          0.9648596374889478
+        ],
+        "queries": 754
+      }
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "endpoint": "all",
+      "endpoint_paths": 2980,
+      "paired_paths": 1198,
+      "no_error_paths": 997,
+      "format_error_paths": 17,
+      "numeric_error_without_predecessor": 768,
+      "delta_previous": {
+        "mean": 0.825835799556352,
+        "ci95": [
+          0.7937104332270127,
+          0.8570385501645059
+        ],
+        "queries": 939
+      },
+      "delta_prior_mean": {
+        "mean": 0.9218065813294096,
+        "ci95": [
+          0.8876292181949645,
+          0.9552631309535989
+        ],
+        "queries": 939
+      },
+      "processed_delta_previous": {
+        "mean": 0.825835799556352,
+        "ci95": [
+          0.7953193144561398,
+          0.8579315363250922
+        ],
+        "queries": 939
+      },
+      "error_rank_vs_prior": {
+        "mean": 0.9350372736954207,
+        "ci95": [
+          0.9217252396166135,
+          0.9483537451189208
+        ],
+        "queries": 939
+      }
+    }
+  ],
+  "regressions": [
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "kind": "pooled",
+      "steps": 16782,
+      "queries": 4500,
+      "centering_groups": 4500,
+      "groups_with_error_variation": 3333,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.4262736503533347,
+      "ci95": [
+        0.4040982809728011,
+        0.4484490197338683
+      ],
+      "cluster_se": 0.011311128035718298
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "kind": "response",
+      "steps": 16782,
+      "queries": 4500,
+      "centering_groups": 4500,
+      "groups_with_error_variation": 3333,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.7357102172247546,
+      "ci95": [
+        0.7129281877829756,
+        0.7584922466665336
+      ],
+      "cluster_se": 0.011620570891399742
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "kind": "endpoint",
+      "steps": 16782,
+      "queries": 4500,
+      "centering_groups": 9000,
+      "groups_with_error_variation": 3855,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 0.8607538404584594,
+      "ci95": [
+        0.8395604200584063,
+        0.8819472608585125
+      ],
+      "cluster_se": 0.010810259236098295
+    },
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 16782,
+      "queries": 4500,
+      "centering_groups": 9000,
+      "groups_with_error_variation": 3855,
+      "design_rank": 6,
+      "columns": [
+        "first_error",
+        "role=ones",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3",
+        "digit_ordinal=4"
+      ],
+      "identified": true,
+      "beta": 0.10153599890379827,
+      "ci95": [
+        0.074998117723377,
+        0.12807388008421955
+      ],
+      "cluster_se": 0.013536341455124874
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "kind": "pooled",
+      "steps": 11574,
+      "queries": 3363,
+      "centering_groups": 3363,
+      "groups_with_error_variation": 2682,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.48654663937079845,
+      "ci95": [
+        0.4602974931518538,
+        0.512795785589743
+      ],
+      "cluster_se": 0.013387846124909876
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "kind": "response",
+      "steps": 11574,
+      "queries": 3363,
+      "centering_groups": 3363,
+      "groups_with_error_variation": 2682,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.6579800954245637,
+      "ci95": [
+        0.6297117193417721,
+        0.6862484715073554
+      ],
+      "cluster_se": 0.014417713476880957
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "kind": "endpoint",
+      "steps": 11574,
+      "queries": 3363,
+      "centering_groups": 6726,
+      "groups_with_error_variation": 2697,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 0.9180254808612729,
+      "ci95": [
+        0.8941507691550591,
+        0.9419001925674867
+      ],
+      "cluster_se": 0.012176813825993716
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 11574,
+      "queries": 3363,
+      "centering_groups": 6726,
+      "groups_with_error_variation": 2697,
+      "design_rank": 4,
+      "columns": [
+        "first_error",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3"
+      ],
+      "identified": true,
+      "beta": 0.10212524807884445,
+      "ci95": [
+        0.06815090955831357,
+        0.13609958659937532
+      ],
+      "cluster_se": 0.0173279242118814
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "kind": "pooled",
+      "steps": 6083,
+      "queries": 1541,
+      "centering_groups": 1541,
+      "groups_with_error_variation": 1213,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.43243407079269686,
+      "ci95": [
+        0.3927757598401223,
+        0.4720923817452714
+      ],
+      "cluster_se": 0.02021830104668556
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "kind": "response",
+      "steps": 6083,
+      "queries": 1541,
+      "centering_groups": 1541,
+      "groups_with_error_variation": 1213,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.7720293051650537,
+      "ci95": [
+        0.7340508534817479,
+        0.8100077568483596
+      ],
+      "cluster_se": 0.01936188786099149
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "kind": "endpoint",
+      "steps": 6083,
+      "queries": 1541,
+      "centering_groups": 3082,
+      "groups_with_error_variation": 1412,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 0.9622327468154223,
+      "ci95": [
+        0.9321179912905133,
+        0.9923475023403312
+      ],
+      "cluster_se": 0.015352877581651499
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 6083,
+      "queries": 1541,
+      "centering_groups": 3082,
+      "groups_with_error_variation": 1412,
+      "design_rank": 6,
+      "columns": [
+        "first_error",
+        "role=ones",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3",
+        "digit_ordinal=4"
+      ],
+      "identified": true,
+      "beta": 0.1487426363493478,
+      "ci95": [
+        0.11000106260440592,
+        0.1874842100942897
+      ],
+      "cluster_se": 0.019750936996139383
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "kind": "pooled",
+      "steps": 17266,
+      "queries": 4334,
+      "centering_groups": 4334,
+      "groups_with_error_variation": 3213,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.3900785665512468,
+      "ci95": [
+        0.36632080648556564,
+        0.41383632661692793
+      ],
+      "cluster_se": 0.012118142923560423
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "kind": "response",
+      "steps": 17266,
+      "queries": 4334,
+      "centering_groups": 4334,
+      "groups_with_error_variation": 3213,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.6664748495938245,
+      "ci95": [
+        0.6420238627355906,
+        0.6909258364520584
+      ],
+      "cluster_se": 0.012471737762778035
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "kind": "endpoint",
+      "steps": 17266,
+      "queries": 4334,
+      "centering_groups": 8668,
+      "groups_with_error_variation": 3496,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 0.90992459815462,
+      "ci95": [
+        0.8893429831737576,
+        0.9305062131354824
+      ],
+      "cluster_se": 0.010498083625992392
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 17266,
+      "queries": 4334,
+      "centering_groups": 8668,
+      "groups_with_error_variation": 3496,
+      "design_rank": 6,
+      "columns": [
+        "first_error",
+        "role=ones",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3",
+        "digit_ordinal=4"
+      ],
+      "identified": true,
+      "beta": 0.2582712941712125,
+      "ci95": [
+        0.23242675265267781,
+        0.28411583568974713
+      ],
+      "cluster_se": 0.013182549493287626
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "kind": "pooled",
+      "steps": 12487,
+      "queries": 3363,
+      "centering_groups": 3363,
+      "groups_with_error_variation": 2747,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.4614494518343594,
+      "ci95": [
+        0.43318433494772424,
+        0.4897145687209946
+      ],
+      "cluster_se": 0.014416051189800482
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "kind": "response",
+      "steps": 12487,
+      "queries": 3363,
+      "centering_groups": 3363,
+      "groups_with_error_variation": 2747,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.6611616699655457,
+      "ci95": [
+        0.630081410658964,
+        0.6922419292721275
+      ],
+      "cluster_se": 0.01585185764322143
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "kind": "endpoint",
+      "steps": 12487,
+      "queries": 3363,
+      "centering_groups": 6726,
+      "groups_with_error_variation": 2790,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 1.0435983908735225,
+      "ci95": [
+        1.0234981050973493,
+        1.0636986766496956
+      ],
+      "cluster_se": 0.010251744220309422
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 12487,
+      "queries": 3363,
+      "centering_groups": 6726,
+      "groups_with_error_variation": 2790,
+      "design_rank": 4,
+      "columns": [
+        "first_error",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3"
+      ],
+      "identified": true,
+      "beta": 0.13176558313079473,
+      "ci95": [
+        0.10275240460002703,
+        0.16077876166156244
+      ],
+      "cluster_se": 0.014797584901413748
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "kind": "pooled",
+      "steps": 6787,
+      "queries": 1490,
+      "centering_groups": 1490,
+      "groups_with_error_variation": 1133,
+      "design_rank": 3,
+      "columns": [
+        "first_error",
+        "endpoint=start",
+        "intercept"
+      ],
+      "identified": true,
+      "beta": 0.38221011925813553,
+      "ci95": [
+        0.345594860879313,
+        0.41882537763695804
+      ],
+      "cluster_se": 0.01866641203961967
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "kind": "response",
+      "steps": 6787,
+      "queries": 1490,
+      "centering_groups": 1490,
+      "groups_with_error_variation": 1133,
+      "design_rank": 2,
+      "columns": [
+        "first_error",
+        "endpoint=start"
+      ],
+      "identified": true,
+      "beta": 0.6275311423226037,
+      "ci95": [
+        0.5889593187564713,
+        0.666102965888736
+      ],
+      "cluster_se": 0.019663866477625892
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "kind": "endpoint",
+      "steps": 6787,
+      "queries": 1490,
+      "centering_groups": 2980,
+      "groups_with_error_variation": 1198,
+      "design_rank": 1,
+      "columns": [
+        "first_error"
+      ],
+      "identified": true,
+      "beta": 0.9168065587238052,
+      "ci95": [
+        0.8838323378588502,
+        0.9497807795887603
+      ],
+      "cluster_se": 0.016810215757119235
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "kind": "endpoint_role_position",
+      "steps": 6787,
+      "queries": 1490,
+      "centering_groups": 2980,
+      "groups_with_error_variation": 1198,
+      "design_rank": 6,
+      "columns": [
+        "first_error",
+        "role=ones",
+        "role=tens",
+        "role=tenths",
+        "digit_ordinal=2",
+        "digit_ordinal=3",
+        "digit_ordinal=4"
+      ],
+      "identified": true,
+      "beta": 0.3335346380103327,
+      "ci95": [
+        0.2939049095729087,
+        0.37316436644775663
+      ],
+      "cluster_se": 0.020203185032255336
+    }
+  ],
+  "variance_decomposition": [
+    {
+      "model": "qwen25",
+      "dataset": "activitynet-timelens",
+      "queries": 4500,
+      "between_variance": 0.12855208628751816,
+      "within_variance": 0.47886481136859804,
+      "between_fraction": 0.21163732320185932
+    },
+    {
+      "model": "qwen25",
+      "dataset": "charades-timelens",
+      "queries": 3363,
+      "between_variance": 0.11333802384015236,
+      "within_variance": 0.40522700223123936,
+      "between_fraction": 0.21856087113855788
+    },
+    {
+      "model": "qwen25",
+      "dataset": "qvhighlights-timelens",
+      "queries": 1541,
+      "between_variance": 0.1233203347559697,
+      "within_variance": 0.49252342046356806,
+      "between_fraction": 0.2002461398865823
+    },
+    {
+      "model": "qwen3",
+      "dataset": "activitynet-timelens",
+      "queries": 4334,
+      "between_variance": 0.14679989790778586,
+      "within_variance": 0.39475663006944334,
+      "between_fraction": 0.2710703136680837
+    },
+    {
+      "model": "qwen3",
+      "dataset": "charades-timelens",
+      "queries": 3363,
+      "between_variance": 0.12777334499933293,
+      "within_variance": 0.48075346375165745,
+      "between_fraction": 0.20997159560084044
+    },
+    {
+      "model": "qwen3",
+      "dataset": "qvhighlights-timelens",
+      "queries": 1490,
+      "between_variance": 0.11154449500977878,
+      "within_variance": 0.3858198349577663,
+      "between_fraction": 0.2242711997803652
+    }
+  ],
+  "bootstrap_seed": 42,
+  "bootstrap_repeats": 2000
+}

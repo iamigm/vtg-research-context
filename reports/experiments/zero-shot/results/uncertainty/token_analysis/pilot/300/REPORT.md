@@ -1,41 +1,48 @@
-# TimeLens pilot: full-head autoregressive top-30 · pilot300 (300질문)
+# Token uncertainty · within-path 비교 · pilot · 300 queries
+<!-- token-unified-report -->
 
-기존 pilot 100개 × 3개 벤치마크 × 2개 모델 = 600개 응답, 총 10,775개 생성 step을 기록했다. EOS step도 포함한다.
+## 무엇을 먼저 보는가
 
-기존 `experiments/zero-shot/predictions/cohorts/pilot_300/samples.json`의 seed 42 표본을 그대로 사용했다. 별도의 원본 TimeLens pilot manifest는 발견되지 않아 앞선 실험에서 정한 표본이며, 이번 실험에서 재추출하지 않았다.
+한 sample의 같은 decoding 경로에서 step별 entropy가 어떻게 변하는지가 주 분석이다. 결과 탭에서 왼쪽 sample을 고르면 응답 전체의 entropy 곡선과 최초 오류를 본다. step을 누르면 해당 token distribution과 정답 가능성을 보조 패널에서 확인한다. start/end는 별도로 paired 비교하며, 회색의 오류 이후 step은 그 비교에서 제외한다.
 
-모든 600개 응답에서 생성 token ID 전체가 저장된 기존 zero-shot full-head 결과와 정확히 일치했다. 따라서 아래 grounding 지표도 기존 full-head와 동일하다. 숫자 제한 head를 적용하지 않았다.
+pilot/300의 실제 query 수는 300개다. 두 모델 중 지원 표기의 594개 응답을 within-path 분석에 사용했다. 지원 표기 밖 응답도 영상·응답·전체 token distribution은 확인할 수 있다.
 
-| 모델 | 벤치마크 | N | R@0.3 (%) | R@0.5 (%) | R@0.7 (%) | mIoU (%) | 평균 생성 토큰 |
-|---|---|---:|---:|---:|---:|---:|---:|
-| qwen25 | charades-timelens | 100 | 61.00 | 42.00 | 17.00 | 40.65 | 17.30 |
-| qwen25 | activitynet-timelens | 100 | 41.00 | 27.00 | 15.00 | 29.96 | 18.13 |
-| qwen25 | qvhighlights-timelens | 100 | 50.00 | 24.00 | 8.00 | 30.83 | 18.48 |
-| qwen3 | charades-timelens | 100 | 65.00 | 49.00 | 31.00 | 47.53 | 17.14 |
-| qwen3 | activitynet-timelens | 100 | 55.00 | 43.00 | 28.00 | 40.77 | 18.22 |
-| qwen3 | qvhighlights-timelens | 100 | 73.00 | 62.00 | 45.00 | 57.13 | 18.48 |
+## 지표와 필터 기준
 
-확률은 BF16 모델의 logits를 FP32로 변환하여 **전체 LM-head 어휘**에 softmax를 적용한 값이다. Top-30 안에서 재정규화하지 않았다. HTML 기본 표시는 generation processor 이전 raw 분포이며, 보정 후 분포도 선택할 수 있다. Qwen2.5의 repetition penalty는 1.05, Qwen3는 1.0이다. Greedy decoding이므로 이 분포는 실제 무작위 샘플링을 의미하지 않는다.
+모든 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step의 top-30 원래 확률 합을 M이라 두고 qᵢ=pᵢ/M, H₃₀=−Σqᵢlnqᵢ로 계산한다. 단위는 nat이며 0–ln(30)≈3.401이다. entropy가 높으면 top-30 내부 후보 확률이 더 고르다. top-30 밖의 probability mass는 포함하지 않는다. Δprevious=H₃₀(최초 numeric 오류)−H₃₀(직전 정답 가능 numeric step)이다. 양수면 오류 때 더 높았다. 정답 가능성은 허용 문법 아래 반올림 endpoint 정답으로 완성할 수 있는지의 판정이며 최종 정답 확률이 아니다.
 
-| 모델 | 벤치마크 | 모든 step 평균 선택 확률 (%) | 숫자 step 평균 선택 확률 (%) | 평균 top-30 질량 (%) | 평균 entropy (nat) | raw 최대 확률보다 낮은 토큰 선택 |
-|---|---|---:|---:|---:|---:|---:|
-| qwen25 | charades-timelens | 82.98 | 44.49 | 100.00 | 0.455 | 79 |
-| qwen25 | activitynet-timelens | 81.33 | 45.09 | 100.00 | 0.495 | 76 |
-| qwen25 | qvhighlights-timelens | 81.01 | 45.86 | 100.00 | 0.492 | 72 |
-| qwen3 | charades-timelens | 86.12 | 53.83 | 100.00 | 0.365 | 0 |
-| qwen3 | activitynet-timelens | 85.32 | 57.11 | 100.00 | 0.407 | 0 |
-| qwen3 | qvhighlights-timelens | 87.18 | 63.85 | 100.00 | 0.361 | 0 |
+| 특수 필터 기준 | 계산·분류 | 포함 범위 |
+|---|---|---|
+| 직전 숫자 대비 상승·감소 (기존) | Δprevious = H(최초 numeric 오류) − H(직전 정답 가능 numeric step) | 같은 endpoint에서 이전 숫자가 있는 paired 경로. 중간 소수점·서식은 건너뜀 |
+| 직전 token 대비 상승·감소 | Δtoken = H(k) − H(k−1), k는 최초 numeric 오류의 decoding step | 바로 앞 decoding token. 소수점·공백·endpoint 밖 token도 포함. 첫 숫자 오류도 직전 token이 있으면 포함 |
+| 소수부 최초 오류 | 최초 numeric 오류의 role이 tenths | 허용된 소수 한 자리 표기의 소수 첫째 자리. 소수점 자체의 오류는 format으로 분리 |
+| 정수부 / 서식 / 오류 없음 | 최초 오류의 숫자 role / format 판정 / 최초 오류 없음 | 오류 위치 버튼은 상승·감소 및 정량 범위와 AND로 결합 |
 
-동률 토큰의 top-k 표시 순서는 greedy argmax의 선택 순서와 다를 수 있다. 선택 확률이 최대 확률과 같은지 검증하며 동률은 불일치로 세지 않는다. 숫자 step은 토큰 문자열이 공백을 제외하고 숫자 또는 소수인 경우로 정의했다. 각 step에 동일한 가중치를 주므로 긴 응답의 영향이 더 크다. 자연어 정형 문구의 높은 확률이 전체 평균을 높일 수 있어 숫자 step을 별도로 제시했다. 토큰 확률은 영상 구간 정답 확률이나 calibration 지표가 아니다.
+**표 해설.** 두 상승·감소 기준은 비교 상대가 다르다. 예를 들어 정수 숫자 H=1.2, 소수점 H=0.01, 최초 소수부 오류 H=0.8이면 기존 숫자 기준은 −0.4 nat으로 감소지만 바로 직전 token 기준은 +0.79 nat으로 상승이다. 이는 계산 설명용 가상 예시다. 양수만 상승, 음수만 감소이며 0과 비교 상대가 없는 경로는 둘 다 아니다. 모든 H는 raw top-30 재정규화 entropy다. 아래 기존 정량 표는 직전 숫자 기준을 유지한다.
 
-- charades-timelens: Qwen3의 mIoU는 Qwen2.5보다 +6.88 percentage points, R@0.5는 +7.00 percentage points 차이였다.
-- activitynet-timelens: Qwen3의 mIoU는 Qwen2.5보다 +10.81 percentage points, R@0.5는 +16.00 percentage points 차이였다.
-- qvhighlights-timelens: Qwen3의 mIoU는 Qwen2.5보다 +26.31 percentage points, R@0.5는 +38.00 percentage points 차이였다.
+좌측 빠른 필터의 낮은 entropy는 ≤0.5 nat, 높은 entropy는 ≥1.5 nat인 탐색용 고정 기준이다. 이는 검증된 오류 탐지 임계값이 아니다. 수치 범위는 선택한 모델·endpoint의 sample별 지표에 AND로 적용한다. 오류 전후 차이가 없는 경로는 해당 범위를 지정했을 때 제외하며, 필터 후 숫자는 고유 query 수다.
 
-동일한 입력·프롬프트·프레임 전처리와 greedy 설정(max_new_tokens=512)을 재사용했다. 공식 시간 파서 및 반올림 후 첫 구간 IoU를 사용했다. GPU는 H200에서 CUDA MPS로 두 모델의 4개 shard를 병렬 실행했다. 확률 기록은 logits를 변경하지 않는 forward hook과 processor로 수행했다. 기록 비용이 포함되므로 실행 시간은 모델 순수 추론 속도 비교용이 아니다.
+## 같은 경로의 오류 전후 차이
 
-[영상 및 step별 top-30 탐색](report.html) · [정량 JSON](../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/metrics/summary.json) · [step별 CSV](../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/metrics/step_metrics.csv)
+| 모델 | dataset | endpoint | paired query 수 | 오류 − 직전 숫자 (nat) [95% CI] |
+|---|---|---|---:|---:|
+| qwen25 | activitynet-timelens | start | 43 | 0.5316 [0.3487, 0.7160] |
+| qwen25 | activitynet-timelens | end | 46 | 0.8065 [0.6464, 0.9780] |
+| qwen25 | charades-timelens | start | 44 | 0.9331 [0.7337, 1.1169] |
+| qwen25 | charades-timelens | end | 31 | 0.8437 [0.6187, 1.0577] |
+| qwen25 | qvhighlights-timelens | start | 54 | 0.8810 [0.7280, 1.0273] |
+| qwen25 | qvhighlights-timelens | end | 54 | 0.8193 [0.6760, 0.9607] |
+| qwen3 | activitynet-timelens | start | 36 | 0.7237 [0.5295, 0.9140] |
+| qwen3 | activitynet-timelens | end | 49 | 1.0041 [0.8626, 1.1507] |
+| qwen3 | charades-timelens | start | 35 | 0.9360 [0.7510, 1.1171] |
+| qwen3 | charades-timelens | end | 36 | 0.9876 [0.8191, 1.1482] |
+| qwen3 | qvhighlights-timelens | start | 34 | 0.8146 [0.6281, 1.0106] |
+| qwen3 | qvhighlights-timelens | end | 52 | 0.8853 [0.7404, 1.0289] |
 
-HTML은 로컬 HTTP 서버로 열고 모델별 원본 JSON을 직접 읽는다. 별도의 응답 복제본을 만들지 않는다. 영상은 브라우저용 무음 H.264 사본이며 모델 입력 원본은 변경하지 않았다. GT/예측 구간 버튼으로 영상 시각을 이동할 수 있다. 생성 step 번호는 영상 시각이 아니다.
+**표 해설.** 각 sample에서 오류 entropy와 직전 숫자의 entropy를 뺀 후 query 사이에서 평균한 값이다. 12/12개 그룹의 CI가 0 위에 있다. 이는 그룹 평균의 상승이며 모든 sample에서 상승했다는 뜻은 아니다. CI는 query 단위 bootstrap 2,000회로 구했다. 자릿수·순서를 통제한 결과와 제외 경로는 within-path 상세 appendix에서 함께 읽는다.
 
-디코더 진단: 292개 고유 영상 중 55개에서 sparse Decord MMCO 경고가 재현됐고, 그중 9개는 순차 Decord와 표본 RGB hash가 달랐다. 기존 baseline과 동일 생성 토큰이라는 사실은 입력 영상의 디코딩 정확성까지 보증하지 않는다. 원본 입력/decoder를 그대로 유지한 비교 결과이며, 자세한 범위와 증거는 [디코더 진단 보고서](../../../../operations/mmco_diagnosis/pilot/300/REPORT.md)를 참고한다.
+## 결과와 appendix
+
+[통합 sample viewer](report.html) · [전체 appendix 목록](APPENDIX.md)
+
+sample 기준 수준만 제거해도 prefix·자릿수·후보 집합의 차이는 남는다. 저장된 greedy 경로의 사후 비교이므로 인과 효과나 온라인 오류 탐지 성능을 뜻하지 않는다. pilot과 full은 별도 범위이며 독립 표본처럼 합산하지 않는다.

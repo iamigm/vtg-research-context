@@ -1,10 +1,13 @@
-# 정답 가능성을 처음 잃는 생성 단계의 entropy · pilot300 (300질문)
+# 정답 가능성을 처음 잃는 생성 단계의 entropy · pilot · 300 queries
+
+이 보고서의 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step에서 M = Σ(top-30) pᵢ, qᵢ = pᵢ/M, H₃₀ = −Σ qᵢ ln qᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30) ≈ 3.401197이며 높을수록 top-30 내부 분포가 고르다. raw와 processed는 각각 자신의 top-30을 사용한다. top-30 밖의 질량은 조건부 분포에서 제외한다. 정답 가능성은 기존 문법·반올림·IoU 판정을 뜻하며 모델의 최종 정답 확률과 다르다. 원본 응답·판정·전체 vocabulary 분포 계측값은 보존하고 보고서의 파생 지표만 재계산했다.
+
 
 기존 600개 full-head greedy 응답 중 594개를 분석했다. 6개는 초 단위 표기 범위 밖(MM:SS 등)이어서 별도 제외 목록에 기록했다. 재추론은 하지 않았다.
 
-주 기준은 **IoU≥0.5를 만족하는 시간 구간으로 현재 prefix를 완성할 수 있는가**이다. 0.3/0.7 기준도 ../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metrics/per_step.csv와 ../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metadata/trajectories.json에 함께 기록했다. 올바른 GT 숫자 문자열과 일치하는지만 검사하지 않는다. IoU를 만족하는 다른 구간도 정답으로 인정한다.
+주 기준은 **IoU≥0.5를 만족하는 시간 구간으로 현재 prefix를 완성할 수 있는가**이다. 0.3/0.7 기준도 per_step.csv와 trajectories.json에 함께 기록했다. 올바른 GT 숫자 문자열과 일치하는지만 검사하지 않는다. IoU를 만족하는 다른 구간도 정답으로 인정한다.
 
-각 step의 entropy는 해당 토큰을 선택하기 **직전**의 raw 전체 어휘 분포다. 생성된 토큰을 prefix에 붙인 뒤 가능한 최대 IoU를 계산한다. 최대 IoU가 처음 0.5 아래로 내려간 토큰을 first loss로 표시한다. 그 이전은 “맞게 생성한 토큰”이 아니라 **정답 가능성을 유지한 토큰**, 그 이후는 **이미 정답 가능성을 잃은 상태**다.
+각 step의 entropy는 해당 토큰을 선택하기 **직전**의 raw top-30 재정규화 분포다. 생성된 토큰을 prefix에 붙인 뒤 가능한 최대 IoU를 계산한다. 최대 IoU가 처음 0.5 아래로 내려간 토큰을 first loss로 표시한다. 그 이전은 “맞게 생성한 토큰”이 아니라 **정답 가능성을 유지한 토큰**, 그 이후는 **이미 정답 가능성을 잃은 상태**다.
 
 **판정 범위:** 음이 아닌 초 단위 숫자, 정수 또는 소수 한 자리, 불필요한 선행 0 없음, 시작−끝 두 구간 형식. delimiter가 나오면 그 숫자를 확정한다. 기존 평가처럼 Python round 후 첫 구간 IoU를 계산한다. GT 길이와 최저 threshold 0.3에서 도출한 충분히 큰 상한까지 열거하며 영상 duration으로 예측을 잘라내지 않는다. 두 끝점이 모두 확정된 경우 저장된 IoU와 일치함을 전 샘플에서 검증했다.
 
@@ -16,9 +19,9 @@
 
 | 모델 | 벤치마크 | 분석 N | first loss N (숫자/경계) | 이전 숫자 H | first loss H | 이후 숫자 H | 성공 응답 숫자 H |
 |---|---|---:|---:|---:|---:|---:|---:|
-| qwen25 | charades-timelens | 100 | 58 (57/1) | 1.258 | 1.583 | 1.640 | 1.490 |
-| qwen25 | activitynet-timelens | 100 | 73 (72/1) | 1.551 | 1.462 | 1.555 | 1.470 |
-| qwen25 | qvhighlights-timelens | 100 | 76 (75/1) | 1.264 | 1.331 | 1.884 | 1.449 |
+| qwen25 | charades-timelens | 100 | 58 (57/1) | 1.257 | 1.582 | 1.640 | 1.490 |
+| qwen25 | activitynet-timelens | 100 | 73 (72/1) | 1.550 | 1.461 | 1.554 | 1.470 |
+| qwen25 | qvhighlights-timelens | 100 | 76 (75/1) | 1.263 | 1.331 | 1.884 | 1.448 |
 | qwen3 | charades-timelens | 100 | 51 (49/2) | 0.974 | 1.231 | 1.597 | 1.167 |
 | qwen3 | activitynet-timelens | 96 | 55 (54/1) | 1.177 | 1.174 | 1.537 | 1.046 |
 | qwen3 | qvhighlights-timelens | 98 | 37 (33/4) | 0.858 | 0.938 | 1.418 | 0.996 |
@@ -34,10 +37,10 @@ GT=[29, 34], 최종 IoU=0.357; 답변: `The event happens in 21.9 - 35.7 seconds
 | Step | Token | H (nat) | 최대 IoU 전→후 | 구분 |
 |---:|---|---:|---|---|
 | 5 | `␠` | 0.000 | 1.000 → 1.000 | retains_feasibility |
-| 6 | `2` | 0.825 | 1.000 → 1.000 | retains_feasibility |
-| 7 | `1` | 2.261 | 1.000 → 0.417 | first_loss |
+| 6 | `2` | 0.824 | 1.000 → 1.000 | retains_feasibility |
+| 7 | `1` | 2.260 | 1.000 → 0.417 | first_loss |
 | 8 | `.` | 0.003 | 0.417 → 0.417 | after_loss |
-| 9 | `9` | 2.301 | 0.417 → 0.417 | after_loss |
+| 9 | `9` | 2.300 | 0.417 → 0.417 | after_loss |
 ### qwen25 · charades-timelens_00103
 
 GT=[28, 29], 최종 IoU=0.200; 답변: `The event happens in 25.7 - 31.4 seconds.`

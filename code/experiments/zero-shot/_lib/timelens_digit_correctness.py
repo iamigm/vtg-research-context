@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Rounded endpoint correctness with an assigned decimal-point error boundary, reusing saved logits."""
 from result_layout import relocate_path, write_result_text, copy_result_file, result_glob
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 from decimal import Decimal
 from collections import defaultdict,Counter
@@ -97,7 +99,7 @@ def statistics(rows):
     return dict(n_queries=len(a),n_steps=len(rows),mean_entropy=float(a.mean()),ci95=np.quantile(boot,[.025,.975]).tolist(),step_mean=float(np.mean(raw)),step_median=float(np.median(raw)))
 
 def main():
-    OUT.mkdir(exist_ok=True);started=time.time();validate();source=read(relocate_path(BASE/'endpoint_gt_entropy/trajectories.json'));source_meta=read(relocate_path(BASE/'endpoint_gt_entropy/summary.json'));allsteps=[];endpoints=[];cases=defaultdict(dict)
+    OUT.mkdir(exist_ok=True);started=time.time();validate();source=read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/trajectories.json'));source_meta=read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/summary.json'));allsteps=[];endpoints=[];cases=defaultdict(dict)
     for i,q in enumerate(source):
         n=1 if q['endpoint']=='start' else 2;match=re.search(r'(?<![\d:])(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)(?![\d:])',q['answer']);number=match.group(n);gt=q['gt'][n-1]
         target,ss,exact=classify(number,gt,q['steps']);row=dict(model=q['model'],dataset=q['dataset'],sample_key=q['sample_key'],endpoint=q['endpoint'],gt=gt,target=target,prediction=number,gt_digits=len(str(int(gt))),generated_digits=len(number.split('.')[0]),all_correct=exact,rounded_value_equal=q['predicted_timestamps'][n-1]==gt,endpoint_iou=q['endpoint_iou'],joint_iou=q['joint_iou'],first_error_step=next((s['ar_step'] for s in ss if s['first_error']),None),first_error_numeric=next((s['numeric'] for s in ss if s['first_error']),None))
@@ -145,14 +147,13 @@ def main():
                     ax.axvspan(category-.5,category+.5,color=('#f0f4f8' if category%2==0 else '#ffffff'),zorder=-2)
                     if category<5:ax.axvline(category+.5,color='#b9c4cf',lw=.8,zorder=-1)
                 ax.set_xticks(range(6),['백의 자리','십의 자리','일의 자리','소수점','소수 첫째 자리','종료']);ax.set_title(f'{m} / {ds.split("-")[0]}');ax.grid(axis='y',alpha=.2)
-                if di==0:ax.set_ylabel('Single-step raw entropy (nats)')
+                if di==0:ax.set_ylabel('Single-step top-30 renormalized entropy (nats)')
         fig.suptitle(f'{ep.upper()}: 자릿수별 단일 step 엔트로피 (첫 숫자부터 모두 포함)\n파랑: 정답 가능성 유지 / 빨강: 이전까지 정답 가능 → 최초 오류 / 회색: 이전 오류 이후')
         fig.tight_layout(rect=(0,0,1,.91));fig.savefig(relocate_path(OUT/f'{ep}_roles.png'),dpi=160);plt.close(fig)
     # Each sample has its own lazy-loaded trace and actual playable video.
     samples=read(relocate_path(ROOT/'predictions/cohorts/pilot_300/samples.json'));media=read(relocate_path(BASE/'media_manifest.json'));manifest=[]
     for sample in samples:
-        entry=dict(sample,media=media[sample['video_path']]['media'],models={});dest=relocate_path(OUT/entry['media']);dest.parent.mkdir(parents=True,exist_ok=True)
-        if not dest.exists():os.link(relocate_path(BASE/entry['media']),dest)
+        entry=dict(sample,media=media_reference(BASE,OUT,media[sample['video_path']]['media']),models={})
         for m in MODELS:
             raw=read(relocate_path(BASE/m/(sample['sample_key']+'.json')));eps=cases.get((m,sample['sample_key']),{});data=dict(model=m,sample=sample,answer=raw['answer'],timestamps=raw['timestamps'],iou=raw['iou'],endpoints=eps)
             key=m+'/'+sample['sample_key'];p=relocate_path(OUT/'traces'/(key+'.js'));p.parent.mkdir(parents=True,exist_ok=True);write_result_text(p, 'window.putTrace('+json.dumps(key)+','+json.dumps(data,ensure_ascii=False)+');\n');entry['models'][m]=dict(iou=raw['iou'],supported=bool(eps),start_correct=eps.get('start',{}).get('all_correct'),end_correct=eps.get('end',{}).get('all_correct'))
@@ -160,20 +161,21 @@ def main():
     write_result_text((relocate_path(OUT/'manifest.js')), 'window.MANIFEST='+json.dumps(manifest,ensure_ascii=False)+';\nwindow.CONDITION_STATS='+json.dumps(condition_stats,ensure_ascii=False)+';\nwindow.ROLE_STRATA='+json.dumps(stratified,ensure_ascii=False)+';\n')
     for model in MODELS:
         raw_dir=relocate_path(OUT/'raw'/model);raw_dir.mkdir(parents=True,exist_ok=True)
-        for source in result_glob((relocate_path(BASE/model)), '*.json'):
-            if not (raw_dir/source.name).exists():os.link(source,raw_dir/source.name)
+        for source_path in result_glob((relocate_path(BASE/model)), '*.json'):
+            if not (raw_dir/source_path.name).exists():os.link(source_path,raw_dir/source_path.name)
     for name in ['report.html','viewer.js']:copy_result_file(relocate_path(ASSETS/name),relocate_path(OUT/name))
+    viewer=relocate_path(OUT/'viewer.js');write_result_text(viewer,(ASSETS/'step_view.js').read_text()+'\n'+viewer.read_text())
     for name in ['style.css','NotoSansKR.ttf','OFL.txt']:copy_result_file(relocate_path(ROOT/'_lib/entropy_viewer'/name),relocate_path(OUT/name))
     with (relocate_path(OUT/'style.css')).open('a') as f:f.write((relocate_path(ASSETS/'style.css')).read_text())
     write_report(summary)
-    write('validation.json',dict(passed=True,synthetic_fixtures=17,exhaustive_small_domain_cases=12431,absorbing_error=True,optional_zero_decimal=True,original_entropy_unchanged=True,endpoint_matches_evaluator_rounding=True,red_equals_first_feasibility_loss=True))
+    write('validation.json',dict(passed=True,synthetic_fixtures=17,exhaustive_small_domain_cases=12431,absorbing_error=True,optional_zero_decimal=True,top30_entropy_recomputed=True,endpoint_matches_evaluator_rounding=True,red_equals_first_feasibility_loss=True))
     write('status.json',dict(state='built',stage='browser validation pending',completed=len(source),total=len(source),percent=100,elapsed_seconds=time.time()-started))
 
 def write_report(s):
     lines=['# 반올림 기준 자릿수별 불확실성','', '[샘플별 영상·토큰 HTML](report.html)','',
         '예측 endpoint를 기존 평가와 동일한 Python `round(float(value))`로 반올림한 결과가 GT와 같으면 모든 생성 step을 정답으로 처리한다. 다르면 각 prefix에서 반올림 정답으로 완성할 수 있는지 검사한다. 정수부에서 가능성이 사라지면 해당 숫자가 최초 오류다. 소수부도 동일하게 정답 가능성이 실제로 처음 사라지는 숫자 step을 최초 오류로 표시한다. 소수점으로 앞당기지 않는다. 정수 종료로 가능성이 사라지면 종료 단계가 최초 오류다. 후보 표기는 원자료와 동일하게 음이 아닌 초, 정수 또는 소수 한 자리, 불필요한 선행 0 없음으로 제한한다. 시작과 종료를 각각 판정한다. Python 반올림은 정확히 .5일 때 가까운 짝수로 처리한다.','',
         '예: GT 24에 대한 23.9는 모두 정답. 23.4는 23.까지 정답 가능, 숫자 4가 최초 오류다. 35.0은 첫 숫자 3, 25.0은 숫자 5에서 정답 가능성이 사라진다. 빨간 표시 first_error와 실제 가능성 상실 actual_feasibility_loss는 항상 일치한다. GT 문자 일치 여부는 참고 필드로만 남긴다.','',
-        '기존 동일 pilot 300개 × 두 모델의 저장된 분포를 재사용했다. 초 단위 표기 594개 응답 / 1,188개 endpoint를 분석하고 MM:SS 6개는 제외했다. 새 추론 없이 raw 전체 어휘 엔트로피를 유지했다.','',
+        '기존 동일 pilot 300개 × 두 모델의 저장된 분포를 재사용했다. 초 단위 표기 594개 응답 / 1,188개 endpoint를 분석하고 MM:SS 6개는 제외했다. 새 추론 없이 저장된 raw top-30 확률로 entropy를 재계산했다.','',
         '## endpoint 결과','', '| 모델 | 데이터셋 | 대상 | N | 반올림 정답 N | 최초 오류 숫자/소수점·종료 N |','|---|---|---|---:|---:|---|']
     for r in s['endpoint_metrics']:
         lines.append(f"| {r['model']} | {r['dataset']} | {r['endpoint']} | {r['n']} | {r['all_correct']} | {r['first_error_numeric']}/{r['first_error_format']} |")
@@ -186,7 +188,7 @@ def write_report(s):
         '가로축은 구분선으로 나눈 자릿수·서식 범주이며 시간이 아니다. 칸 안 색상별 좌우 위치는 가독성을 위한 배치다. 파랑은 첫 숫자를 포함해 정답 가능성을 유지한 숫자, 빨강은 정답 가능성이 처음 사라진 step, 회색은 이전에 이미 가능성이 사라진 뒤의 숫자다. 생성 전 빈 문자열은 정답 가능 상태로 두므로 첫 숫자도 파랑 또는 빨강으로 표시한다. 첫 숫자별 정량 집계는 별도로 유지한다.','',
         '## 해석','', '오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. 엔트로피는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.','',
         '[전체 step](per_step.csv) · [endpoint](per_endpoint.csv) · [경우별](conditions.csv) · [자리별](role_conditions.csv) · [조건부 상태 비율](position_conditional_accuracy.csv) · [자릿수 통제](digit_stratified.csv)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n')
 if __name__=='__main__':
     try:main()
     except Exception:

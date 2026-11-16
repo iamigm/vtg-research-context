@@ -158,7 +158,7 @@
   $('view-location').textContent=scope.label+' › '+labels.join(' › ');
   for(const id of node.documents){
    const extra=config.entries.find(x=>x.id===id),stem=id.split('/').pop().replace(/\.md$/i,'').toUpperCase(),link=document.createElement('a');
-   link.textContent=documentLabels[stem]||extra.title;link.dataset.view=id;
+   link.textContent=extra.reference_label||documentLabels[stem]||extra.title;link.dataset.view=id;
    const url=new URL(location.href);url.searchParams.set('view',id);url.hash='';link.href=url;
    if(id===e.id)link.setAttribute('aria-current','page');
    link.onclick=event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();$('reference-menu').open=false;show(id);};references.append(link);
@@ -173,6 +173,7 @@
  }
  window.addEventListener('resize',()=>{if($('view-browser').open)positionBrowser();});
  async function show(id,replace=false,detailHash,refresh=false){
+  id=config.aliases?.[id]||id;
   const e=config.entries.find(v=>v.id===id)||config.entries.find(v=>v.id===config.default)||config.entries[0];if(!e)return;
   if(detailHash===undefined&&active&&e.kind==='html'){try{detailHash=replace?location.hash:$('detail-frame').contentWindow.location.hash||location.hash}catch{detailHash=location.hash}}
   active=e;const call=++serial;renderContext(e);$('view-title').textContent=e.scope+' · '+e.title;$('view-title').title=$('view-title').textContent;

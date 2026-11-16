@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-16T21:00:00.000466+09:00",
+  "observed_at": "2026-11-17T00:00:00.003440+09:00",
   "scope": "experiment evidence only",
   "files": [
     {
@@ -144,18 +144,23 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/metadata/status.json",
-      "source_modified_at": "2026-10-23T23:59:31.302521+09:00",
-      "sha256": "17e5219ac9699bacd4410439f7294cc0e43cc35051d7b22abd6b264e0e82aba5"
+      "source_modified_at": "2026-11-16T21:24:03.498098+09:00",
+      "sha256": "9512bc543134b37975bc3b76e1aabc536f9fafcac7cf7f77347339bf191d7f78"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metadata/status.json",
-      "source_modified_at": "2026-10-25T15:11:33.042818+09:00",
+      "source_modified_at": "2026-11-16T21:27:19.618181+09:00",
       "sha256": "cc3b8e9ece07785d56dc26450338bf73fb4a2c81a78162351ab8d8d5ba3b0ee2"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metadata/status.json",
-      "source_modified_at": "2026-10-23T23:59:41.920480+09:00",
-      "sha256": "37fe5d5107942454905d0d26a99f9cdbd47c9db456b5b47247871f8202ee3473"
+      "source_modified_at": "2026-11-16T21:22:33.322520+09:00",
+      "sha256": "9d58dd414bdad8e28198beaf513bc58a01c028310fd22dde5b4e3d0113b222b6"
+    },
+    {
+      "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/within_path/metadata/status.json",
+      "source_modified_at": "2026-11-16T21:28:26.713868+09:00",
+      "sha256": "315e482240c750bf5d3786849e434bc169013afb8b575dfb01c97956456d77b6"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/metadata/status.json",
@@ -169,38 +174,38 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/blue_analysis/metadata/status.json",
-      "source_modified_at": "2026-10-23T15:18:50.622366+09:00",
-      "sha256": "76f1dca845aa0bddb6bf989c8709850c3ad79f8f2e2a75a00777e6249ade73c7"
+      "source_modified_at": "2026-11-16T21:20:08.449197+09:00",
+      "sha256": "3b4f6c57ca585440b0f57fd4e3441db40e7ae91a9b628ebe3d609504aaf89100"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/digit_correctness/metadata/status.json",
-      "source_modified_at": "2026-10-23T14:12:39.766500+09:00",
-      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
+      "source_modified_at": "2026-11-16T21:20:00.892232+09:00",
+      "sha256": "adb83982c8fdfd80be73bf71f586a1c730fadec6ae83f327dab741826e584d19"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_iou/metadata/status.json",
-      "source_modified_at": "2026-10-22T16:35:16.867149+09:00",
-      "sha256": "2d3525183fd3d10d189ec57159a13d5d070e3d0692cdd4e55f74cdc0214ffc75"
+      "source_modified_at": "2026-11-16T21:19:14.069451+09:00",
+      "sha256": "14d5b668b4e7290da83f533025f10d37729a3566d56ea94395787b9435ca4d09"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/metadata/status.json",
-      "source_modified_at": "2026-10-22T20:10:44.145725+09:00",
-      "sha256": "f6980dfed84aece85ceaf6e3b8fc5e20c9ac378646c9302aa88c7c7df33a7b91"
+      "source_modified_at": "2026-11-16T21:19:55.799256+09:00",
+      "sha256": "f15d4b6759d19cec3cb1acb7ff14ce17e478f0f6acb8f170748dabe602c9c099"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/status.json",
-      "source_modified_at": "2026-10-22T17:48:43.136240+09:00",
-      "sha256": "1644af7049718894b34829a7a90484adf32faca1be727fdfbef73f6a6f160018"
+      "source_modified_at": "2026-11-16T21:19:50.134283+09:00",
+      "sha256": "ae92319167bfe98a97d836ede1af2ac471d78941bf06cc7e53ad7f3f7f3a2256"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/status.json",
-      "source_modified_at": "2026-10-22T17:36:50.245214+09:00",
-      "sha256": "47920ce013ce2a6592b359e07dd18c89310740143eed04d4c29034ef4351ceaa"
+      "source_modified_at": "2026-11-16T21:19:39.421333+09:00",
+      "sha256": "328664a6de170ab04d1f6a1170a017198bb407348fe9e0768c605f78c34304d7"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/status.json",
-      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
-      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
+      "source_modified_at": "2026-11-16T21:19:33.100362+09:00",
+      "sha256": "b059bafc217fb64eaac9b9f9714c1fc1c3efd7ac032739234bc677f650565299"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/metadata/status.json",
@@ -209,13 +214,13 @@
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/numeric_uncertainty/metadata/status.json",
-      "source_modified_at": "2026-10-22T20:19:38.131974+09:00",
-      "sha256": "817855ac8deaea6b87a8eb9ade7acd4265499cba77d5358b13abc114b6fbaf28"
+      "source_modified_at": "2026-11-16T21:19:53.992265+09:00",
+      "sha256": "fd24b6b5b5d5239a2d6b2b7243544d191ee3f63d0c4cc585c272e0d02f1c408e"
     },
     {
       "path": "evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/prefix_entropy/metadata/status.json",
-      "source_modified_at": "2026-10-22T16:56:30.370666+09:00",
-      "sha256": "31f9275f32e89f07fe8242e399cf6b65684e7e2fb513ca5a5be6bb59ed436313"
+      "source_modified_at": "2026-11-16T21:19:33.100362+09:00",
+      "sha256": "b059bafc217fb64eaac9b9f9714c1fc1c3efd7ac032739234bc677f650565299"
     },
     {
       "path": "evidence/experiments/attention/artifacts/runs/input_order/timelens_instruct/full/9404/metadata/status.json",

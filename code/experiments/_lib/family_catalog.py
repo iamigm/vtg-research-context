@@ -112,7 +112,15 @@ def build_family_catalog(projects):
     if updated!=original:path.write_text(updated)
  output=[]
  for key,f in sorted(families.items()):
-  family=f['root'];entries=f['entries'];entries.sort(key=lambda e:(e['scope_key'],len(Path(e['id']).parts),e['kind']!='html',e['id']))
+  family=f['root'];entries=f['entries']
+  rel=family.relative_to(ROOT/f['project']/'results');web=ROOT/f['project']/'artifacts/runs'/rel/'overview/web'
+  grouping=web/'view_groups.json';groups=json.loads(grouping.read_text()) if grouping.exists() else {}
+  for entry in entries:
+   group=groups.get('scopes',{}).get(entry['scope_key'])
+   if group:
+    entry['analysis_path']=group['analysis_path'];entry['analysis']='main results';entry['report']=group['report']
+    if entry['kind']=='md':entry['reference_label']=entry['title']
+  entries.sort(key=lambda e:(e['scope_key'],len(Path(e['id']).parts),e['kind']!='html',e['id']))
   html=[e for e in entries if e['kind']=='html']
   candidates=html or entries
   # Report-only families open their primary report before supplementary MDs.
@@ -121,7 +129,7 @@ def build_family_catalog(projects):
   # Structural manifest belongs to the family's corresponding artifact tree.
   rel=family.relative_to(ROOT/f['project']/'results');web=ROOT/f['project']/'artifacts/runs'/rel/'overview/web'
   manifest=web/'view_manifest.json'
-  config=dict(schema_version=1,title=f['title'],project=f['project'],family=rel.as_posix(),default=default['id'],entries=entries,navigation=build_navigation(f['title'],entries))
+  config=dict(schema_version=1,title=f['title'],project=f['project'],family=rel.as_posix(),default=default['id'],entries=entries,navigation=build_navigation(f['title'],entries),aliases=groups.get('aliases',{}))
   write(manifest,json.dumps(config,ensure_ascii=False,indent=2)+'\n')
   css=os.path.relpath(ROOT/'_lib/family_view.css',family);theme=os.path.relpath(ROOT/'_lib/experiment_theme.css',family);js=os.path.relpath(ROOT/'_lib/family_view.js',family);data=os.path.relpath(manifest,family);history_js=os.path.relpath(ROOT/'_lib/history_controls.js',family);bookmarks_js=os.path.relpath(ROOT/'_lib/family_bookmarks.js',family);home=os.path.relpath(ROOT/'index.html',family);catalog=os.path.relpath(ROOT/'artifacts/maintenance/family_catalog.json',family)
   shell=f'''<!doctype html><html lang="ko" data-family-shell><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(f['title'])} · 실험 계열</title><link rel="stylesheet" href="{theme}"><link rel="stylesheet" href="{css}"><script defer src="{history_js}"></script><script defer src="{bookmarks_js}"></script></head><body>

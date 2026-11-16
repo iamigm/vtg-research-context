@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Rounded endpoint correctness with an assigned decimal-point error boundary, reusing saved logits."""
 from result_layout import relocate_path, write_result_text, copy_result_file, result_glob
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 from decimal import Decimal
 from collections import defaultdict,Counter
@@ -145,14 +147,13 @@ def main():
                     ax.axvspan(category-.5,category+.5,color=('#f0f4f8' if category%2==0 else '#ffffff'),zorder=-2)
                     if category<5:ax.axvline(category+.5,color='#b9c4cf',lw=.8,zorder=-1)
                 ax.set_xticks(range(6),['백의 자리','십의 자리','일의 자리','소수점','소수 첫째 자리','종료']);ax.set_title(f'{m} / {ds.split("-")[0]}');ax.grid(axis='y',alpha=.2)
-                if di==0:ax.set_ylabel('Single-step raw entropy (nats)')
+                if di==0:ax.set_ylabel('Single-step top-30 renormalized entropy (nats)')
         fig.suptitle(f'{ep.upper()}: 자릿수별 단일 step 엔트로피 (첫 숫자부터 모두 포함)\n파랑: 정답 가능성 유지 / 빨강: 이전까지 정답 가능 → 최초 오류 / 회색: 이전 오류 이후')
         fig.tight_layout(rect=(0,0,1,.91));fig.savefig(relocate_path(OUT/f'{ep}_roles.png'),dpi=160);plt.close(fig)
     # Each sample has its own lazy-loaded trace and actual playable video.
     samples=read(relocate_path(BASE/'samples.json'));media=read(relocate_path(BASE/'media_manifest.json'));manifest=[]
     for sample in samples:
-        entry=dict(sample,media=media[sample['video_path']]['media'],models={});dest=relocate_path(OUT/entry['media']);dest.parent.mkdir(parents=True,exist_ok=True)
-        if not dest.exists():os.link(relocate_path(BASE/entry['media']),dest)
+        entry=dict(sample,media=media_reference(BASE,OUT,media[sample['video_path']]['media']),models={})
         for m in MODELS:
             raw=read(relocate_path(BASE/m/(sample['sample_key']+'.json')));eps=cases.get((m,sample['sample_key']),{});data=dict(model=m,sample=sample,answer=raw['answer'],timestamps=raw['timestamps'],iou=raw['iou'],endpoints=eps)
             key=m+'/'+sample['sample_key'];p=relocate_path(OUT/'traces'/(key+'.js'));p.parent.mkdir(parents=True,exist_ok=True);write_result_text(p, 'window.putTrace('+json.dumps(key)+','+json.dumps(data,ensure_ascii=False)+');\n');entry['models'][m]=dict(iou=raw['iou'],supported=bool(eps),start_correct=eps.get('start',{}).get('all_correct'),end_correct=eps.get('end',{}).get('all_correct'))
@@ -160,13 +161,16 @@ def main():
     write_result_text((relocate_path(OUT/'manifest.js')), 'window.MANIFEST='+json.dumps(manifest,ensure_ascii=False)+';\nwindow.CONDITION_STATS='+json.dumps(condition_stats,ensure_ascii=False)+';\nwindow.ROLE_STRATA='+json.dumps(stratified,ensure_ascii=False)+';\n')
     for model in MODELS:
         raw_dir=relocate_path(OUT/'raw'/model);raw_dir.mkdir(parents=True,exist_ok=True)
-        for source in result_glob((relocate_path(BASE/model)), '*.json'):
-            if not (raw_dir/source.name).exists():os.link(source,raw_dir/source.name)
+        for source_path in result_glob((relocate_path(BASE/model)), '*.json'):
+            if not (raw_dir/source_path.name).exists():os.link(source_path,raw_dir/source_path.name)
     for name in ['report.html','viewer.js']:copy_result_file(relocate_path(ASSETS/name),relocate_path(OUT/name))
+    viewer=relocate_path(OUT/'viewer.js');write_result_text(viewer,(ASSETS/'step_view.js').read_text()+'\n'+viewer.read_text())
     for name in ['style.css','NotoSansKR.ttf','OFL.txt']:copy_result_file(relocate_path(ROOT/'_lib/entropy_viewer'/name),relocate_path(OUT/name))
     with (relocate_path(OUT/'style.css')).open('a') as f:f.write((relocate_path(ASSETS/'style.css')).read_text())
+    p=relocate_path(OUT/'viewer.js');text=p.read_text().replace('동일 pilot 300 × 두 모델 · 숫자 분석 594/600개',f'full 9,404 queries × 두 모델 · 지원 응답 {summary["responses"]:,}개').replace("list.length+' / 300개'", "list.length+'개 (전체 '+MANIFEST.length+'개)'");write_result_text(p,text)
+    p=relocate_path(OUT/'report.html');text=p.read_text().replace('모델별 동일 pilot 300개. MM:SS 형식 6개는 자릿수 판정에서 제외되어 사유를 표시합니다.',f'모델별 full 9,404 queries. 지원 표기 밖 응답 {len(summary["excluded"]):,}개는 제외하며 원응답과 영상은 볼 수 있습니다.');write_result_text(p,text)
     write_report(summary)
-    write('validation.json',dict(passed=True,synthetic_fixtures=17,exhaustive_small_domain_cases=12431,absorbing_error=True,optional_zero_decimal=True,original_entropy_unchanged=True,endpoint_matches_evaluator_rounding=True,red_equals_first_feasibility_loss=True))
+    write('validation.json',dict(passed=True,synthetic_fixtures=17,exhaustive_small_domain_cases=12431,absorbing_error=True,optional_zero_decimal=True,top30_entropy_recomputed=True,endpoint_matches_evaluator_rounding=True,red_equals_first_feasibility_loss=True))
     write('status.json',dict(state='built',stage='browser validation pending',completed=len(source),total=len(source),percent=100,elapsed_seconds=time.time()-started))
 
 def write_report(s):
@@ -186,7 +190,7 @@ def write_report(s):
         '가로축은 구분선으로 나눈 자릿수·서식 범주이며 시간이 아니다. 칸 안 색상별 좌우 위치는 가독성을 위한 배치다. 파랑은 첫 숫자를 포함해 정답 가능성을 유지한 숫자, 빨강은 정답 가능성이 처음 사라진 step, 회색은 이전에 이미 가능성이 사라진 뒤의 숫자다. 생성 전 빈 문자열은 정답 가능 상태로 두므로 첫 숫자도 파랑 또는 빨강으로 표시한다. 첫 숫자별 정량 집계는 별도로 유지한다.','',
         '## 해석','', '오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. 엔트로피는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.','',
         '[전체 step](per_step.csv) · [endpoint](per_endpoint.csv) · [경우별](conditions.csv) · [자리별](role_conditions.csv) · [조건부 상태 비율](position_conditional_accuracy.csv) · [자릿수 통제](digit_stratified.csv)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n')
 if __name__=='__main__':
     try:main()
     except Exception:

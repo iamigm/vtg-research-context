@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Role- and digit-length-stratified entropy from fixed-opposite-GT endpoint traces."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json,re,csv,time,traceback
 from collections import defaultdict,Counter
@@ -7,7 +9,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'digit_role_entropy')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'integrated/sources/digit_role_entropy')
 MODELS=['qwen25','qwen3'];DATASETS=['charades-timelens','activitynet-timelens','qvhighlights-timelens']
 ROLES=['hundreds','tens','ones','decimal_point','tenths','closing_boundary'];NAMES={'hundreds':'백의 자리','tens':'십의 자리','ones':'일의 자리','decimal_point':'소수점','tenths':'소수 첫째 자리','closing_boundary':'종료 구분자','multi_role':'여러 역할을 포함한 토큰','format_other':'기타 서식'}
 LABELS=['retains_feasibility','first_loss','after_loss','initially_unattainable']
@@ -28,7 +30,7 @@ def roles_for(number,a,b):
     return roles
 
 def main():
-    OUT.mkdir(exist_ok=True);started=time.time();source=read(relocate_path(BASE/'endpoint_gt_entropy/trajectories.json'));source_summary=read(relocate_path(BASE/'endpoint_gt_entropy/summary.json'));rows=[];endpoint_rows=[]
+    OUT.mkdir(exist_ok=True);started=time.time();source=read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/trajectories.json'));source_summary=read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/summary.json'));rows=[];endpoint_rows=[]
     assert roles_for('25.0',0,4)==['tens','ones','decimal_point','tenths']
     assert roles_for('105.7',0,5)==['hundreds','tens','ones','decimal_point','tenths']
     for q in source:
@@ -77,17 +79,17 @@ def main():
                         if vals:
                             x=ROLES.index(role)+offset;ax.plot([x-.08,x+.08],[np.median(vals)]*2,color=color,lw=2)
                 ax.set_title(f'{model} / {ds.split("-")[0]}: N={n}');ax.set_xticks(range(len(ROLES)),['100s','10s','1s','decimal .','0.1s','close'],rotation=20);ax.grid(axis='y',alpha=.2)
-                if di==0:ax.set_ylabel('Single-step full-vocabulary entropy (nats)')
+                if di==0:ax.set_ylabel('Single-step top-30 renormalized entropy (nats)')
                 if mi==1:ax.set_xlabel('Role in the emitted timestamp (not relative step)')
         axes[0,0].legend(fontsize=8);fig.suptitle(f'{ep.upper()}: GT integer digits={gd}, generated integer digits={pd}; opposite endpoint fixed to GT\nEach point is one token step. Blue: feasible; red: first loss; gray: after loss. Short bars: medians.')
         fig.tight_layout(rect=(0,0,1,.92));name=f'{ep}_gt{gd}_pred{pd}.png';fig.savefig(relocate_path(OUT/name),dpi=160);plt.close(fig);plots.append(dict(endpoint=ep,gt_digits=gd,generated_digits=pd,path=name))
         elapsed=time.time()-started;status=dict(state='running',stage='role-stratified plots',completed=i+1,total=len(patterns),percent=100*(i+1)/len(patterns),elapsed_seconds=elapsed,eta_seconds=elapsed*(len(patterns)-i-1)/(i+1));write('status.json',status);print(json.dumps(status),flush=True)
     counts=Counter((q['endpoint'],q['gt_digits'],q['generated_digits']) for q in endpoint_rows);mixed=[r for r in rows if r['role']=='multi_role']
-    summary=dict(endpoint_evaluations=len(endpoint_rows),responses=len(endpoint_rows)//2,steps=len(rows),multi_role_steps=len(mixed),plots=plots,excluded_responses=source_summary['excluded'],digit_strata=[dict(endpoint=k[0],gt_digits=k[1],generated_digits=k[2],n=v) for k,v in sorted(counts.items())],contrasts=contrasts,validation=dict(role_examples_checked=True,one_step_per_single_role_per_endpoint=True,prefix_reconstruction=True,original_entropy_and_endpoint_labels_reused=True))
+    summary=dict(endpoint_evaluations=len(endpoint_rows),responses=len(endpoint_rows)//2,steps=len(rows),multi_role_steps=len(mixed),plots=plots,excluded_responses=source_summary['excluded'],digit_strata=[dict(endpoint=k[0],gt_digits=k[1],generated_digits=k[2],n=v) for k,v in sorted(counts.items())],contrasts=contrasts,validation=dict(role_examples_checked=True,one_step_per_single_role_per_endpoint=True,prefix_reconstruction=True,top30_entropy_and_endpoint_labels_reused=True))
     write('summary.json',summary)
     lines=['# 자릿수·토큰 역할별 엔트로피: 반대쪽 시각 GT 고정','',f'기존 {len(endpoint_rows)//2}개 응답의 시작·종료 {len(endpoint_rows)}개 endpoint를 재분석했다. 기존 분석에서 제외한 MM:SS 형식 6개 응답은 그대로 제외한다. 모델 추론 없이 저장된 엔트로피와 endpoint 독립 판정을 재사용했다.','',
         '**그룹:** 모델 × 벤치마크 × 시작/종료 × GT 정수부 자릿수 × 실제 생성 정수부 자릿수. GT와 생성 자릿수가 다른 경우를 별도 그림으로 분리했다. 같은 그룹 안에서 백·십·일의 자리, 소수점, 소수 첫째 자리, 종료 구분자를 비교한다.','',
-        '**점 하나는 해당 토큰을 고르기 직전의 전체 어휘 raw 엔트로피**다. 시간축 평균이나 최초 실패 위치 정렬을 하지 않았다. 파랑은 IoU≥0.5 정답 가능성을 유지한 step, 빨강은 해당 endpoint에서 처음 잃은 step, 회색은 이미 잃은 이후다. 짧은 가로선은 같은 역할/상태의 중앙값이다. 최초 실패가 없는 성공 응답도 파란 점으로 포함한다.','',
+        '**점 하나는 해당 토큰을 고르기 직전의 top-30 재정규화 raw 엔트로피**다. 시간축 평균이나 최초 실패 위치 정렬을 하지 않았다. 파랑은 IoU≥0.5 정답 가능성을 유지한 step, 빨강은 해당 endpoint에서 처음 잃은 step, 회색은 이미 잃은 이후다. 짧은 가로선은 같은 역할/상태의 중앙값이다. 최초 실패가 없는 성공 응답도 파란 점으로 포함한다.','',
         '역할은 **최종 생성된 숫자 문자열을 기준으로 사후 지정**한다. 예를 들어 `25.0`의 `2`는 십의 자리, `5`는 일의 자리, `.`은 소수점, `0`은 소수 첫째 자리다. 생성 당시 모델이 숫자의 길이를 미리 확정했다는 뜻은 아니다. 자릿수 분류는 반올림 전 표기를 사용하며, IoU 평가는 기존과 동일하게 예측만 반올림한다. 예: `99.9`는 생성 자릿수 2지만 반올림 후 100이 된다. GT는 원 정밀도로 고정한다.','',
         f'여러 역할을 한 토큰이 동시에 포함하면 entropy를 역할별로 복제하지 않고 `multi_role`로 분리했다. 해당 step은 {len(mixed)}개다. 단일 역할 그림에서는 제외하고 원시 CSV에는 보존했다.','',
         '## GT와 생성 자릿수가 같은 경우','']
@@ -105,7 +107,7 @@ def main():
     lines+=['',f'두 상태 각각 5개 이상인 단일 역할 셀은 {len(useful)}개다. 자릿수·역할을 분리하면 셀당 관측이 크게 줄어든다. 빨간 점이 파란 점보다 항상 높다고 전제하지 말고, 같은 패널·같은 역할의 겹침과 표본 수를 확인해야 한다.','',
         '이 분석은 위치/자릿수 혼합을 줄였지만 GT 구간 길이·영상 내용·이미 생성된 prefix까지 통제한 인과 실험은 아니다. 종료 분포는 여전히 실제 생성한 시작 시각에 조건화되어 있고, GT 고정은 평가에만 적용했다. 기존의 초 단위/소수 한 자리 prefix 가능성 판정 범위와 Decord 한계도 유지된다.','',
         '[모든 step·역할 CSV](per_step_roles.csv) · [모든 역할별 통계 CSV](role_statistics.csv) · [유지/최초실패 비교 CSV](first_loss_vs_retained.csv) · [endpoint 자릿수 CSV](per_endpoint_digits.csv) · [집계 및 그림 목록 JSON](summary.json)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n');write('status.json',dict(state='complete',completed=len(patterns),total=len(patterns),percent=100,responses=len(endpoint_rows)//2,endpoint_evaluations=len(endpoint_rows),steps=len(rows),plots=len(plots),elapsed_seconds=time.time()-started))
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n');write('status.json',dict(state='complete',completed=len(patterns),total=len(patterns),percent=100,responses=len(endpoint_rows)//2,endpoint_evaluations=len(endpoint_rows),steps=len(rows),plots=len(plots),elapsed_seconds=time.time()-started))
 if __name__=='__main__':
     try:main()
     except Exception:

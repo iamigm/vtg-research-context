@@ -1,8 +1,11 @@
-# 최초 오류의 entropy와 GT 거리 · 전체 full9404 (모델별 9,404질문)
+# 최초 오류의 entropy와 GT 거리 · full · 9,404 queries
+
+이 보고서의 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step에서 M = Σ(top-30) pᵢ, qᵢ = pᵢ/M, H₃₀ = −Σ qᵢ ln qᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30) ≈ 3.401197이며 높을수록 top-30 내부 분포가 고르다. raw와 processed는 각각 자신의 top-30을 사용한다. top-30 밖의 질량은 조건부 분포에서 제외한다. 정답 가능성은 기존 문법·반올림·IoU 판정을 뜻하며 모델의 최종 정답 확률과 다르다. 원본 응답·판정·전체 vocabulary 분포 계측값은 보존하고 보고서의 파생 지표만 재계산했다.
+
 
 전체 벤치마크의 지원 응답 18,591개에서 오답인 시작·종료 시각 29,124개를 분석했다. 끝까지 정답 가능성이 유지된 시각은 최초 오류가 없으므로 제외한다. 지원하지 않는 출력 형식 217개 응답은 기존 분석과 동일하게 제외한다.
 
-- 세로축: 정답으로 완성할 가능성을 처음 잃은 생성 단계 직전의 **raw 전체 어휘 entropy**(nat). 기존 반올림 가능성 판정을 그대로 사용한다.
+- 세로축: 정답으로 완성할 가능성을 처음 잃은 생성 단계 직전의 **raw top-30 재정규화 entropy**(nat). 기존 반올림 가능성 판정을 그대로 사용한다.
 - 가로축: **최종 출력 시각과 GT 시각의 절대 차이**(초). 시작과 종료는 독립 비교하며 반대쪽 시각은 계산에 관여하지 않는다. 반올림 후 오차도 CSV에 별도로 저장했다.
 - 미완성 숫자 prefix 자체와 GT를 뺀 거리가 아니다. 최초 오류 뒤에 생성된 숫자도 최종 오차에 영향을 준다.
 - 점은 시각별 관측값. 빨간 선은 entropy 5분위별 오차 중앙값, 음영은 해당 오차의 25–75백분위다. 음영은 신뢰구간이 아니다.
@@ -14,9 +17,9 @@
 
 | 모델 | 벤치마크 | 시각 | 관측 수 | 오차 중앙값(초) | Spearman ρ | 95% CI |
 |---|---|---|---:|---:|---:|---|
-| qwen25 | charades-timelens | start | 2553 | 2.40 | -0.259 | [-0.300, -0.216] |
+| qwen25 | charades-timelens | start | 2553 | 2.40 | -0.260 | [-0.300, -0.217] |
 | qwen25 | activitynet-timelens | start | 3363 | 4.00 | -0.360 | [-0.389, -0.329] |
-| qwen25 | qvhighlights-timelens | start | 1078 | 2.40 | -0.519 | [-0.565, -0.465] |
+| qwen25 | qvhighlights-timelens | start | 1078 | 2.40 | -0.518 | [-0.565, -0.465] |
 | qwen3 | charades-timelens | start | 2135 | 1.50 | -0.481 | [-0.521, -0.442] |
 | qwen3 | activitynet-timelens | start | 2814 | 4.00 | -0.323 | [-0.359, -0.287] |
 | qwen3 | qvhighlights-timelens | start | 825 | 3.00 | -0.457 | [-0.519, -0.389] |
@@ -33,6 +36,6 @@
 
 ρ가 양수이면 최초 오류 때 불확실성이 높은 사례에서 최종 시간 오차도 큰 경향, 음수이면 반대 경향을 뜻한다. 모델·벤치마크·시작·종료를 섞지 않고 해석한다. 신뢰구간은 각 패널의 시각 관측을 500회 복원추출한 percentile bootstrap이다.
 
-오답 사례만 조건부로 분석하므로 오류 발생 여부를 예측하는 결과는 아니다. 최초 오류의 자릿수와 영상 길이, GT 시각 등의 교란이 있을 수 있다. 자릿수별 상관은 ../../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/role_statistics.csv에 함께 저장했으며, 본 그림의 관계를 인과관계로 해석하지 않는다.
+오답 사례만 조건부로 분석하므로 오류 발생 여부를 예측하는 결과는 아니다. 최초 오류의 자릿수와 영상 길이, GT 시각 등의 교란이 있을 수 있다. 자릿수별 상관은 role_statistics.csv에 함께 저장했으며, 본 그림의 관계를 인과관계로 해석하지 않는다.
 
 [관측값 CSV](../../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/per_first_error.csv) · [그룹 통계](../../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/group_statistics.csv) · [최초 오류 자릿수별 통계](../../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/first_error_distance/metrics/role_statistics.csv)

@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Validate all full-head traces and build the separate video viewer / quantitative report."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json, re, statistics, hashlib, csv
 ROOT=relocate_path(Path(__file__)).resolve().parents[1]
@@ -37,8 +39,8 @@ def build():
             nums=[t for t in ts if re.fullmatch(r'\s*\d+(?:\.\d+)?\s*',t['token'])]
             g=dict(model=model,dataset=ds,n=len(rs),steps=len(ts),mean_output_tokens=avg([len(r['steps']) for r in rs]),miou=100*avg([r['iou'] for r in rs]),
                 **{f'r{int(th*100)}':100*avg([r['iou']>=th for r in rs]) for th in [.3,.5,.7]},
-                selected_probability=avg([t['raw_selected_probability'] for t in ts]),top30_mass=avg([t['raw']['top30_mass'] for t in ts]),
-                entropy_nats=avg([t['raw']['entropy_nats'] for t in ts]),numeric_steps=len(nums),numeric_selected_probability=avg([t['raw_selected_probability'] for t in nums]),
+                selected_probability=avg([selected_top30(t, 'raw') for t in ts]),top30_mass=avg([t['raw']['top30_mass'] for t in ts]),
+                entropy_nats=avg([entropy_top30(t['raw']) for t in ts]),numeric_steps=len(nums),numeric_selected_probability=avg([selected_top30(t, 'raw') for t in nums]),
                 raw_argmax_disagreements=sum(t['raw_selected_rank']>1 for t in ts),selected_outside_raw_top30=sum(t['raw_selected_rank']>30 for t in ts))
             assert g['n']==100;groups.append(g)
     summary=dict(samples=300,model_query_runs=600,total_steps=sum(g['steps'] for g in groups),baseline_exact_matches=600,groups=groups)
@@ -46,13 +48,13 @@ def build():
     with (relocate_path(OUT/'step_metrics.csv')).open('w') as f:
         writer=csv.writer(f);writer.writerow(['model','dataset','sample','step','token_id','token','raw_probability','raw_rank','processed_probability','top30_mass','entropy_nats'])
         for r in records:
-            for t in r['steps']:writer.writerow([r['model_key'],r['sample']['dataset'],r['sample']['sample_key'],t['step'],t['token_id'],t['token'],t['raw_selected_probability'],t['raw_selected_rank'],t['processed_selected_probability'],t['raw']['top30_mass'],t['raw']['entropy_nats']])
+            for t in r['steps']:writer.writerow([r['model_key'],r['sample']['dataset'],r['sample']['sample_key'],t['step'],t['token_id'],t['token'],selected_top30(t, 'raw'),t['raw_selected_rank'],selected_top30(t, 'processed'),t['raw']['top30_mass'],entropy_top30(t['raw'])])
     lines=['# TimeLens pilot: full-head autoregressive top-30','',f"기존 pilot 100개 × 3개 벤치마크 × 2개 모델 = 600개 응답, 총 {summary['total_steps']:,}개 생성 step을 기록했다. EOS step도 포함한다.",'',
         '기존 `experiments/zero-shot/predictions/cohorts/pilot_300/samples.json`의 seed 42 표본을 그대로 사용했다. 별도의 원본 TimeLens pilot manifest는 발견되지 않아 앞선 실험에서 정한 표본이며, 이번 실험에서 재추출하지 않았다.', '',
         '모든 600개 응답에서 생성 token ID 전체가 저장된 기존 zero-shot full-head 결과와 정확히 일치했다. 따라서 아래 grounding 지표도 기존 full-head와 동일하다. 숫자 제한 head를 적용하지 않았다.', '',
         '| 모델 | 벤치마크 | N | R@0.3 (%) | R@0.5 (%) | R@0.7 (%) | mIoU (%) | 평균 생성 토큰 |','|---|---|---:|---:|---:|---:|---:|---:|']
     for g in groups:lines.append(f"| {g['model']} | {g['dataset']} | {g['n']} | {g['r30']:.2f} | {g['r50']:.2f} | {g['r70']:.2f} | {g['miou']:.2f} | {g['mean_output_tokens']:.2f} |")
-    lines+=['','확률은 BF16 모델의 logits를 FP32로 변환하여 **전체 LM-head 어휘**에 softmax를 적용한 값이다. Top-30 안에서 재정규화하지 않았다. HTML 기본 표시는 generation processor 이전 raw 분포이며, 보정 후 분포도 선택할 수 있다. Qwen2.5의 repetition penalty는 1.05, Qwen3는 1.0이다. Greedy decoding이므로 이 분포는 실제 무작위 샘플링을 의미하지 않는다.','',
+    lines+=['','확률은 BF16 모델의 logits를 FP32로 변환하여 **전체 LM-head 어휘**에 softmax를 적용한 값이다. 저장된 top-30을 확률 합으로 나누어 재정규화했다. 선택 token이 top-30 밖이면 조건부 확률은 0이다. HTML 기본 표시는 generation processor 이전 raw 분포이며, 보정 후 분포도 선택할 수 있다. Qwen2.5의 repetition penalty는 1.05, Qwen3는 1.0이다. Greedy decoding이므로 이 분포는 실제 무작위 샘플링을 의미하지 않는다.','',
         '| 모델 | 벤치마크 | 모든 step 평균 선택 확률 (%) | 숫자 step 평균 선택 확률 (%) | 평균 top-30 질량 (%) | 평균 엔트로피 (nat) | raw 최대 확률보다 낮은 토큰 선택 |','|---|---|---:|---:|---:|---:|---:|']
     for g in groups:lines.append(f"| {g['model']} | {g['dataset']} | {100*g['selected_probability']:.2f} | {100*g['numeric_selected_probability']:.2f} | {100*g['top30_mass']:.2f} | {g['entropy_nats']:.3f} | {g['raw_argmax_disagreements']} |")
     lines+=['','동률 토큰의 top-k 표시 순서는 greedy argmax의 선택 순서와 다를 수 있다. 선택 확률이 최대 확률과 같은지 검증하며 동률은 불일치로 세지 않는다. 숫자 step은 토큰 문자열이 공백을 제외하고 숫자 또는 소수인 경우로 정의했다. 각 step에 동일한 가중치를 주므로 긴 응답의 영향이 더 크다. 자연어 정형 문구의 높은 확률이 전체 평균을 높일 수 있어 숫자 step을 별도로 제시했다. 토큰 확률은 영상 구간 정답 확률이나 calibration 지표가 아니다.','']
@@ -67,10 +69,10 @@ def build():
         affected=[r for r in audit if r['sparse']['mmco_messages']]
         different=[r for r in audit if r.get('sampled_frame_hash_mismatches')]
         lines+=['', f'디코더 진단: {len(audit)}개 고유 영상 중 {len(affected)}개에서 sparse Decord MMCO 경고가 재현됐고, 그중 {len(different)}개는 순차 Decord와 표본 RGB hash가 달랐다. 기존 baseline과 동일 생성 토큰이라는 사실은 입력 영상의 디코딩 정확성까지 보증하지 않는다. 원본 입력/decoder를 그대로 유지한 비교 결과이며, 자세한 범위와 증거는 [디코더 진단 보고서](mmco_diagnosis/REPORT.md)를 참고한다.']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n')
     write_result_text((relocate_path(OUT/'manifest.js')), 'window.MANIFEST='+json.dumps(manifest,ensure_ascii=False)+';\n')
-    write_result_text((relocate_path(OUT/'report.html')), HTML)
-    write_result_text((relocate_path(OUT/'viewer.js')), JS)
+    write_result_text((relocate_path(OUT/'report.html')), HTML.replace('전체 어휘 softmax · top-30 재정규화 없음','top-30 재정규화 확률·entropy'))
+    write_result_text((relocate_path(OUT/'viewer.js')), renormalized_viewer_js())
     write_result_text((relocate_path(OUT/'validation.json')), json.dumps(dict(passed=True,runs=600,steps=summary['total_steps'],all_baseline_tokens_identical=True,top30_sorted_unique_normalized=True),indent=2))
     print(json.dumps(summary),flush=True)
 
@@ -90,4 +92,12 @@ function playSpan(span){if(!span)return;let v=$('video'),duration=Number.isFinit
 $('video').ontimeupdate=()=>{if(segment&&$('video').currentTime>=segment[1]){if($('loop').checked){$('video').currentTime=segment[0];$('video').play()}else{$('video').pause();segment=null}}};
 $('gt').onclick=()=>playSpan(MANIFEST[current].span[0]);$('pred').onclick=()=>trace&&playSpan(trace.timestamps[0]);$('dataset').onchange=list;$('search').oninput=list;$('model').onchange=()=>select(current);$('mode').onchange=render;$('step').oninput=()=>{step=+$('step').value;render()};$('prev').onclick=()=>{step--;render()};$('next').onclick=()=>{step++;render()};select(0);
 '''
+
+
+
+def renormalized_viewer_js():
+    code = JS.replace("let t=trace.steps[step],p=t[$('mode').value];", "let t=trace.steps[step],source=t[$('mode').value],mass=source.top30.reduce((s,x)=>s+x.probability,0),p={...source,top30:source.top30.map(x=>({...x,probability:x.probability/mass}))};p.entropy_nats=-p.top30.reduce((s,x)=>s+(x.probability>0?x.probability*Math.log(x.probability):0),0);")
+    code = code.replace("pct(t.raw_selected_probability)", "pct(selectedProbability(t,'raw'))").replace("pct(t.processed_selected_probability)", "pct(selectedProbability(t,'processed'))")
+    return code + "\nfunction selectedProbability(t,mode){const d=t[mode],m=d.top30.reduce((s,x)=>s+x.probability,0),v=d.top30.find(x=>x.id===t.token_id);return v?v.probability/m:0;}\n"
+
 if __name__=='__main__':build()

@@ -1,6 +1,9 @@
-# 세 entropy 분석 통합: 읽기 쉬운 순서 · pilot300 (300질문)
+# 세 entropy 분석 통합: 읽기 쉬운 순서 · pilot · 300 queries
 
-[통합 영상·토큰 탐색 화면](report.html)
+이 보고서의 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step에서 M = Σ(top-30) pᵢ, qᵢ = pᵢ/M, H₃₀ = −Σ qᵢ ln qᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30) ≈ 3.401197이며 높을수록 top-30 내부 분포가 고르다. raw와 processed는 각각 자신의 top-30을 사용한다. top-30 밖의 질량은 조건부 분포에서 제외한다. 정답 가능성은 기존 문법·반올림·IoU 판정을 뜻하며 모델의 최종 정답 확률과 다르다. 원본 응답·판정·전체 vocabulary 분포 계측값은 보존하고 보고서의 파생 지표만 재계산했다.
+
+
+[통합 영상·토큰 탐색 화면](../report.html)
 
 ## 먼저 샘플 하나에서 확인하기
 
@@ -48,16 +51,16 @@
 - 가능성 유지란 올바른 GT 문자열을 생성했다는 뜻이 아니라 허용한 completion 중 성공 구간이 남아 있다는 뜻이다.
 - 초 단위 정수/소수 한 자리, 불필요한 선행 0 없음이라는 표기 범위를 사용했다.
 - 예측만 기존 규칙대로 반올림하고 GT는 원 정밀도를 유지했다.
-- H는 선택 직전 raw 전체 어휘 분포의 entropy(nat)다. 낮은 H는 높은 IoU를 보장하지 않는다.
+- H는 선택 직전 raw top-30 재정규화 분포의 entropy(nat)다. 낮은 H는 높은 IoU를 보장하지 않는다.
 - 자릿수와 역할은 반올림 전 생성 문자열에서 사후 지정했다. 여러 역할을 포함한 token을 중복 집계하지 않았다.
 - 기존 Decord 디코딩 품질 한계와 표본 크기 한계는 유지된다.
 
 ## 원본 결과
 
-- [전체 구간 prefix 분석](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/REPORT.md)
-- [GT 고정 endpoint 분석](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/REPORT.md)
-- [자릿수·역할 분석](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/REPORT.md)
+- [전체 구간 prefix 분석](../prefix_entropy/REPORT.md)
+- [GT 고정 endpoint 분석](endpoint_gt_entropy/REPORT.md)
+- [자릿수·역할 분석](digit_role_entropy/REPORT.md)
 - [GT 고정 step CSV](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/per_step.csv)
 - [역할별 통계 CSV](../../../../../../artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/role_statistics.csv)
 
-통합 과정에서 모델 추론이나 판정 기준을 바꾸지 않았다. 원본 entropy·label과 통합 값의 일치, 600개 응답 커버리지, 5,905개 역할 step 결합을 검증했다. HTML은 상대경로 자산을 함께 유지하면 file://에서도 사용할 수 있으며 영상 구간 탐색은 로컬 HTTP 서버를 권장한다.
+통합 과정에서 모델 추론이나 판정 기준을 바꾸지 않았다. 재정규화 entropy·label과 통합 값의 일치, 600개 응답 커버리지, 5,905개 역할 step 결합을 검증했다. HTML은 상대경로 자산을 함께 유지하면 file://에서도 사용할 수 있으며 영상 구간 탐색은 로컬 HTTP 서버를 권장한다.

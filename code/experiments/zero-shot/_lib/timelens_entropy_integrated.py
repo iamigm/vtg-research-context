@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Build one case-first interactive view of joint, fixed-GT, and digit-role analyses."""
 from result_layout import relocate_path, write_result_text, copy_result_file
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json,csv,os,shutil,time,traceback
 ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'integrated');ASSETS=relocate_path(ROOT/'_lib/entropy_viewer')
@@ -16,18 +18,16 @@ def write(name,r):
     path=relocate_path(OUT/name);path.parent.mkdir(parents=True,exist_ok=True);write_result_text(path, json.dumps(r,ensure_ascii=False,indent=2)+'\n')
 def main():
     OUT.mkdir(exist_ok=True);started=time.time();write('status.json',dict(state='running',stage='joining saved analyses',completed=0,total=600,percent=0))
-    joint={(q['model'],q['sample_key']):q for q in read(relocate_path(BASE/'prefix_entropy/trajectories.json'))};endpoints={(q['model'],q['sample_key'],q['endpoint']):q for q in read(relocate_path(BASE/'endpoint_gt_entropy/trajectories.json'))}
-    with (relocate_path(BASE/'digit_role_entropy/per_step_roles.csv')).open() as f:roles={(r['model'],r['sample_key'],r['endpoint'],int(r['ar_step'])):r for r in csv.DictReader(f)}
-    with (relocate_path(BASE/'digit_role_entropy/role_statistics.csv')).open() as f:
+    joint={(q['model'],q['sample_key']):q for q in read(relocate_path(BASE/'prefix_entropy/trajectories.json'))};endpoints={(q['model'],q['sample_key'],q['endpoint']):q for q in read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/trajectories.json'))}
+    with (relocate_path(BASE/'integrated/sources/digit_role_entropy/per_step_roles.csv')).open() as f:roles={(r['model'],r['sample_key'],r['endpoint'],int(r['ar_step'])):r for r in csv.DictReader(f)}
+    with (relocate_path(BASE/'integrated/sources/digit_role_entropy/role_statistics.csv')).open() as f:
         stats=list(csv.DictReader(f))
     for s in stats:
         for k in ['gt_digits','generated_digits','n']:s[k]=int(s[k])
         for k in ['mean_entropy','median_entropy','q25','q75']:s[k]=float(s[k])
     samples=read(relocate_path(ROOT/'predictions/cohorts/pilot_300/samples.json'));media=read(relocate_path(BASE/'media_manifest.json'));manifest=[];done=0;role_count=0
     for sample in samples:
-        item=dict(sample,media=media[sample['video_path']]['media'],models={})
-        dest=relocate_path(OUT/item['media']);dest.parent.mkdir(parents=True,exist_ok=True)
-        if not dest.exists():os.link(relocate_path(BASE/item['media']),dest)
+        item=dict(sample,media=media_reference(BASE,OUT,media[sample['video_path']]['media']),models={})
         for model in ['qwen25','qwen3']:
             raw=read(relocate_path(BASE/model/(sample['sample_key']+'.json')));key=(model,sample['sample_key']);qj=joint.get(key);eps={}
             for endpoint in ['start','end']:
@@ -46,12 +46,7 @@ def main():
     assert len(manifest)==300 and len(joint)==594 and len(endpoints)==1188 and role_count==len(roles)
     write_result_text((relocate_path(OUT/'manifest.js')), 'window.MANIFEST='+json.dumps(manifest,ensure_ascii=False)+';\nwindow.ROLE_STATS='+json.dumps(stats,ensure_ascii=False)+';\n')
     for name in ['report.html','style.css','viewer.js','NotoSansKR.ttf','OFL.txt']:copy_result_file(relocate_path(ASSETS/name),relocate_path(OUT/name))
-    for name in ['prefix_entropy','endpoint_gt_entropy','digit_role_entropy']:
-        shutil.copytree(relocate_path(BASE/name),relocate_path(OUT/'sources'/name),dirs_exist_ok=True,copy_function=link_asset,ignore=shutil.ignore_patterns('REPORT.md'))
-        report=relocate_path(OUT/'sources'/name/'REPORT.md')
-        if report.exists() or report.is_symlink():report.unlink()
-        link_asset(relocate_path(BASE/name/'REPORT.md'),report)
-    es=read(relocate_path(BASE/'endpoint_gt_entropy/summary.json'));ds=read(relocate_path(BASE/'digit_role_entropy/summary.json'))
+    es=read(relocate_path(BASE/'integrated/sources/endpoint_gt_entropy/summary.json'));ds=read(relocate_path(BASE/'integrated/sources/digit_role_entropy/summary.json'))
     lines=['# 세 엔트로피 분석 통합: 읽기 쉬운 순서','',
         '[통합 영상·토큰 탐색 화면](report.html)','',
         '## 먼저 샘플 하나에서 확인하기','',
@@ -68,11 +63,11 @@ def main():
     lines+=['','공동 구간 IoU만으로 분류하면 한쪽 오류가 다른 쪽의 단계를 가린다. 이를 줄이는 주 분석은 GT 고정 판정이다. 다만 GT 고정은 평가에만 적용했으며, 종료 토큰의 분포는 원래 생성된 시작 시각에 조건화되어 있다.','',
         '역할 비교에서는 유지/최초 상실 각 그룹이 5개 이상인 셀을 우선 읽는다. 같은 자릿수/역할에서조차 영상·질의·GT 구간 길이와 이전 prefix는 다르므로 막대 평균 차이는 인과 효과나 오류 탐지 성능이 아니다. 전체 숫자 평균과 여러 자릿수를 섞은 산점도보다 해석 범위가 좁고 구체적이다.','',
         '## 일관되게 유지한 기준','',
-        '- 기준은 IoU≥0.5이며, 원본 CSV에는 0.3/0.7 판정도 보존했다.','- 가능성 유지란 올바른 GT 문자열을 생성했다는 뜻이 아니라 허용한 completion 중 성공 구간이 남아 있다는 뜻이다.','- 초 단위 정수/소수 한 자리, 불필요한 선행 0 없음이라는 표기 범위를 사용했다.','- 예측만 기존 규칙대로 반올림하고 GT는 원 정밀도를 유지했다.','- H는 선택 직전 raw 전체 어휘 분포의 엔트로피(nat)다. 낮은 H는 높은 IoU를 보장하지 않는다.','- 자릿수와 역할은 반올림 전 생성 문자열에서 사후 지정했다. 여러 역할을 포함한 token을 중복 집계하지 않았다.','- 기존 Decord 디코딩 품질 한계와 표본 크기 한계는 유지된다.','',
+        '- 기준은 IoU≥0.5이며, 원본 CSV에는 0.3/0.7 판정도 보존했다.','- 가능성 유지란 올바른 GT 문자열을 생성했다는 뜻이 아니라 허용한 completion 중 성공 구간이 남아 있다는 뜻이다.','- 초 단위 정수/소수 한 자리, 불필요한 선행 0 없음이라는 표기 범위를 사용했다.','- 예측만 기존 규칙대로 반올림하고 GT는 원 정밀도를 유지했다.','- H는 선택 직전 raw top-30 재정규화 분포의 엔트로피(nat)다. 낮은 H는 높은 IoU를 보장하지 않는다.','- 자릿수와 역할은 반올림 전 생성 문자열에서 사후 지정했다. 여러 역할을 포함한 token을 중복 집계하지 않았다.','- 기존 Decord 디코딩 품질 한계와 표본 크기 한계는 유지된다.','',
         '## 원본 결과','',
-        '- [전체 구간 prefix 분석](sources/prefix_entropy/REPORT.md)','- [GT 고정 endpoint 분석](sources/endpoint_gt_entropy/REPORT.md)','- [자릿수·역할 분석](sources/digit_role_entropy/REPORT.md)','- [GT 고정 step CSV](sources/endpoint_gt_entropy/per_step.csv)','- [역할별 통계 CSV](sources/digit_role_entropy/role_statistics.csv)','',
-        '통합 과정에서 모델 추론이나 판정 기준을 바꾸지 않았다. 원본 entropy·label과 통합 값의 일치, 600개 응답 커버리지, 5,905개 역할 step 결합을 검증했다. HTML은 상대경로 자산을 함께 유지하면 file://에서도 사용할 수 있으며 영상 구간 탐색은 로컬 HTTP 서버를 권장한다.']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n');write('validation.json',dict(passed=True,responses=done,analyzed_responses=len(joint),endpoints=len(endpoints),role_steps=role_count,source_entropy_labels_exact=True));write('status.json',dict(state='built',stage='awaiting browser validation',completed=600,total=600,percent=100,elapsed_seconds=time.time()-started))
+        '- [전체 구간 prefix 분석](../prefix_entropy/REPORT.md)','- [GT 고정 endpoint 분석](endpoint_gt_entropy/REPORT.md)','- [자릿수·역할 분석](digit_role_entropy/REPORT.md)','- [GT 고정 step CSV](sources/endpoint_gt_entropy/per_step.csv)','- [역할별 통계 CSV](sources/digit_role_entropy/role_statistics.csv)','',
+        '통합 과정에서 모델 추론이나 판정 기준을 바꾸지 않았다. 재정규화 entropy·label과 통합 값의 일치, 600개 응답 커버리지, 5,905개 역할 step 결합을 검증했다. HTML은 상대경로 자산을 함께 유지하면 file://에서도 사용할 수 있으며 영상 구간 탐색은 로컬 HTTP 서버를 권장한다.']
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n');write('validation.json',dict(passed=True,responses=done,analyzed_responses=len(joint),endpoints=len(endpoints),role_steps=role_count,top30_entropy_labels_exact=True));write('status.json',dict(state='built',stage='awaiting browser validation',completed=600,total=600,percent=100,elapsed_seconds=time.time()-started))
 if __name__=='__main__':
     try:main()
     except Exception:

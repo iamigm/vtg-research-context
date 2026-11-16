@@ -1,7 +1,9 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Endpoint-specific prefix feasibility; opposite endpoint fixed to exact GT.
 Uses saved greedy distributions. Does NOT condition generation on GT.
 """
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json,csv,re,math,time,traceback
 import numpy as np
@@ -9,7 +11,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from timelens_prefix_entropy import metric,MODELS,DATASETS,THRESHOLDS
-ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'endpoint_gt_entropy')
+ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/pilot/300');OUT=relocate_path(BASE/'integrated/sources/endpoint_gt_entropy')
 def read(p):return json.loads(p.read_text())
 def write(name,obj):write_result_text((relocate_path(OUT/name)), json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
 def csvfile(name,rows):
@@ -60,7 +62,7 @@ def main():
                             values=cache[prefix]
                         best,witness=best_iou(gt,values,endpoint);assert best<=previous+1e-10
                         overlap=text[max(a,offset):min(b,limit)];numeric=bool(re.search(r'\d',overlap))
-                        row=dict(model=model,dataset=sample['dataset'],sample_key=sample['sample_key'],endpoint=endpoint,endpoint_step=len(states)+1,ar_step=t['step'],token=t['token'],numeric=numeric,closed=closed,prefix=prefix,entropy=t['raw']['entropy_nats'],processed_entropy=t['processed']['entropy_nats'],oracle_before=previous,oracle_after=best,witness_endpoint=witness,fixed_gt_endpoint=gt[1] if endpoint=='start' else gt[0],joint_iou=r['iou'])
+                        row=dict(model=model,dataset=sample['dataset'],sample_key=sample['sample_key'],endpoint=endpoint,endpoint_step=len(states)+1,ar_step=t['step'],token=t['token'],numeric=numeric,closed=closed,prefix=prefix,entropy=entropy_top30(t['raw']),processed_entropy=entropy_top30(t['processed']),oracle_before=previous,oracle_after=best,witness_endpoint=witness,fixed_gt_endpoint=gt[1] if endpoint=='start' else gt[0],joint_iou=r['iou'])
                         for th in THRESHOLDS:row['label_'+str(int(th*100))]='initially_unattainable' if initial+1e-12<th else ('retains_feasibility' if best+1e-12>=th else ('first_loss' if previous+1e-12>=th else 'after_loss'))
                         states.append(row);previous=best
                     offset=limit
@@ -100,7 +102,7 @@ def main():
                         if pts:ax.scatter([v['relative_step']+rng.uniform(-.1,.1) for v in pts],[v['entropy'] for v in pts],s=16,alpha=.45,color=color,marker='o' if numeric else 'x')
                 ax.axvline(0,color='#bc3333',alpha=.3);ax.set_xticks(range(-3,4));ax.set_title(f'{model} / {ds.split("-")[0]}: first loss N={len(fault)}');ax.grid(alpha=.2)
                 if mi==1:ax.set_xlabel('Actual step relative to this endpoint\'s first loss')
-                if di==0:ax.set_ylabel('Single-step raw entropy (nats)')
+                if di==0:ax.set_ylabel('Single-step top-30 renormalized entropy (nats)')
         fig.suptitle(f'{endpoint.upper()} endpoint: opposite endpoint fixed to GT (IoU >= 0.5)\nNo temporal averaging. Blue: feasible; red: first loss; gray: after. Circle: number; cross: punctuation/boundary.')
         fig.tight_layout(rect=(0,0,1,.92));fig.savefig(relocate_path(OUT/f'{endpoint}_step_entropy.png'),dpi=160);fig.savefig(relocate_path(OUT/f'{endpoint}_step_entropy.svg'));plt.close(fig)
     rows=[{k:v for k,v in q.items() if k!='steps'} for q in trajectories];csvfile('per_endpoint.csv',rows);csvfile('per_step.csv',steps);csvfile('excluded.csv',excluded);write('trajectories.json',trajectories)
@@ -121,7 +123,7 @@ def main():
         lines.append(f"- {endpoint}: 원래 구간은 실패했지만 반대쪽을 GT로 고정하면 성공하는 응답은 총 {rescued}개(두 모델 합산)다.")
     lines+=['','판정은 음이 아닌 초 단위 숫자, 정수/소수 한 자리, 선행 0 없음이라는 표기 범위 내에서만 유효하다. 다른 문법, 추가 소수 자리, 수정 문장을 허용하면 회복 가능성이 달라질 수 있다. 표본의 분포는 고정된 실제 greedy 경로의 조건부 분포이며, 가능한 completion이 실제 모델에서 선택될 확률까지 계산한 것은 아니다. 기존 Decord 디코딩 한계도 유지된다.','',
         '[endpoint별 CSV](per_endpoint.csv) · [step별 CSV](per_step.csv) · [전체 경로 JSON](trajectories.json) · [집계·검증 JSON](summary.json) · [제외 목록](excluded.csv)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n');write('status.json',dict(state='complete',completed=600,total=600,percent=100,analyzed_responses=len(rows)//2,endpoint_evaluations=len(rows),excluded=len(excluded),elapsed_seconds=time.time()-started))
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n');write('status.json',dict(state='complete',completed=600,total=600,percent=100,analyzed_responses=len(rows)//2,endpoint_evaluations=len(rows),excluded=len(excluded),elapsed_seconds=time.time()-started))
 if __name__=='__main__':
     try:main()
     except Exception:

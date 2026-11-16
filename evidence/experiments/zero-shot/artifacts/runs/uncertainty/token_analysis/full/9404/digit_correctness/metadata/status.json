@@ -1,7 +1,8 @@
 {
-  "state": "complete",
-  "responses": 18808,
-  "supported": 18591,
-  "excluded": 217,
-  "browser_validation": true
+  "state": "built",
+  "stage": "browser validation pending",
+  "completed": 37182,
+  "total": 37182,
+  "percent": 100,
+  "elapsed_seconds": 104.12305235862732
 }

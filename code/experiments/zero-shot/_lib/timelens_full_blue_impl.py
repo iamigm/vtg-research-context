@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Three-axis analysis of feasibility-preserving numeric steps; saved logits only."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 from collections import defaultdict,Counter
 import csv,json,re,time,traceback,math,sys,os,hashlib,html
@@ -35,15 +37,16 @@ def classify_token(before,token,gt,endpoint):
         return ('safe' if round(float(before))==gt else 'unsafe'),'format'
     return 'unresolved','other'
 def dist_info(dist,before,gt,ep):
+    original_mass, normalized = top30_distribution(dist)
     items=[];mass=Counter();entropy=Counter()
-    for t in dist['top30']:
+    for t in normalized:
         state,kind=classify_token(before,t['token'],gt,ep);p=t['probability'];items.append(dict(t,state=state,kind=kind));mass[state]+=p;mass[kind]+=p
         entropy[state]+=-p*math.log(p) if p>0 else 0
-    total=sum(t['probability'] for t in items);tail=max(0.,1-total)
+    total=math.fsum(t['probability'] for t in items);tail=0.
     lo=min(1.,mass['safe']);hi=max(lo,min(1.,1-mass['unsafe']))
     observed=mass['safe'];within=(entropy['safe']/observed+math.log(observed)) if observed>0 else None
     band='safe_dominant' if lo>=2/3 else ('unsafe_dominant' if hi<=1/3 else ('competition' if lo>=1/3 and hi<2/3 else 'unresolved_band'))
-    return dict(safe_lower=lo,safe_upper=hi,unsafe_mass=min(1.,mass['unsafe']),unresolved_mass=min(1.,mass['unresolved']+tail),tail_mass=tail,top30_mass=total,number_mass=mass['number'],format_mass=mass['format'],other_mass=mass['other'],observed_safe_entropy=within,safe_entropy_contribution=entropy['safe'],unsafe_entropy_contribution=entropy['unsafe'],mass_band=band),items
+    return dict(safe_lower=lo,safe_upper=hi,unsafe_mass=min(1.,mass['unsafe']),unresolved_mass=min(1.,mass['unresolved']+tail),tail_mass=tail,top30_mass=original_mass,conditional_probability_sum=total,number_mass=mass['number'],format_mass=mass['format'],other_mass=mass['other'],observed_safe_entropy=within,safe_entropy_contribution=entropy['safe'],unsafe_entropy_contribution=entropy['unsafe'],mass_band=band),items
 LABEL={'safe_dominant':'正답 가능 우세 (하한≥2/3)','unsafe_dominant':'오류 후보 우세 (상한≤1/3)','competition':'경쟁 (구간이 1/3–2/3 안)','unresolved_band':'확률 구간이 경계를 걸침','endpoint_correct':'끝까지 유지','next_numeric_failure':'다음 숫자에서 실패','later_numeric_failure':'더 나중 숫자에서 실패','format_failure':'소수점·종료에서 실패'}
 LABEL['safe_dominant']='정답 가능 우세 (하한≥2/3)'
 TITLES={'candidate_axis':'후보 확률이 어디에 모이는가','future_axis':'이후 언제 정답 가능성을 잃는가','position_axis':'어느 위치의 숫자를 생성하는가'}
@@ -74,11 +77,11 @@ def validate():
     assert classify_token('24',':',24,'start')[0]=='unresolved'
     assert classify_token('24.','5',25,'end')[0]=='unsafe'
     d,items=dist_info(dict(top30=[dict(id=1,token='9',probability=.4),dict(id=2,token='4',probability=.3)]),'23.',24,'end')
-    assert abs(d['safe_lower']-.4)<1e-8 and abs(d['safe_upper']-.7)<1e-8
+    assert abs(d['safe_lower']-4/7)<1e-8 and abs(d['safe_upper']-4/7)<1e-8
 
 def main():
     OUT.mkdir(exist_ok=True);validate();progress('loading',0,600)
-    dump('provenance.json',dict(source_csv_sha256=hashlib.sha256((relocate_path(SOURCE/'per_step.csv')).read_bytes()).hexdigest(),script_sha256=hashlib.sha256(relocate_path(Path(__file__)).read_bytes()).hexdigest(),entropy='saved raw full-vocabulary',candidate_probabilities='raw top30 without renormalization',high_entropy_quantile=.75,strata=['model','dataset','endpoint','role'],bootstrap_seed=42,bootstrap_repeats=500))
+    dump('provenance.json',dict(source_csv_sha256=hashlib.sha256((relocate_path(SOURCE/'per_step.csv')).read_bytes()).hexdigest(),script_sha256=hashlib.sha256(relocate_path(Path(__file__)).read_bytes()).hexdigest(),entropy='renormalized raw top30',candidate_probabilities='raw top30 renormalized to sum one',high_entropy_quantile=.75,strata=['model','dataset','endpoint','role'],bootstrap_seed=42,bootstrap_repeats=500))
     source=list(csv.DictReader((relocate_path(SOURCE/'per_step.csv')).open()));groups=defaultdict(list)
     for s in source:groups[(s['model'],s['sample_key'],s['endpoint'])].append(s)
     media=json.loads((relocate_path(BASE/'media_manifest.json')).read_text());rows=[];details=[];counts=Counter();byresponse=defaultdict(list)
@@ -97,9 +100,9 @@ def main():
                 elif failure['numeric']!='True':outcome='format_failure';distance=None
                 else:
                     distance=int(failure['digit_ordinal'])-int(s['digit_ordinal']);outcome='next_numeric_failure' if distance==1 else 'later_numeric_failure'
-                row=dict(model=model,dataset=s['dataset'],sample_key=key,endpoint=ep,ar_step=ar,role=s['role'],digit_stage='first' if int(s['digit_ordinal'])==1 else 'subsequent',gt_digits=int(s['gt_digits']),generated_digits=int(s['generated_digits']),prefix_before=before,selected=intro,gt=gt,entropy=float(s['entropy']),outcome=outcome,numeric_steps_to_failure=distance,failure_ar_step=int(failure['ar_step']) if failure else None,selected_probability=step['raw_selected_probability'],selected_rank=step['raw_selected_rank'],processed_safe_lower=proc['safe_lower'],processed_safe_upper=proc['safe_upper'],**di)
-                assert abs(row['entropy']-step['raw']['entropy_nats'])<1e-7
-                rows.append(row);details.append(dict(row,query=raw['sample']['query'],answer=raw['answer'],gt_span=raw['sample']['span'][0],prediction=raw['timestamps'][0],media='../'+media[raw['sample']['video_path']]['media'],candidates=items))
+                row=dict(model=model,dataset=s['dataset'],sample_key=key,endpoint=ep,ar_step=ar,role=s['role'],digit_stage='first' if int(s['digit_ordinal'])==1 else 'subsequent',gt_digits=int(s['gt_digits']),generated_digits=int(s['generated_digits']),prefix_before=before,selected=intro,gt=gt,entropy=float(s['entropy']),outcome=outcome,numeric_steps_to_failure=distance,failure_ar_step=int(failure['ar_step']) if failure else None,selected_probability=selected_top30(step, 'raw'),selected_rank=step['raw_selected_rank'],processed_safe_lower=proc['safe_lower'],processed_safe_upper=proc['safe_upper'],**di)
+                assert abs(row['entropy']-entropy_top30(step['raw']))<1e-7
+                rows.append(row);details.append(dict(row,query=raw['sample']['query'],answer=raw['answer'],gt_span=raw['sample']['span'][0],prediction=raw['timestamps'][0],media=media_reference(BASE,OUT,media[raw['sample']['video_path']]['media']),candidates=items))
         counts[model+'/'+raw['sample']['dataset']]+=1
         if (i+1)%50==0:progress('candidate analysis',i+1,len(byresponse),dict(counts))
     strata=defaultdict(list)
@@ -125,12 +128,12 @@ def main():
         for outcome,color in colors.items():
             rr=[r for r in rows if r['model']==model and r['endpoint']==ep and r['outcome']==outcome]
             ax.scatter([r['safe_lower'] for r in rr],[r['entropy'] for r in rr],s=13,alpha=.45,color=color,label=LABEL[outcome])
-        ax.set_title(model+' · '+LABEL[ep]);ax.set_xlabel('A: 정답 가능 후보 확률 합');ax.set_ylabel('전체 어휘 엔트로피 (nat)');ax.grid(alpha=.15)
+        ax.set_title(model+' · '+LABEL[ep]);ax.set_xlabel('A: 정답 가능 후보 확률 합');ax.set_ylabel('top-30 재정규화 entropy (nat)');ax.grid(alpha=.15)
     axesplot[0,0].legend(fontsize=8);fig.tight_layout();fig.savefig(relocate_path(OUT/'safe_mass_vs_entropy.png'),dpi=150);plt.close(fig)
-    lines=['# 정답 가능성을 유지한 숫자 단계: 세 축 분석','',f'전체 벤치마크 9,404개 × 두 모델의 지원 표기 응답 중 파란 숫자 **{len(rows)}개**를 분석했다. 첫 숫자를 포함하며 기존 raw 전체 어휘 엔트로피를 그대로 사용한다. 기존 pilot 추론은 재사용하고 나머지는 같은 조건으로 새로 추론했다.','', '[영상과 후보별 확률 보기](report.html)','',
+    lines=['# 정답 가능성을 유지한 숫자 단계: 세 축 분석','',f'전체 벤치마크 9,404개 × 두 모델의 지원 표기 응답 중 파란 숫자 **{len(rows)}개**를 분석했다. 첫 숫자를 포함하며 저장된 raw top-30 확률로 entropy를 다시 계산했다. 전체 저장 trace를 재사용했으며 이번 재집계에는 새 추론이 없다.','', '[영상과 후보별 확률 보기](report.html)','',
       '## A와 B의 정의','',
       '후보 토큰을 현재 prefix에 붙였을 때, 기존과 동일한 비음수 정수 또는 소수 한 자리 문법에서 Python round(float(value)) 결과가 GT인 완성이 존재하면 정답 가능 후보다. 정수부 선행 0은 허용하지 않는다. 확실한 숫자·소수점·종료 후보만 판정하고 나머지 형식 또는 텍스트 토큰은 미확인으로 둔다. 이 가능성은 문법상 존재 여부이며 모델이 실제로 그 완성을 생성할 확률은 아니다.','',
-      'A는 top-30에서 정답 가능이라고 판정한 후보들의 원확률 합이다. B는 정답 불가능이라고 판정한 후보들의 원확률 합이다. top-30 밖과 판정하지 못한 후보는 둘 다 제외한다. 재정규화하지 않으며 최종 응답 정답률을 의미하지 않는다.','',
+      'A는 top-30 재정규화 확률 q 중 정답 가능 후보의 합, B는 정답 불가능 후보의 합이다. 미확인은 top-30 안의 판정 불가 후보뿐이다. A+B+미확인=1이며 top-30 밖은 조건부 표본공간에서 제외한다. 최종 응답 정답률을 의미하지 않는다.','',
       EXAMPLE,'','표의 평균 A와 평균 B는 각 샘플 내부에서 해당 단계들의 값을 평균한 뒤 샘플 간 평균했다. 확률 그룹은 A≥2/3이면 정답 가능 후보 우세, B≥2/3이면 불가능 후보 우세, A≥1/3이고 B>1/3이면 양쪽 후보가 경쟁하는 것으로 분류한다. 나머지는 미확인 확률 때문에 그룹을 확정하지 않는다. 1/3과 2/3은 탐색적으로 정한 기준이다.','',
       '높은 엔트로피는 모델 × 데이터셋 × 시작 또는 종료 × 실제 출력 자릿수 내부 75백분위 이상이다. 동률 때문에 정확히 25%가 아닐 수 있다. 숫자 단계 10개 미만인 비교 집단은 별도 표시하며, 첫 숫자와 후속 숫자와 GT 자릿수와 생성 자릿수도 교차 표로 제공한다.','',
       '후속 결과는 동일한 시작 또는 종료 시각의 끝까지 유지 / 다음 숫자 최초 실패 / 더 나중 숫자 최초 실패 / 소수점·종료 최초 실패로 구분한다. 다른 시각의 실패와 혼합하지 않는다.','',
@@ -155,19 +158,19 @@ def main():
                 for row in rr2:qs[row['sample_key']].append(row['outcome']!='endpoint_correct')
                 if qs:lines.append(f"  - {LABEL[ep]}, {'상위 엔트로피' if high else '나머지'}: 서로 다른 샘플 {len(qs)}개, 샘플 평균 후속 실패율 {100*np.mean([np.mean(v) for v in qs.values()]):.1f}%.")
     lines+=['','정답 가능 질량이 높은 고엔트로피는 허용되는 후보 사이의 분산을, 낮은 경우는 오류 후보와의 경쟁을 구분하는 데 유용하다. 미확인 확률이 남아 있으면 A와 B만으로 우세를 단정하지 않는다. 단계별 비교는 첫 숫자와 후속 자리, 데이터셋, 자릿수 구성에 영향을 받으므로 통합 실패율을 예측 성능이나 인과 효과로 해석하지 않는다. 특히 소수 마지막 자리에는 이후 숫자가 없어 이후 실패 기회 자체가 적다. 같은 위치의 교차 표와 함께 보아야 한다.','',
-      'observed_safe_entropy는 top-30 내 확인된 정답 가능 후보만 조건부 정규화한 엔트로피이며 전체 정답 후보 엔트로피가 아니다. 원래 전체 어휘 H와 혼동하지 않는다. 원분포의 정답 가능 후보와 불가능 후보 엔트로피 기여량도 CSV에 저장했다.','',
+      'observed_safe_entropy는 top-30 내 확인된 정답 가능 후보만 조건부 정규화한 엔트로피이며 전체 정답 후보 엔트로피가 아니다. top-30 전체 H₃₀와 혼동하지 않는다. 재정규화 분포의 정답 가능 후보와 불가능 후보 엔트로피 기여량도 CSV에 저장했다.','',
       '![정답 가능 질량과 불확실성](safe_mass_vs_entropy.png)','',
       '## 원자료','', '[단계별 수치](per_blue_step.csv) · [후보 축](candidate_axis.csv) · [후속 결과 축](future_axis.csv) · [위치 축](position_axis.csv) · [세 축 교차](three_axis_cross.csv) · [후보×후속](candidate_future.csv) · [자릿수 통제](length_control.csv)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n')
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n')
     write_result_text((relocate_path(OUT/'data.js')), 'window.DATA='+json.dumps(details,ensure_ascii=False)+';\n')
     build_html();progress('browser validation',2,3,dict(counts));browser_validate()
-    dump('validation.json',dict(passed=True,blue_steps=len(rows),candidate_selected_safe=True,entropy_unchanged=True,probability_bounds_checked=all(0<=r['safe_lower']<=r['safe_upper']<=1 for r in rows),three_axes=list(axes),fixtures=10))
+    dump('validation.json',dict(passed=True,blue_steps=len(rows),candidate_selected_safe=True,top30_entropy_recomputed=True,probability_bounds_checked=all(0<=r['safe_lower']<=r['safe_upper']<=1 for r in rows),three_axes=list(axes),fixtures=10))
     progress('complete',3,3,dict(counts));status=json.loads((relocate_path(OUT/'status.json')).read_text());status['state']='complete';dump('status.json',status)
 
 def build_html():
     write_result_text((relocate_path(OUT/'report.html')), '''<!doctype html><meta charset="utf-8"><title>정답 가능 단계의 불확실성</title><link rel="stylesheet" href="../style.css"><style>body{padding:20px}select{max-width:100%;margin:6px}td,th{padding:5px 12px;white-space:nowrap}table{width:max-content}body{overflow-x:auto}video{width:650px;max-width:100%}.safe{color:#357aa0}.unsafe{color:#c65243}.unresolved{color:#888}</style>
-<h1>정답 가능성을 유지한 숫자: 후보 · 이후 결과 · 생성 위치</h1><a href="REPORT.md">정량 결과·해석 MD</a><p>첫 숫자 포함. 후보 확률은 raw top-30이며 나머지 질량은 미확인입니다.</p>
-<details><summary>A와 B, 샘플 수 읽는 법</summary><p>A: top-30 안에서 정답 가능 후보의 확률 합. B: top-30 안에서 정답 불가능 후보의 확률 합. 예를 들어 각각 0.45, 0.40이면 A=0.45, B=0.40입니다. 나머지 0.15는 미확인 확률입니다. A+B가 1보다 작을 수 있으며 재정규화하지 않습니다.</p><p>샘플 수는 서로 다른 영상·질의 쌍의 수입니다. 보고서의 평균 A와 B는 샘플 내부 평균 후 샘플 간 평균한 값입니다. 최종 응답 정답률이 아닙니다.</p><p>확률 그룹의 1/3과 2/3은 탐색적 분류 기준입니다.</p></details><div id="filters"></div><p id="count"></p><label for="sort">정렬</label><select id="sort"><option value="sample">샘플 ID 순</option><option value="entropy_desc">엔트로피 높은 순</option><option value="entropy_asc">엔트로피 낮은 순</option></select><select id="cases"></select><h2 id="query"></h2><video id="video" controls muted preload="metadata"></video><p><button id="play">GT 구간 재생</button></p><p id="answer"></p><p id="info"></p><p id="bounds"></p><table><thead><tr><th>후보 토큰</th><th>원확률</th><th>판정</th><th>종류</th></tr></thead><tbody id="tokens"></tbody></table>
+<h1>정답 가능성을 유지한 숫자: 후보 · 이후 결과 · 생성 위치</h1><a href="REPORT.md">정량 결과·해석 MD</a><p>첫 숫자 포함. 후보 확률과 entropy는 raw top-30 재정규화 기준입니다. 미확인은 top-30 내부 판정 불가 후보입니다.</p>
+<details><summary>A와 B, 샘플 수 읽는 법</summary><p>A: top-30 안에서 정답 가능 후보의 확률 합. B: top-30 안에서 정답 불가능 후보의 확률 합. 예를 들어 각각 0.45, 0.40이면 A=0.45, B=0.40입니다. 나머지 0.15는 미확인 확률입니다. top-30 전체를 먼저 재정규화하며 A+B+내부 미확인 확률=1입니다.</p><p>샘플 수는 서로 다른 영상·질의 쌍의 수입니다. 보고서의 평균 A와 B는 샘플 내부 평균 후 샘플 간 평균한 값입니다. 최종 응답 정답률이 아닙니다.</p><p>확률 그룹의 1/3과 2/3은 탐색적 분류 기준입니다.</p></details><div id="filters"></div><p id="count"></p><label for="sort">정렬</label><select id="sort"><option value="sample">샘플 ID 순</option><option value="entropy_desc">엔트로피 높은 순</option><option value="entropy_asc">엔트로피 낮은 순</option></select><select id="cases"></select><h2 id="query"></h2><video id="video" controls muted preload="metadata"></video><p><button id="play">GT 구간 재생</button></p><p id="answer"></p><p id="info"></p><p id="bounds"></p><table><thead><tr><th>후보 토큰</th><th>재정규화 확률 q</th><th>판정</th><th>종류</th></tr></thead><tbody id="tokens"></tbody></table>
 <script src="data.js"></script><script>
 const $=x=>document.getElementById(x);let current=null;const labels={endpoint_correct:'끝까지 유지',next_numeric_failure:'다음 숫자 실패',later_numeric_failure:'나중 숫자 실패',format_failure:'서식 실패',safe_dominant:'정답 가능 우세',unsafe_dominant:'오류 후보 우세',competition:'경쟁',unresolved_band:'분류 경계 미확정',first:'첫 숫자',subsequent:'후속 숫자',safe:'정답 가능',unsafe:'정답 불가능',unresolved:'미확인'};
 Object.assign(labels,{start:'시작 시각',end:'종료 시각',hundreds:'백의 자리',tens:'십의 자리',ones:'일의 자리',tenths:'소수 첫째 자리',true:'불확실성 상위 25%',false:'그 외 단계',number:'숫자',format:'서식',other:'기타',safe_dominant:'정답 우세',unsafe_dominant:'오답 우세',competition:'경쟁',unresolved_band:'미확정'});const fieldNames={model:'모델',dataset:'벤치마크',endpoint:'예측 대상',role:'자릿수',digit_stage:'숫자 순서',outcome:'이후 결과',mass_band:'후보 확률 그룹',high_entropy:'불확실성 수준'};
@@ -184,12 +187,12 @@ $('video').onseeking=()=>{if(current&&($('video').currentTime<current.gt_span[0]
 $('video').ontimeupdate=()=>{if(gtPlaybackEnd!==null&&$('video').currentTime>=gtPlaybackEnd){gtPlaybackEnd=null;$('video').pause()}};update();
 </script>''')
 def browser_validate():
-    from timelens_paths import RESOURCES
+    RESOURCES = Path('/home/irteam/experiments/_shared/timelens')
     sys.path.insert(0,str(relocate_path(RESOURCES/'browser_deps')));os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(relocate_path(RESOURCES/'browser_cache'));os.environ['LD_LIBRARY_PATH']=str(relocate_path(RESOURCES/'browser_libs/usr/lib/x86_64-linux-gnu'))+':'+os.environ.get('LD_LIBRARY_PATH','');os.environ['FONTCONFIG_FILE']=str(relocate_path(RESOURCES/'browser_libs/fonts.conf'))
     from playwright.sync_api import sync_playwright
     errors=[]
     with sync_playwright() as p:
-        browser=p.chromium.launch(headless=True,args=['--no-sandbox','--autoplay-policy=no-user-gesture-required']);page=browser.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto('http://127.0.0.1:8774/blue_analysis/');page.wait_for_selector('#tokens tr')
+        browser=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--autoplay-policy=no-user-gesture-required']);page=browser.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto('http://127.0.0.1:8780/zero-shot/results/uncertainty/token_analysis/full/9404/digit_correctness/blue_analysis/report.html');page.wait_for_selector('#tokens tr')
         for model in ['qwen25','qwen3']:
             page.select_option('#model',model)
             for ep in ['start','end']:

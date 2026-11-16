@@ -1,7 +1,8 @@
 {
-  "state": "complete",
-  "completed": 600,
-  "total": 600,
+  "state": "built",
+  "stage": "browser validation pending",
+  "completed": 1188,
+  "total": 1188,
   "percent": 100,
-  "browser_validation": true
+  "elapsed_seconds": 4.591531276702881
 }

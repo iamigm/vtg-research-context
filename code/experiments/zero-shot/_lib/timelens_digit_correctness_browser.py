@@ -7,7 +7,7 @@ sys.path.insert(0,str(relocate_path(RESOURCES/'browser_deps')));os.environ['PLAY
 from playwright.sync_api import sync_playwright
 errors=[]
 with sync_playwright() as p:
-    browser=p.chromium.launch(headless=True,args=['--no-sandbox','--autoplay-policy=no-user-gesture-required']);page=browser.new_page(viewport={'width':1500,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)));page.goto('http://127.0.0.1:8773/')
+    browser=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--autoplay-policy=no-user-gesture-required']);page=browser.new_page(viewport={'width':1500,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)));page.goto('http://127.0.0.1:8780/zero-shot/results/uncertainty/token_analysis/pilot/300/digit_correctness/report.html')
     page.wait_for_function("current && document.querySelectorAll('#tokens tr').length>0")
     for model in ['qwen25','qwen3']:
         page.select_option('#model',model)

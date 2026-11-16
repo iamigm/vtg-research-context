@@ -12,13 +12,13 @@
       "first_loss_count": 27,
       "numeric_first_loss_count": 27,
       "boundary_first_loss_count": 0,
-      "first_loss_entropy": 1.839594587131783,
-      "numeric_first_loss_entropy": 1.839594587131783,
+      "first_loss_entropy": 1.8387835824670022,
+      "numeric_first_loss_entropy": 1.8387835824670022,
       "paired_count": 20,
-      "first_loss_minus_last_feasible_numeric_entropy": 1.0332136854529381,
+      "first_loss_minus_last_feasible_numeric_entropy": 1.0329637451786473,
       "paired_difference_ci95": [
-        0.7855438540503382,
-        1.2674901129305356
+        0.7854510346010247,
+        1.2671772553835627
       ]
     },
     {
@@ -33,13 +33,13 @@
       "first_loss_count": 33,
       "numeric_first_loss_count": 33,
       "boundary_first_loss_count": 0,
-      "first_loss_entropy": 1.8745623244762872,
-      "numeric_first_loss_entropy": 1.8745623244762872,
+      "first_loss_entropy": 1.8735402921803603,
+      "numeric_first_loss_entropy": 1.8735402921803603,
       "paired_count": 17,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.1876488933339715,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.1874715866121497,
       "paired_difference_ci95": [
-        -0.212129948410096,
-        0.5411207945469547
+        -0.21152343642358432,
+        0.5404236663643224
       ]
     },
     {
@@ -54,13 +54,13 @@
       "first_loss_count": 18,
       "numeric_first_loss_count": 18,
       "boundary_first_loss_count": 0,
-      "first_loss_entropy": 1.697985397444831,
-      "numeric_first_loss_entropy": 1.697985397444831,
+      "first_loss_entropy": 1.6968301414354414,
+      "numeric_first_loss_entropy": 1.6968301414354414,
       "paired_count": 11,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.7082600092346018,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.7076478393379261,
       "paired_difference_ci95": [
-        0.3918745384974913,
-        1.00606986338442
+        0.3915167312324436,
+        1.005838257012457
       ]
     },
     {
@@ -75,13 +75,13 @@
       "first_loss_count": 18,
       "numeric_first_loss_count": 18,
       "boundary_first_loss_count": 0,
-      "first_loss_entropy": 1.3215584997087717,
-      "numeric_first_loss_entropy": 1.3215584997087717,
+      "first_loss_entropy": 1.32155765018994,
+      "numeric_first_loss_entropy": 1.32155765018994,
       "paired_count": 10,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.5844984360039234,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.5844976564066269,
       "paired_difference_ci95": [
-        0.07615778394043446,
-        1.0583085606805978
+        0.07615768191985747,
+        1.0583067788350382
       ]
     },
     {
@@ -96,13 +96,13 @@
       "first_loss_count": 30,
       "numeric_first_loss_count": 30,
       "boundary_first_loss_count": 0,
-      "first_loss_entropy": 1.218448490401109,
-      "numeric_first_loss_entropy": 1.218448490401109,
+      "first_loss_entropy": 1.2184470267817327,
+      "numeric_first_loss_entropy": 1.2184470267817327,
       "paired_count": 13,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.4134829262128243,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.4134807010554098,
       "paired_difference_ci95": [
-        0.15577900744974615,
-        0.6520388882893782
+        0.15577715052367458,
+        0.6520351189765379
       ]
     },
     {
@@ -117,13 +117,13 @@
       "first_loss_count": 25,
       "numeric_first_loss_count": 23,
       "boundary_first_loss_count": 2,
-      "first_loss_entropy": 0.9672016756236553,
-      "numeric_first_loss_entropy": 0.9456551896165246,
+      "first_loss_entropy": 0.9672003728377832,
+      "numeric_first_loss_entropy": 0.9456538732451144,
       "paired_count": 16,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.14637941517867148,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.14637864982375898,
       "paired_difference_ci95": [
-        -0.19430449289502574,
-        0.4773449131695088
+        -0.19430551452150005,
+        0.4773447316079722
       ]
     },
     {
@@ -138,13 +138,13 @@
       "first_loss_count": 44,
       "numeric_first_loss_count": 43,
       "boundary_first_loss_count": 1,
-      "first_loss_entropy": 1.3589248252964437,
-      "numeric_first_loss_entropy": 1.3905272902704255,
+      "first_loss_entropy": 1.3586225083572787,
+      "numeric_first_loss_entropy": 1.3902180375962059,
       "paired_count": 23,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.8537110923719845,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.8536574060546723,
       "paired_difference_ci95": [
-        0.4905923870584482,
-        1.1728610398748929
+        0.4905438765013478,
+        1.1727414028390506
       ]
     },
     {
@@ -159,13 +159,13 @@
       "first_loss_count": 57,
       "numeric_first_loss_count": 56,
       "boundary_first_loss_count": 1,
-      "first_loss_entropy": 0.9676500097575308,
-      "numeric_first_loss_entropy": 0.984925147645429,
+      "first_loss_entropy": 0.9675088157052436,
+      "numeric_first_loss_entropy": 0.9847820051594821,
       "paired_count": 36,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.7799704359949575,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.7799521766514818,
       "paired_difference_ci95": [
-        0.5215262229818475,
-        1.010059531493302
+        0.5215511756392368,
+        1.0100649587868253
       ]
     },
     {
@@ -180,13 +180,13 @@
       "first_loss_count": 55,
       "numeric_first_loss_count": 54,
       "boundary_first_loss_count": 1,
-      "first_loss_entropy": 0.9988562832408744,
-      "numeric_first_loss_entropy": 1.0173533551183742,
+      "first_loss_entropy": 0.9987027229855218,
+      "numeric_first_loss_entropy": 1.017197093085169,
       "paired_count": 31,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.81811817128491,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.8180766956208497,
       "paired_difference_ci95": [
-        0.565086999600742,
-        1.063463899509236
+        0.5650343028259487,
+        1.063390014516807
       ]
     },
     {
@@ -201,13 +201,13 @@
       "first_loss_count": 37,
       "numeric_first_loss_count": 34,
       "boundary_first_loss_count": 3,
-      "first_loss_entropy": 1.315879391040653,
-      "numeric_first_loss_entropy": 1.357455759514671,
+      "first_loss_entropy": 1.3158784454287762,
+      "numeric_first_loss_entropy": 1.3574549106683638,
       "paired_count": 21,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.8808251047323991,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.880824283872151,
       "paired_difference_ci95": [
-        0.41576104960175664,
-        1.2955654322556387
+        0.41575942363707913,
+        1.295564604152686
       ]
     },
     {
@@ -222,13 +222,13 @@
       "first_loss_count": 43,
       "numeric_first_loss_count": 41,
       "boundary_first_loss_count": 2,
-      "first_loss_entropy": 1.0565225258487823,
-      "numeric_first_loss_entropy": 1.1077385493896346,
+      "first_loss_entropy": 1.0565214558902094,
+      "numeric_first_loss_entropy": 1.1077374251846746,
       "paired_count": 26,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.879681351673534,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.8796805316649645,
       "paired_difference_ci95": [
-        0.48137864558988724,
-        1.2194576887736241
+        0.4813767079795619,
+        1.2194572605926433
       ]
     },
     {
@@ -243,13 +243,13 @@
       "first_loss_count": 22,
       "numeric_first_loss_count": 19,
       "boundary_first_loss_count": 3,
-      "first_loss_entropy": 0.8500013957102717,
-      "numeric_first_loss_entropy": 0.868214524042981,
+      "first_loss_entropy": 0.8500009963362053,
+      "numeric_first_loss_entropy": 0.8682141049105404,
       "paired_count": 13,
-      "first_loss_minus_last_feasible_numeric_entropy": 0.3349780099854867,
+      "first_loss_minus_last_feasible_numeric_entropy": 0.33497796915677125,
       "paired_difference_ci95": [
-        -0.28180152390106317,
-        0.8197355312707187
+        -0.2818013186447004,
+        0.8197353510213526
       ]
     }
   ],

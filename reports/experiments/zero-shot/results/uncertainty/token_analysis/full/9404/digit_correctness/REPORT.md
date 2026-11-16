@@ -1,12 +1,15 @@
-# 반올림 기준 자릿수별 불확실성 · 전체 full9404 (모델별 9,404질문)
+# 반올림 기준 자릿수별 불확실성 · full · 9,404 queries
 
-[샘플별 영상·토큰 HTML](report.html)
+이 보고서의 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step에서 M = Σ(top-30) pᵢ, qᵢ = pᵢ/M, H₃₀ = −Σ qᵢ ln qᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30) ≈ 3.401197이며 높을수록 top-30 내부 분포가 고르다. raw와 processed는 각각 자신의 top-30을 사용한다. top-30 밖의 질량은 조건부 분포에서 제외한다. 정답 가능성은 기존 문법·반올림·IoU 판정을 뜻하며 모델의 최종 정답 확률과 다르다. 원본 응답·판정·전체 vocabulary 분포 계측값은 보존하고 보고서의 파생 지표만 재계산했다.
+
+
+[샘플별 영상·토큰 HTML](../report.html)
 
 예측 endpoint를 기존 평가와 동일한 Python `round(float(value))`로 반올림한 결과가 GT와 같으면 모든 생성 step을 정답으로 처리한다. 다르면 각 prefix에서 반올림 정답으로 완성할 수 있는지 검사한다. 정수부에서 가능성이 사라지면 해당 숫자가 최초 오류다. 소수부도 동일하게 정답 가능성이 실제로 처음 사라지는 숫자 step을 최초 오류로 표시한다. 소수점으로 앞당기지 않는다. 정수 종료로 가능성이 사라지면 종료 단계가 최초 오류다. 후보 표기는 원자료와 동일하게 음이 아닌 초, 정수 또는 소수 한 자리, 불필요한 선행 0 없음으로 제한한다. 시작과 종료를 각각 판정한다. Python 반올림은 정확히 .5일 때 가까운 짝수로 처리한다.
 
 예: GT 24에 대한 23.9는 모두 정답. 23.4는 23.까지 정답 가능, 숫자 4가 최초 오류다. 35.0은 첫 숫자 3, 25.0은 숫자 5에서 정답 가능성이 사라진다. 빨간 표시 first_error와 실제 가능성 상실 actual_feasibility_loss는 항상 일치한다. GT 문자 일치 여부는 참고 필드로만 남긴다.
 
-전체 벤치마크 9,404개 × 두 모델의 greedy 생성 분포를 분석했다. 지원 표기 수와 제외 사유는 ../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/summary.json에 기록했다. 기존 pilot 분포는 재사용하고 나머지는 같은 조건으로 추론했다.
+전체 벤치마크 9,404개 × 두 모델의 greedy 생성 분포를 분석했다. 지원 표기 수와 제외 사유는 summary.json에 기록했다. 기존 pilot 분포는 재사용하고 나머지는 같은 조건으로 추론했다.
 
 ## endpoint 결과
 
@@ -35,22 +38,22 @@
 
 | 모델 | 대상 | 경우 | N query / N step | 평균 H [95% CI] |
 |---|---|---|---|---|
-| qwen25 | start | 첫 숫자 정답 | 6198 / 6198 | 0.954 [0.940, 0.969] |
-| qwen25 | start | 첫 숫자 오답 | 3206 / 3206 | 1.584 [1.567, 1.601] |
-| qwen25 | start | 이전까지 정답 → 정답 | 3652 / 4809 | 1.309 [1.283, 1.334] |
-| qwen25 | start | 이전까지 정답 → 최초 오답 | 3778 / 3778 | 1.954 [1.939, 1.967] |
-| qwen25 | start | 이전 오류 이후 숫자 | 5821 / 8455 | 1.993 [1.979, 2.007] |
-| qwen25 | start | 이전까지 정답 가능 → 최초 오류 (서식) | 10 / 10 | 1.578 [1.376, 1.764] |
-| qwen25 | start | all_correct_endpoints | 2410 / 5831 | 1.164 [1.140, 1.185] |
-| qwen25 | start | not_all_correct_endpoints | 6994 / 20615 | 1.700 [1.691, 1.709] |
+| qwen25 | start | 첫 숫자 정답 | 6198 / 6198 | 0.954 [0.939, 0.969] |
+| qwen25 | start | 첫 숫자 오답 | 3206 / 3206 | 1.583 [1.566, 1.600] |
+| qwen25 | start | 이전까지 정답 → 정답 | 3652 / 4809 | 1.308 [1.282, 1.333] |
+| qwen25 | start | 이전까지 정답 → 최초 오답 | 3778 / 3778 | 1.953 [1.938, 1.966] |
+| qwen25 | start | 이전 오류 이후 숫자 | 5821 / 8455 | 1.992 [1.978, 2.006] |
+| qwen25 | start | 이전까지 정답 가능 → 최초 오류 (서식) | 10 / 10 | 1.575 [1.373, 1.761] |
+| qwen25 | start | all_correct_endpoints | 2410 / 5831 | 1.163 [1.139, 1.185] |
+| qwen25 | start | not_all_correct_endpoints | 6994 / 20615 | 1.700 [1.690, 1.708] |
 | qwen25 | end | 첫 숫자 정답 | 5079 / 5079 | 0.476 [0.459, 0.493] |
 | qwen25 | end | 첫 숫자 오답 | 4325 / 4325 | 0.893 [0.871, 0.914] |
-| qwen25 | end | 이전까지 정답 → 정답 | 1954 / 2858 | 1.217 [1.185, 1.251] |
+| qwen25 | end | 이전까지 정답 → 정답 | 1954 / 2858 | 1.217 [1.184, 1.250] |
 | qwen25 | end | 이전까지 정답 → 최초 오답 | 4186 / 4186 | 1.433 [1.412, 1.455] |
 | qwen25 | end | 이전 오류 이후 숫자 | 7882 / 11995 | 1.856 [1.842, 1.870] |
-| qwen25 | end | 이전까지 정답 가능 → 최초 오류 (서식) | 67 / 67 | 0.468 [0.346, 0.591] |
+| qwen25 | end | 이전까지 정답 가능 → 최초 오류 (서식) | 67 / 67 | 0.467 [0.345, 0.590] |
 | qwen25 | end | all_correct_endpoints | 826 / 2441 | 1.351 [1.318, 1.386] |
-| qwen25 | end | not_all_correct_endpoints | 8578 / 26002 | 1.360 [1.350, 1.370] |
+| qwen25 | end | not_all_correct_endpoints | 8578 / 26002 | 1.360 [1.349, 1.370] |
 | qwen3 | start | 첫 숫자 정답 | 6583 / 6583 | 0.433 [0.421, 0.445] |
 | qwen3 | start | 첫 숫자 오답 | 2604 / 2604 | 0.975 [0.955, 0.996] |
 | qwen3 | start | 이전까지 정답 → 정답 | 4558 / 6541 | 0.979 [0.956, 1.001] |
@@ -79,9 +82,3 @@
 오류 전 상태는 GT 문자 자체의 일치가 아니라 반올림 정답으로 완성 가능한 prefix를 뜻한다. 소수점이나 종료 구분자 자체가 가능한 완성 후보를 없애는 경우에는 그 서식 step이 최초 오류다. 첫 숫자도 동일한 가능성 기준으로 파랑 또는 빨강으로 표시한다. 반올림 endpoint 일치와 전체 구간 IoU는 다른 지표다. entropy는 원래 생성 경로의 분포이며 인과 효과를 뜻하지 않는다.
 
 [전체 step](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/per_step.csv) · [endpoint](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/per_endpoint.csv) · [경우별](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/conditions.csv) · [자리별](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/role_conditions.csv) · [조건부 상태 비율](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/position_conditional_accuracy.csv) · [자릿수 통제](../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/digit_stratified.csv)
-
-## 전체 벤치마크 분석 범위
-
-전체 응답 18,808개 중 지원 표기 18,591개, 제외 217개. 제외 목록은 ../../../../../../artifacts/runs/uncertainty/token_analysis/full/9404/digit_correctness/metrics/summary.json에 기록했다.
-
-[정답 가능 상태의 세 축 분석](blue_analysis/REPORT.md)

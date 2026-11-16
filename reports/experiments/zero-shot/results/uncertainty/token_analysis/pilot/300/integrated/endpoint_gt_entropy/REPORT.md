@@ -1,4 +1,7 @@
-# 반대쪽 시각을 GT로 고정한 endpoint별 엔트로피
+# 반대쪽 시각을 GT로 고정한 endpoint별 entropy
+
+이 보고서의 entropy와 후보 확률은 top-30 재정규화 기준이다. 각 step에서 M = Σ(top-30) pᵢ, qᵢ = pᵢ/M, H₃₀ = −Σ qᵢ ln qᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30) ≈ 3.401197이며 높을수록 top-30 내부 분포가 고르다. raw와 processed는 각각 자신의 top-30을 사용한다. top-30 밖의 질량은 조건부 분포에서 제외한다. 정답 가능성은 기존 문법·반올림·IoU 판정을 뜻하며 모델의 최종 정답 확률과 다르다. 원본 응답·판정·전체 vocabulary 분포 계측값은 보존하고 보고서의 파생 지표만 재계산했다.
+
 
 동일 pilot 300개 × 두 모델의 저장된 greedy 분포를 사용했다. 초 단위/소수 한 자리 범위의 594개 응답에서 시작·종료를 각각 평가했다. MM:SS 등 6개 응답은 명시적으로 제외했다. GPU 재추론은 없다.
 
@@ -7,19 +10,19 @@
 
 GT는 원래 정밀도 그대로 고정한다. 예측 숫자만 기존 평가와 동일하게 Python round한다. 각 endpoint의 prefix에서 완성 가능한 최대 IoU를 계산하고, 0.5 아래로 처음 내려가는 토큰을 독립적으로 표시한다. 0.3/0.7 기준도 CSV에 포함했다. 반대쪽 시각이 이미 틀렸더라도 이 endpoint가 정답 가능한 상태이면 오류 이후로 분류하지 않는다.
 
-**생성된 시작 시각을 GT로 바꾸어 모델을 다시 실행한 실험은 아니다.** 종료 시각의 엔트로피는 여전히 원래 생성한 시작 시각에 조건화되어 있다. GT 고정은 평가에만 적용하므로 실제 토큰 분포를 그대로 재사용한다.
+**생성된 시작 시각을 GT로 바꾸어 모델을 다시 실행한 실험은 아니다.** 종료 시각의 entropy는 여전히 원래 생성한 시작 시각에 조건화되어 있다. GT 고정은 평가에만 적용하므로 실제 token distribution를 그대로 재사용한다.
 
-![시작 시각](start_step_entropy.png)
+![시작 시각](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/start_step_entropy.png)
 
-![종료 시각](end_step_entropy.png)
+![종료 시각](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/end_step_entropy.png)
 
-가로축 0은 해당 endpoint의 최초 가능성 상실 step이고, 점 하나는 평균하지 않은 단일 step의 선택 직전 엔트로피다. 각 그래프에는 그 endpoint에서 실패한 응답만 포함한다. 반대쪽 endpoint의 step은 섞지 않았다. 원은 숫자, ×는 소수점/구분자다.
+가로축 0은 해당 endpoint의 최초 가능성 상실 step이고, 점 하나는 평균하지 않은 단일 step의 선택 직전 entropy다. 각 그래프에는 그 endpoint에서 실패한 응답만 포함한다. 반대쪽 endpoint의 step은 섞지 않았다. 원은 숫자, ×는 소수점/구분자다.
 
 | 모델 | 벤치마크 | 평가 대상 | N | GT 고정 R@.5 (%) | 평균 절대오차 (초) | 기존 구간 실패→이 endpoint 성공 N | 최초 오류 N (숫자/경계) | 최초 오류 H |
 |---|---|---|---:|---:|---:|---:|---:|---:|
-| qwen25 | charades-timelens | start | 100 | 73.0 | 2.830 | 31 | 27 (27/0) | 1.840 |
-| qwen25 | activitynet-timelens | start | 100 | 67.0 | 11.830 | 40 | 33 (33/0) | 1.875 |
-| qwen25 | qvhighlights-timelens | start | 100 | 82.0 | 8.510 | 58 | 18 (18/0) | 1.698 |
+| qwen25 | charades-timelens | start | 100 | 73.0 | 2.830 | 31 | 27 (27/0) | 1.839 |
+| qwen25 | activitynet-timelens | start | 100 | 67.0 | 11.830 | 40 | 33 (33/0) | 1.874 |
+| qwen25 | qvhighlights-timelens | start | 100 | 82.0 | 8.510 | 58 | 18 (18/0) | 1.697 |
 | qwen3 | charades-timelens | start | 100 | 82.0 | 2.230 | 33 | 18 (18/0) | 1.322 |
 | qwen3 | activitynet-timelens | start | 96 | 68.8 | 16.990 | 25 | 30 (30/0) | 1.218 |
 | qwen3 | qvhighlights-timelens | start | 98 | 74.5 | 13.306 | 12 | 25 (23/2) | 0.967 |
@@ -39,4 +42,4 @@ GT는 원래 정밀도 그대로 고정한다. 예측 숫자만 기존 평가와
 
 판정은 음이 아닌 초 단위 숫자, 정수/소수 한 자리, 선행 0 없음이라는 표기 범위 내에서만 유효하다. 다른 문법, 추가 소수 자리, 수정 문장을 허용하면 회복 가능성이 달라질 수 있다. 표본의 분포는 고정된 실제 greedy 경로의 조건부 분포이며, 가능한 completion이 실제 모델에서 선택될 확률까지 계산한 것은 아니다. 기존 Decord 디코딩 한계도 유지된다.
 
-[endpoint별 CSV](per_endpoint.csv) · [step별 CSV](per_step.csv) · [전체 경로 JSON](trajectories.json) · [집계·검증 JSON](summary.json) · [제외 목록](excluded.csv)
+[endpoint별 CSV](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/per_endpoint.csv) · [step별 CSV](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/per_step.csv) · [전체 경로 JSON](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/trajectories.json) · [집계·검증 JSON](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/summary.json) · [제외 목록](../../../../../../../../../../../home1/irteam/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/excluded.csv)

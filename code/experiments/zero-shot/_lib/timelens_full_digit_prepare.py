@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Construct endpoint traces for full-cohort digit analysis without the old IoU oracle."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 import json,re,time,hashlib,os
 ROOT=relocate_path(Path(__file__)).resolve().parents[1];BASE=relocate_path(ROOT/'results/uncertainty/token_analysis/full/9404')
@@ -18,7 +20,7 @@ def extract(raw):
             limit=offset+len(t['token'])
             if limit>a and offset<=b:
                 prefix=text[a:min(limit,b)];closed=limit>b;intro=text[max(a,offset):min(b,limit)]
-                states.append(dict(model=raw['model_key'],dataset=sample['dataset'],sample_key=sample['sample_key'],endpoint=endpoint,endpoint_step=len(states)+1,ar_step=t['step'],token=t['token'],numeric=bool(re.search(r'\d',intro)),closed=closed,prefix=prefix,entropy=t['raw']['entropy_nats'],processed_entropy=t['processed']['entropy_nats'],joint_iou=raw['iou']))
+                states.append(dict(model=raw['model_key'],dataset=sample['dataset'],sample_key=sample['sample_key'],endpoint=endpoint,endpoint_step=len(states)+1,ar_step=t['step'],token=t['token'],numeric=bool(re.search(r'\d',intro)),closed=closed,prefix=prefix,entropy=entropy_top30(t['raw']),processed_entropy=entropy_top30(t['processed']),joint_iou=raw['iou']))
             offset=limit
         if not states or not states[-1]['closed']:return None
         ep_pred=[predicted[0],gt[1]] if n==1 else [gt[0],predicted[1]]

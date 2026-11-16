@@ -2,6 +2,18 @@
 
 ## Token uncertainty · top-30 renormalized entropy
 
+`digit_correctness/within_path/`는 동일 query·모델·endpoint 경로의 최초 numeric 오류와 이전 정답 가능 numeric step을 비교한다. `metrics/per_path.json`은 paired 차이·경로 평균 등 파생 지표만 저장하며 viewer는 기존 digit trace를 읽는다. query 단위 bootstrap과 response/endpoint fixed effects 및 role·numeric 순서 통제로 경로 간 baseline 차이를 구분한다. `metadata/provenance.json`에 원본 CSV hash와 기준을 기록한다. `.venv/bin/python _lib/timelens_within_path.py launch`로 실행하면 top-30 보고서 재생성·검증 완료 후 pilot300/full9404 분석, MD·그래프·viewer·검증·통합 index 갱신을 이어서 수행한다. 상태와 로그는 full9404의 같은 analysis 아래 `metadata/status.json`, `logs/run.log`다.
+
+Within-path의 쉬운 해설은 `_lib/within_path_explanation.py`에서 생성한다. `.venv/bin/python _lib/timelens_within_path.py report`는 저장된 집계를 사용해 pilot300/full9404 보고서와 viewer를 재생성하며 원본 CSV 및 지표 JSON hash가 유지되는지 확인한다. 이후 공통 `_lib/build_index.py`로 대표 뷰와 목록을 갱신한다. provenance에는 분석 코드와 해설 코드의 hash를 함께 기록한다.
+
+Token uncertainty의 모든 sample 시각화는 `_lib/token_viewer/`의 공통 양식을 사용하며 각 scope의 `report.html` 하나로 게시한다. 메인은 전체 decoding step의 raw top-30 entropy 변화와 같은 endpoint의 오류 전후 차이이며, 선택한 step의 token distribution·정답 가능성은 보조 패널이다. GT 고정 IoU와 다른 sample의 같은 자릿수 비교는 접힌 보조 분석에 둔다. 좌측 빠른 필터와 정량 범위는 함께 적용하며 sample·model·endpoint·step·필터를 URL에 보존한다.
+
+`_lib/publish_token_viewer.py`는 공통 `experiments/_lib/build_index.py`가 호출한다. scope의 `metrics/viewer_catalog.json`에는 필터용 파생 scalar와 기존 후보 자료의 byte offsets만 저장한다. 192MB full 후보 파일 전체를 브라우저에 싣지 않고 HTTP Range로 선택 sample의 후보 record만 읽는다. 원본의 SHA-256은 `metadata/viewer_sources.json`에 기록하며 확률·응답·정답 label을 복제하거나 바꾸지 않는다. `overview/web/view_groups.json`은 scope당 하나의 결과·보고서와 appendix 문서 묶음을 정의한다. 세부 MD와 원자료 경로를 보존하고 별도 상세 HTML·preview는 통합한다. `.venv/bin/python _lib/verify_token_viewer.py`로 필터를 원자료와 대조하고 분포·부분 읽기·빈 결과·URL 복원·영상·모바일·보고서 전환을 검증한다. preview는 scope 루트의 최신본만 유지한다.
+
+Token uncertainty의 기본 보고서·자릿수별 정답·prefix 정답 가능성·GT 고정 endpoint·정답 가능 후보 분석·최초 오류 거리 분석은 `_lib/token_uncertainty_metrics.py`의 top-30 재정규화 기준을 사용한다. 후보 표와 정답 가능/불가/미확인 질량도 같은 조건부 확률 q를 사용하며, top-30 밖은 이 분포에서 제외한다. 반올림·IoU 정답 판정과 원본 trace는 유지한다.
+
+전체 보고서 재생성은 `.venv/bin/python _lib/timelens_uncertainty_refresh.py launch`로 실행한다. `full/9404/top30_renormalized/metadata/report_refresh_status.json`과 `logs/report_refresh.log`에 pilot300·full9404의 단계별 진행·오류를 기록한다. 완료 후 기존 보고서·그림·viewer를 대체하고 원본 SHA-256, 정답 판정 불변, step별 entropy, 후보 확률 합, 영상 재생·모바일·통합 index를 검증한다. 실패를 수정한 뒤 같은 명령에 `--resume`를 붙여 완료 단계를 재사용할 수 있다. 비교용 `top30_renormalized` 보고서에는 이전 전체 vocabulary entropy와의 차이를 함께 유지한다.
+
 `runs/uncertainty/token_analysis/{pilot/300,full/9404}/top30_renormalized/`에 저장된 raw·processed top-30을 재정규화한 파생 지표를 둔다. 각 step에서 `M = sum(top30 probability)`, `q = p/M`, `H30 = -sum(q ln q)`를 계산하며 기존 전체 vocabulary entropy와 응답·IoU는 유지한다. `metrics/per_step.csv.gz`와 `per_query.csv`는 파생 scalar이며 원래 token ID·확률은 복제하지 않는다. `metadata/sources.json`의 원본 경로·SHA-256으로 확률과 재정규화된 q를 재구성한다. 수치 검증은 `validation/numerical.json`, 결과 보고서는 같은 상대 경로의 `results/`에 있다.
 
 재생성은 `python3 _lib/timelens_top30_renormalized.py launch`로 detached 실행한다. full 범위의 `logs/run.log`와 `metadata/status.json`에 두 범위의 진행·오류를 기록하며, 완료 후 보고서·공통 index·대표 viewer 갱신과 링크 검증을 자동 실행한다. GPU 추론은 필요하지 않다.

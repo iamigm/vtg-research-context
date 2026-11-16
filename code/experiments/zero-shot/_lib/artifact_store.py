@@ -10,8 +10,9 @@ def atomic(path,data):
     path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_name(path.name+f'.{os.getpid()}.tmp');write_result_text(tmp, json.dumps(data,ensure_ascii=False,indent=2)+'\n');tmp.replace(path)
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def relative(path):
-    try:return str(relocate_path(Path(path)).absolute().relative_to(ROOT))
-    except ValueError:return str(relocate_path(Path(path)).absolute())
+    resolved=Path(canonical(relocate_path(Path(path)))).absolute()
+    try:return str(resolved.relative_to(ROOT))
+    except ValueError:return str(resolved)
 def register(resource_id,kind,path,description,producer='',cohort='',state='available',depends_on=()):
     if kind not in KINDS:raise ValueError(kind)
     if not resource_id or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-' for c in resource_id):raise ValueError('Use a stable alphanumeric resource ID')

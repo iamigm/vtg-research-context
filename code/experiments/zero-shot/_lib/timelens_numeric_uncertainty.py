@@ -1,5 +1,7 @@
+from token_uncertainty_metrics import entropy_top30, selected_top30, top30_distribution, report_definition
 """Compare full-vocabulary uncertainty at numeric and nonnumeric greedy steps."""
 from result_layout import relocate_path, write_result_text
+from token_uncertainty_output import write_result_text, copy_result_file, media_reference
 from pathlib import Path
 from collections import defaultdict,Counter
 import json,csv,re,time,traceback
@@ -23,7 +25,7 @@ def summary(rows):
     return dict(n_queries=len(a),n_steps=len(steps),mean=float(a.mean()),ci95=np.quantile(bs,[.025,.975]).tolist(),step_weighted_mean=float(steps.mean()),step_median=float(np.median(steps)))
 def main():
     OUT.mkdir(exist_ok=True);started=time.time();samples=read(relocate_path(ROOT/'predictions/cohorts/pilot_300/samples.json'))
-    with (relocate_path(BASE/'digit_role_entropy/per_step_roles.csv')).open() as f:role_rows=list(csv.DictReader(f))
+    with (relocate_path(BASE/'integrated/sources/digit_role_entropy/per_step_roles.csv')).open() as f:role_rows=list(csv.DictReader(f))
     rolemap={}
     for r in role_rows:
         key=(r['model'],r['sample_key'],int(r['ar_step']));assert key not in rolemap;rolemap[key]=r
@@ -41,7 +43,7 @@ def main():
                     elif re.search(r'[a-zA-Z]',token):cat='text'
                     else:cat='other'
                 if cat in ROLES:assert numeric
-                records.append(dict(model=model,dataset=sample['dataset'],sample_key=sample['sample_key'],ar_step=s['step'],token=token,numeric=numeric,category=cat,endpoint=role['endpoint'] if role else '',gt_digits=int(role['gt_digits']) if role else None,generated_digits=int(role['generated_digits']) if role else None,entropy=s['raw']['entropy_nats'],processed_entropy=s['processed']['entropy_nats'],raw_selected_probability=s['raw_selected_probability'],iou=r['iou']))
+                records.append(dict(model=model,dataset=sample['dataset'],sample_key=sample['sample_key'],ar_step=s['step'],token=token,numeric=numeric,category=cat,endpoint=role['endpoint'] if role else '',gt_digits=int(role['gt_digits']) if role else None,generated_digits=int(role['generated_digits']) if role else None,entropy=entropy_top30(s['raw']),processed_entropy=entropy_top30(s['processed']),raw_selected_probability=selected_top30(s, 'raw'),iou=r['iou']))
             done+=1
             if done%100==0:
                 elapsed=time.time()-started;state=dict(state='running',stage='classifying saved token steps',completed=done,total=600,percent=done/6,elapsed_seconds=elapsed,eta_seconds=elapsed*(600-done)/done);write('status.json',state);print(json.dumps(state),flush=True)
@@ -75,7 +77,7 @@ def main():
             ax.errorbar([0,1],heights,yerr=[[s['mean']-s['ci95'][0] for s in vals],[s['ci95'][1]-s['mean'] for s in vals]],fmt='none',color='black',capsize=5)
             for x,s in enumerate(vals):ax.text(x,s['mean']+.035,f"{s['mean']:.4f}\n{ s['n_steps']} steps",ha='center',fontsize=10)
             ax.set_xticks([0,1],['Numeric tokens','All other tokens']);ax.set_title(f'{m} / {ds.split("-")[0]}');ax.grid(axis='y',alpha=.2)
-            if di==0:ax.set_ylabel('Query-balanced mean full-vocab entropy (nats)')
+            if di==0:ax.set_ylabel('Query-balanced mean top-30 renormalized entropy (nats)')
     fig.suptitle('Numeric vs. nonnumeric steps: same saved greedy responses\n95% query-bootstrap CI; paired numeric-minus-other differences in report');fig.tight_layout(rect=(0,0,1,.92));fig.savefig(relocate_path(OUT/'numeric_vs_other.png'),dpi=160);plt.close(fig)
     columns=['hundreds','tens','ones','tenths','decimal_point','separator','whitespace','text','eos'];matrix=np.full((6,len(columns)),np.nan);annotations={}
     for mi,m in enumerate(MODELS):
@@ -90,7 +92,7 @@ def main():
     fig.colorbar(im,ax=ax,label='Query-balanced mean entropy (nats)');ax.set_title('Where uncertainty concentrates: numeric place value vs. other token roles\nN = contributing queries (not token count); start/end pooled here; stratified data provided separately');fig.tight_layout();fig.savefig(relocate_path(OUT/'uncertainty_by_role.png'),dpi=160);fig.savefig(relocate_path(OUT/'uncertainty_by_role.svg'));plt.close(fig)
     csvfile('per_step.csv',records);csvfile('category_summary.csv',categories);csvfile('endpoint_role_summary.csv',endpoints);csvfile('digit_stratified_summary.csv',stratified)
     write('summary.json',dict(paired=paired,categories=categories,endpoint_roles=endpoints,digit_stratified=stratified,total_responses=600,total_steps=len(records),numeric_definition='token stripped of whitespace matches digits only',role_mapped_steps=len(rolemap),unmapped_numeric_steps=sum(r['category']=='numeric_other' for r in records),bootstrap_samples=2000,bootstrap_seed=42))
-    lines=['# 숫자 생성과 나머지 토큰의 불확실성','',f'기존 full-head greedy 600개 응답, {len(records):,}개 step의 raw 전체 어휘 엔트로피를 재집계했다. GPU 재추론은 없다. 숫자 토큰은 공백 제거 후 문자열 전체가 숫자로 이루어진 토큰이다. 소수점은 숫자에 포함하지 않고 별도 분류했다.','',
+    lines=['# 숫자 생성과 나머지 토큰의 불확실성','',f'기존 full-head greedy 600개 응답, {len(records):,}개 step의 raw top-30 재정규화 엔트로피를 재집계했다. GPU 재추론은 없다. 숫자 토큰은 공백 제거 후 문자열 전체가 숫자로 이루어진 토큰이다. 소수점은 숫자에 포함하지 않고 별도 분류했다.','',
         '주 통계는 query별 해당 유형 step의 평균을 구한 뒤 query 간 평균한 값이다. 같은 query의 숫자/나머지를 paired 비교했다. 95% CI는 query 단위 2,000회 bootstrap이다. CSV에는 step 가중 평균과 step 중앙값도 보존했다.','',
         '![숫자 대 나머지](numeric_vs_other.png)','',
         '| 모델 | 벤치마크 | 숫자 H | 나머지 H | paired ΔH [95% CI] | 숫자의 step 비중 (%) | 숫자의 ΣH 비중 (%) |','|---|---|---:|---:|---|---:|---:|']
@@ -108,7 +110,7 @@ def main():
         lines.append(f"- {m}: 숫자 평균 H={p['numeric']['mean']:.4f}, 나머지={p['nonnumeric']['mean']:.4f} nat. 숫자 step은 {100*p['numeric_step_fraction']:.1f}%지만 관측 ΣH의 {100*p['numeric_entropy_sum_fraction']:.2f}%를 차지한다. 자릿수별 집계에서 가장 큰 평균은 {LABELS[peak['category']]}의 {peak['mean']:.4f} nat(N={peak['n_queries']} query)다.")
     lines+=['','이 결과는 “시간 숫자가 정형 문구보다 예측하기 어려운가”에 관한 것이다. 엔트로피가 큰 숫자가 반드시 틀리거나, 작은 숫자가 반드시 맞는다는 결론은 아니다. 평균 역할 표는 시작·종료와 자릿수 길이가 섞인 설명용 요약이다. 엄밀한 같은 조건 비교를 위해 모델·벤치마크·시작/종료·GT 자릿수·생성 자릿수·역할로 분리한 CSV를 함께 제공했다. 백의 자리처럼 표본이 적은 경우 N을 함께 보아야 한다.','',
         '[모든 step CSV](per_step.csv) · [역할별 통계 CSV](category_summary.csv) · [시작/종료별 역할 CSV](endpoint_role_summary.csv) · [GT·생성 자릿수 통제 CSV](digit_stratified_summary.csv) · [전체 정량 JSON](summary.json)']
-    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(lines)+'\n');write('status.json',dict(state='complete',completed=600,total=600,percent=100,total_steps=len(records),elapsed_seconds=time.time()-started))
+    write_result_text((relocate_path(OUT/'REPORT.md')), '\n'.join(report_definition(lines))+'\n');write('status.json',dict(state='complete',completed=600,total=600,percent=100,total_steps=len(records),elapsed_seconds=time.time()-started))
 if __name__=='__main__':
     try:main()
     except Exception:

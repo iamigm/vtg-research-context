@@ -107,6 +107,13 @@ def add_navigation(path, text):
 
 
 def build():
+    # The token family publishes one sample viewer per scope from saved analyses.
+    token_lib=ROOT/'zero-shot/_lib'
+    if (token_lib/'publish_token_viewer.py').exists():
+        import sys
+        sys.path.insert(0,str(token_lib))
+        from publish_token_viewer import publish
+        publish()
     from pilot_catalog import build_pilot_catalog
     from project_pilot_catalog import build_project_pilot_catalogs
     from family_catalog import build_family_catalog
