@@ -13,3 +13,5 @@ html[data-experiment-detail] .token-layout h2{font-size:17px;line-height:1.5}
 .token-strip button small{font-size:10px;opacity:.7;margin-bottom:6px}.token-strip button span{display:block}
 .case-header{grid-template-columns:minmax(0,1fr) 320px}.case-header video{display:block;width:100%;max-height:215px;margin:8px 0;background:#111;border-radius:7px}
 @media(max-width:900px){.case-header{grid-template-columns:1fr}.case-header video{max-width:420px}}
+
+.chart-y-axis{position:sticky;left:0;width:50px;height:250px;margin-bottom:-250px;background:var(--ui-surface,#fff);z-index:2;pointer-events:none}.chart-y-axis span{position:absolute;right:7px;font-size:11px;color:var(--ui-muted,#52685b)}

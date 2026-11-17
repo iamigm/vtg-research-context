@@ -8,6 +8,7 @@
 - [정답 가능성을 유지한 숫자 단계: 세 축 분석 · pilot · 300 queries](digit_correctness/blue_analysis/REPORT.md)
 - [Within-path 상세 결과 · pilot · 300 queries](digit_correctness/within_path/APPENDIX.md)
 - [Within-path entropy 비교 · pilot · 300 queries](digit_correctness/within_path/REPORT.md)
+- [Entropy 상승과 최초 오류 · pilot · 300 queries](entropy_error/REPORT.md)
 - [Zero-shot entropy와 IoU의 관계 · pilot · 300 queries](entropy_iou/REPORT.md)
 - [세 entropy 분석 통합: 읽기 쉬운 순서 · pilot · 300 queries](integrated/REPORT.md)
 - [자릿수·토큰 역할별 entropy: 반대쪽 시각 GT 고정](integrated/digit_role_entropy/REPORT.md)
@@ -15,3 +16,10 @@
 - [숫자 생성과 나머지 토큰의 불확실성 · pilot · 300 queries](numeric_uncertainty/REPORT.md)
 - [정답 가능성을 처음 잃는 생성 단계의 entropy · pilot · 300 queries](prefix_entropy/REPORT.md)
 - [Top-30 renormalized entropy · pilot · 300 queries](top30_renormalized/REPORT.md)
+
+## 다른 실험의 저장된 decoding 자료
+
+원래 계열·실제 query 범위의 appendix로 연결하며 현재 scope와 합산하지 않는다.
+
+- [다른 decoding 경로 · deterministic pilot 900](../../../../rollout/deterministic/viewer.html?view=pilot%2F900%2FAPPENDIX_ENTROPY.md)
+- [고정 prefix 영상 perturbation · pilot 60](../../../../rollout/oracle_switch_controls/viewer.html?view=pilot%2F60%2FAPPENDIX_ENTROPY.md)

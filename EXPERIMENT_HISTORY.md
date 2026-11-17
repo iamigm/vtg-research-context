@@ -3687,3 +3687,36 @@
 - 원본 부재: reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/digit_role_entropy/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/endpoint_gt_entropy/REPORT.md
 - 원본 부재: reports/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/integrated/sources/prefix_entropy/REPORT.md
+
+## 2026-11-17T09:00:00.001419+09:00
+
+원본 파일 직접 관찰: 18개 실행, 864개 코드·의존성 파일. 이전 commit: 4f79deb99a5e63b19b2dc091186e737b80e0b2ad.
+
+추가 12 / 변경 14 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/entropy_error_appendix.py
+- code/experiments/zero-shot/_lib/entropy_evidence_design.py
+- code/experiments/zero-shot/_lib/rollout_entropy_appendix.py
+- code/experiments/zero-shot/_lib/saved_decoding_entropy_links.py
+- code/experiments/zero-shot/_lib/verify_entropy_error_appendix.py
+- code/experiments/zero-shot/_lib/video_probe_entropy_appendix.py
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/entropy_error/metrics/summary.json
+- evidence/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/entropy_error/metrics/summary.json
+- reports/experiments/zero-shot/results/rollout/deterministic/pilot/900/APPENDIX_ENTROPY.md
+- reports/experiments/zero-shot/results/rollout/oracle_switch_controls/pilot/60/APPENDIX_ENTROPY.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/entropy_error/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/entropy_error/REPORT.md
+- code/experiments/zero-shot/_lib/publish_token_viewer.py
+- code/experiments/zero-shot/_lib/timelens_within_path.py
+- code/experiments/zero-shot/_lib/verify_token_viewer.py
+- code/experiments/zero-shot/_lib/token_viewer/style.css
+- code/experiments/zero-shot/_lib/token_viewer/viewer.js
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/web/token_viewer.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/token_viewer.js
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/APPENDIX.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/APPENDIX.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md

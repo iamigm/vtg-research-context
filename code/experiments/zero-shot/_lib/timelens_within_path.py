@@ -366,6 +366,8 @@ def run():
             if upstream['state']=='failed':raise RuntimeError('Upstream report refresh failed: '+upstream.get('error',''))
             status('waiting_for_top30_reports',upstream_stage=upstream.get('stage'));time.sleep(20)
         for scope in ('pilot/300','full/9404'):build(scope)
+        from entropy_error_appendix import build as build_error_appendix
+        for scope in ('pilot/300','full/9404'):build_error_appendix(scope)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/build_index.py')],check=True)
         subprocess.run([sys.executable,str(ROOT.parent/'_lib/refresh_result_servers.py')],check=True)
         browser_check()

@@ -2,11 +2,17 @@
 
 ## Token uncertainty · top-30 renormalized entropy
 
+`entropy_error/`의 appendix는 특수 필터별 최초 오류 기술통계와 오류 이전 risk step의 상승 신호를 구분한다. 같은 model·query·endpoint 안에서 최초 오류의 entropy 차이와 유지 step의 차이를 비교하고, 민감도·오경보율·상승 시 오류 비율 및 role을 통제한 결과를 기록한다. `.venv/bin/python _lib/entropy_error_appendix.py`로 pilot300/full9404의 기존 자료에서 재생성한 뒤 공통 `experiments/_lib/build_index.py`를 실행한다. `timelens_within_path.py run`의 후처리에도 포함한다. 지표·그림·출처·검증은 각 scope의 `artifacts/runs/uncertainty/token_analysis/<scope>/entropy_error/`에 저장한다. 영상 증거 개입과 decoding 정책은 `_lib/entropy_evidence_design.py`의 미실행 설계이며 관측 결과와 구분한다. `_lib/verify_entropy_error_appendix.py`는 통합 viewer의 appendix 진입·그림·scope·모바일·결과 복귀를 검증한다.
+
+다른 저장된 decoding 자료는 원래 실험 scope의 `APPENDIX_ENTROPY.md`에 둔다. `_lib/rollout_entropy_appendix.py`는 deterministic pilot900의 고유 prefix 분포와 후보 참조에서 free suffix 오류·같은 부모의 분기 후 entropy/IoU를 집계한다. `_lib/video_probe_entropy_appendix.py`는 oracle_switch_controls pilot60의 동일 prefix 영상 perturbation과 고정 크기 대조군을 재집계한다. 두 생성기는 새 추론 없이 기존 자료를 읽고 각 원래 scope의 `metrics/entropy_*.json`, `figures/entropy_*.svg`, `metadata/entropy_*.json`, `validation/entropy_*.json`에 파생 자료만 저장한다. 전자는 native top-30 재정규화, 후자는 원본에서 고정한 30개 후보 support 재정규화이므로 직접 같은 지표로 합치지 않는다. `_lib/saved_decoding_entropy_links.py`가 Token uncertainty의 본문·appendix에서 원래 계열의 보고서로 연결하며 sample·분포 원자료를 복제하지 않는다.
+
 `digit_correctness/within_path/`는 동일 query·모델·endpoint 경로의 최초 numeric 오류와 이전 정답 가능 numeric step을 비교한다. `metrics/per_path.json`은 paired 차이·경로 평균 등 파생 지표만 저장하며 viewer는 기존 digit trace를 읽는다. query 단위 bootstrap과 response/endpoint fixed effects 및 role·numeric 순서 통제로 경로 간 baseline 차이를 구분한다. `metadata/provenance.json`에 원본 CSV hash와 기준을 기록한다. `.venv/bin/python _lib/timelens_within_path.py launch`로 실행하면 top-30 보고서 재생성·검증 완료 후 pilot300/full9404 분석, MD·그래프·viewer·검증·통합 index 갱신을 이어서 수행한다. 상태와 로그는 full9404의 같은 analysis 아래 `metadata/status.json`, `logs/run.log`다.
 
 Within-path의 쉬운 해설은 `_lib/within_path_explanation.py`에서 생성한다. `.venv/bin/python _lib/timelens_within_path.py report`는 저장된 집계를 사용해 pilot300/full9404 보고서와 viewer를 재생성하며 원본 CSV 및 지표 JSON hash가 유지되는지 확인한다. 이후 공통 `_lib/build_index.py`로 대표 뷰와 목록을 갱신한다. provenance에는 분석 코드와 해설 코드의 hash를 함께 기록한다.
 
 Token uncertainty의 모든 sample 시각화는 `_lib/token_viewer/`의 공통 양식을 사용하며 각 scope의 `report.html` 하나로 게시한다. 메인은 전체 decoding step의 raw top-30 entropy 변화와 같은 endpoint의 오류 전후 차이이며, 선택한 step의 token distribution·정답 가능성은 보조 패널이다. GT 고정 IoU와 다른 sample의 같은 자릿수 비교는 접힌 보조 분석에 둔다. 좌측 빠른 필터와 정량 범위는 함께 적용하며 sample·model·endpoint·step·필터를 URL에 보존한다.
+
+최초 오류 위치는 정수부·소수부(tenths)·서식·오류 없음으로 분리한다. 같은 버튼 그룹 안의 복수 선택은 OR, 서로 다른 그룹 및 정량 범위는 AND로 결합한다. 기존 `delta_previous`는 직전 정답 가능 numeric step 대비이며 소수점·서식을 건너뛴다. `delta_previous_token`은 최초 오류(numeric 또는 format) step k의 raw H₃₀ − 바로 직전 decoding step k−1의 raw H₃₀이며, endpoint 밖 token도 포함한다. 두 기준의 상승·감소 버튼과 수치 범위를 구분하고 비교 대상 token을 표시한다. 새 token 기준은 기존 top-30 `per_step.csv.gz`를 참조해 파생하며 원래 paired 통계는 유지한다. 가로축 token 버튼은 entropy 곡선과 같은 좌표·가로 스크롤을 사용하며 영상은 기본으로 펼쳐 표시한다.
 
 `_lib/publish_token_viewer.py`는 공통 `experiments/_lib/build_index.py`가 호출한다. scope의 `metrics/viewer_catalog.json`에는 필터용 파생 scalar와 기존 후보 자료의 byte offsets만 저장한다. 192MB full 후보 파일 전체를 브라우저에 싣지 않고 HTTP Range로 선택 sample의 후보 record만 읽는다. 원본의 SHA-256은 `metadata/viewer_sources.json`에 기록하며 확률·응답·정답 label을 복제하거나 바꾸지 않는다. `overview/web/view_groups.json`은 scope당 하나의 결과·보고서와 appendix 문서 묶음을 정의한다. 세부 MD와 원자료 경로를 보존하고 별도 상세 HTML·preview는 통합한다. `.venv/bin/python _lib/verify_token_viewer.py`로 필터를 원자료와 대조하고 분포·부분 읽기·빈 결과·URL 복원·영상·모바일·보고서 전환을 검증한다. preview는 scope 루트의 최신본만 유지한다.
 

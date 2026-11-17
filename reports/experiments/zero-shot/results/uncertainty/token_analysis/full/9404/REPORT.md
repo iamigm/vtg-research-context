@@ -14,13 +14,13 @@ full/9404의 실제 query 수는 9,404개다. 두 모델 중 지원 표기의 18
 | 특수 필터 기준 | 계산·분류 | 포함 범위 |
 |---|---|---|
 | 직전 숫자 대비 상승·감소 (기존) | Δprevious = H(최초 numeric 오류) − H(직전 정답 가능 numeric step) | 같은 endpoint에서 이전 숫자가 있는 paired 경로. 중간 소수점·서식은 건너뜀 |
-| 직전 token 대비 상승·감소 | Δtoken = H(k) − H(k−1), k는 최초 numeric 오류의 decoding step | 바로 앞 decoding token. 소수점·공백·endpoint 밖 token도 포함. 첫 숫자 오류도 직전 token이 있으면 포함 |
+| 직전 token 대비 상승·감소 | Δtoken = H(k) − H(k−1), k는 최초 오류(numeric 또는 format)의 decoding step | 바로 앞 decoding token. 소수점·공백·endpoint 밖 token도 포함. 첫 숫자·서식 오류도 직전 token이 있으면 포함 |
 | 소수부 최초 오류 | 최초 numeric 오류의 role이 tenths | 허용된 소수 한 자리 표기의 소수 첫째 자리. 소수점 자체의 오류는 format으로 분리 |
-| 정수부 / 서식 / 오류 없음 | 최초 오류의 숫자 role / format 판정 / 최초 오류 없음 | 오류 위치 버튼은 상승·감소 및 정량 범위와 AND로 결합 |
+| 정수부 / 서식 / 오류 없음 | 최초 오류의 숫자 role / format 판정 / 최초 오류 없음 | 같은 버튼 그룹 안에서는 OR, 서로 다른 그룹 및 정량 범위는 AND로 결합 |
 
 **표 해설.** 두 상승·감소 기준은 비교 상대가 다르다. 예를 들어 정수 숫자 H=1.2, 소수점 H=0.01, 최초 소수부 오류 H=0.8이면 기존 숫자 기준은 −0.4 nat으로 감소지만 바로 직전 token 기준은 +0.79 nat으로 상승이다. 이는 계산 설명용 가상 예시다. 양수만 상승, 음수만 감소이며 0과 비교 상대가 없는 경로는 둘 다 아니다. 모든 H는 raw top-30 재정규화 entropy다. 아래 기존 정량 표는 직전 숫자 기준을 유지한다.
 
-좌측 빠른 필터의 낮은 entropy는 ≤0.5 nat, 높은 entropy는 ≥1.5 nat인 탐색용 고정 기준이다. 이는 검증된 오류 탐지 임계값이 아니다. 수치 범위는 선택한 모델·endpoint의 sample별 지표에 AND로 적용한다. 오류 전후 차이가 없는 경로는 해당 범위를 지정했을 때 제외하며, 필터 후 숫자는 고유 query 수다.
+같은 필터 그룹 안에서 여러 버튼을 선택하면 하나라도 만족하는 경로를 포함한다(OR). 서로 다른 그룹과 정량 범위는 모두 만족해야 한다(AND). 선택한 버튼을 다시 누르면 해제하며 전체는 해당 그룹의 제한을 없앤다. 낮은 entropy 필터와 최초 오류 entropy 범위·정렬은 numeric·format 최초 오류 모두에 적용한다. 좌측 빠른 필터의 낮은 entropy는 ≤0.5 nat, 높은 entropy는 ≥1.5 nat인 탐색용 고정 기준이다. 이는 검증된 오류 탐지 임계값이 아니다. 수치 범위는 선택한 모델·endpoint의 sample별 지표에 AND로 적용한다. 오류 전후 차이가 없는 경로는 해당 범위를 지정했을 때 제외하며, 필터 후 숫자는 고유 query 수다.
 
 ## 같은 경로의 오류 전후 차이
 
@@ -46,3 +46,7 @@ full/9404의 실제 query 수는 9,404개다. 두 모델 중 지원 표기의 18
 [통합 sample viewer](report.html) · [전체 appendix 목록](APPENDIX.md)
 
 sample 기준 수준만 제거해도 prefix·자릿수·후보 집합의 차이는 남는다. 저장된 greedy 경로의 사후 비교이므로 인과 효과나 온라인 오류 탐지 성능을 뜻하지 않는다. pilot과 full은 별도 범위이며 독립 표본처럼 합산하지 않는다.
+
+[Entropy 상승·최초 오류의 정량 비교와 영상 증거 실험안](entropy_error/REPORT.md)은 appendix에서 확인한다. 특수 필터별 기술통계와 같은 경로의 유지 step을 대조한 결과, 아직 실행하지 않은 영상 개입 설계를 구분했다.
+
+다른 저장 자료의 재집계: [다른 decoding 경로 · deterministic pilot 900](../../../../rollout/deterministic/viewer.html?view=pilot%2F900%2FAPPENDIX_ENTROPY.md) · [고정 prefix 영상 perturbation · pilot 60](../../../../rollout/oracle_switch_controls/viewer.html?view=pilot%2F60%2FAPPENDIX_ENTROPY.md)
