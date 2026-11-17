@@ -3720,3 +3720,34 @@
 - reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/REPORT.md
 - reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/APPENDIX.md
 - reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md
+
+## 2026-11-17T15:00:00.003398+09:00
+
+원본 파일 직접 관찰: 18개 실행, 872개 코드·의존성 파일. 이전 commit: e0203ae6d5ffd352b7c03256800e5fdd6108d426.
+
+추가 12 / 변경 12 / 현재 원본에서 사라짐 0. 원본 보고서의 실험 시각과 이번 수집 시각은 구분한다.
+
+- code/experiments/zero-shot/_lib/token_viewer_paths.py
+- code/experiments/zero-shot/_lib/verify_token_paths.py
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/600/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/600/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/600/web/token_viewer.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/900/web/manifest.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/900/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/900/web/token_viewer.js
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/600/APPENDIX.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/600/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/900/APPENDIX.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/900/REPORT.md
+- code/experiments/zero-shot/_lib/publish_token_viewer.py
+- code/experiments/zero-shot/_lib/verify_token_viewer.py
+- code/experiments/zero-shot/_lib/token_viewer/style.css
+- code/experiments/zero-shot/_lib/token_viewer/viewer.js
+- reports/experiments/zero-shot/artifacts/README.md
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/full/9404/web/token_viewer.js
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/token_viewer.css
+- code/experiments/zero-shot/artifacts/runs/uncertainty/token_analysis/pilot/300/web/token_viewer.js
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/full/9404/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/300/REPORT.md
+- reports/experiments/zero-shot/results/uncertainty/token_analysis/pilot/overview/REPORT.md

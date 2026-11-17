@@ -19,6 +19,78 @@ ART=ROOT/'artifacts/runs/uncertainty/token_analysis'
 ASSETS=ROOT/'_lib/token_viewer'
 
 
+def publish_page(scope, config, manifest):
+    base=RESULT/scope;web=ART/scope/'web'
+    base.mkdir(parents=True,exist_ok=True);web.mkdir(parents=True,exist_ok=True)
+    rel=lambda path:os.path.relpath(path,base)
+    for name in ('viewer.js','style.css'):
+        path=web/('token_viewer.'+name.split('.')[-1]);text=(ASSETS/name).read_text()
+        if name=='style.css':
+            font=relocate_path(RESULT/'pilot/300/digit_correctness/NotoSansKR.ttf')
+            text=text.replace('__FONT__',os.path.relpath(font,web))
+        if not path.exists() or path.read_text()!=text:path.write_text(text)
+    html=(ASSETS/'report.html').read_text().replace('__CONFIG__',json.dumps(config,ensure_ascii=False))
+    html=html.replace('__CSS__',rel(web/'token_viewer.css')).replace('__JS__',rel(web/'token_viewer.js'))
+    html=html.replace('__MANIFEST__',rel(manifest))
+    write_result_text(base/'report.html',html)
+
+
+def publish_saved_stage(scope, stage, saved_path_index):
+    """A real cumulative pilot view; never attach pilot paths to the full view."""
+    base=RESULT/scope;out=ART/scope
+    rel=lambda path:os.path.relpath(path,base)
+    config=dict(scope=scope,queries=stage['queries'],catalog=rel(stage['catalog']),
+                saved_paths=rel(saved_path_index),original_available=False,default_source='deterministic',
+                filter_source_label='deterministic greedy',trace=None,raw=None,blue=None,integrated=None,
+                media_base='digit_correctness/')
+    publish_page(scope,config,stage['manifest'])
+    save(out/'metadata/viewer_publication.json',dict(
+        entry=str((base/'report.html').relative_to(ROOT)),scope=scope,queries=stage['queries'],
+        source_catalog=str(stage['catalog'].relative_to(ROOT)),saved_path_catalog=str(saved_path_index.relative_to(ROOT)),
+        primary='within_path_entropy',source='deterministic',producer=Path(__file__).name,
+        producer_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        assets={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in ASSETS.iterdir() if p.is_file()}))
+    lines=[f'# Token uncertainty · decoding 경로별 비교 · pilot · {stage["queries"]:,} queries',
+        '<!-- token-unified-report -->','',
+        '## 범위와 사용 방법','',
+        f'고정 pilot {stage["queries"]:,} queries에 저장된 Qwen3 deterministic rollout의 {stage["paths"]:,}개 경로를 확인한다. '
+        '왼쪽에서 sample을 선택하고 decoding 경로를 바꾸면 전체 응답의 step별 entropy 곡선·token distribution·영상 예측 구간이 함께 바뀐다. '
+        '각 token을 눌러 해당 step의 분포를 읽고, 부모 또는 같은 실행의 greedy 경로를 겹쳐 비교한다.','',
+        'pilot300·600·900은 각자 별도의 sample viewer를 갖는다. 앞선 고정 cohort가 다음 cohort의 정확한 prefix이며 원자료는 canonical pilot900에서 참조한다. '
+        'full9404에는 pilot 경로를 연결하거나 pilot 결과를 합산하지 않는다. 서로 겹치는 pilot 단계를 독립 표본처럼 더하지 않는다.','',
+        '이 scope는 deterministic 경로만 제공하며, 기존 Token uncertainty greedy는 pilot300 및 full9404의 원래 scope에 보존한다. '
+        'deterministic 입력은 Qwen3-VL-8B-Instruct, 2 FPS, spatial target 100,352 pixels, video_query다. 기존 Token uncertainty 입력과 다르므로 같은 분포로 합치지 않는다.','',
+        '## 화면과 비교 기준','',
+        '| 자료 | 읽는 방법 |','|---|---|',
+        '| step별 entropy 곡선 | 가로축에 실제 token을 표시한다. 점·token을 누르면 선택 step의 분포로 이동한다. |',
+        '| 부모 / greedy 곡선 | 같은 decoding 순번을 맞춰 겹친다. 분기 이후에는 서로 다른 prefix의 조건부 분포이므로 동일 입력에서 한 token만 바꾼 인과 비교가 아니다. |',
+        '| 강제 token / conditioning prefix / free suffix | 강제로 선택한 token과 이미 고정된 prefix를 이후 모델의 자유 생성과 구분한다. 강제 token에서 생긴 오류를 모델의 자유 선택 오류로 세지 않는다. |',
+        '| 좌측 특수·정량 필터 | 이 scope의 deterministic greedy(candidate #1)가 기준이다. 경로를 바꿔도 sample 필터의 기준은 유지하며 본문의 곡선·분포·요약은 선택 경로를 따른다. |',
+        '| 전체 경로 표 | 경로별 parent·분기 위치·예측 구간·IoU·numeric step 평균 entropy를 비교한다. |','',
+        '**표 해설.** 먼저 같은 sample 안에서 오류가 생기는 위치와 entropy 변화를 확인한다. '
+        '다음으로 부모 곡선과 비교해 변화가 강제 분기 자체에서 생겼는지, 이후 free suffix에서 이어지는지 살핀다. '
+        '낮은 entropy가 정답이나 영상 증거 활용을 보장하지는 않는다.','',
+        '## 지표 정의','',
+        '원본 top-30 확률 합 M=Σpᵢ, 재정규화 qᵢ=pᵢ/M, H₃₀=−Σqᵢlnqᵢ로 계산한다. 단위는 nat, 범위는 0–ln(30)≈3.401이다. '
+        '값이 클수록 top-30 내부 확률이 고르다. top-30 밖의 mass는 포함하지 않는다. 선택 token이 top-30 밖이면 observed 원래 확률을 별도로 보여주며 entropy에 31번째 항으로 추가하지 않는다.','',
+        'Δprevious=H₃₀(최초 numeric 오류)−H₃₀(같은 endpoint의 직전 정답 가능 numeric step)이며 소수점·서식을 건너뛴다. '
+        'Δtoken=H₃₀(k)−H₃₀(k−1)은 최초 numeric 또는 format 오류 k의 바로 앞 decoding token을 사용한다. '
+        '양수는 상승, 음수는 감소이며 비교 상대가 없는 경우는 미정이다. 소수 첫째 자리 오류와 소수점 자체의 format 오류는 분리한다.','',
+        '같은 필터 그룹의 복수 선택은 OR, 그룹 사이와 정량 범위는 AND다. 낮은 entropy ≤0.5 nat, 높은 entropy ≥1.5 nat은 탐색용 기준이며 검증된 오류 탐지 임계값이 아니다. '
+        'IoU는 예측·GT 시간 구간의 교집합 길이/합집합 길이이고 높을수록 좋다. numeric mean H는 경로의 숫자 token entropy 평균이다.','',
+        '지원하는 endpoint 판정은 음이 아닌 정수 또는 소수 한 자리의 초 표기다. clock 등 다른 표기도 전체 entropy와 token distribution은 볼 수 있으나 자릿수 최초 오류 판정은 붙이지 않는다. '
+        '저장 경로에는 raw 분포만 사용하며 기존 greedy의 processed 분포·후보 정답 가능성 label을 재사용하지 않는다.','',
+        '## 결과와 appendix','',
+        '[pilot sample viewer](report.html) · [자료·정량 appendix](APPENDIX.md)']
+    write_result_text(base/'REPORT.md','\n'.join(lines)+'\n')
+    from saved_decoding_entropy_links import links_from
+    links=links_from(base)
+    appendix=[f'# Token uncertainty appendix · pilot · {stage["queries"]:,} queries','',
+              '현재 scope의 interactive 결과는 [sample viewer](report.html)에 통합했다. 아래 정량 자료는 링크에 적힌 원래 실험 범위의 결과이며 현재 scope의 집계로 바꾸어 읽지 않는다.','',
+              *['- '+link for link in links]]
+    write_result_text(base/'APPENDIX.md','\n'.join(appendix)+'\n')
+
+
 def save(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
     text=json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n'
@@ -97,28 +169,27 @@ def catalog(scope):
 
 def publish():
     groups={};aliases={}
+    from token_viewer_paths import build as build_saved_paths, build_stage
+    saved_path_index=build_saved_paths()
+    saved_path_samples=json.loads(saved_path_index.read_text())['samples']
     for scope in ('pilot/300','full/9404'):
         base=RESULT/scope;out=ART/scope
         if not (out/'digit_correctness/within_path/metrics/summary.json').exists():continue
         index=catalog(scope);web=out/'web';web.mkdir(parents=True,exist_ok=True)
         rel=lambda path:os.path.relpath(path,base)
-        config=dict(scope=scope,queries=int(scope.split('/')[1]),catalog=rel(index),
+        has_saved=scope.startswith('pilot/')
+        config=dict(scope=scope,queries=int(scope.split('/')[1]),catalog=rel(index),saved_paths=rel(saved_path_index) if has_saved else None,
+                    original_available=True,default_source='original',filter_source_label='원본 greedy',
                     trace=rel(relocate_path(base/'digit_correctness/traces'))+'/',
                     raw=rel(relocate_path(base/'digit_correctness/raw'))+'/',
                     blue=rel(relocate_path(base/'digit_correctness/blue_analysis/data.js')),
                     media_base=rel(base/'digit_correctness')+'/',
                     integrated=rel(relocate_path(base/'integrated/traces'))+'/' if scope.startswith('pilot') else None)
-        for name in ('viewer.js','style.css'):
-            p=web/('token_viewer.'+name.split('.')[-1]);text=(ASSETS/name).read_text()
-            if name=='style.css':text=text.replace('__FONT__',os.path.relpath(relocate_path(base/'digit_correctness/NotoSansKR.ttf'),web))
-            if not p.exists() or p.read_text()!=text:p.write_text(text)
-        html=(ASSETS/'report.html').read_text().replace('__CONFIG__',json.dumps(config,ensure_ascii=False))
-        html=html.replace('__CSS__',rel(web/'token_viewer.css')).replace('__JS__',rel(web/'token_viewer.js'))
-        html=html.replace('__MANIFEST__',rel(relocate_path(base/'digit_correctness/manifest.js')))
-        write_result_text(base/'report.html',html)
+        publish_page(scope,config,relocate_path(base/'digit_correctness/manifest.js'))
         save(out/'metadata/viewer_publication.json',dict(
             entry=str((base/'report.html').relative_to(ROOT)),scope=scope,queries=config['queries'],
             source_catalog=str(index.relative_to(ROOT)),primary='within_path_entropy',
+            saved_path_catalog=str(saved_path_index.relative_to(ROOT)) if has_saved else None,
             supporting=['token_distribution','rounded_endpoint_feasibility','fixed_gt_iou','role_comparison'],
             producer=Path(__file__).name,producer_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             assets={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in ASSETS.iterdir() if p.is_file()}))
@@ -128,12 +199,24 @@ def publish():
             old=base/'TOKEN_DISTRIBUTION.md'
             if not old.exists() or old.read_text()!=main.read_text():old.write_text(main.read_text())
         summary=json.loads((out/'digit_correctness/within_path/metrics/summary.json').read_text())
+        manifest_text=relocate_path(base/'digit_correctness/manifest.js').read_text()
+        manifest,_=json.JSONDecoder().raw_decode(manifest_text,manifest_text.index('=')+1)
+        matched_paths=sum(s['sample_key'] in saved_path_samples for s in manifest) if has_saved else 0
         pairs=[r for r in summary['paired'] if r['endpoint']!='all']
         lines=[f'# Token uncertainty · within-path 비교 · {scope.split("/")[0]} · {summary["queries"]:,} queries','<!-- token-unified-report -->','',
             '## 무엇을 먼저 보는가','',
             '한 sample의 같은 decoding 경로에서 step별 entropy가 어떻게 변하는지가 주 분석이다. 결과 탭에서 왼쪽 sample을 고르면 '
             '응답 전체의 entropy 곡선과 최초 오류를 본다. step을 누르면 해당 token distribution과 정답 가능성을 보조 패널에서 확인한다. '
             'start/end는 별도로 paired 비교하며, 회색의 오류 이후 step은 그 비교에서 제외한다.','',
+            ('샘플 안의 **decoding 경로 선택**에서 기존 greedy와 저장된 deterministic rollout 경로를 전환한다. '
+            f'현재 scope에서는 {matched_paths:,}개 query에 Qwen3의 다른 경로가 연결되어 있다. '
+            '좌측 경로 보유 필터로 해당 샘플만 고를 수 있다. 선택 경로의 step별 raw top-30 entropy와 token distribution을 같은 패널에서 확인하고, '
+            '부모 또는 같은 deterministic 실행의 greedy 경로를 겹쳐 비교한다. 가로축은 각각의 생성 token이며 공통 prefix 이후에는 다른 prefix의 분포다.'
+            if has_saved else '이 full 화면은 기존 full 9,404 queries의 greedy 자료를 유지한다. pilot의 다른 decoding 경로는 합치지 않으며 대표 화면에서 pilot300·600·900을 선택하면 각 단계의 별도 sample viewer를 연다.'),'',
+            ('deterministic 경로는 pilot 900의 기존 분포를 직접 참조한다. pilot300·600·900은 각각의 고정 cohort만 보여주는 별도 화면이며 full과 합치지 않는다. 기존 Token uncertainty greedy와 입력 조건이 다르므로 source를 구분하며 '
+            '통계나 probability를 합치지 않는다. 강제 token·고정된 prefix·이후 free suffix를 표시하고, 강제로 생긴 오류를 모델의 자유 선택 오류와 구분한다. '
+            '왼쪽 오류·정량 필터는 기존 greedy sample 기준이며 경로를 바꿔도 그 모집단은 유지한다. 아래 표도 기존 greedy의 집계다.'
+            if has_saved else '왼쪽 오류·정량 필터와 아래 표는 이 full 범위의 기존 greedy sample 기준이다.'),'',
             f'{scope}의 실제 query 수는 {summary["queries"]:,}개다. 두 모델 중 지원 표기의 {summary["source_responses"]:,}개 응답을 within-path 분석에 사용했다. '
             '지원 표기 밖 응답도 영상·응답·전체 token distribution은 확인할 수 있다.','',
             '## 지표와 필터 기준','',
@@ -202,6 +285,11 @@ def publish():
                 return ']('+os.path.relpath(base/'report.html',p.parent)+')' if target in retired else m[0]
             updated=re.sub(r'\]\(([^)]+)\)',replace,text)
             if updated!=text:p.write_text(updated)
+        groups[scope]={'analysis_path':[],'report':scope+'/REPORT.md'}
+    for count in (600,900):
+        scope=f'pilot/{count}'
+        stage=build_stage(scope,saved_path_index)
+        publish_saved_stage(scope,stage,saved_path_index)
         groups[scope]={'analysis_path':[],'report':scope+'/REPORT.md'}
     save(ART/'overview/web/view_groups.json',dict(scopes=groups,aliases=aliases))
 

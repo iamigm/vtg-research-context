@@ -5,6 +5,10 @@
 
 한 sample의 같은 decoding 경로에서 step별 entropy가 어떻게 변하는지가 주 분석이다. 결과 탭에서 왼쪽 sample을 고르면 응답 전체의 entropy 곡선과 최초 오류를 본다. step을 누르면 해당 token distribution과 정답 가능성을 보조 패널에서 확인한다. start/end는 별도로 paired 비교하며, 회색의 오류 이후 step은 그 비교에서 제외한다.
 
+이 full 화면은 기존 full 9,404 queries의 greedy 자료를 유지한다. pilot의 다른 decoding 경로는 합치지 않으며 대표 화면에서 pilot300·600·900을 선택하면 각 단계의 별도 sample viewer를 연다.
+
+왼쪽 오류·정량 필터와 아래 표는 이 full 범위의 기존 greedy sample 기준이다.
+
 full/9404의 실제 query 수는 9,404개다. 두 모델 중 지원 표기의 18,591개 응답을 within-path 분석에 사용했다. 지원 표기 밖 응답도 영상·응답·전체 token distribution은 확인할 수 있다.
 
 ## 지표와 필터 기준

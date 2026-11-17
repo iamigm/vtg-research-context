@@ -5,6 +5,10 @@
 
 한 sample의 같은 decoding 경로에서 step별 entropy가 어떻게 변하는지가 주 분석이다. 결과 탭에서 왼쪽 sample을 고르면 응답 전체의 entropy 곡선과 최초 오류를 본다. step을 누르면 해당 token distribution과 정답 가능성을 보조 패널에서 확인한다. start/end는 별도로 paired 비교하며, 회색의 오류 이후 step은 그 비교에서 제외한다.
 
+샘플 안의 **decoding 경로 선택**에서 기존 greedy와 저장된 deterministic rollout 경로를 전환한다. 현재 scope에서는 300개 query에 Qwen3의 다른 경로가 연결되어 있다. 좌측 경로 보유 필터로 해당 샘플만 고를 수 있다. 선택 경로의 step별 raw top-30 entropy와 token distribution을 같은 패널에서 확인하고, 부모 또는 같은 deterministic 실행의 greedy 경로를 겹쳐 비교한다. 가로축은 각각의 생성 token이며 공통 prefix 이후에는 다른 prefix의 분포다.
+
+deterministic 경로는 pilot 900의 기존 분포를 직접 참조한다. pilot300·600·900은 각각의 고정 cohort만 보여주는 별도 화면이며 full과 합치지 않는다. 기존 Token uncertainty greedy와 입력 조건이 다르므로 source를 구분하며 통계나 probability를 합치지 않는다. 강제 token·고정된 prefix·이후 free suffix를 표시하고, 강제로 생긴 오류를 모델의 자유 선택 오류와 구분한다. 왼쪽 오류·정량 필터는 기존 greedy sample 기준이며 경로를 바꿔도 그 모집단은 유지한다. 아래 표도 기존 greedy의 집계다.
+
 pilot/300의 실제 query 수는 300개다. 두 모델 중 지원 표기의 594개 응답을 within-path 분석에 사용했다. 지원 표기 밖 응답도 영상·응답·전체 token distribution은 확인할 수 있다.
 
 ## 지표와 필터 기준

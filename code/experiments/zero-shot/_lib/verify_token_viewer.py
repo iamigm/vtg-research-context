@@ -36,7 +36,7 @@ def check(scopes=('pilot/300','full/9404')):
             dest=RESULT/scope;data=json.loads((ART/scope/'metrics/viewer_catalog.json').read_text())
             s=relocate_path(dest/'digit_correctness/manifest.js').read_text();manifest,_=json.JSONDecoder().raw_decode(s,s.index('=')+1)
             page.goto(url(dest/'report.html'));page.wait_for_function('window.TokenViewer?.state().ready')
-            assert page.locator('#video-box').get_attribute('open') is not None
+            assert page.locator('#video-box').evaluate('(e)=>e.tagName') == 'DIV'
             assert page.locator('#video').is_visible()
             for model in ('qwen25','qwen3'):
                 page.select_option('#model',model)
@@ -139,9 +139,9 @@ def check(scopes=('pilot/300','full/9404')):
             page.reload();page.wait_for_function('TokenViewer.state().ready')
             restored=page.evaluate('TokenViewer.state()');assert all(restored[k]==state[k] for k in ('sample','model','endpoint','step','preset','errorRegion','presets','errorRegions','count'))
             assert page.url==saved_url
-            page.locator('#video-box').evaluate('(e)=>e.open=true');page.wait_for_function('document.getElementById("video").readyState>=2')
+            page.wait_for_function('document.getElementById("video").readyState>=2')
             page.click('#play-gt');page.wait_for_function('!document.getElementById("video").paused');page.locator('#video').evaluate('(e)=>e.pause()')
-            page.locator('#video-box').evaluate('(e)=>e.open=true');page.locator('#metric-filter').evaluate('(e)=>e.open=false')
+            page.locator('#metric-filter').evaluate('(e)=>e.open=false')
             page.evaluate('document.fonts.ready');page.screenshot(path=str(dest/'preview.png'),full_page=True)
             page.set_viewport_size({'width':390,'height':844});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
             page.screenshot(path=str(dest/'preview_mobile.png'),full_page=True);page.set_viewport_size({'width':1500,'height':1100})
